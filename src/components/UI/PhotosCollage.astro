@@ -1,0 +1,64 @@
+---
+import PolaroidPhoto from "@components/UI/PolaroidPhoto.astro";
+import { ABOUT_PHOTOS } from "@constants/photos";
+---
+
+<div class="relative w-full min-h-[500px] flex justify-center items-center">
+  <div
+    class="easter-egg absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
+              text-2xl font-semibold text-neutral-400 text-center opacity-0
+              transition-opacity duration-500 pointer-events-none z-0 max-w-xs leading-relaxed"
+  >
+    Wow, you look very interested in me 👀
+  </div>
+
+  <div class="photos-stack relative w-[500px] h-[400px]">
+    {
+      ABOUT_PHOTOS.map((photo, index) => (
+        <PolaroidPhoto
+          src={photo.src}
+          alt={photo.alt}
+          caption={photo.caption}
+          rotation={photo.rotation}
+          zIndex={ABOUT_PHOTOS.length - index}
+          index={index}
+          offsetX={photo.offsetX}
+          offsetY={photo.offsetY}
+        />
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .easter-egg.revealed {
+    opacity: 1;
+  }
+</style>
+
+<script>
+  import { DragHandler } from '@utils/drag-handler';
+
+  const draggedPhotos = new Set<number>();
+  const easterEgg = document.querySelector('.easter-egg');
+  const totalPhotos = document.querySelectorAll('.polaroid-card').length;
+
+  function handlePhotoMoved(index: number): void {
+    draggedPhotos.add(index);
+    
+    if (draggedPhotos.size === totalPhotos && easterEgg) {
+      easterEgg.classList.add('revealed');
+    }
+  }
+
+  const dragHandler = new DragHandler({
+    onPhotoMoved: handlePhotoMoved,
+    moveThreshold: 150,
+    velocityMultiplier: 0.3,
+    friction: 0.92,
+    minVelocity: 0.3,
+    speedThreshold: 1,
+  });
+
+  dragHandler.initialize('.polaroid-card');
+</script>
