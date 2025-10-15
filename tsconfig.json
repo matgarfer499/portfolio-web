@@ -5,10 +5,14 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
+      "@/*": ["src/*"],
       "@layouts/*": ["src/layouts/*"],
       "@components/*": ["src/components/*"],
       "@assets/*": ["src/assets/*"],
       "@styles/*": ["src/styles/*"],
+      "@utils/*": ["src/utils/*"],
+      "@models/*": ["src/types/*"],
+      "@constants/*": ["src/constants/*"]
     }
   }
 }
