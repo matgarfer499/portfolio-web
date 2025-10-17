@@ -24,6 +24,7 @@ interface DragConfig {
 export class DragHandler {
   private dragState: DragState | null = null;
   private config: Required<DragConfig>;
+  private currentMaxZIndex: number = 1000;
 
   constructor(config: DragConfig = {}) {
     this.config = {
@@ -52,6 +53,10 @@ export class DragHandler {
 
     e.preventDefault();
 
+    // Bring the current photo to the front
+    this.currentMaxZIndex++;
+    target.style.zIndex = this.currentMaxZIndex.toString();
+
     const currentLeft = parseFloat(target.style.left || '0');
     const currentTop = parseFloat(target.style.top || '0');
 
@@ -73,7 +78,6 @@ export class DragHandler {
     };
 
     target.style.cursor = 'grabbing';
-    target.style.zIndex = '1000';
 
     document.body.style.cursor = 'grabbing';
     document.body.style.userSelect = 'none';
