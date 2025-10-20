@@ -1,0 +1,107 @@
+---
+import type { Experience } from "../../types/experience";
+
+interface Props extends Experience {
+  index: number;
+  isLast: boolean;
+}
+
+const {
+  company,
+  logo,
+  position,
+  startDate,
+  endDate,
+  description,
+  current,
+  index,
+  isLast,
+} = Astro.props;
+---
+
+<div class="timeline-entry relative" data-index={index}>
+  <!-- Content Grid -->
+  <div
+    class="timeline-content grid grid-cols-1 md:grid-cols-2 gap-10 pb-32 pt-10 md:pt-16"
+  >
+    <!-- Left side - Sticky Date Header -->
+    <div class="timeline-header md:sticky md:top-24 md:self-start">
+      <h3
+        class="text-4xl md:text-6xl lg:text-7xl font-bold text-neutral-900 dark:text-neutral-100 inline-block"
+      >
+        {startDate}
+      </h3>
+    </div>
+
+    <!-- Right side - Main content -->
+    <div class="space-y-8">
+      <!-- Company Header -->
+      <div class="flex items-center gap-4">
+        <!-- Company Logo -->
+        <div
+          class="w-32 h-32 flex items-center justify-center shrink-0 overflow-hidden"
+        >
+          <img
+            src={logo}
+            alt={`${company} logo`}
+            class="w-full h-full object-contain p-2"
+          />
+        </div>
+
+        <div class="flex-grow">
+          <div class="flex flex-wrap justify-between items-center gap-2">
+            <div class="flex items-center gap-2">
+              <p
+                class="text-xl md:text-2xl font-semibold text-neutral-700 dark:text-neutral-300"
+              >
+                {position}
+              </p>
+              {
+                current && (
+                  <span class="px-3 py-1 text-xs font-semibold bg-green-500 text-white rounded-full">
+                    Current
+                  </span>
+                )
+              }
+            </div>
+            <p class="text-sm text-neutral-500 dark:text-neutral-400">
+              {startDate} - {endDate}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div class="prose prose-lg prose-neutral dark:prose-invert max-w-none">
+        <p
+          class="text-base md:text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed"
+        >
+          {description}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .timeline-entry {
+    opacity: 0;
+    transform: translateY(30px);
+    transition:
+      opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .timeline-entry.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .timeline-header h3 {
+    transition: color 0.3s ease;
+  }
+
+  .timeline-entry.active .timeline-header h3 {
+    color: rgb(59, 130, 246);
+  }
+</style>
