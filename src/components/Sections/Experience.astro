@@ -1,7 +1,136 @@
 ---
 import SectionLayout from "@layouts/SectionLayout.astro";
+import SectionTitle from "@components/UI/SectionTitle.astro";
+import TimelineItem from "@components/UI/TimelineItem.astro";
+import { EXPERIENCES } from "@constants/experiences";
 ---
 
 <SectionLayout>
-    <h1 class="text-4xl font-bold">Experience Section</h1>
+    <SectionTitle title="Experience" />
+    
+    <div class="timeline-container relative mt-12">
+        <!-- Vertical Line with Gradient -->
+        <div class="absolute left-0 md:left-1/2 top-0 h-full w-[2px] md:-ml-[1px] bg-gradient-to-b from-transparent via-neutral-300 to-transparent dark:via-neutral-700 overflow-hidden">
+            <!-- Animated Beam -->
+            <div class="timeline-beam absolute top-0 left-0 w-full h-40 bg-gradient-to-b from-transparent via-blue-500 to-transparent"></div>
+        </div>
+
+        <!-- Timeline Items -->
+        <div class="relative ml-8 md:ml-0">
+            {EXPERIENCES.map((experience, index) => (
+                <TimelineItem
+                    {...experience}
+                    index={index}
+                    isLast={index === EXPERIENCES.length - 1}
+                />
+            ))}
+        </div>
+    </div>
+
+    <!-- Download CV Button -->
+    <div class="flex justify-center mt-16 mb-12">
+        <a 
+            href="/cv.pdf" 
+            download
+            class="group inline-flex items-center gap-3 px-8 py-4 bg-neutral-900 dark:bg-neutral-100 text-white dark:text-neutral-900 font-semibold rounded-lg hover:bg-neutral-800 dark:hover:bg-neutral-200 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+        >
+            <svg 
+                class="w-5 h-5 group-hover:animate-bounce" 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+            >
+                <path 
+                    stroke-linecap="round" 
+                    stroke-linejoin="round" 
+                    stroke-width="2" 
+                    d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                />
+            </svg>
+            Download CV
+        </a>
+    </div>
 </SectionLayout>
+
+<style>
+    .timeline-beam {
+        animation: beam-move 8s linear infinite;
+        filter: blur(8px);
+        opacity: 0.6;
+    }
+
+    @keyframes beam-move {
+        0% {
+            transform: translateY(-100%);
+        }
+        100% {
+            transform: translateY(calc(var(--timeline-height, 100vh) + 100%));
+        }
+    }
+</style>
+
+<script>
+  // Intersection Observer for timeline animation
+  const observerOptions = {
+    root: null,
+    rootMargin: '-20% 0px -20% 0px',
+    threshold: 0
+  };
+
+  const timelineObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const item = entry.target as HTMLElement;
+        item.classList.add('visible', 'active');
+      } else {
+        const item = entry.target as HTMLElement;
+        item.classList.remove('active');
+      }
+    });
+  }, observerOptions);
+
+  // Observe all timeline items
+  document.querySelectorAll('.timeline-entry').forEach((item) => {
+    timelineObserver.observe(item);
+  });
+
+  // Update beam animation height based on timeline height
+  const updateBeamHeight = () => {
+    const timeline = document.querySelector('.timeline-container') as HTMLElement;
+    if (timeline) {
+      const height = timeline.offsetHeight;
+      document.documentElement.style.setProperty('--timeline-height', `${height}px`);
+    }
+  };
+
+  updateBeamHeight();
+  window.addEventListener('resize', updateBeamHeight);
+
+  // Scroll-based beam position (optional enhancement)
+  let ticking = false;
+  
+  const updateBeamPosition = () => {
+    const timeline = document.querySelector('.timeline-container');
+    const beam = document.querySelector('.timeline-beam') as HTMLElement;
+    
+    if (timeline && beam) {
+      const rect = timeline.getBoundingClientRect();
+      const scrollProgress = Math.max(0, Math.min(1, -rect.top / (rect.height - window.innerHeight)));
+      
+      // Pause animation and use scroll position
+      beam.style.animation = 'none';
+      beam.style.transform = `translateY(${scrollProgress * (rect.height + 160) - 160}px)`;
+    }
+    
+    ticking = false;
+  };
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(updateBeamPosition);
+      ticking = true;
+    }
+  });
+
+  updateBeamPosition();
+</script>
