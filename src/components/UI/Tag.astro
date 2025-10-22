@@ -1,0 +1,18 @@
+---
+import TagWithLabel from "./TagWithLabel.astro";
+import TagWithUrl from "./TagWithUrl.astro";
+
+interface Props {
+  label?: string;
+  icon?: any;
+  url?: string;
+}
+
+const { label, icon, url } = Astro.props;
+---
+
+{label ? (
+  <TagWithLabel label={label} icon={icon} />
+) : url ? (
+  <TagWithUrl icon={icon} url={url} />
+) : null}

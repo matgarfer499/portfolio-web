@@ -1,0 +1,17 @@
+---
+interface Props {
+  icon: any;
+  url: string;
+}
+
+const { icon: Icon, url } = Astro.props;
+---
+
+<a 
+  href={url} 
+  target="_blank" 
+  rel="noopener noreferrer"
+  class="flex justify-center items-center w-8 h-8 p-0 text-white border rounded-full transition-colors hover:bg-white/5"
+>
+  <Icon extraClasses="w-5 h-5" />
+</a>
