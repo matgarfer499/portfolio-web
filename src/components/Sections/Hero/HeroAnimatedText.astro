@@ -1,0 +1,88 @@
+---
+interface Props {
+  name: string;
+  phrases: string[];
+}
+
+const { name, phrases } = Astro.props;
+---
+
+<h1 class="text-white text-xl font-medium whitespace-nowrap">
+  Hello there! I'm {name}, <span
+    class="text-blue-500 decrypted-text inline-block align-bottom"
+    data-text={phrases[0]}
+    data-phrases={JSON.stringify(phrases)}
+    style="width: 380px; text-align: left;">{phrases[0]}</span
+  >
+</h1>
+
+<script>
+  const CHARS =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
+  const CYCLES_PER_LETTER = 2;
+  const SHUFFLE_TIME = 50;
+  const DISPLAY_TIME = 2000;
+
+  function decryptText(element: HTMLElement, text: string): Promise<void> {
+    return new Promise((resolve) => {
+      let iteration = 0;
+      const totalIterations = text.length * CYCLES_PER_LETTER;
+
+      const interval = setInterval(() => {
+        const result = text
+          .split("")
+          .map((char, index) => {
+            if (char === " ") return " ";
+
+            const letterIteration = Math.floor(iteration / CYCLES_PER_LETTER);
+
+            if (index < letterIteration) {
+              return text[index];
+            }
+
+            return CHARS[Math.floor(Math.random() * CHARS.length)];
+          })
+          .join("");
+
+        element.textContent = result.padEnd(
+          Math.max(text.length, element.textContent?.length || 0),
+          "\u00A0"
+        );
+
+        iteration++;
+
+        if (iteration > totalIterations) {
+          element.textContent = text;
+          clearInterval(interval);
+          resolve();
+        }
+      }, SHUFFLE_TIME);
+    });
+  }
+
+  async function startLoop(element: HTMLElement, phrases: string[]) {
+    let currentIndex = 0;
+
+    while (true) {
+      const currentPhrase = phrases[currentIndex];
+      await decryptText(element, currentPhrase);
+      await new Promise((resolve) => setTimeout(resolve, DISPLAY_TIME));
+
+      currentIndex = (currentIndex + 1) % phrases.length;
+    }
+  }
+
+  function initAnimation() {
+    const element = document.querySelector(".decrypted-text") as HTMLElement;
+    if (element) {
+      const phrases = JSON.parse(element.dataset.phrases || "[]");
+      setTimeout(() => startLoop(element, phrases), 500);
+    }
+  }
+
+  // Run animation on page load
+  document.addEventListener("astro:page-load", initAnimation);
+  
+  // For initial page load (not using view transitions)
+  initAnimation();
+</script>

@@ -1,0 +1,20 @@
+---
+import Tag from "@components/UI/Tag.astro";
+import Pin from "@components/Icons/Pin.astro";
+import GitHub from "@components/Icons/GitHub.astro";
+import LinkedIn from "@components/Icons/LinkedIn.astro";
+
+interface Props {
+  location: string;
+  githubUrl: string;
+  linkedinUrl: string;
+}
+
+const { location, githubUrl, linkedinUrl } = Astro.props;
+---
+
+<div class="flex justify-start items-center gap-2">
+  <Tag label={location} icon={Pin} />
+  <Tag icon={GitHub} url={githubUrl} />
+  <Tag icon={LinkedIn} url={linkedinUrl} />
+</div>

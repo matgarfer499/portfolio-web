@@ -1,0 +1,16 @@
+---
+interface Props {
+  imageSrc: string;
+  imageAlt: string;
+}
+
+const { imageSrc, imageAlt } = Astro.props;
+---
+
+<div class="w-32 h-32 rounded-full overflow-hidden flex-shrink-0">
+  <img
+    src={imageSrc}
+    alt={imageAlt}
+    class="w-full h-full object-cover scale-[3.5] origin-[60%_45%]"
+  />
+</div>

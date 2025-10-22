@@ -1,0 +1,28 @@
+---
+import SectionLayout from "@layouts/SectionLayout.astro";
+import HeroProfile from "@components/Sections/Hero/HeroProfile.astro";
+import HeroContent from "@components/Sections/Hero/HeroContent.astro";
+
+const PHRASES = [
+  "a software developer",
+  "I build web apps",
+  "I love crafting user interfaces",
+  "and designing great user experiences",
+  "I spend a lot of time in the gym",
+  "and also playing games",
+];
+---
+
+<SectionLayout>
+  <div class="flex justify-start items-start gap-4 w-full">
+    <HeroProfile imageSrc="/photos/me.webp" imageAlt="Picture of me" />
+    <HeroContent
+      name="Matías"
+      phrases={PHRASES}
+      description="+2 years of experience building web applications and user interfaces. Passionate about creating seamless user experiences and writing clean, efficient code."
+      location="Málaga, Spain"
+      githubUrl="https://github.com/matgarfer499"
+      linkedinUrl="https://www.linkedin.com/in/mgarfer/"
+    />
+  </div>
+</SectionLayout>
