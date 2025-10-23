@@ -1,73 +1,85 @@
 ---
 import type { Experience } from "../../types/experience";
+import Tag from "./Tag.astro";
+import LinkedIn from "@components/Icons/LinkedIn.astro";
 
 interface Props extends Experience {
   index: number;
 }
 
-const { company, logo, position, startDate, endDate, description, current, index } = Astro.props;
+const {
+  company,
+  logo,
+  position,
+  startDate,
+  endDate,
+  description,
+  current,
+  technologies,
+  index,
+} = Astro.props;
 ---
 
-<div 
-    class="timeline-item relative flex items-center min-h-[300px]"
-    data-index={index}
+<div
+  class="experience-card-container opacity-0 transform translate-y-8 transition-all duration-700 ease-out first:pt-0 py-8 border-b border-neutral-200 dark:border-neutral-800 last:border-b-0"
+  data-index={index}
 >
-    <!-- Company Logo (centered vertically with card) -->
-    <div class="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 z-10">
-        <div class="w-16 h-16 rounded-full bg-white dark:bg-neutral-900 border-4 border-neutral-300 dark:border-neutral-700 flex items-center justify-center overflow-hidden shadow-lg">
-            <img
-                src={logo}
-                alt={`${company} logo`}
-                class="w-10 h-10 object-contain"
-            />
+  <!-- Header Row: Title | Logo | Date -->
+  <div class="flex items-center justify-between gap-6 mb-4">
+    <!-- Position Title and Company -->
+    <div class="flex-1 flex items-center justify-start gap-2">
+      <h3 class="text-xl font-semibold text-neutral-900 dark:text-neutral-100">
+        {position} ·
+      </h3>
+      <div class="flex-shrink-0">
+        <div class="w-24 h-12 flex items-center justify-center">
+          <img
+            src={logo}
+            alt={`${company} logo`}
+            class="w-full h-full object-contain"
+          />
         </div>
+      </div>
     </div>
 
-    <!-- Card (alternating sides) -->
-    <div class={`flex w-full ${index % 2 === 0 ? 'justify-start pr-[55%]' : 'justify-end pl-[55%]'}`}>
-        <div class="experience-card w-full bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300">
-            <!-- Header -->
-            <div class="space-y-2 mb-4">
-                <h3 class="text-xl font-bold text-neutral-900 dark:text-neutral-100">
-                    {position}
-                </h3>
-                <div class="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-400">
-                    <span class="font-medium">{startDate} - {endDate}</span>
-                    {current && (
-                        <span class="px-2 py-0.5 text-xs font-semibold bg-green-500 text-white rounded-full">
-                            Current
-                        </span>
-                    )}
-                </div>
-            </div>
-
-            <!-- Description -->
-            <p class="text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed">
-                {description}
-            </p>
-        </div>
+    <!-- Date Range -->
+    <div
+      class="text-sm text-neutral-500 dark:text-neutral-500 uppercase tracking-wide whitespace-nowrap"
+    >
+      {startDate} — {current ? "Present" : endDate}
     </div>
+  </div>
+
+  <!-- Description -->
+  <p
+    class="text-neutral-600 dark:text-neutral-400 text-sm leading-relaxed mb-4"
+  >
+    {description}
+  </p>
+
+  <!-- Technologies Tags -->
+  {
+    technologies && technologies.length > 0 && (
+      <div class="flex flex-wrap gap-2">
+        {technologies.map((tech) => (
+            <Tag label={tech} icon={LinkedIn} />
+        ))}
+      </div>
+    )
+  }
 </div>
 
 <style>
-    .timeline-item {
-        opacity: 0;
-        transform: translateY(40px);
-        transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-                    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-    }
+  .experience-card-container.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
 
-    .timeline-item.visible {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  .experience-card-container:nth-child(even) {
+    transition-delay: 0.1s;
+  }
 
-    .experience-card {
-        transform: scale(0.95);
-        transition: all 0.3s ease;
-    }
-
-    .timeline-item.visible .experience-card {
-        transform: scale(1);
-    }
+  .experience-card-container:nth-child(odd) {
+    transition-delay: 0.2s;
+  }
 </style>
