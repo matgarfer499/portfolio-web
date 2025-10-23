@@ -6,4 +6,5 @@ export interface Experience {
   endDate: string;
   description: string;
   current?: boolean;
+  technologies?: string[];
 }
