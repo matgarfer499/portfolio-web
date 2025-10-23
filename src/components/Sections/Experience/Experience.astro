@@ -1,0 +1,71 @@
+---
+import SectionLayout from "@layouts/SectionLayout.astro";
+import SectionTitle from "@components/UI/SectionTitle.astro";
+import ExperienceCard from "@components/UI/ExperienceCard.astro";
+import { EXPERIENCES } from "@constants/experiences";
+---
+
+<SectionLayout>
+    <div id="experience">
+        <SectionTitle title="Professional Experience" />
+    
+        <div class="timeline-container relative mt-20 max-w-6xl mx-auto px-4">
+            <!-- Vertical Center Line -->
+            <div class="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-[2px] bg-gradient-to-b from-transparent via-neutral-300 to-transparent dark:via-neutral-700">
+            </div>
+
+            <!-- Timeline Items -->
+            <div class="relative space-y-12">
+                {EXPERIENCES.map((experience, index) => (
+                    <ExperienceCard {...experience} index={index} />
+                ))}
+            </div>
+        </div>
+
+        <!-- Download CV Button -->
+        <div class="flex justify-center mt-20 mb-12">
+            <a 
+                href="/cv.pdf" 
+                download
+                class="group inline-flex items-center gap-3 px-8 py-4 bg-neutral-900 dark:bg-neutral-100 text-white dark:text-neutral-900 font-semibold rounded-lg hover:bg-neutral-800 dark:hover:bg-neutral-200 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+            >
+                <svg 
+                    class="w-5 h-5 group-hover:animate-bounce" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                >
+                    <path 
+                        stroke-linecap="round" 
+                        stroke-linejoin="round" 
+                        stroke-width="2" 
+                        d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                    />
+                </svg>
+                Download CV
+            </a>
+        </div>
+    </div>
+</SectionLayout>
+
+<script>
+    // Intersection Observer for timeline items
+    const observerOptions = {
+        root: null,
+        rootMargin: '-10% 0px -10% 0px',
+        threshold: 0.1
+    };
+
+    const timelineObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, observerOptions);
+
+    // Observe all timeline items
+    document.querySelectorAll('.timeline-item').forEach((item) => {
+        timelineObserver.observe(item);
+    });
+</script>
