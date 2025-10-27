@@ -2,9 +2,17 @@ import type { Photo } from '@models/photo';
 
 export const ABOUT_PHOTOS: Photo[] = [
   {
+    src: "/photos/me.webp",
+    alt: "Me",
+    caption: "Just me chilling",
+    rotation: 7,
+    offsetX: 40,
+    offsetY: -30
+  },
+  {
     src: "/photos/code.webp",
     alt: "Software made with care",
-    caption: "Technology made with care",
+    caption: "Always creating something new",
     rotation: -8,
     offsetX: -80,
     offsetY: -20
@@ -12,7 +20,7 @@ export const ABOUT_PHOTOS: Photo[] = [
   {
     src: "/photos/gym.webp",
     alt: "Gym life",
-    caption: "A lifestyle of strength",
+    caption: "My second job",
     rotation: 5,
     offsetX: 60,
     offsetY: 30
@@ -28,7 +36,7 @@ export const ABOUT_PHOTOS: Photo[] = [
   {
     src: "/photos/cheesecake.webp",
     alt: "Cheesecake",
-    caption: "Food that brings joy",
+    caption: "I can't choose between sweet or savory",
     rotation: 12,
     offsetX: -30,
     offsetY: 80
@@ -51,8 +59,8 @@ export const ABOUT_PHOTOS: Photo[] = [
   },
   {
     src: "/photos/plane.webp",
-    alt: "Travel adventures",
-    caption: "A never-ending journey",
+    alt: "Traveling",
+    caption: "Love to explore new places",
     rotation: 3,
     offsetX: -100,
     offsetY: 60
@@ -68,7 +76,7 @@ export const ABOUT_PHOTOS: Photo[] = [
   {
     src: "/photos/lamama.webp",
     alt: "My mother",
-    caption: "The one who raised me",
+    caption: "Me and my mom doing the 'Camino de Santiago'",
     rotation: 0,
     offsetX: 0,
     offsetY: 0
