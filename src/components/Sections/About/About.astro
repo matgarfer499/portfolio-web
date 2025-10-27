@@ -1,190 +1,42 @@
 ---
 import SectionLayout from "@layouts/SectionLayout.astro";
 import SectionTitle from "@components/UI/SectionTitle.astro";
-import PolaroidPhoto from "@components/UI/PolaroidPhoto.astro";
-import { ABOUT_PHOTOS } from "@constants/photos";
+import AboutMeDescription from "@components/Sections/About/AboutMeDescription.astro";
+import Paragraph from "@components/Sections/About/Paragraph.astro";
+import Keyword from "@components/Sections/About/Keyword.astro";
+import PhotosDisplay from "@components/Sections/About/PhotosDisplay.astro";
 ---
 
 <SectionLayout>
   <SectionTitle title="About Me" />
 
-  <div class="text-neutral-700 dark:text-neutral-300 leading-relaxed mb-12">
-    <p class="pb-2">
-      Hi! I'm <span class="keyword" data-index="0">Matías</span>, a software
+  <AboutMeDescription>
+    <Paragraph class="pb-2">
+      Hi! I'm <Keyword dataIndex="0">Matías</Keyword>, a software
       developer who's been fascinated by technology and coding since I was a
       kid. I love creating things that make people's lives easier — clean,
       intuitive, and meaningful.
-    </p>
-    <p class="py-2">
+    </Paragraph>
+    <Paragraph>
       Outside the screen, I enjoy exploring life as much as code. I love trying
-      new <span class="keyword" data-index="4">foods</span> and restaurants, spending
-      time at the <span class="keyword" data-index="2">gym</span>, and sharing
-      moments with my <span class="keyword multi-photo" data-index="5,6"
-        >friends</span
-      > — they're a big source of inspiration and good energy.
-    </p>
-    <p class="py-2">
+      new <Keyword dataIndex="4">foods</Keyword> and restaurants, spending
+      time at the <Keyword dataIndex="2">gym</Keyword>, and sharing
+      moments with my <Keyword dataIndex="5,6" multiPhoto>friends</Keyword> — they're a big source of inspiration and good energy.
+    </Paragraph>
+    <Paragraph>
       Family means a lot to me, and I'm grateful for the people who've always
-      been there — especially my <span class="keyword" data-index="8">love</span
-      > and my <span class="keyword" data-index="9">mom</span>, who've both been
+      been there — especially my <Keyword dataIndex="8">girlfriend</Keyword> and my <Keyword dataIndex="9">mom</Keyword>, who've both been
       my biggest supporters through every project and challenge.
-    </p>
-    <p class="py-2">
-      I also find joy in <span class="keyword" data-index="7">traveling</span> and
-      getting lost in the worlds of <span class="keyword" data-index="3"
-        >videogames</span
-      > — both keep me curious and creative.
-    </p>
-    <p class="py-2">
+    </Paragraph>
+    <Paragraph>
+      I also find joy in <Keyword dataIndex="7">traveling</Keyword> and
+      getting lost in the worlds of <Keyword dataIndex="3">videogames</Keyword> — both keep me curious and creative.
+    </Paragraph>
+    <Paragraph>
       At the end of the day, I'm just me — passionate, grounded, and always
       looking for the next thing to learn or build.
-    </p>
-  </div>
+    </Paragraph>
+  </AboutMeDescription>
 
-  <!-- Photos Display Area -->
-  <div class="photos-display relative w-full min-h-[280px]">
-    <!-- Hidden polaroid templates -->
-    <div class="hidden-photos" style="display: none;">
-      {
-        ABOUT_PHOTOS.map((photo, index) => (
-          <PolaroidPhoto
-            src={photo.src}
-            alt={photo.alt}
-            caption={photo.caption}
-            rotation={0}
-            zIndex={10}
-            index={index}
-            offsetX={0}
-            offsetY={0}
-          />
-        ))
-      }
-    </div>
-  </div>
+  <PhotosDisplay />
 </SectionLayout>
-
-<style>
-  .keyword {
-    font-family: "Courier New", monospace;
-    background: rgba(59, 130, 246, 0.1);
-    border-bottom: 2px solid rgb(59, 130, 246);
-    padding: 0.125rem 0.375rem;
-    border-radius: 0.25rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
-  }
-
-  .keyword:hover {
-    background: rgba(59, 130, 246, 0.2);
-    border-bottom-color: rgb(37, 99, 235);
-    transform: translateY(-2px);
-  }
-
-  .keyword.revealed {
-    background: rgba(34, 197, 94, 0.1);
-    border-bottom-color: rgb(34, 197, 94);
-  }
-
-  .photos-display :global(.polaroid-card) {
-    transform: translateX(-150%) rotate(-5deg);
-    opacity: 0;
-    transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-
-  .photos-display :global(.polaroid-card.visible) {
-    opacity: 1;
-  }
-
-  @media (max-width: 768px) {
-    .photos-display {
-      min-height: 220px;
-    }
-  }
-</style>
-
-<script>
-  import { DragHandler } from "@utils/drag-handler";
-
-  const keywords = document.querySelectorAll(".keyword");
-  const photosDisplay = document.querySelector(".photos-display");
-  const hiddenPhotos = document.querySelector(".hidden-photos");
-  let photoIndex = 0;
-  const revealedIndices = new Set<number>();
-
-  // Initialize one global drag handler
-  const dragHandler = new DragHandler({
-    moveThreshold: 150,
-    velocityMultiplier: 0.3,
-    friction: 0.92,
-    minVelocity: 0.3,
-    speedThreshold: 1,
-  });
-
-  keywords.forEach((keyword) => {
-    keyword.addEventListener("mouseenter", () => {
-      const indexAttr = keyword.getAttribute("data-index");
-
-      if (!indexAttr) return;
-
-      // Handle multiple photos (for friends)
-      const indices = indexAttr.split(",").map((i) => parseInt(i.trim()));
-
-      indices.forEach((index, i) => {
-        if (revealedIndices.has(index)) return;
-
-        // Mark keyword as revealed (only once for multi-photo keywords)
-        if (i === indices.length - 1) {
-          keyword.classList.add("revealed");
-        }
-        revealedIndices.add(index);
-
-        // Clone the corresponding polaroid from hidden templates
-        const polaroids = hiddenPhotos?.querySelectorAll(".polaroid-card");
-        const templatePolaroid = polaroids?.[index];
-
-        if (!templatePolaroid || !photosDisplay) return;
-
-        const polaroidClone = templatePolaroid.cloneNode(true) as HTMLElement;
-        polaroidClone.setAttribute("data-index", index.toString());
-
-        // Calculate position - spread across the container width
-        const containerWidth = photosDisplay.clientWidth;
-        const photoWidth = 224; // w-56 = 224px
-        const availableSpace = containerWidth - photoWidth;
-        const totalKeywords = keywords.length + 1; // +1 for the extra friend photo
-        const spacing = availableSpace / Math.max(totalKeywords - 1, 1);
-        const leftPosition = Math.min(photoIndex * spacing, availableSpace);
-
-        // Add random rotation for variety
-        const rotation = (Math.random() - 0.5) * 15;
-
-        polaroidClone.style.left = `${leftPosition}px`;
-        polaroidClone.style.top = "0px";
-        polaroidClone.style.transform = `translateX(-150%) rotate(${rotation}deg)`;
-        polaroidClone.style.zIndex = (10 + photoIndex).toString();
-
-        photosDisplay.appendChild(polaroidClone);
-
-        // Trigger animation with slight delay for multiple photos
-        setTimeout(
-          () => {
-            polaroidClone.classList.add("visible");
-            polaroidClone.style.transform = `translateX(0) rotate(${rotation}deg)`;
-
-            // After animation completes, remove transition so dragging is instant
-            setTimeout(() => {
-              polaroidClone.style.transition = "none";
-            }, 600); // Match the 0.6s transition duration
-          },
-          50 + i * 100,
-        ); // Stagger multiple photos
-
-        photoIndex++;
-
-        // Re-initialize drag handler immediately for all polaroid cards (including the new one)
-        dragHandler.initialize(".photos-display .polaroid-card");
-      });
-    });
-  });
-</script>
