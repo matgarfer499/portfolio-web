@@ -1,0 +1,163 @@
+---
+import PolaroidPhoto from "@components/UI/PolaroidPhoto.astro";
+import PolaroidEmptyPhoto from "@components/Sections/About/PolaroidEmptyPhoto.astro";
+import { ABOUT_PHOTOS } from "@constants/photos";
+---
+
+<!-- Photos Display Area -->
+<div class="photos-display relative w-full min-h-[280px]">
+  <!-- Empty polaroid hints -->
+  <div class="polaroid-hints-wrapper transition-opacity duration-500">
+    <PolaroidEmptyPhoto />
+  </div>
+  
+  <!-- Hidden polaroid templates -->
+  <div class="hidden-photos" style="display: none;">
+    {
+      ABOUT_PHOTOS.map((photo, index) => (
+        <PolaroidPhoto
+          src={photo.src}
+          alt={photo.alt}
+          caption={photo.caption}
+          rotation={0}
+          zIndex={10}
+          index={index}
+          offsetX={0}
+          offsetY={0}
+        />
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .polaroid-hints-wrapper {
+    opacity: 1;
+    pointer-events: none;
+  }
+
+  .polaroid-hints-wrapper.hidden {
+    opacity: 0;
+  }
+
+  .photos-display :global(.polaroid-card) {
+    transform: translateX(-150%) rotate(-5deg);
+    opacity: 0;
+    transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .photos-display :global(.polaroid-card.visible) {
+    opacity: 1;
+  }
+
+  @media (max-width: 768px) {
+    .photos-display {
+      min-height: 220px;
+    }
+  }
+</style>
+
+<script>
+  import { DragHandler } from "@utils/drag-handler";
+
+  const keywords = document.querySelectorAll(".keyword");
+  const photosDisplay = document.querySelector(".photos-display");
+  const hiddenPhotos = document.querySelector(".hidden-photos");
+  const hintsWrapper = document.querySelector(".polaroid-hints-wrapper");
+  let photoIndex = 0;
+  const revealedIndices = new Set<number>();
+
+  // Calculate total number of photos that will be revealed (including multi-photo keywords)
+  let totalPhotos = 0;
+  keywords.forEach((keyword) => {
+    const indexAttr = keyword.getAttribute("data-index");
+    if (indexAttr) {
+      totalPhotos += indexAttr.split(",").length;
+    }
+  });
+
+  // Initialize one global drag handler
+  const dragHandler = new DragHandler({
+    moveThreshold: 150,
+    velocityMultiplier: 0.3,
+    friction: 0.92,
+    minVelocity: 0.3,
+    speedThreshold: 1,
+  });
+
+  keywords.forEach((keyword) => {
+    keyword.addEventListener("mouseenter", () => {
+      const indexAttr = keyword.getAttribute("data-index");
+
+      if (!indexAttr) return;
+
+      // Handle multiple photos (for friends)
+      const indices = indexAttr.split(",").map((i) => parseInt(i.trim()));
+
+      indices.forEach((index, i) => {
+        if (revealedIndices.has(index)) return;
+
+        // Hide all hints on first photo reveal
+        if (revealedIndices.size === 0 && hintsWrapper) {
+          hintsWrapper.classList.add("hidden");
+        }
+
+        // Mark keyword as revealed (only once for multi-photo keywords)
+        if (i === indices.length - 1) {
+          keyword.classList.add("revealed");
+        }
+        revealedIndices.add(index);
+
+        // Clone the corresponding polaroid from hidden templates
+        const polaroids = hiddenPhotos?.querySelectorAll(".polaroid-card");
+        const templatePolaroid = polaroids?.[index];
+
+        if (!templatePolaroid || !photosDisplay) return;
+
+        const polaroidClone = templatePolaroid.cloneNode(true) as HTMLElement;
+        polaroidClone.setAttribute("data-index", index.toString());
+
+        // Calculate position - spread across the container width
+        const containerWidth = photosDisplay.clientWidth;
+        const photoWidth = 224; // w-56 = 224px
+        const availableSpace = containerWidth - photoWidth;
+        const spacing = availableSpace / Math.max(totalPhotos - 1, 1);
+        const leftPosition = Math.min(photoIndex * spacing, availableSpace);
+
+        // Add random rotation for variety
+        const rotation = (Math.random() - 0.5) * 15;
+
+        polaroidClone.style.left = `${leftPosition}px`;
+        polaroidClone.style.top = "0px";
+        polaroidClone.style.transform = `translateX(-150%) rotate(${rotation}deg)`;
+        polaroidClone.style.zIndex = (10 + photoIndex).toString();
+
+        photosDisplay.appendChild(polaroidClone);
+
+        // Trigger animation with slight delay for multiple photos
+        setTimeout(
+          () => {
+            polaroidClone.classList.add("visible");
+            polaroidClone.style.transform = `translateX(0) rotate(${rotation}deg)`;
+
+            // After slide-in animation, trigger the Polaroid reveal effect
+            setTimeout(() => {
+              polaroidClone.classList.add("revealing");
+            }, 600); // Wait for slide-in to complete
+
+            // After animation completes, remove transition so dragging is instant
+            setTimeout(() => {
+              polaroidClone.style.transition = "none";
+            }, 600); // Match the 0.6s transition duration
+          },
+          50 + i * 100,
+        ); // Stagger multiple photos
+
+        photoIndex++;
+
+        // Re-initialize drag handler immediately for all polaroid cards (including the new one)
+        dragHandler.initialize(".photos-display .polaroid-card");
+      });
+    });
+  });
+</script>
