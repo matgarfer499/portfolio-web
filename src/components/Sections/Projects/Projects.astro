@@ -1,7 +1,38 @@
 ---
 import SectionLayout from "@layouts/SectionLayout.astro";
+import SectionTitle from "@components/UI/SectionTitle.astro";
+import ProjectCard from "@components/UI/ProjectCard.astro";
+import { PROJECTS } from "@constants/projects";
 ---
 
 <SectionLayout>
-    <h1 class="text-4xl font-bold">Project Section</h1>
+  <div id="projects">
+    <SectionTitle title="Projects" />
+
+    <div class="projects-container mx-auto px-4 py-12">
+      {PROJECTS.map((project) => <ProjectCard {...project} />)}
+    </div>
+  </div>
 </SectionLayout>
+
+<script>
+  // Intersection Observer for project cards
+  const observerOptions = {
+    root: null,
+    rootMargin: "0px 0px -15% 0px",
+    threshold: 0.1,
+  };
+
+  const projectObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+      }
+    });
+  }, observerOptions);
+
+  // Observe all project cards
+  document.querySelectorAll(".project-card").forEach((card) => {
+    projectObserver.observe(card);
+  });
+</script>

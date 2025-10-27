@@ -1,0 +1,173 @@
+---
+import type { Project } from "@/types/project";
+import Tag from "./Tag.astro";
+import GitHub from "@components/Icons/GitHub.astro";
+
+interface Props extends Project {}
+
+const {
+  name,
+  description,
+  technologies,
+  desktopImage,
+  mobileImage,
+  demoUrl,
+  repoUrl,
+} = Astro.props;
+---
+
+<div class="project-card opacity-0 transform translate-y-12">
+  <!-- Frosted Glass Card -->
+  <div class="glass-card rounded-3xl border border-neutral-700/50 backdrop-blur-md bg-neutral-900/30 p-8 md:p-4">
+    <!-- Screenshots Section -->
+    <div class="screenshots-section mb-8 relative flex items-center justify-center">
+      <!-- Desktop Screenshot -->
+      <div class="desktop-screenshot relative mx-auto">
+        <img
+          src={desktopImage}
+          alt={`${name} desktop view`}
+          class="w-full h-auto"
+        />
+        
+        <!-- Mobile Screenshot - Overlaid on top right -->
+        <div class="mobile-screenshot absolute bottom-0 right-4 w-24 md:w-32 z-10">
+          <img
+            src={mobileImage}
+            alt={`${name} mobile view`}
+            class="w-full h-auto"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- Content Section -->
+    <div class="content-section">
+      <!-- Title -->
+      <h3 class="text-3xl md:text-4xl font-bold text-white mb-4">
+        {name}
+      </h3>
+
+      <!-- Technologies Tags -->
+      <div class="mb-6">
+        <div class="flex flex-wrap gap-2">
+          {technologies.map((tech) => <Tag label={tech} icon={GitHub} />)}
+        </div>
+      </div>
+
+      <!-- Description -->
+      <p class="text-neutral-300 leading-relaxed mb-6">
+        {description}
+      </p>
+
+      <!-- Call to Action Buttons -->
+      {
+        (demoUrl || repoUrl) && (
+          <div class="flex flex-wrap gap-3">
+            {demoUrl && (
+              <a
+                href={demoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-2 px-6 py-2.5 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg transition-colors duration-200"
+              >
+                <span>Try it</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-4 w-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                  />
+                </svg>
+              </a>
+            )}
+            {repoUrl && (
+              <a
+                href={repoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-2 px-6 py-2.5 border border-neutral-600 hover:bg-neutral-700/50 text-neutral-100 font-medium rounded-lg transition-colors duration-200"
+              >
+                <GitHub />
+                <span>Code</span>
+              </a>
+            )}
+          </div>
+        )
+      }
+    </div>
+  </div>
+</div>
+
+<style>
+  .project-card {
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .project-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Frosted glass effect */
+  .glass-card {
+    background: rgba(23, 23, 23, 0.4);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: all 0.3s ease;
+  }
+
+  .glass-card:hover {
+    background: rgba(23, 23, 23, 0.5);
+    border-color: rgba(115, 115, 115, 0.6);
+  }
+
+  /* Screenshot animations */
+  .screenshots-section {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+    transition-delay: 0.2s;
+  }
+
+  .project-card.visible .screenshots-section {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Content section animation */
+  .content-section {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    transition-delay: 0.4s;
+  }
+
+  .project-card.visible .content-section {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 768px) {
+    .screenshots-section {
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .desktop-screenshot {
+      max-width: 100%;
+    }
+
+    .mobile-screenshot {
+      width: 50%;
+    }
+  }
+</style>
