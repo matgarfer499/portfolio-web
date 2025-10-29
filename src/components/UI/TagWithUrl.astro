@@ -11,7 +11,7 @@ const { icon: Icon, url } = Astro.props;
   href={url} 
   target="_blank" 
   rel="noopener noreferrer"
-  class="flex justify-center items-center w-8 h-8 p-0 text-white border rounded-full transition-colors hover:bg-white/5"
+  class="flex justify-center w-8 h-8 items-center gap-1 p-1 bg-[var(--color-primary-light)]/50 border-[var(--color-primary-dark)] rounded-full transition-colors shadow-lg ring-1 ring-black/5"
 >
-  <Icon extraClasses="w-5 h-5" />
+  <Icon extraClasses="w-5 h-5 text-[var(--color-text-muted)]" />
 </a>

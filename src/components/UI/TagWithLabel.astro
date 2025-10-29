@@ -7,7 +7,9 @@ interface Props {
 const { label, icon: Icon } = Astro.props;
 ---
 
-<div class="flex justify-center items-center gap-1 px-2 py-1 text-white border rounded-full transition-colors hover:bg-white/5">
-  <Icon extraClasses="w-4 h-4" />
-  <span class="text-sm">{label}</span>
+<div
+  class="flex justify-center items-center gap-1 px-2 py-1 bg-[var(--color-primary-light)]/50 border-[var(--color-primary-dark)] rounded-full transition-colors shadow-lg ring-1 ring-black/5 pointer-events-none"
+>
+  <Icon extraClasses="w-4 h-4 text-[var(--color-text-muted)]" />
+  <span class="text-sm text-[var(--color-text-light)]">{label}</span>
 </div>
