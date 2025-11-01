@@ -21,14 +21,15 @@ const {
 ---
 
 <div
-  class="experience-card-container opacity-0 transform translate-y-8 transition-all duration-700 ease-out first:pt-0 py-8 border-b border-neutral-200 dark:border-neutral-800 last:border-b-0"
+  class="experience-card-container opacity-0 transform translate-y-8 transition-all duration-700 ease-out first:pt-0 py-8 border-b last:border-b-0"
+  style="border-color: var(--color-primary-dark);"
   data-index={index}
 >
   <!-- Header Row: Title | Logo | Date -->
   <div class="flex items-center justify-between gap-6 mb-4">
     <!-- Position Title and Company -->
     <div class="flex-1 flex items-center justify-start gap-2">
-      <h3 class="text-xl font-semibold text-neutral-900 dark:text-neutral-100">
+      <h3 class="text-xl font-semibold" style="color: var(--color-primary-dark);">
         {position} ·
       </h3>
       <div class="flex-shrink-0">
@@ -44,7 +45,8 @@ const {
 
     <!-- Date Range -->
     <div
-      class="text-sm text-neutral-500 dark:text-neutral-500 uppercase tracking-wide whitespace-nowrap"
+      class="text-sm uppercase tracking-wide whitespace-nowrap"
+      style="color: var(--color-primary);"
     >
       {startDate} — {current ? "Present" : endDate}
     </div>
@@ -52,7 +54,8 @@ const {
 
   <!-- Description -->
   <p
-    class="text-neutral-600 dark:text-neutral-400 text-sm leading-relaxed mb-4"
+    class="text-sm leading-relaxed mb-4"
+    style="color: var(--color-text-muted);"
   >
     {description}
   </p>
@@ -62,7 +65,7 @@ const {
     technologies && technologies.length > 0 && (
       <div class="flex flex-wrap gap-2">
         {technologies.map((tech) => (
-            <Tag label={tech} icon={LinkedIn} />
+            <Tag label={tech} icon={LinkedIn} variant="tech" />
         ))}
       </div>
     )

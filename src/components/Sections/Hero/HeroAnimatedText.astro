@@ -7,12 +7,12 @@ interface Props {
 const { name, phrases } = Astro.props;
 ---
 
-<h1 class="text-white text-xl font-medium whitespace-nowrap">
+<h1 class="text-xl font-medium whitespace-nowrap" style="color: var(--color-text-light);">
   Hello there! I'm {name}, <span
-    class="text-blue-500 decrypted-text inline-block align-bottom"
+    class="decrypted-text inline-block align-bottom"
+    style="color: var(--color-accent); width: 380px; text-align: left;"
     data-text={phrases[0]}
-    data-phrases={JSON.stringify(phrases)}
-    style="width: 380px; text-align: left;">{phrases[0]}</span
+    data-phrases={JSON.stringify(phrases)}>{phrases[0]}</span
   >
 </h1>
 

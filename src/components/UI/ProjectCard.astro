@@ -16,9 +16,9 @@ const {
 } = Astro.props;
 ---
 
-<div class="project-card opacity-0 transform translate-y-12">
+<div class="project-card opacity-0 transform translate-y-12 ">
   <!-- Frosted Glass Card -->
-  <div class="glass-card rounded-3xl border border-neutral-700/50 backdrop-blur-md bg-neutral-900/30 p-8 md:p-4">
+  <div class="glass-card rounded-3xl p-8 md:p-4 bg-[var(--color-primary-light)]/50 transition-colors ring-1 ring-black/5" >
     <!-- Screenshots Section -->
     <div class="screenshots-section mb-8 relative flex items-center justify-center">
       <!-- Desktop Screenshot -->
@@ -43,32 +43,33 @@ const {
     <!-- Content Section -->
     <div class="content-section">
       <!-- Title -->
-      <h3 class="text-3xl md:text-4xl font-bold text-white mb-4">
+      <h3 class="text-3xl md:text-4xl font-bold mb-4 text-[var(--color-accent)]">
         {name}
       </h3>
 
       <!-- Technologies Tags -->
       <div class="mb-6">
         <div class="flex flex-wrap gap-2">
-          {technologies.map((tech) => <Tag label={tech} icon={GitHub} />)}
+          {technologies.map((tech) => <Tag label={tech} icon={GitHub} variant="tech" />)}
         </div>
       </div>
 
       <!-- Description -->
-      <p class="text-neutral-300 leading-relaxed mb-6">
+      <p class="leading-relaxed mb-6" style="color: var(--color-text-muted);">
         {description}
       </p>
 
       <!-- Call to Action Buttons -->
       {
         (demoUrl || repoUrl) && (
-          <div class="flex flex-wrap gap-3">
+          <div class="flex flex-wrap justify-end">
             {demoUrl && (
               <a
                 href={demoUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="inline-flex items-center gap-2 px-6 py-2.5 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg transition-colors duration-200"
+                class="inline-flex items-center gap-2 px-6 py-2.5 font-medium rounded-lg transition-all duration-200"
+                style="background-color: var(--color-accent); color: var(--color-primary-lightest);"
               >
                 <span>Try it</span>
                 <svg
@@ -85,17 +86,6 @@ const {
                     d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
                   />
                 </svg>
-              </a>
-            )}
-            {repoUrl && (
-              <a
-                href={repoUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center gap-2 px-6 py-2.5 border border-neutral-600 hover:bg-neutral-700/50 text-neutral-100 font-medium rounded-lg transition-colors duration-200"
-              >
-                <GitHub />
-                <span>Code</span>
               </a>
             )}
           </div>
@@ -119,15 +109,7 @@ const {
 
   /* Frosted glass effect */
   .glass-card {
-    background: rgba(23, 23, 23, 0.4);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
     transition: all 0.3s ease;
-  }
-
-  .glass-card:hover {
-    background: rgba(23, 23, 23, 0.5);
-    border-color: rgba(115, 115, 115, 0.6);
   }
 
   /* Screenshot animations */
