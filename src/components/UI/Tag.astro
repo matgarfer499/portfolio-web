@@ -6,13 +6,14 @@ interface Props {
   label?: string;
   icon?: any;
   url?: string;
+  variant?: "social" | "tech";
 }
 
-const { label, icon, url } = Astro.props;
+const { label, icon, url, variant = "social" } = Astro.props;
 ---
 
 {label ? (
-  <TagWithLabel label={label} icon={icon} />
+  <TagWithLabel label={label} icon={icon} variant={variant} />
 ) : url ? (
   <TagWithUrl icon={icon} url={url} />
 ) : null}
