@@ -12,15 +12,15 @@ const {
 ---
 
 <div
-  class="polaroid-card absolute w-56 h-72 bg-neutral-50 p-3 pb-10 cursor-grab select-none active:cursor-grabbing"
+  class="polaroid-card absolute w-56 h-72 p-3 pb-10 cursor-grab select-none active:cursor-grabbing"
+  style="background-color: var(--color-primary-lightest); transform: rotate(${rotation}deg); z-index: ${zIndex}; left: ${offsetX}px; top: ${offsetY}px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2), 0 10px 20px rgba(0, 0, 0, 0.4);"
   data-index={index}
-  style={`transform: rotate(${rotation}deg); z-index: ${zIndex}; left: ${offsetX}px; top: ${offsetY}px;`}
 >
   <div
-    class="polaroid-image-container w-full aspect-square overflow-hidden bg-neutral-200 mb-2 pointer-events-none
-              shadow-[inset_0_2px_8px_rgba(0,0,0,0.15),inset_0_1px_4px_rgba(0,0,0,0.1)] relative"
+    class="polaroid-image-container w-full aspect-square overflow-hidden mb-2 pointer-events-none relative"
+    style="background-color: var(--color-primary-lighter); box-shadow: inset 0 2px 8px rgba(0,0,0,0.15), inset 0 1px 4px rgba(0,0,0,0.1);"
   >
-    <div class="polaroid-reveal-overlay absolute inset-0 bg-white z-10"></div>
+    <div class="polaroid-reveal-overlay absolute inset-0 z-10" style="background-color: var(--color-primary-lightest);"></div>
     <img
       src={src}
       alt={alt}
@@ -29,7 +29,8 @@ const {
     />
   </div>
   <p
-    class="text-center text-sm text-neutral-600 mt-2 leading-relaxed pointer-events-none font-['Courier_New',monospace]"
+    class="text-center text-sm mt-2 leading-relaxed pointer-events-none font-['Courier_New',monospace]"
+    style="color: var(--color-primary-darker);"
   >
     {caption}
   </p>
