@@ -2,6 +2,7 @@
 import SectionLayout from "@layouts/SectionLayout.astro";
 import SectionTitle from "@components/UI/SectionTitle.astro";
 import ExperienceCard from "@components/UI/ExperienceCard.astro";
+import ArrowUpRight from "@/components/Icons/ArrowUpRight.astro";
 import { EXPERIENCES } from "@constants/experiences";
 ---
 
@@ -17,7 +18,7 @@ import { EXPERIENCES } from "@constants/experiences";
 
     <!-- View Full Resume Link -->
     <div
-      class="flex justify-start pt-4 max-w-5xl mx-auto text-[var(--color-primary)]"
+      class="flex justify-end items-center pt-4 max-w-5xl mx-auto text-[var(--color-primary)] group"
     >
       <a
         href="/cv.pdf"
@@ -26,6 +27,7 @@ import { EXPERIENCES } from "@constants/experiences";
       >
         <span>View Full Résumé</span>
       </a>
+      <ArrowUpRight extraClasses="h-4 w-4" />
     </div>
   </section>
 </SectionLayout>

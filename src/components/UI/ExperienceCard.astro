@@ -21,15 +21,14 @@ const {
 ---
 
 <div
-  class="experience-card-container opacity-0 transform translate-y-8 transition-all duration-700 ease-out first:pt-0 py-8 border-b last:border-b-0"
-  style="border-color: var(--color-primary-dark);"
+  class={`experience-card-container opacity-0 transform transition-all duration-700 py-4 ${index === 0 ? 'pt-0' : ''} ease-out border-b last:border-b-0`}
   data-index={index}
 >
   <!-- Header Row: Title | Logo | Date -->
   <div class="flex items-center justify-between gap-6 mb-4">
     <!-- Position Title and Company -->
     <div class="flex-1 flex items-center justify-start gap-2">
-      <h3 class="text-xl font-semibold" style="color: var(--color-primary-dark);">
+      <h3 class="text-xl text-[var(--color-primary)] font-semibold">
         {position} ·
       </h3>
       <div class="flex-shrink-0">
@@ -45,8 +44,7 @@ const {
 
     <!-- Date Range -->
     <div
-      class="text-sm uppercase tracking-wide whitespace-nowrap"
-      style="color: var(--color-primary);"
+      class="text-sm uppercase tracking-wide whitespace-nowrap text-[var(--color-primary-dark)]"
     >
       {startDate} — {current ? "Present" : endDate}
     </div>
