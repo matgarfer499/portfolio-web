@@ -5,16 +5,13 @@ import HeroContent from "@components/Sections/Hero/HeroContent.astro";
 
 const PHRASES = [
   "a software developer",
-  "I build web apps",
-  "I love crafting user interfaces",
-  "and designing great user experiences",
-  "I spend a lot of time in the gym",
-  "and also playing games",
+  "a web enthusiast",
+  "a user interface designer",
 ];
 ---
 
 <SectionLayout>
-  <div class="flex justify-start items-start gap-4 w-full py-24">
+  <section id="hero" class="flex justify-start items-start gap-4 w-full">
     <HeroProfile imageSrc="/photos/me.webp" imageAlt="Picture of me" />
     <HeroContent
       name="Matías"
@@ -24,5 +21,5 @@ const PHRASES = [
       githubUrl="https://github.com/matgarfer499"
       linkedinUrl="https://www.linkedin.com/in/mgarfer/"
     />
-  </div>
+  </section>
 </SectionLayout>

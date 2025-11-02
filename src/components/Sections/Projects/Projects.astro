@@ -6,13 +6,13 @@ import { PROJECTS } from "@constants/projects";
 ---
 
 <SectionLayout>
-  <div id="projects">
+  <section id="projects">
     <SectionTitle title="Projects" />
 
-    <div class="projects-container mx-auto px-4 py-12">
+    <div class="projects-container mx-auto px-4">
       {PROJECTS.map((project) => <ProjectCard {...project} />)}
     </div>
-  </div>
+  </section>
 </SectionLayout>
 
 <script>

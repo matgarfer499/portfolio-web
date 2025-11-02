@@ -6,19 +6,19 @@ import { EXPERIENCES } from "@constants/experiences";
 ---
 
 <SectionLayout>
-  <div id="experience">
+  <section id="experience">
     <SectionTitle title="Experience" />
 
-    <div class="experience-container mx-auto">
-      {
-        EXPERIENCES.map((experience, index) => (
-          <ExperienceCard {...experience} index={index} />
-        ))
-      }
-    </div>
+    {
+      EXPERIENCES.map((experience, index) => (
+        <ExperienceCard {...experience} index={index} />
+      ))
+    }
 
     <!-- View Full Resume Link -->
-    <div class="flex justify-start mt-12 mb-12 max-w-5xl mx-auto text-[var(--color-primary)]">
+    <div
+      class="flex justify-start pt-4 max-w-5xl mx-auto text-[var(--color-primary)]"
+    >
       <a
         href="/cv.pdf"
         target="_blank"
@@ -27,7 +27,7 @@ import { EXPERIENCES } from "@constants/experiences";
         <span>View Full Résumé</span>
       </a>
     </div>
-  </div>
+  </section>
 </SectionLayout>
 
 <script>
