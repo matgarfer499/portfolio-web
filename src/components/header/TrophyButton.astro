@@ -1,0 +1,20 @@
+---
+/**
+ * TrophyButton Component
+ * Trophy icon button with dropdown trigger
+ */
+import Trophy from '@components/Icons/Trophy.astro';
+import TrophyDropdown from '@components/UI/TrophyDropdown.astro';
+---
+
+<div class="relative">
+  <button
+    id="trophy-btn"
+    class="trophy-btn relative p-2 rounded-lg transition-all duration-200 hover:bg-[var(--color-primary-light)]/30"
+    aria-label="Easter eggs"
+    title="View your trophies"
+  >
+    <Trophy extraClasses="w-5 h-5 text-[var(--color-accent)]" />
+  </button>
+  <TrophyDropdown />
+</div>
