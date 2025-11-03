@@ -1,0 +1,38 @@
+---
+/**
+ * Navigation Component
+ * Displays desktop navigation links with active state management
+ */
+import { NAV_LINKS } from '@utils/navigation';
+---
+
+<ul class="hidden md:flex items-center gap-8">
+  {NAV_LINKS.map((link) => (
+    <li>
+      <a 
+        href={link.href}
+        class="nav-link relative text-sm font-medium transition-all duration-200 hover:text-[var(--color-accent)]"
+        style="color: var(--color-text-muted);"
+      >
+        {link.label}
+      </a>
+    </li>
+  ))}
+</ul>
+
+<style>
+  .nav-link.active {
+    color: var(--color-accent) !important;
+  }
+
+  .nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: var(--color-accent);
+    border-radius: 2px;
+  }
+</style>
