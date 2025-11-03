@@ -1,0 +1,15 @@
+---
+/**
+ * HeaderActions Component
+ * Groups all action buttons in the header (trophy, theme, mobile menu)
+ */
+import TrophyButton from '@components/header/TrophyButton.astro';
+import ThemeToggle from '@components/header/ThemeToggle.astro';
+import MobileMenuButton from '@components/header/MobileMenuButton.astro';
+---
+
+<div class="flex items-center gap-3">
+  <TrophyButton />
+  <ThemeToggle />
+  <MobileMenuButton />
+</div>
