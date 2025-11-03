@@ -1,0 +1,50 @@
+---
+/**
+ * ThemeToggle Component
+ * Manages light/dark theme switching with icon toggle
+ */
+import Sun from '@components/Icons/Sun.astro';
+import Moon from '@components/Icons/Moon.astro';
+---
+
+<button
+  id="theme-toggle"
+  class="p-2 rounded-lg transition-all duration-200 hover:bg-[var(--color-primary-light)]/30 hover:scale-110"
+  aria-label="Toggle theme"
+>
+  <Sun extraClasses="w-5 h-5 text-[var(--color-primary-dark)] hidden" id="sun-icon" />
+  <Moon extraClasses="w-5 h-5 text-[var(--color-primary-dark)]" id="moon-icon" />
+</button>
+
+<script>
+  const themeToggle = document.getElementById('theme-toggle');
+  const sunIcon = document.getElementById('sun-icon');
+  const moonIcon = document.getElementById('moon-icon');
+  const html = document.documentElement;
+
+  function updateThemeIcon(theme: string) {
+    if (theme === 'dark') {
+      sunIcon?.classList.remove('hidden');
+      moonIcon?.classList.add('hidden');
+    } else {
+      sunIcon?.classList.add('hidden');
+      moonIcon?.classList.remove('hidden');
+    }
+  }
+
+  // Initialize theme from localStorage
+  const currentTheme = localStorage.getItem('theme') || 'light';
+  html.setAttribute('data-theme', currentTheme);
+  updateThemeIcon(currentTheme);
+
+  // Handle theme toggle
+  themeToggle?.addEventListener('click', () => {
+    const theme = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    html.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+    updateThemeIcon(theme);
+    
+    // Unlock trophy
+    (window as any).unlockTrophy?.('THEME_SWITCHER');
+  });
+</script>
