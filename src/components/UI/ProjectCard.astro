@@ -1,6 +1,6 @@
 ---
 import type { Project } from "@/types/project";
-import Tag from "./Tag.astro";
+import Tag from "@components/UI/Tag.astro";
 import GitHub from "@components/Icons/GitHub.astro";
 import ArrowUpRight from "@components/Icons/ArrowUpRight.astro";
 
@@ -69,7 +69,7 @@ const {
                 href={demoUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="inline-flex items-center gap-2 px-6 py-2.5 font-medium rounded-lg transition-all duration-200"
+                class="project-demo-link inline-flex items-center gap-2 px-6 py-2.5 font-medium rounded-lg transition-all duration-200"
                 style="background-color: var(--color-accent); color: var(--color-primary-lightest);"
               >
                 <span>Try it</span>
@@ -82,6 +82,15 @@ const {
     </div>
   </div>
 </div>
+
+<script>
+  // Easter egg for clicking demo links
+  document.querySelectorAll('.project-demo-link').forEach(link => {
+    link.addEventListener('click', () => {
+      (window as any).unlockTrophy?.('PROJECT_TESTER');
+    });
+  });
+</script>
 
 <style>
   .project-card {
