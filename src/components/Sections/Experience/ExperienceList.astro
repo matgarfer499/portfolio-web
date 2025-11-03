@@ -1,0 +1,34 @@
+---
+/**
+ * ExperienceList Component
+ * Renders list of experience cards with intersection observer animations
+ */
+import ExperienceCard from '@components/Sections/Experience/ExperienceCard.astro';
+import { EXPERIENCES } from '@constants/experiences';
+---
+
+{EXPERIENCES.map((experience, index) => (
+  <ExperienceCard {...experience} index={index} />
+))}
+
+<script>
+  // Intersection Observer for experience cards fade-in animation
+  const observerOptions = {
+    root: null,
+    rootMargin: '-10% 0px -10% 0px',
+    threshold: 0.1,
+  };
+
+  const experienceObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, observerOptions);
+
+  // Observe all experience cards
+  document.querySelectorAll('.experience-card-container').forEach((item) => {
+    experienceObserver.observe(item);
+  });
+</script>

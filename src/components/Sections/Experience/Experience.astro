@@ -1,55 +1,19 @@
 ---
-import SectionLayout from "@layouts/SectionLayout.astro";
-import SectionTitle from "@components/UI/SectionTitle.astro";
-import ExperienceCard from "@components/UI/ExperienceCard.astro";
-import ArrowUpRight from "@/components/Icons/ArrowUpRight.astro";
-import { EXPERIENCES } from "@constants/experiences";
+/**
+ * Experience Section Component
+ * Displays work experience with resume link
+ * Composed of modular subcomponents for better scalability
+ */
+import SectionLayout from '@layouts/SectionLayout.astro';
+import SectionTitle from '@components/UI/SectionTitle.astro';
+import ExperienceList from '@components/Sections/Experience/ExperienceList.astro';
+import ResumeLink from '@components/Sections/Experience/ResumeLink.astro';
 ---
 
 <SectionLayout>
   <section id="experience">
     <SectionTitle title="Experience" />
-
-    {
-      EXPERIENCES.map((experience, index) => (
-        <ExperienceCard {...experience} index={index} />
-      ))
-    }
-
-    <!-- View Full Resume Link -->
-    <div
-      class="flex justify-end items-center pt-4 max-w-5xl mx-auto text-[var(--color-primary)] group"
-    >
-      <a
-        href="/cv.pdf"
-        target="_blank"
-        class="group inline-flex items-center gap-2 font-semibold hover:text-neutral-600 dark:hover:text-neutral-400 transition-colors duration-200"
-      >
-        <span>View Full Résumé</span>
-      </a>
-      <ArrowUpRight extraClasses="h-4 w-4" />
-    </div>
+    <ExperienceList />
+    <ResumeLink />
   </section>
 </SectionLayout>
-
-<script>
-  // Intersection Observer for experience cards
-  const observerOptions = {
-    root: null,
-    rootMargin: "-10% 0px -10% 0px",
-    threshold: 0.1,
-  };
-
-  const experienceObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
-      }
-    });
-  }, observerOptions);
-
-  // Observe all experience cards
-  document.querySelectorAll(".experience-card-container").forEach((item) => {
-    experienceObserver.observe(item);
-  });
-</script>
