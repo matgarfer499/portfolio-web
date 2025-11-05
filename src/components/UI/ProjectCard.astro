@@ -1,8 +1,8 @@
 ---
 import type { Project } from "@/types/project";
 import Tag from "@components/UI/Tag.astro";
-import GitHub from "@components/Icons/GitHub.astro";
 import ArrowUpRight from "@components/Icons/ArrowUpRight.astro";
+import { getTechIcon } from "@utils/techIcons";
 
 interface Props extends Project {}
 
@@ -14,6 +14,7 @@ const {
   mobileImage,
   demoUrl,
   repoUrl,
+  year,
 } = Astro.props;
 ---
 
@@ -43,37 +44,48 @@ const {
 
     <!-- Content Section -->
     <div class="content-section">
-      <!-- Title -->
-      <h3 class="text-3xl md:text-4xl font-bold mb-4 text-[var(--color-accent)]">
-        {name}
-      </h3>
+      <!-- Header Row: Title | Year -->
+      <div class="flex items-center justify-between gap-6 mb-4">
+        <!-- Project Title -->
+        <h3 class="text-xl text-[var(--color-primary)] font-semibold">
+          {name}
+        </h3>
 
-      <!-- Technologies Tags -->
-      <div class="mb-6">
-        <div class="flex flex-wrap gap-2">
-          {technologies.map((tech) => <Tag label={tech} icon={GitHub} variant="tech" />)}
+        <!-- Year -->
+        <div class="text-sm uppercase tracking-wide whitespace-nowrap text-[var(--color-primary-dark)]">
+          {year}
         </div>
       </div>
 
       <!-- Description -->
-      <p class="leading-relaxed mb-6" style="color: var(--color-text-muted);">
+      <p class="text-sm leading-relaxed mb-4" style="color: var(--color-text-muted);">
         {description}
       </p>
 
-      <!-- Call to Action Buttons -->
+      <!-- Technologies Tags -->
+      <div class="mb-6">
+        <div class="flex flex-wrap gap-2">
+          {technologies.map((tech) => {
+            const Icon = getTechIcon(tech);
+            return <Tag label={tech} icon={Icon} variant="tech" />;
+          })}
+        </div>
+      </div>
+
+      <!-- Call to Action - Simple text link with arrow -->
       {
         (demoUrl || repoUrl) && (
-          <div class="flex flex-wrap justify-end">
+          <div class="flex flex-wrap gap-4 justify-end items-center pt-2">
             {demoUrl && (
               <a
                 href={demoUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="project-demo-link inline-flex items-center gap-2 px-6 py-2.5 font-medium rounded-lg transition-all duration-200"
-                style="background-color: var(--color-accent); color: var(--color-primary-lightest);"
+                class="project-demo-link inline-flex items-center gap-2 text-sm font-medium group"
+                style="color: var(--color-accent);"
               >
-                <span>Try it</span>
-                <ArrowUpRight extraClasses="h-4 w-4" />
+                <span>Visit Website</span>
+                <ArrowUpRight extraClasses="h-4 w-4 project-arrow" />
               </a>
             )}
           </div>
@@ -107,6 +119,19 @@ const {
   /* Frosted glass effect */
   .glass-card {
     transition: all 0.3s ease;
+  }
+
+  /* Link arrow animation */
+  .project-demo-link {
+    transition: all 0.2s ease;
+  }
+
+  .project-demo-link .project-arrow {
+    transition: transform 0.2s ease;
+  }
+
+  .project-demo-link:hover .project-arrow {
+    transform: translate(2px, -2px);
   }
 
   /* Screenshot animations */

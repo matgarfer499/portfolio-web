@@ -1,7 +1,7 @@
 ---
 import type { Experience } from "@models/experience";
 import Tag from "@components/UI/Tag.astro";
-import LinkedIn from "@components/Icons/LinkedIn.astro";
+import { getTechIcon } from "@utils/techIcons";
 
 interface Props extends Experience {
   index: number;
@@ -51,20 +51,29 @@ const {
   </div>
 
   <!-- Description -->
-  <p
-    class="text-sm leading-relaxed mb-4"
-    style="color: var(--color-text-muted);"
-  >
-    {description}
-  </p>
+  {typeof description === 'string' ? (
+    <p
+      class="text-sm leading-relaxed mb-4"
+      style="color: var(--color-text-muted);"
+    >
+      {description}
+    </p>
+  ) : (
+    <ul class="text-sm leading-relaxed mb-4 space-y-2 list-disc list-inside" style="color: var(--color-text-muted);">
+      {description.map((point) => (
+        <li>{point}</li>
+      ))}
+    </ul>
+  )}
 
   <!-- Technologies Tags -->
   {
     technologies && technologies.length > 0 && (
       <div class="flex flex-wrap gap-2">
-        {technologies.map((tech) => (
-            <Tag label={tech} icon={LinkedIn} variant="tech" />
-        ))}
+        {technologies.map((tech) => {
+          const Icon = getTechIcon(tech);
+          return <Tag label={tech} icon={Icon} variant="tech" />;
+        })}
       </div>
     )
   }
