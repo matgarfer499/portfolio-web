@@ -14,7 +14,17 @@ const { location, githubUrl, linkedinUrl } = Astro.props;
 ---
 
 <div class="flex justify-start items-center gap-2">
-  <Tag label={location} icon={Pin} />
+  <div id="location-tag">
+    <Tag label={location} icon={Pin} />
+  </div>
   <Tag icon={GitHub} url={githubUrl} />
   <Tag icon={LinkedIn} url={linkedinUrl} />
 </div>
+
+<script>
+  const locationTag = document.getElementById('location-tag');
+  
+  locationTag?.addEventListener('mouseenter', () => {
+    (window as any).unlockTrophy?.('LOCATION_FINDER');
+  });
+</script>
