@@ -6,16 +6,17 @@
 import ArrowUpRight from '@components/Icons/ArrowUpRight.astro';
 ---
 
-<div class="flex justify-end items-center pt-4 max-w-5xl mx-auto text-[var(--color-primary)] group">
+<div class="flex justify-end items-center pt-4 max-w-5xl mx-auto">
   <a
     id="resume-link"
     href="/cv.pdf"
     target="_blank"
-    class="group inline-flex items-center gap-2 font-semibold hover:text-neutral-600 dark:hover:text-neutral-400 transition-colors duration-200"
+    class="inline-flex items-center gap-2 text-sm font-medium transition-all duration-200 group"
+    style="color: var(--color-accent);"
   >
     <span>View Full CV</span>
+    <ArrowUpRight extraClasses="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
   </a>
-  <ArrowUpRight extraClasses="h-4 w-4" />
 </div>
 
 <script>
