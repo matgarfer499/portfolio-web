@@ -7,17 +7,26 @@ export const EXPERIENCES: Experience[] = [
     position: "Full Stack Developer",
     startDate: "Jan 2024",
     endDate: "Present",
-    description: "Leading the development of cutting-edge web applications focused on energy optimization and sustainability. Working with modern technologies including React, TypeScript, and Node.js to build scalable solutions that help businesses reduce their energy consumption. Collaborating with cross-functional teams to design and implement features that have a direct impact on environmental sustainability. Mentoring junior developers and conducting code reviews to maintain high code quality standards. Architecting microservices and implementing CI/CD pipelines to streamline deployment processes.",
+    description: [
+      "Working on full-stack web applications for the energy sector using Django, Flask, and SvelteKit.",
+      "Led the migration of a core product to SvelteKit, boosting SEO and performance (Lighthouse 60 → 100).",
+      "Optimized backend performance by refactoring queries (from 90 s to 1 s) and improving data reliability with Celery tasks.",
+      "Contributed to better team workflows through improved deployment and code review practices."
+    ],
     current: true,
-    technologies: ["React", "TypeScript", "Node.js", "PostgreSQL", "Docker", "AWS"]
+    technologies: ["Django", "Flask", "SvelteKit", "TailwindCSS", "PostgreSQL", "MongoDB"]
   },
   {
     company: "Uniklinik Koln",
     logo: "/logos/uniklinik.webp",
-    position: "Trainee Full Stack Developer",
+    position: "Full Stack Web Developer (Internship)",
     startDate: "Mar 2023",
     endDate: "Jun 2023",
-    description: "Gained hands-on experience in full-stack development within a healthcare environment, working on patient management systems and internal tools. Developed responsive user interfaces using React and integrated them with RESTful APIs built with Node.js and Express. Worked closely with senior developers to implement database schemas using PostgreSQL and optimize query performance. Participated in agile development processes, including daily standups, sprint planning, and retrospectives. Contributed to improving the user experience of critical healthcare applications used by medical professionals.",
-    technologies: ["React", "Node.js", "Express", "PostgreSQL", "REST APIs"]
+    description: [
+      "Collaborated on the development of an internal web platform for hospital staff to publish and access scientific articles.",
+      "Delivered the project ahead of schedule, allowing time for extra testing and performance improvements.",
+      "Helped design an accessible interface suitable for users with different technical backgrounds while working in a fully English-speaking environment."
+    ],
+    technologies: ["Flask", "Jinja2", 'JavaScript', "Bulma CSS", "Budibase"]
   },
 ];

@@ -4,7 +4,7 @@ export interface Experience {
   position: string;
   startDate: string;
   endDate: string;
-  description: string;
+  description: string[];
   current?: boolean;
   technologies?: string[];
 }
