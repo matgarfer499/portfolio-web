@@ -158,6 +158,11 @@ import { ABOUT_PHOTOS } from "@constants/photos";
         // Re-initialize drag handler immediately for all polaroid cards (including the new one)
         dragHandler.initialize(".photos-display .polaroid-card");
       });
+
+      // Check if all photos have been revealed (moved inside mouseenter)
+      if (revealedIndices.size === totalPhotos) {
+        (window as any).unlockTrophy?.('PHOTO_COLLECTOR');
+      }
     });
   });
 </script>
