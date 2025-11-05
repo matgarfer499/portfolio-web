@@ -81,11 +81,11 @@ const {
                 href={demoUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="project-demo-link inline-flex items-center gap-2 text-sm font-medium group"
+                class="project-demo-link inline-flex items-center gap-2 text-sm font-medium transition-all duration-200 group"
                 style="color: var(--color-accent);"
               >
                 <span>Visit Website</span>
-                <ArrowUpRight extraClasses="h-4 w-4 project-arrow" />
+                <ArrowUpRight extraClasses="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </a>
             )}
           </div>
@@ -119,19 +119,6 @@ const {
   /* Frosted glass effect */
   .glass-card {
     transition: all 0.3s ease;
-  }
-
-  /* Link arrow animation */
-  .project-demo-link {
-    transition: all 0.2s ease;
-  }
-
-  .project-demo-link .project-arrow {
-    transition: transform 0.2s ease;
-  }
-
-  .project-demo-link:hover .project-arrow {
-    transform: translate(2px, -2px);
   }
 
   /* Screenshot animations */

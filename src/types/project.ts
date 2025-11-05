@@ -8,4 +8,5 @@ export interface Project {
   demoUrl?: string;
   repoUrl?: string;
   highlights: string[];
+  year: number;
 }
