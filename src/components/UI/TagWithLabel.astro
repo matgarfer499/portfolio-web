@@ -5,35 +5,12 @@ interface Props {
   variant?: "social" | "tech";
 }
 
-interface VariantStyles {
-  bg: string;
-  iconColor: string;
-  textColor: string;
-  ring?: string;
-}
-
-const { label, icon: Icon, variant = "social" } = Astro.props;
-
-const variantStyles: Record<string, VariantStyles> = {
-  social: {
-    bg: "bg-[var(--color-primary-light)]/50",
-    iconColor: "text-[var(--color-text-muted)]",
-    textColor: "text-[var(--color-text-light)]",
-    ring: "ring-1 ring-black/5"
-  },
-  tech: {
-    bg: "bg-[var(--color-primary-dark)]",
-    iconColor: "text-[var(--color-primary-lightest)]",
-    textColor: "text-[var(--color-primary-lightest)]",
-  }
-};
-
-const styles = variantStyles[variant];
+const { label, icon: Icon } = Astro.props;
 ---
 
 <div
-  class={`flex justify-center items-center gap-1 px-2 py-1 ${styles.bg} rounded-full transition-colors shadow-lg ${styles?.ring} pointer-events-none`}
+  class="flex justify-center text-[var(--color-primary-dark)] items-center gap-1 px-2 py-1 bg-[var(--color-primary-dark)]/10 rounded-full transition-all duration-200 pointer-events-none shadow-sm border border-[var(--color-primary-dark)]/20"
 >
-  <Icon extraClasses={`w-5 h-5 ${styles.iconColor}`} />
-  <span class={`text-sm ${styles.textColor}`}>{label}</span>
+  <Icon extraClasses="w-5 h-5" />
+  <span class="text-sm">{label}</span>
 </div>

@@ -67,7 +67,7 @@ const {
         <div class="flex flex-wrap gap-2">
           {technologies.map((tech) => {
             const Icon = getTechIcon(tech);
-            return <Tag label={tech} icon={Icon} variant="social" />;
+            return <Tag label={tech} icon={Icon} />;
           })}
         </div>
       </div>
@@ -75,7 +75,7 @@ const {
       <!-- Call to Action - Simple text link with arrow -->
       {
         (demoUrl || repoUrl) && (
-          <div class="flex flex-wrap gap-4 justify-end items-center pt-2">
+          <div class="flex flex-wrap gap-4 justify-end items-center">
             {demoUrl && (
               <a
                 href={demoUrl}
