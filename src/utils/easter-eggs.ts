@@ -2,7 +2,7 @@ export interface Trophy {
   id: string;
   title: string;
   description: string;
-  icon: string;
+  iconComponent: string; // Component name for the icon
 }
 
 export const TROPHIES: Record<string, Trophy> = {
@@ -10,49 +10,49 @@ export const TROPHIES: Record<string, Trophy> = {
     id: 'PHOTO_COLLECTOR',
     title: 'Memory Keeper',
     description: 'Revealed all photos in About Me',
-    icon: '📸',
+    iconComponent: 'Camera',
   },
   CONSOLE_EXPLORER: {
     id: 'CONSOLE_EXPLORER',
     title: 'Developer Detective',
     description: 'Opened the browser console',
-    icon: '🔍',
+    iconComponent: 'EyeSearch',
   },
   PROJECT_TESTER: {
     id: 'PROJECT_TESTER',
     title: 'Curious Clicker',
     description: 'Tried out a project demo',
-    icon: '🚀',
+    iconComponent: 'Jetpack',
   },
   RESUME_READER: {
     id: 'RESUME_READER',
     title: 'Career Investigator',
     description: 'Viewed the full résumé',
-    icon: '📄',
+    iconComponent: 'FileCheck',
   },
   LOCATION_FINDER: {
     id: 'LOCATION_FINDER',
     title: 'Geography Enthusiast',
     description: 'Discovered the location badge',
-    icon: '📍',
+    iconComponent: 'Location',
   },
   THEME_SWITCHER: {
     id: 'THEME_SWITCHER',
     title: 'Style Chameleon',
     description: 'Toggled between themes',
-    icon: '🌓',
+    iconComponent: 'Brush',
   },
   SECTION_EXPLORER: {
     id: 'SECTION_EXPLORER',
     title: 'Portfolio Navigator',
     description: 'Visited all sections',
-    icon: '🗺️',
+    iconComponent: 'Map',
   },
   PLATINUM_COLLECTOR: {
     id: 'PLATINUM_COLLECTOR',
     title: 'Master Explorer',
     description: 'Collected all trophies',
-    icon: '💎',
+    iconComponent: 'Diamond',
   },
 };
 
