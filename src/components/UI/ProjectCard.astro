@@ -45,16 +45,13 @@ const {
     <!-- Content Section -->
     <div class="content-section">
       <!-- Header Row: Title | Year -->
-      <div class="flex items-center justify-between gap-6 mb-4">
+      <div class="flex items-center justify-start gap-6 mb-4">
         <!-- Project Title -->
         <h3 class="text-xl text-[var(--color-primary)] font-semibold">
-          {name}
+          {name}  <span class="text-xs text-[var(--color-text-muted)]">({year})</span>
         </h3>
-
         <!-- Year -->
-        <div class="text-sm uppercase tracking-wide whitespace-nowrap text-[var(--color-primary-dark)]">
-          {year}
-        </div>
+
       </div>
 
       <!-- Description -->
