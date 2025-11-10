@@ -1,16 +1,25 @@
 ---
-import { TROPHIES } from '../../utils/easter-eggs';
+import { TROPHIES } from '@utils/easter-eggs';
+import Camera from '@components/Icons/Trophies/Camera.astro';
+import EyeSearch from '@components/Icons/Trophies/EyeSearch.astro';
+import Jetpack from '@components/Icons/Trophies/Jetpack.astro';
+import FileCheck from '@components/Icons/Trophies/FileCheck.astro';
+import Location from '@components/Icons/Trophies/Location.astro';
+import Brush from '@components/Icons/Trophies/Brush.astro';
+import Map from '@components/Icons/Trophies/Map.astro';
+import Diamond from '@components/Icons/Trophies/Diamond.astro';
+import Restore from '@components/Icons/Trophies/Restore.astro';
 
-// Define trophy points mapping
-const TROPHY_POINTS: Record<string, number> = {
-  'PHOTO_COLLECTOR': 50,
-  'CONSOLE_EXPLORER': 50,
-  'PROJECT_TESTER': 50,
-  'RESUME_READER': 50,
-  'LOCATION_FINDER': 25,
-  'THEME_SWITCHER': 25,
-  'SECTION_EXPLORER': 25,
-  'PLATINUM_COLLECTOR': 20,
+// Map icon component names to actual components
+const iconComponents: Record<string, any> = {
+  Camera,
+  EyeSearch,
+  Jetpack,
+  FileCheck,
+  Location,
+  Brush,
+  Map,
+  Diamond,
 };
 
 // Convert TROPHIES object to array with points
@@ -19,7 +28,10 @@ const trophiesArray = Object.values(TROPHIES).map(trophy => ({
 }));
 ---
 
-<div id="trophy-dropdown" class="trophy-dropdown hidden">
+<div 
+  id="trophy-dropdown" 
+  class="hidden opacity-0 scale-95 -translate-y-2.5 transition-all duration-200 absolute top-[calc(100%+8px)] right-0 w-[340px] max-h-[480px] bg-[var(--color-primary-lightest)] rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.1)] border border-[var(--color-primary-light)] overflow-hidden z-[100] show:opacity-100 show:scale-100 show:translate-y-0 max-md:w-[calc(100vw-40px)] max-md:-right-2.5"
+>
   <!-- Header -->
   <div class="px-[18px] py-3.5 border-b border-[var(--color-primary-light)]">
     <div class="flex justify-between items-center">
@@ -28,42 +40,38 @@ const trophiesArray = Object.values(TROPHIES).map(trophy => ({
       </h3>
       <button 
         id="reset-trophies-btn" 
-        class="reset-btn p-1.5 bg-transparent border-none text-[var(--color-text-light)] cursor-pointer rounded-md transition-all duration-200 opacity-60 hover:bg-[var(--color-accent)] hover:text-[var(--color-primary-lightest)] hover:opacity-100"
+        class="group p-1.5 bg-transparent border-none cursor-pointer rounded-md transition-all duration-200 text-[var(--color-text-light)] hover:text-[var(--color-accent)]"
         title="Reset Progress"
         aria-label="Reset trophy progress"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" class="reset-icon w-4 h-4 transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
-          <path d="M21 3v5h-5"/>
-          <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
-          <path d="M3 21v-5h5"/>
-        </svg>
+        <Restore extraClasses="w-5 h-5 transition-transform duration-300 group-hover:rotate-[360deg]" />
       </button>
     </div>
   </div>
   
   <!-- Trophy List -->
-  <div class="trophy-list max-h-[420px] overflow-y-auto px-4 py-3">
+  <div class="trophy-list max-h-[420px] overflow-y-auto px-4 py-3 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-[var(--color-primary-light)] [&::-webkit-scrollbar-thumb]:rounded [&::-webkit-scrollbar-thumb:hover]:bg-[var(--color-accent)]">
     {trophiesArray.map((trophy) => {
       const isPlatinum = trophy.id === 'PLATINUM_COLLECTOR';
+      const IconComponent = iconComponents[trophy.iconComponent];
       return (
         <div 
-          class={`trophy-item flex items-start gap-3 p-3 rounded-[10px] mb-2 transition-all duration-200 bg-[var(--color-primary-lightest)] border border-[var(--color-primary-light)] hover:bg-[var(--color-primary-lighter)] hover:shadow-sm ${isPlatinum ? 'platinum' : ''}`}
+          class={`trophy-item flex items-start gap-3 p-3 rounded-[10px] mb-2 transition-all duration-200 bg-[var(--color-primary-lightest)] border border-[var(--color-primary-light)] ${isPlatinum ? 'platinum' : ''}`}
           data-trophy-id={trophy.id}
         >
           {/* Icon */}
-          <div class={`trophy-icon flex-shrink-0 w-9 h-9 flex items-center justify-center rounded-lg text-xl mt-0 ${isPlatinum ? 'platinum-icon' : ''}`}>
-            {trophy.icon}
+          <div class={`trophy-icon flex-shrink-0 w-9 h-9 flex items-center justify-center rounded-lg mt-0 bg-[var(--color-primary-lighter)]/25 border border-[var(--color-primary-light)] ${isPlatinum ? 'platinum-icon' : ''}`}>
+            <IconComponent extraClasses="w-5 h-5 text-[var(--color-accent)]" />
           </div>
           
           {/* Details */}
           <div class="flex-1 min-w-0">
-            <div class="flex items-center gap-1.5 mb-1">
+            <div class="flex items-center">
               <span class="trophy-title text-sm font-semibold text-[var(--color-primary-dark)] leading-tight">
                 {trophy.title}
               </span>
             </div>
-            <p class="text-xs text-[var(--color-text-light)] opacity-80 m-0 leading-snug">
+            <p class="trophy-description text-xs text-[var(--color-text-light)] opacity-80 m-0 leading-snug">
               {trophy.description}
             </p>
           </div>
@@ -74,47 +82,13 @@ const trophiesArray = Object.values(TROPHIES).map(trophy => ({
 </div>
 
 <style>
-  .trophy-dropdown {
-    position: absolute;
-    top: calc(100% + 8px);
-    right: 0;
-    width: 340px;
-    max-height: 480px;
-    background: var(--color-primary-lightest);
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    border: 1px solid var(--color-primary-light);
-    overflow: hidden;
-    z-index: 100;
-    opacity: 0;
-    transform: translateY(-10px) scale(0.95);
-    transition: opacity 0.2s ease, transform 0.2s ease;
-  }
-
-  .trophy-dropdown.show {
+  /* Show state for dropdown */
+  #trophy-dropdown.show {
     opacity: 1;
     transform: translateY(0) scale(1);
   }
 
-  /* Scrollbar styling */
-  .trophy-list::-webkit-scrollbar {
-    width: 6px;
-  }
-
-  .trophy-list::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  .trophy-list::-webkit-scrollbar-thumb {
-    background: var(--color-primary-light);
-    border-radius: 3px;
-  }
-
-  .trophy-list::-webkit-scrollbar-thumb:hover {
-    background: var(--color-accent);
-  }
-
-  /* Trophy item states */
+  /* Trophy item locked state */
   .trophy-item.locked {
     opacity: 0.5;
   }
@@ -124,51 +98,24 @@ const trophiesArray = Object.values(TROPHIES).map(trophy => ({
     box-shadow: none !important;
   }
 
-  /* Trophy icons */
-  .trophy-icon {
-    background: var(--color-primary-lighter);
-  }
-
-  .trophy-item.unlocked .trophy-icon {
-    background: linear-gradient(135deg, var(--color-accent) 0%, #ff7a47 100%);
-  }
-
-  .trophy-item.platinum .platinum-icon {
-    background: linear-gradient(135deg, #b4e0f6 0%, #c5e3f7 100%);
-    box-shadow: 0 2px 12px rgba(180, 224, 246, 0.4);
-  }
-
-  .trophy-item.locked .trophy-icon {
-    background: var(--color-primary-light);
-    filter: grayscale(1);
-    opacity: 0.5;
-  }
-
-  /* Locked text states */
   .trophy-item.locked .trophy-title {
     color: var(--color-text-light);
   }
 
-  .trophy-item.locked .trophy-points {
-    color: var(--color-text-light);
-    opacity: 0.6;
-  }
-
-  .trophy-item.locked p {
+  .trophy-item.locked .trophy-description {
     opacity: 0.5;
   }
 
-  /* Reset button icon rotation */
-  .reset-btn:hover .reset-icon {
-    transform: rotate(-180deg);
+  .trophy-item.locked .trophy-icon {
+    background: var(--color-primary-light) !important;
+    filter: grayscale(1);
+    opacity: 0.5;
   }
 
-  /* Mobile responsive */
-  @media (max-width: 768px) {
-    .trophy-dropdown {
-      width: calc(100vw - 40px);
-      right: -10px;
-    }
+  /* Platinum trophy special styling */
+  .trophy-item.platinum.unlocked .platinum-icon {
+    background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%) !important;
+    box-shadow: 0 2px 12px rgba(74, 144, 226, 0.4) !important;
   }
 </style>
 
