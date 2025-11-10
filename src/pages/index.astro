@@ -14,3 +14,21 @@ import Header from "@components/UI/Header.astro";
   <Projects />
   <About />
 </Layout>
+
+<script>
+  console.log(
+    "Ey traveler! 👋 I used to be an adventure like you. Then I took an arrow in the knee."
+  );
+  console.log("Now I'm just a simple web developer.");
+  console.log("Feel free to try the responsive design! 📱💻");
+
+  // Detect F12 key press (Developer Detective trophy)
+  let hasUnlockedConsole = false;
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'F12' && !hasUnlockedConsole) {
+      hasUnlockedConsole = true;
+      (window as any).unlockTrophy?.('CONSOLE_EXPLORER');
+    }
+  });
+</script>

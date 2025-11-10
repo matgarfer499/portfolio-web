@@ -56,12 +56,12 @@ const trophiesArray = Object.values(TROPHIES).map(trophy => ({
       const IconComponent = iconComponents[trophy.iconComponent];
       return (
         <div 
-          class={`trophy-item flex items-start gap-3 p-3 rounded-[10px] mb-2 transition-all duration-200 bg-[var(--color-primary-lightest)] border border-[var(--color-primary-light)] ${isPlatinum ? 'platinum' : ''}`}
+          class={`trophy-item flex items-start gap-3 p-3 rounded-[10px] mb-2 transition-all duration-200 bg-[var(--color-primary-lightest)] border border-[var(--color-primary-light)]`}
           data-trophy-id={trophy.id}
         >
           {/* Icon */}
-          <div class={`trophy-icon flex-shrink-0 w-9 h-9 flex items-center justify-center rounded-lg mt-0 bg-[var(--color-primary-lighter)]/25 border border-[var(--color-primary-light)] ${isPlatinum ? 'platinum-icon' : ''}`}>
-            <IconComponent extraClasses="w-5 h-5 text-[var(--color-accent)]" />
+          <div class="trophy-icon flex-shrink-0 w-9 h-9 flex items-center justify-center rounded-lg mt-0 bg-[var(--color-primary-lighter)]/25 border border-[var(--color-primary-light)]">
+            <IconComponent extraClasses={`w-5 h-5 ${isPlatinum ? 'text-blue-500' : 'text-[var(--color-accent)]'}`} />
           </div>
           
           {/* Details */}
@@ -110,12 +110,6 @@ const trophiesArray = Object.values(TROPHIES).map(trophy => ({
     background: var(--color-primary-light) !important;
     filter: grayscale(1);
     opacity: 0.5;
-  }
-
-  /* Platinum trophy special styling */
-  .trophy-item.platinum.unlocked .platinum-icon {
-    background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%) !important;
-    box-shadow: 0 2px 12px rgba(74, 144, 226, 0.4) !important;
   }
 </style>
 

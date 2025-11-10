@@ -88,20 +88,16 @@ export class EasterEggManager {
     // Check if all base trophies are collected (excluding platinum)
     if (trophyId !== 'PLATINUM_COLLECTOR') {
       const baseTrophiesCollected = BASE_TROPHY_IDS.every(id => unlocked.has(id));
-      if (baseTrophiesCollected) {
-        // Check again if platinum is unlocked (to avoid race condition)
-        const currentUnlocked = this.getUnlockedTrophies();
-        if (!currentUnlocked.has('PLATINUM_COLLECTOR')) {
-          // Mark platinum as unlocked in storage first
-          currentUnlocked.add('PLATINUM_COLLECTOR');
-          localStorage.setItem(this.STORAGE_KEY, JSON.stringify([...currentUnlocked]));
-          
-          // Then trigger notification with delay for dramatic effect
-          setTimeout(() => {
-            (window as any).showTrophyNotification?.('PLATINUM_COLLECTOR');
-            (window as any).refreshTrophyDropdown?.();
-          }, 3500);
-        }
+      if (baseTrophiesCollected && !unlocked.has('PLATINUM_COLLECTOR')) {
+        // Unlock platinum trophy
+        unlocked.add('PLATINUM_COLLECTOR');
+        localStorage.setItem(this.STORAGE_KEY, JSON.stringify([...unlocked]));
+        
+        // Then trigger notification with delay for dramatic effect
+        setTimeout(() => {
+          (window as any).showTrophyNotification?.('PLATINUM_COLLECTOR');
+          (window as any).refreshTrophyDropdown?.();
+        }, 3500);
       }
     }
     

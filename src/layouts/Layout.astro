@@ -1,5 +1,6 @@
 ---
 import globals from "@styles/global.css";
+import TrophyNotification from "@components/UI/TrophyNotification.astro";
 ---
 
 <!doctype html>
@@ -17,17 +18,22 @@ import globals from "@styles/global.css";
     />
     <meta name="generator" content={Astro.generator} />
     <title>Matías' Portfolio</title>
+    
+    <!-- Prevent theme flash by setting theme before render -->
+    <script is:inline>
+      (function() {
+        const savedTheme = localStorage.getItem('theme');
+        const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        const theme = savedTheme || systemTheme;
+        document.documentElement.setAttribute('data-theme', theme);
+        if (!savedTheme) {
+          localStorage.setItem('theme', theme);
+        }
+      })();
+    </script>
   </head>
   <body class="mx-auto max-w-3xl px-4 py-8 overflow-x-hidden">
+    <TrophyNotification />
     <slot />
   </body>
 </html>
-
-<script>
-  console.log(
-    "Ey traveler! 👋 I used to be an adventure like you. Then I took an arrow in the knee."
-  );
-  console.log("Now I'm just a simple web developer.");
-  console.log("Feel free to try the responsive design! 📱💻");
-
-</script>
