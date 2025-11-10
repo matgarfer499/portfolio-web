@@ -66,16 +66,25 @@
     left: 20px;
     z-index: 9999;
     width: 360px;
-    background: linear-gradient(135deg, rgba(45, 55, 72, 0.92) 0%, rgba(30, 40, 55, 0.92) 100%);
+    background: var(--color-primary-lightest);
     backdrop-filter: blur(20px);
     border-radius: 8px;
     padding: 16px 20px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7), 
-                inset 0 1px 0 rgba(255, 255, 255, 0.1),
-                0 0 0 1px rgba(255, 255, 255, 0.05);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15), 
+                inset 0 1px 0 rgba(235, 94, 40, 0.1),
+                0 0 0 1px var(--color-primary-light);
+    border: 2px solid var(--color-primary-light);
     transform: translateX(-420px);
     opacity: 0;
     transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  [data-theme="dark"] .trophy-notification {
+    background: rgba(45, 55, 72, 0.92);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7), 
+                inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                0 0 0 1px rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.05);
   }
 
   .trophy-notification.show {
@@ -133,8 +142,12 @@
     height: 60px;
     position: relative;
     z-index: 1;
-    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
     animation: trophy-entrance 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  [data-theme="dark"] .trophy-3d {
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
   }
 
   @keyframes trophy-entrance {
@@ -171,17 +184,28 @@
     font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 1.2px;
-    color: rgba(255, 255, 255, 0.7);
+    color: var(--color-text-light);
+    opacity: 0.7;
     font-weight: 500;
     margin-bottom: 6px;
+  }
+
+  [data-theme="dark"] .trophy-label {
+    color: rgba(255, 255, 255, 0.7);
+    opacity: 1;
   }
 
   .trophy-title {
     font-size: 17px;
     font-weight: 600;
-    color: #ffffff;
+    color: var(--color-primary-dark);
     margin: 0;
     line-height: 1.3;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+
+  [data-theme="dark"] .trophy-title {
+    color: #ffffff;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   }
 
