@@ -1,14 +1,14 @@
 ---
-import { TROPHIES } from '@utils/easter-eggs';
-import Camera from '@components/Icons/Trophies/Camera.astro';
-import EyeSearch from '@components/Icons/Trophies/EyeSearch.astro';
-import Jetpack from '@components/Icons/Trophies/Jetpack.astro';
-import FileCheck from '@components/Icons/Trophies/FileCheck.astro';
-import Location from '@components/Icons/Trophies/Location.astro';
-import Brush from '@components/Icons/Trophies/Brush.astro';
-import Map from '@components/Icons/Trophies/Map.astro';
-import Diamond from '@components/Icons/Trophies/Diamond.astro';
-import Restore from '@components/Icons/Trophies/Restore.astro';
+import { TROPHIES } from "@utils/easter-eggs";
+import Camera from "@components/Icons/Trophies/Camera.astro";
+import EyeSearch from "@components/Icons/Trophies/EyeSearch.astro";
+import Jetpack from "@components/Icons/Trophies/Jetpack.astro";
+import FileCheck from "@components/Icons/Trophies/FileCheck.astro";
+import Location from "@components/Icons/Trophies/Location.astro";
+import Brush from "@components/Icons/Trophies/Brush.astro";
+import Map from "@components/Icons/Trophies/Map.astro";
+import Diamond from "@components/Icons/Trophies/Diamond.astro";
+import Restore from "@components/Icons/Trophies/Restore.astro";
 
 // Map icon component names to actual components
 const iconComponents: Record<string, any> = {
@@ -22,62 +22,84 @@ const iconComponents: Record<string, any> = {
   Diamond,
 };
 
-// Convert TROPHIES object to array with points
-const trophiesArray = Object.values(TROPHIES).map(trophy => ({
-  ...trophy,
-}));
+// Trophy importance order
+const trophyOrder = [
+  "LOCATION_FINDER",
+  "THEME_SWITCHER",
+  "RESUME_READER",
+  "PROJECT_TESTER",
+  "CONSOLE_EXPLORER",
+  "SECTION_EXPLORER",
+  "PHOTO_COLLECTOR",
+  "PLATINUM_COLLECTOR",
+];
+
+// Convert TROPHIES object to array ordered by importance
+const trophiesArray = trophyOrder
+  .map((id) => TROPHIES[id])
+  .filter((trophy) => trophy !== undefined);
 ---
 
-<div 
-  id="trophy-dropdown" 
+<div
+  id="trophy-dropdown"
   class="hidden opacity-0 scale-95 -translate-y-2.5 transition-all duration-200 absolute top-[calc(100%+8px)] right-0 w-[340px] max-h-[480px] bg-[var(--color-primary-lightest)] rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.1)] border border-[var(--color-primary-light)] overflow-hidden z-[100] show:opacity-100 show:scale-100 show:translate-y-0 max-md:w-[calc(100vw-40px)] max-md:-right-2.5"
 >
   <!-- Header -->
   <div class="px-[18px] py-3.5 border-b border-[var(--color-primary-light)]">
     <div class="flex justify-between items-center">
-      <h3 class="text-[15px] font-semibold text-[var(--color-primary-dark)] m-0">
+      <h3
+        class="text-[15px] font-semibold text-[var(--color-primary-dark)] m-0"
+      >
         Trophies
       </h3>
-      <button 
-        id="reset-trophies-btn" 
+      <button
+        id="reset-trophies-btn"
         class="group p-1.5 bg-transparent border-none cursor-pointer rounded-md transition-all duration-200 text-[var(--color-text-light)] hover:text-[var(--color-accent)]"
         title="Reset Progress"
         aria-label="Reset trophy progress"
       >
-        <Restore extraClasses="w-5 h-5 transition-transform duration-300 group-hover:rotate-[360deg]" />
+        <Restore
+          extraClasses="w-5 h-5 transition-transform duration-300 group-hover:rotate-[360deg]"
+        />
       </button>
     </div>
   </div>
-  
+
   <!-- Trophy List -->
-  <div class="trophy-list max-h-[420px] overflow-y-auto px-4 py-3 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-[var(--color-primary-light)] [&::-webkit-scrollbar-thumb]:rounded [&::-webkit-scrollbar-thumb:hover]:bg-[var(--color-accent)]">
-    {trophiesArray.map((trophy) => {
-      const isPlatinum = trophy.id === 'PLATINUM_COLLECTOR';
-      const IconComponent = iconComponents[trophy.iconComponent];
-      return (
-        <div 
-          class={`trophy-item flex items-start gap-3 p-3 rounded-[10px] mb-2 transition-all duration-200 bg-[var(--color-primary-lightest)] border border-[var(--color-primary-light)]`}
-          data-trophy-id={trophy.id}
-        >
-          {/* Icon */}
-          <div class="trophy-icon flex-shrink-0 w-9 h-9 flex items-center justify-center rounded-lg mt-0 bg-[var(--color-primary-lighter)]/25 border border-[var(--color-primary-light)]">
-            <IconComponent extraClasses={`w-5 h-5 ${isPlatinum ? 'text-blue-500' : 'text-[var(--color-accent)]'}`} />
-          </div>
-          
-          {/* Details */}
-          <div class="flex-1 min-w-0">
-            <div class="flex items-center">
-              <span class="trophy-title text-sm font-semibold text-[var(--color-primary-dark)] leading-tight">
-                {trophy.title}
-              </span>
+  <div
+    class="trophy-list max-h-[420px] overflow-y-auto px-4 py-3 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-[var(--color-primary-light)] [&::-webkit-scrollbar-thumb]:rounded [&::-webkit-scrollbar-thumb:hover]:bg-[var(--color-accent)]"
+  >
+    {
+      trophiesArray.map((trophy) => {
+        const isPlatinum = trophy.id === "PLATINUM_COLLECTOR";
+        const IconComponent = iconComponents[trophy.iconComponent];
+        return (
+          <div
+            class={`trophy-item flex items-start gap-3 p-3 rounded-[10px] mb-2 transition-all duration-200 bg-[var(--color-primary-lightest)] border border-[var(--color-primary-light)]`}
+            data-trophy-id={trophy.id}
+          >
+            {/* Icon */}
+            <div class="trophy-icon flex-shrink-0 w-9 h-9 flex items-center justify-center rounded-lg mt-0 bg-[var(--color-primary-lighter)]/25 border border-[var(--color-primary-light)]">
+              <IconComponent
+                extraClasses={`w-5 h-5 ${isPlatinum ? "text-blue-500" : "text-[var(--color-accent)]"}`}
+              />
             </div>
-            <p class="trophy-description text-xs text-[var(--color-text-light)] opacity-80 m-0 leading-snug">
-              {trophy.description}
-            </p>
+
+            {/* Details */}
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center">
+                <span class="trophy-title text-sm font-semibold text-[var(--color-primary-dark)] leading-tight">
+                  {trophy.title}
+                </span>
+              </div>
+              <p class="trophy-description text-xs text-[var(--color-text-light)] opacity-80 m-0 leading-snug">
+                {trophy.description}
+              </p>
+            </div>
           </div>
-        </div>
-      );
-    })}
+        );
+      })
+    }
   </div>
 </div>
 
@@ -114,31 +136,31 @@ const trophiesArray = Object.values(TROPHIES).map(trophy => ({
 </style>
 
 <script>
-  import { EasterEggManager } from '../../utils/easter-eggs';
+  import { EasterEggManager } from "../../utils/easter-eggs";
 
-  const dropdown = document.getElementById('trophy-dropdown');
-  const trophyBtn = document.getElementById('trophy-btn');
-  const resetBtn = document.getElementById('reset-trophies-btn');
-  const trophyItems = document.querySelectorAll('.trophy-item');
+  const dropdown = document.getElementById("trophy-dropdown");
+  const trophyBtn = document.getElementById("trophy-btn");
+  const resetBtn = document.getElementById("reset-trophies-btn");
+  const trophyItems = document.querySelectorAll(".trophy-item");
 
   let isOpen = false;
 
   // Update trophy states based on localStorage
   function updateTrophyStates() {
     const unlocked = EasterEggManager.getUnlockedTrophies();
-    
+
     trophyItems.forEach((item) => {
-      const trophyId = item.getAttribute('data-trophy-id');
+      const trophyId = item.getAttribute("data-trophy-id");
       if (!trophyId) return;
 
       const isUnlocked = unlocked.has(trophyId);
-      
+
       if (isUnlocked) {
-        item.classList.remove('locked');
-        item.classList.add('unlocked');
+        item.classList.remove("locked");
+        item.classList.add("unlocked");
       } else {
-        item.classList.remove('unlocked');
-        item.classList.add('locked');
+        item.classList.remove("unlocked");
+        item.classList.add("locked");
       }
     });
   }
@@ -151,29 +173,34 @@ const trophiesArray = Object.values(TROPHIES).map(trophy => ({
 
     if (isOpen) {
       updateTrophyStates();
-      dropdown.classList.remove('hidden');
-      setTimeout(() => dropdown.classList.add('show'), 10);
+      dropdown.classList.remove("hidden");
+      setTimeout(() => dropdown.classList.add("show"), 10);
     } else {
-      dropdown.classList.remove('show');
-      setTimeout(() => dropdown.classList.add('hidden'), 200);
+      dropdown.classList.remove("show");
+      setTimeout(() => dropdown.classList.add("hidden"), 200);
     }
   }
 
   // Toggle on button click
-  trophyBtn?.addEventListener('click', (e) => {
+  trophyBtn?.addEventListener("click", (e) => {
     e.stopPropagation();
     toggleDropdown();
   });
 
   // Close when clicking outside
-  document.addEventListener('click', (e) => {
-    if (isOpen && dropdown && !dropdown.contains(e.target as Node) && e.target !== trophyBtn) {
+  document.addEventListener("click", (e) => {
+    if (
+      isOpen &&
+      dropdown &&
+      !dropdown.contains(e.target as Node) &&
+      e.target !== trophyBtn
+    ) {
       toggleDropdown();
     }
   });
 
   // Reset progress
-  resetBtn?.addEventListener('click', (e) => {
+  resetBtn?.addEventListener("click", (e) => {
     e.stopPropagation();
     EasterEggManager.resetProgress();
     updateTrophyStates();
