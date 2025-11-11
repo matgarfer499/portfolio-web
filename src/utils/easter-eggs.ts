@@ -27,7 +27,7 @@ export const TROPHIES: Record<string, Trophy> = {
   RESUME_READER: {
     id: 'RESUME_READER',
     title: 'Career Investigator',
-    description: 'Viewed the full résumé',
+    description: 'Viewed the full CV',
     iconComponent: 'FileCheck',
   },
   LOCATION_FINDER: {
