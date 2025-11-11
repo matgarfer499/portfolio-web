@@ -36,7 +36,11 @@ const {
           <img
             src={logo}
             alt={`${company} logo`}
-            class="w-full h-full object-contain"
+            class={`w-full h-full object-contain ${
+              company === "Uniklinik Koln" 
+                ? "uniklinik-logo" 
+                : ""
+            }`}
           />
         </div>
       </div>
@@ -92,4 +96,30 @@ const {
   .experience-card-container:nth-child(odd) {
     transition-delay: 0.2s;
   }
+
+  :root[data-theme="dark"] .uniklinik-logo {
+    filter: brightness(10) saturate(0) invert(0);
+    transition: filter 0.3s ease;
+  }
 </style>
+
+<script>
+  function updateLogoFilter() {
+    const theme = document.documentElement.getAttribute('data-theme');
+    const logo = document.querySelector('.uniklinik-logo') as HTMLElement;
+    
+    if (logo && theme === 'dark') {
+      logo.style.filter = 'brightness(10) saturate(0) invert(0)';
+    } else if (logo) {
+      logo.style.filter = 'none';
+    }
+  }
+
+  updateLogoFilter();
+
+  const observer = new MutationObserver(updateLogoFilter);
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['data-theme']
+  });
+</script>
