@@ -2,6 +2,7 @@
 import type { Experience } from "@models/experience";
 import Tag from "@components/UI/Tag.astro";
 import { getTechIcon } from "@utils/techIcons";
+import { Image } from "astro:assets";
 
 interface Props extends Experience {
   index: number;
@@ -33,9 +34,11 @@ const {
       </h3>
       <div class="flex-shrink-0">
         <div class="w-24 h-12 flex items-center justify-center">
-          <img
+          <Image
             src={logo}
             alt={`${company} logo`}
+            width={96}
+            height={48}
             class={`w-full h-full object-contain ${
               company === "Uniklinik Koln" 
                 ? "uniklinik-logo" 

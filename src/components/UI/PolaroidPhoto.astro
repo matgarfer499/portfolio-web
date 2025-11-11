@@ -1,4 +1,6 @@
 ---
+import { Image } from "astro:assets";
+
 const {
   src,
   alt,
@@ -21,9 +23,11 @@ const {
     style="background-color: var(--color-primary-lighter); box-shadow: inset 0 2px 8px rgba(0,0,0,0.15), inset 0 1px 4px rgba(0,0,0,0.1);"
   >
     <div class="polaroid-reveal-overlay absolute inset-0 z-10" style="background-color: var(--color-primary-lightest);"></div>
-    <img
+    <Image
       src={src}
       alt={alt}
+      width={224}
+      height={224}
       class="polaroid-image w-full h-full object-cover block pointer-events-none opacity-0"
       draggable="false"
     />

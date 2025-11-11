@@ -3,6 +3,7 @@ import type { Project } from "@/types/project";
 import Tag from "@components/UI/Tag.astro";
 import ArrowUpRight from "@components/Icons/ArrowUpRight.astro";
 import { getTechIcon } from "@utils/techIcons";
+import { Image } from "astro:assets";
 
 interface Props extends Project {}
 
@@ -21,21 +22,22 @@ const {
 <div class="project-card opacity-0">
   <!-- Frosted Glass Card -->
   <div class="glass-card rounded-3xl p-8 md:p-4 bg-[var(--color-primary-light)]/50 transition-colors ring-1 ring-black/5" >
-    <!-- Screenshots Section -->
     <div class="screenshots-section mb-8 relative flex items-center justify-center">
-      <!-- Desktop Screenshot -->
       <div class="desktop-screenshot relative mx-auto">
-        <img
+        <Image
           src={desktopImage}
           alt={`${name} desktop view`}
+          width={1200}
+          height={675}
           class="w-full h-auto"
         />
         
-        <!-- Mobile Screenshot - Overlaid on top right -->
         <div class="mobile-screenshot absolute bottom-0 right-4 w-24 md:w-32 z-10">
-          <img
+          <Image
             src={mobileImage}
             alt={`${name} mobile view`}
+            width={128}
+            height={256}
             class="w-full h-auto"
           />
         </div>
