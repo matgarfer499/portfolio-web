@@ -58,7 +58,13 @@ body {
 
 /* padding to body to account for fixed header */
 body {
-  padding-top: 72px;
+  padding-top: 56px;
+}
+
+@media (min-width: 640px) {
+  body {
+    padding-top: 72px;
+  }
 }
 
 /* Smooth transitions for theme changes */
