@@ -1,18 +1,27 @@
-<div class="polaroid-hint absolute w-56 h-72 border-2 border-dashed rounded-sm p-3 pb-10" style="border-color: var(--color-accent); left: 10%; top: 0; transform: rotate(-8deg); z-index: 1;">
-  <div class="w-full aspect-square border-2 border-dashed rounded-sm mb-2" style="border-color: var(--color-accent);"></div>
-  <p class="text-center text-sm mt-2 leading-relaxed font-['Courier_New',monospace]" style="color: var(--color-accent);">
+<!-- Single polaroid for mobile -->
+<div class="polaroid-hint md:hidden absolute w-32 h-44 sm:w-40 sm:h-52 border-2 border-dashed rounded-sm p-2 sm:p-2.5 pb-4 sm:pb-6 border-[var(--color-accent)] left-1/2 -translate-x-1/2 top-0 -rotate-[5deg] z-[1]">
+  <div class="w-full aspect-square border-2 border-dashed rounded-sm mb-1 sm:mb-1.5 border-[var(--color-accent)]"></div>
+  <p class="text-center text-[10px] sm:text-xs mt-1 sm:mt-1.5 leading-relaxed font-['Courier_New',monospace] text-[var(--color-accent)]">
+    Something is missing
+  </p>
+</div>
+
+<!-- Three polaroids for desktop -->
+<div class="polaroid-hint hidden md:block absolute w-48 h-60 lg:w-56 lg:h-72 border-2 border-dashed rounded-sm p-2.5 lg:p-3 pb-8 lg:pb-10 border-[var(--color-accent)] left-[10%] top-0 -rotate-[8deg] z-[1]">
+  <div class="w-full aspect-square border-2 border-dashed rounded-sm mb-1.5 lg:mb-2 border-[var(--color-accent)]"></div>
+  <p class="text-center text-xs lg:text-sm mt-1.5 lg:mt-2 leading-relaxed font-['Courier_New',monospace] text-[var(--color-accent)]">
     Something
   </p>
 </div>
-<div class="polaroid-hint absolute w-56 h-72 border-2 border-dashed rounded-sm p-3 pb-10" style="border-color: var(--color-accent); left: 40%; top: 0; transform: rotate(5deg); z-index: 1;">
-  <div class="w-full aspect-square border-2 border-dashed rounded-sm mb-2" style="border-color: var(--color-accent);"></div>
-  <p class="text-center text-sm mt-2 leading-relaxed font-['Courier_New',monospace]" style="color: var(--color-accent);">
+<div class="polaroid-hint hidden md:block absolute w-48 h-60 lg:w-56 lg:h-72 border-2 border-dashed rounded-sm p-2.5 lg:p-3 pb-8 lg:pb-10 border-[var(--color-accent)] left-[40%] top-0 rotate-[5deg] z-[1]">
+  <div class="w-full aspect-square border-2 border-dashed rounded-sm mb-1.5 lg:mb-2 border-[var(--color-accent)]"></div>
+  <p class="text-center text-xs lg:text-sm mt-1.5 lg:mt-2 leading-relaxed font-['Courier_New',monospace] text-[var(--color-accent)]">
     Is
   </p>
 </div>
-<div class="polaroid-hint absolute w-56 h-72 border-2 border-dashed rounded-sm p-3 pb-10" style="border-color: var(--color-accent); left: 70%; top: 0; transform: rotate(-3deg); z-index: 1;">
-  <div class="w-full aspect-square border-2 border-dashed rounded-sm mb-2" style="border-color: var(--color-accent);"></div>
-  <p class="text-center text-sm mt-2 leading-relaxed font-['Courier_New',monospace]" style="color: var(--color-accent);">
+<div class="polaroid-hint hidden md:block absolute w-48 h-60 lg:w-56 lg:h-72 border-2 border-dashed rounded-sm p-2.5 lg:p-3 pb-8 lg:pb-10 border-[var(--color-accent)] left-[70%] top-0 -rotate-[3deg] z-[1]">
+  <div class="w-full aspect-square border-2 border-dashed rounded-sm mb-1.5 lg:mb-2 border-[var(--color-accent)]"></div>
+  <p class="text-center text-xs lg:text-sm mt-1.5 lg:mt-2 leading-relaxed font-['Courier_New',monospace] text-[var(--color-accent)]">
     Missing
   </p>
 </div>
