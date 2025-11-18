@@ -15,7 +15,7 @@ interface Props {
 const { name, phrases, description, location, githubUrl, linkedinUrl } = Astro.props;
 ---
 
-<div class="flex-1 flex flex-col gap-2">
+<div class="flex-1 flex flex-col gap-1 sm:gap-2 text-center sm:text-left">
   <HeroAnimatedText name={name} phrases={phrases} />
   <HeroDescription text={description} />
   <HeroTags location={location} githubUrl={githubUrl} linkedinUrl={linkedinUrl} />

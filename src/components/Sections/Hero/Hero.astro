@@ -11,8 +11,8 @@ const PHRASES = [
 ---
 
 <SectionLayout>
-  <section id="hero" class="flex justify-start items-start gap-4 w-full">
-    <HeroProfile imageSrc="/photos/me.webp" imageAlt="Picture of me" />
+  <section id="hero" class="w-full h-auto grid grid-cols-1 sm:grid-cols-[auto_1fr] items-start md:items-center gap-3 sm:gap-4">
+    <HeroProfile imageSrc="/photos/me.webp" imageAlt="Profile picture" />
     <HeroContent
       name="Matías"
       phrases={PHRASES}
