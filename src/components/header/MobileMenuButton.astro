@@ -54,6 +54,13 @@
     const isHidden = mobileMenu?.classList.contains('hidden');
     
     if (isHidden) {
+      // Close trophy dropdown if open
+      const trophyDropdown = document.getElementById('trophy-dropdown');
+      if (trophyDropdown && trophyDropdown.classList.contains('show')) {
+        trophyDropdown.classList.remove('show');
+        setTimeout(() => trophyDropdown.classList.add('hidden'), 200);
+      }
+
       mobileMenu?.classList.remove('hidden');
       menuOpenIcon?.classList.add('hidden');
       menuCloseIcon?.classList.remove('hidden');
