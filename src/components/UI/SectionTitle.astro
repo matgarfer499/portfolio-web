@@ -1,4 +1,16 @@
 ---
 const { title, class: className } = Astro.props;
 ---
-<h3 class:list={["text-2xl font-semibold pb-4 text-[var(--color-text-muted)]", className]}>{title}</h3>
+<h3 class:list={["section-title py-6 text-xl sm:text-2xl font-semibold sm:pb-4 text-[var(--color-text-muted)] opacity-0 transition-opacity duration-700", className]}>{title}</h3>
+
+<style>
+  .section-title {
+    animation: fadeIn 0.8s ease-out forwards;
+  }
+
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+    }
+  }
+</style>
