@@ -7,7 +7,7 @@ import ProjectCard from '@components/UI/ProjectCard.astro';
 import { PROJECTS } from '@constants/projects';
 ---
 
-<div class="projects-container mx-auto px-4">
+<div class="projects-container mx-auto sm:px-4">
   {PROJECTS.map((project) => <ProjectCard {...project} />)}
 </div>
 
