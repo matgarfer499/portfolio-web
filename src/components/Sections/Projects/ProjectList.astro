@@ -12,22 +12,23 @@ import { PROJECTS } from '@constants/projects';
 </div>
 
 <script>
-  // Intersection Observer for project cards fade-in animation
   const observerOptions = {
     root: null,
-    rootMargin: '0px 0px -15% 0px',
-    threshold: 0.1,
+    rootMargin: '0px 0px -10% 0px',
+    threshold: 0.15,
   };
 
   const projectObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, 150);
+        projectObserver.unobserve(entry.target);
       }
     });
   }, observerOptions);
 
-  // Observe all project cards
   document.querySelectorAll('.project-card').forEach((card) => {
     projectObserver.observe(card);
   });
