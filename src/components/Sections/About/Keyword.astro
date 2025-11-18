@@ -9,7 +9,7 @@ const { dataIndex, multiPhoto = false } = Astro.props;
 
 <span 
   class:list={[
-    "keyword inline-block font-['Courier_New',monospace] bg-[rgba(235,94,40,0.15)] border-b-2 border-[var(--color-accent)] px-1.5 py-0.5 rounded cursor-pointer transition-all duration-300 relative text-[var(--color-text-light)] hover:bg-[rgba(235,94,40,0.25)] hover:-translate-y-0.5",
+    "keyword inline-block font-['Courier_New',monospace] bg-[rgba(235,94,40,0.15)] border-b-2 border-[var(--color-accent)] px-1.5 rounded cursor-pointer transition-all duration-300 relative text-[var(--color-text-light)] hover:bg-[rgba(235,94,40,0.25)] hover:-translate-y-0.5",
     { "multi-photo": multiPhoto }
   ]} 
   data-index={dataIndex}><slot /></span>
