@@ -5,7 +5,7 @@ import { ABOUT_PHOTOS } from "@constants/photos";
 ---
 
 <!-- Photos Display Area -->
-<div class="photos-display relative w-full min-h-[340px]">
+<div class="photos-display relative w-full min-h-[200px] sm:min-h-[280px] md:min-h-[340px]">
   <!-- Empty polaroid hints -->
   <div class="polaroid-hints-wrapper transition-opacity duration-500">
     <PolaroidEmptyPhoto />
@@ -50,11 +50,6 @@ import { ABOUT_PHOTOS } from "@constants/photos";
     opacity: 1;
   }
 
-  @media (max-width: 768px) {
-    .photos-display {
-      min-height: 220px;
-    }
-  }
 </style>
 
 <script>
@@ -119,10 +114,27 @@ import { ABOUT_PHOTOS } from "@constants/photos";
 
         // Calculate position - spread across the container width
         const containerWidth = photosDisplay.clientWidth;
-        const photoWidth = 224; // w-56 = 224px
+        
+        // Get actual polaroid width based on viewport
+        const viewportWidth = window.innerWidth;
+        let photoWidth = 160; // w-40 = 160px (mobile)
+        if (viewportWidth >= 640) photoWidth = 192; // w-48 = 192px (sm)
+        if (viewportWidth >= 768) photoWidth = 224; // w-56 = 224px (md)
+        
+        // Adjust spacing based on screen size - more compact on mobile
+        let spreadFactor = 1.0; // Full spread on desktop
+        if (viewportWidth < 640) spreadFactor = 0.3; // Very compact on mobile
+        else if (viewportWidth < 768) spreadFactor = 0.5; // Moderately compact on sm
+        else if (viewportWidth < 1024) spreadFactor = 0.7; // Slightly compact on md
+        
         const availableSpace = containerWidth - photoWidth;
-        const spacing = availableSpace / Math.max(totalPhotos - 1, 1);
-        const leftPosition = Math.min(photoIndex * spacing, availableSpace);
+        const spacing = (availableSpace / Math.max(totalPhotos - 1, 1)) * spreadFactor;
+        
+        // Calculate stack width and position it slightly to the left to prevent overflow
+        const stackWidth = (totalPhotos - 1) * spacing;
+        // Use a smaller percentage of available space for centering, biased to the left
+        const centerOffset = Math.max(0, (availableSpace - stackWidth) * 0.3);
+        const leftPosition = centerOffset + (photoIndex * spacing);
 
         // Add random rotation for variety
         const rotation = (Math.random() - 0.5) * 15;

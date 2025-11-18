@@ -41,10 +41,13 @@ export class DragHandler {
     document.querySelectorAll(selector).forEach((card) => {
       const element = card as HTMLElement;
       element.addEventListener('mousedown', this.onMouseDown.bind(this) as EventListener);
+      element.addEventListener('touchstart', this.onTouchStart.bind(this) as EventListener);
     });
 
     document.addEventListener('mousemove', this.onMouseMove.bind(this));
     document.addEventListener('mouseup', this.onMouseUp.bind(this));
+    document.addEventListener('touchmove', this.onTouchMove.bind(this), { passive: false });
+    document.addEventListener('touchend', this.onTouchEnd.bind(this));
   }
 
   private onMouseDown(e: MouseEvent): void {
@@ -83,6 +86,41 @@ export class DragHandler {
     document.body.style.userSelect = 'none';
   }
 
+  private onTouchStart(e: TouchEvent): void {
+    const target = (e.target as HTMLElement).closest('.polaroid-card') as HTMLElement;
+    if (!target) return;
+
+    e.preventDefault();
+
+    const touch = e.touches[0];
+
+    // Bring the current photo to the front
+    this.currentMaxZIndex++;
+    target.style.zIndex = this.currentMaxZIndex.toString();
+
+    const currentLeft = parseFloat(target.style.left || '0');
+    const currentTop = parseFloat(target.style.top || '0');
+
+    const match = target.style.transform.match(/rotate\(([^)]+)\)/);
+    const rotation = match ? match[1] : '0deg';
+
+    this.dragState = {
+      element: target,
+      startX: touch.clientX,
+      startY: touch.clientY,
+      initialX: currentLeft,
+      initialY: currentTop,
+      rotation,
+      lastX: touch.clientX,
+      lastY: touch.clientY,
+      lastTime: Date.now(),
+      velocityX: 0,
+      velocityY: 0,
+    };
+
+    document.body.style.userSelect = 'none';
+  }
+
   private onMouseMove(e: MouseEvent): void {
     if (!this.dragState) return;
 
@@ -105,6 +143,37 @@ export class DragHandler {
 
     const deltaX = e.clientX - this.dragState.startX;
     const deltaY = e.clientY - this.dragState.startY;
+
+    const newX = this.dragState.initialX + deltaX;
+    const newY = this.dragState.initialY + deltaY;
+
+    this.dragState.element.style.left = `${newX}px`;
+    this.dragState.element.style.top = `${newY}px`;
+  }
+
+  private onTouchMove(e: TouchEvent): void {
+    if (!this.dragState) return;
+
+    e.preventDefault();
+
+    const touch = e.touches[0];
+    const currentTime = Date.now();
+    const deltaTime = currentTime - this.dragState.lastTime;
+
+    if (deltaTime > 0) {
+      const rawVelocityX = ((touch.clientX - this.dragState.lastX) / deltaTime) * 16;
+      const rawVelocityY = ((touch.clientY - this.dragState.lastY) / deltaTime) * 16;
+
+      this.dragState.velocityX = rawVelocityX * this.config.velocityMultiplier;
+      this.dragState.velocityY = rawVelocityY * this.config.velocityMultiplier;
+    }
+
+    this.dragState.lastX = touch.clientX;
+    this.dragState.lastY = touch.clientY;
+    this.dragState.lastTime = currentTime;
+
+    const deltaX = touch.clientX - this.dragState.startX;
+    const deltaY = touch.clientY - this.dragState.startY;
 
     const newX = this.dragState.initialX + deltaX;
     const newY = this.dragState.initialY + deltaY;
@@ -182,8 +251,47 @@ export class DragHandler {
     this.dragState = null;
   }
 
+  private onTouchEnd(e: TouchEvent): void {
+    if (!this.dragState) return;
+
+    const { element, velocityX, velocityY } = this.dragState;
+
+    document.body.style.userSelect = '';
+
+    const photosStack = document.querySelector('.photos-stack');
+    const stackRect = photosStack?.getBoundingClientRect();
+    const cardRect = element.getBoundingClientRect();
+
+    if (stackRect) {
+      const cardCenterX = cardRect.left + cardRect.width / 2;
+      const cardCenterY = cardRect.top + cardRect.height / 2;
+      const stackCenterX = stackRect.left + stackRect.width / 2;
+      const stackCenterY = stackRect.top + stackRect.height / 2;
+
+      const distanceFromCenter = Math.sqrt(
+        Math.pow(cardCenterX - stackCenterX, 2) +
+          Math.pow(cardCenterY - stackCenterY, 2)
+      );
+
+      if (distanceFromCenter > this.config.moveThreshold) {
+        const index = parseInt(element.getAttribute('data-index') || '0');
+        this.config.onPhotoMoved(index);
+      }
+    }
+
+    const speed = Math.sqrt(velocityX * velocityX + velocityY * velocityY);
+
+    if (speed > this.config.speedThreshold) {
+      this.animateThrow(element, velocityX, velocityY);
+    }
+
+    this.dragState = null;
+  }
+
   public destroy(): void {
     document.removeEventListener('mousemove', this.onMouseMove.bind(this));
     document.removeEventListener('mouseup', this.onMouseUp.bind(this));
+    document.removeEventListener('touchmove', this.onTouchMove.bind(this));
+    document.removeEventListener('touchend', this.onTouchEnd.bind(this));
   }
 }
