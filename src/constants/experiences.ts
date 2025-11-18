@@ -4,7 +4,7 @@ export const EXPERIENCES: Experience[] = [
   {
     company: "Bettergy",
     logo: "/logos/bettergy.png",
-    position: "Full Stack Developer",
+    position: "Full Stack Web Developer",
     startDate: "Jan 2024",
     endDate: "Present",
     description: [

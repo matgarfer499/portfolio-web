@@ -1,4 +1,4 @@
----
+Q---
 import type { Experience } from "@models/experience";
 import Tag from "@components/UI/Tag.astro";
 import { getTechIcon } from "@utils/techIcons";
@@ -26,14 +26,14 @@ const {
   data-index={index}
 >
   <!-- Header Row: Title | Logo | Date -->
-  <div class="flex items-center justify-between gap-6">
+  <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between sm:gap-2 sm:gap-3 md:gap-6 mb-2">
     <!-- Position Title and Company -->
-    <div class="flex-1 flex items-center justify-start gap-2">
-      <h3 class="text-xl text-[var(--color-primary)] font-semibold">
+    <div class="flex items-center justify-start gap-2 w-full sm:w-auto">
+      <h3 class="text-base sm:text-lg md:text-xl text-[var(--color-primary)] font-semibold">
         {position} ·
       </h3>
       <div class="flex-shrink-0">
-        <div class="w-24 h-12 flex items-center justify-center">
+        <div class="w-16 h-8 sm:w-20 sm:h-10 md:w-24 md:h-12 flex items-center justify-center">
           <Image
             src={logo}
             alt={`${company} logo`}
@@ -51,7 +51,7 @@ const {
 
     <!-- Date Range -->
     <div
-      class="text-sm uppercase tracking-wide whitespace-nowrap text-[var(--color-primary-dark)]"
+      class="text-xs sm:text-sm font-medium uppercase tracking-wide text-[var(--color-primary-dark)] whitespace-nowrap"
     >
       {startDate} — {current ? "Present" : endDate}
     </div>
@@ -60,13 +60,12 @@ const {
   <!-- Description -->
   {typeof description === 'string' ? (
     <p
-      class="text-sm leading-relaxed mb-4"
-      style="color: var(--color-text-muted);"
+      class="text-xs sm:text-sm leading-relaxed mb-4 text-[var(--color-text-muted)]"
     >
       {description}
     </p>
   ) : (
-    <ul class="text-sm leading-relaxed mb-4 space-y-2 list-disc list-inside" style="color: var(--color-text-muted);">
+    <ul class="text-xs sm:text-sm leading-relaxed mb-4 space-y-2 list-disc list-inside text-[var(--color-text-muted)]">
       {description.map((point) => (
         <li>{point}</li>
       ))}
@@ -76,7 +75,7 @@ const {
   <!-- Technologies Tags -->
   {
     technologies && technologies.length > 0 && (
-      <div class="flex flex-wrap gap-2">
+      <div class="flex flex-wrap gap-1.5 sm:gap-2">
         {technologies.map((tech) => {
           const Icon = getTechIcon(tech);
           return <Tag label={tech} icon={Icon} />;
@@ -87,17 +86,13 @@ const {
 </div>
 
 <style>
+  .experience-card-container {
+    opacity: 0;
+    transition: opacity 0.7s ease-out;
+  }
+
   .experience-card-container.visible {
     opacity: 1;
-    transform: translateY(0);
-  }
-
-  .experience-card-container:nth-child(even) {
-    transition-delay: 0.1s;
-  }
-
-  .experience-card-container:nth-child(odd) {
-    transition-delay: 0.2s;
   }
 
   :root[data-theme="dark"] .uniklinik-logo {
