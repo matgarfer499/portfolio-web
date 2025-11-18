@@ -18,72 +18,97 @@ const { name, phrases } = Astro.props;
 </div>
 
 <script>
-  const CHARS =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
-  const CYCLES_PER_LETTER = 2;
-  const SHUFFLE_TIME = 50;
-  const DISPLAY_TIME = 2000;
+  const codeletters = "&#*+%?£@§$";
+  let messageIndex = 0;
+  let currentLength = 0;
+  let fadeBuffer: Array<{c: number, l: string}> | false = false;
+  let phrases: string[] = [];
+  let element: HTMLElement | null = null;
 
-  function decryptText(element: HTMLElement, text: string): Promise<void> {
-    return new Promise((resolve) => {
-      let iteration = 0;
-      const totalIterations = text.length * CYCLES_PER_LETTER;
-
-      const interval = setInterval(() => {
-        const result = text
-          .split("")
-          .map((char, index) => {
-            if (char === " ") return " ";
-
-            const letterIteration = Math.floor(iteration / CYCLES_PER_LETTER);
-
-            if (index < letterIteration) {
-              return text[index];
-            }
-
-            return CHARS[Math.floor(Math.random() * CHARS.length)];
-          })
-          .join("");
-
-        element.textContent = result.padEnd(
-          Math.max(text.length, element.textContent?.length || 0),
-          "\u00A0"
-        );
-
-        iteration++;
-
-        if (iteration > totalIterations) {
-          element.textContent = text;
-          clearInterval(interval);
-          resolve();
-        }
-      }, SHUFFLE_TIME);
-    });
+  function generateRandomString(length: number): string {
+    let randomText = '';
+    while (randomText.length < length) {
+      randomText += codeletters.charAt(Math.floor(Math.random() * codeletters.length));
+    }
+    return randomText;
   }
 
-  async function startLoop(element: HTMLElement, phrases: string[]) {
-    let currentIndex = 0;
-
-    while (true) {
-      const currentPhrase = phrases[currentIndex];
-      await decryptText(element, currentPhrase);
-      await new Promise((resolve) => setTimeout(resolve, DISPLAY_TIME));
-
-      currentIndex = (currentIndex + 1) % phrases.length;
+  function animateIn(): void {
+    if (!element || !phrases.length) return;
+    
+    if (currentLength < phrases[messageIndex].length) {
+      currentLength = currentLength + 2;
+      if (currentLength > phrases[messageIndex].length) {
+        currentLength = phrases[messageIndex].length;
+      }
+      
+      const message = generateRandomString(currentLength);
+      element.textContent = message;
+      
+      setTimeout(animateIn, 20);
+    } else {
+      setTimeout(animateFadeBuffer, 20);
     }
   }
 
-  function initAnimation() {
-    const element = document.querySelector(".decrypted-text") as HTMLElement;
+  function animateFadeBuffer(): void {
+    if (!element || !phrases.length) return;
+    
+    if (fadeBuffer === false) {
+      fadeBuffer = [];
+      for (let i = 0; i < phrases[messageIndex].length; i++) {
+        fadeBuffer.push({
+          c: Math.floor(Math.random() * 12) + 1,
+          l: phrases[messageIndex].charAt(i)
+        });
+      }
+    }
+    
+    let doCycles = false;
+    let message = '';
+    
+    for (let i = 0; i < fadeBuffer.length; i++) {
+      const fader = fadeBuffer[i];
+      if (fader.c > 0) {
+        doCycles = true;
+        fader.c--;
+        message += codeletters.charAt(Math.floor(Math.random() * codeletters.length));
+      } else {
+        message += fader.l;
+      }
+    }
+    
+    element.textContent = message;
+    
+    if (doCycles === true) {
+      setTimeout(animateFadeBuffer, 50);
+    } else {
+      setTimeout(cycleText, 2000);
+    }
+  }
+
+  function cycleText(): void {
+    if (!element || !phrases.length) return;
+    
+    messageIndex = messageIndex + 1;
+    if (messageIndex >= phrases.length) {
+      messageIndex = 0;
+    }
+    
+    currentLength = 0;
+    fadeBuffer = false;
+    
+    setTimeout(animateIn, 200);
+  }
+
+  function initAnimation(): void {
+    element = document.querySelector(".decrypted-text") as HTMLElement;
     if (element) {
-      const phrases = JSON.parse(element.dataset.phrases || "[]");
-      setTimeout(() => startLoop(element, phrases), 500);
+      phrases = JSON.parse(element.dataset.phrases || "[]");
+      setTimeout(animateIn, 100);
     }
   }
 
-  // Run animation on page load
   document.addEventListener("astro:page-load", initAnimation);
-  
-  // For initial page load (not using view transitions)
   initAnimation();
 </script>
