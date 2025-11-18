@@ -19,9 +19,10 @@ export const EXPERIENCES: Experience[] = [
   {
     company: "Uniklinik Koln",
     logo: "/logos/uniklinik.webp",
-    position: "Full Stack Web Developer (Internship)",
+    position: "Full Stack Web Developer",
     startDate: "Mar 2023",
     endDate: "Jun 2023",
+    internship: true,
     description: [
       "Collaborated on the development of an internal web platform for hospital staff to publish and access scientific articles.",
       "Delivered the project ahead of schedule, allowing time for extra testing and performance improvements.",

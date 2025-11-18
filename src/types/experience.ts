@@ -6,5 +6,6 @@ export interface Experience {
   endDate: string;
   description: string[];
   current?: boolean;
+  internship?: boolean;
   technologies?: string[];
 }
