@@ -11,6 +11,5 @@ export const PROJECTS: Project[] = [
     demoUrl: "https://cheforyapp.com",
     repoUrl: "https://github.com/yourusername/chefory",
     highlights: [],
-    year: 2025
   }
 ];
