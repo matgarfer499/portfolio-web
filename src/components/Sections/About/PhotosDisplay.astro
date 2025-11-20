@@ -81,7 +81,8 @@ import { ABOUT_PHOTOS } from "@constants/photos";
   });
 
   keywords.forEach((keyword) => {
-    keyword.addEventListener("mouseenter", () => {
+    // Handle both hover (desktop) and click (mobile)
+    const revealPhotos = () => {
       const indexAttr = keyword.getAttribute("data-index");
 
       if (!indexAttr) return;
@@ -171,10 +172,19 @@ import { ABOUT_PHOTOS } from "@constants/photos";
         dragHandler.initialize(".photos-display .polaroid-card");
       });
 
-      // Check if all photos have been revealed (moved inside mouseenter)
+      // Check if all photos have been revealed
       if (revealedIndices.size === totalPhotos) {
         (window as any).unlockTrophy?.('PHOTO_COLLECTOR');
       }
+    };
+
+    // Desktop: mouseenter
+    keyword.addEventListener("mouseenter", revealPhotos);
+    
+    // Mobile: click/touch
+    keyword.addEventListener("click", (e) => {
+      e.preventDefault();
+      revealPhotos();
     });
   });
 </script>

@@ -9,15 +9,29 @@ const { dataIndex, multiPhoto = false } = Astro.props;
 
 <span 
   class:list={[
-    "keyword inline-block font-['Courier_New',monospace] bg-[rgba(235,94,40,0.15)] border-b-2 border-[var(--color-accent)] px-1.5 rounded cursor-pointer transition-all duration-300 relative text-[var(--color-text-light)] hover:bg-[rgba(235,94,40,0.25)] hover:-translate-y-0.5",
+    "keyword inline-block font-['Courier_New',monospace] bg-[rgba(235,94,40,0.15)] border-b-2 border-[var(--color-accent)] px-1.5 rounded cursor-pointer transition-all duration-300 relative text-[var(--color-text-light)] hover:bg-[rgba(235,94,40,0.25)] hover:-translate-y-0.5 active:scale-95",
     { "multi-photo": multiPhoto }
   ]} 
   data-index={dataIndex}><slot /></span>
 
 <style>
+  .keyword {
+    animation: subtle-pulse 2s ease-in-out infinite;
+  }
+
   .keyword.revealed {
     background: rgba(235, 94, 40, 0.3);
     border-bottom-color: var(--color-accent);
     color: var(--color-accent);
+    animation: none;
+  }
+
+  @keyframes subtle-pulse {
+    0%, 100% {
+      box-shadow: 0 0 0 0 rgba(235, 94, 40, 0);
+    }
+    50% {
+      box-shadow: 0 0 0 2px rgba(235, 94, 40, 0.2);
+    }
   }
 </style>
