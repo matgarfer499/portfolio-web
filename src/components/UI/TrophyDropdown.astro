@@ -42,10 +42,10 @@ const trophiesArray = trophyOrder
 
 <div
   id="trophy-dropdown"
-  class="hidden opacity-0 scale-95 -translate-y-2.5 transition-all duration-200 absolute md:top-[calc(100%+8px)] md:right-0 md:w-[340px] md:max-h-[480px] bg-[var(--color-primary-lightest)] md:rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.1)] border-t md:border border-[var(--color-primary-light)] overflow-hidden z-[100] show:opacity-100 show:scale-100 show:translate-y-0 max-md:fixed max-md:top-[57px] max-md:left-[-12px] max-md:right-[-12px] max-md:sm:left-[-16px] max-md:sm:right-[-16px] max-md:w-auto max-md:max-h-[60vh] max-md:border-x-0"
+  class="hidden opacity-0 scale-95 -translate-y-2.5 transition-all duration-200 absolute md:top-[calc(100%+8px)] md:right-0 md:w-[340px] md:max-h-[480px] backdrop-blur-md bg-[var(--color-primary-lightest)]/95 md:rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.1)] border-t md:border border-[var(--color-primary-light)]/30 overflow-hidden z-[100] show:opacity-100 show:scale-100 show:translate-y-0 max-md:fixed max-md:top-[57px] max-md:left-[-12px] max-md:right-[-12px] max-md:sm:left-[-16px] max-md:sm:right-[-16px] max-md:w-auto max-md:h-[calc(100vh-57px)] max-md:border-x-0 max-md:flex max-md:flex-col"
 >
   <!-- Header -->
-  <div class="px-6 py-3.5 border-b border-[var(--color-primary-light)]">
+  <div class="px-6 py-3.5 border-b border-[var(--color-primary-light)]/30">
     <div class="flex justify-between items-center">
       <h3
         class="text-[15px] font-semibold text-[var(--color-primary-dark)] m-0"
@@ -67,7 +67,7 @@ const trophiesArray = trophyOrder
 
   <!-- Trophy List -->
   <div
-    class="trophy-list md:max-h-[420px] max-md:max-h-[calc(60vh-60px)] overflow-y-auto px-6 py-3 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-[var(--color-primary-light)] [&::-webkit-scrollbar-thumb]:rounded [&::-webkit-scrollbar-thumb:hover]:bg-[var(--color-accent)]"
+    class="trophy-list md:max-h-[420px] max-md:flex-1 max-md:overflow-y-auto overflow-y-auto px-6 py-3 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-[var(--color-primary-light)] [&::-webkit-scrollbar-thumb]:rounded [&::-webkit-scrollbar-thumb:hover]:bg-[var(--color-accent)]"
   >
     {
       trophiesArray.map((trophy) => {
