@@ -110,6 +110,11 @@ const trophiesArray = trophyOrder
     transform: translateY(0) scale(1);
   }
 
+  /* Prevent interaction when hidden */
+  #trophy-dropdown:not(.show) {
+    pointer-events: none;
+  }
+
   /* Trophy item locked state */
   .trophy-item.locked {
     opacity: 0.5;
