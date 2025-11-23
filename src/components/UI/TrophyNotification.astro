@@ -314,16 +314,14 @@
     void notification.offsetWidth;
     notification.classList.add('show');
 
-    // Play trophy sound (you can add a sound file)
-    // try {
-    //   const audio = new Audio('/trophy-sound.mp3');
-    //   audio.volume = 0.5;
-    //   audio.play().catch(() => {
-    //     // Silently fail if sound doesn't exist
-    //   });
-    // } catch (e) {
-    //   // Ignore
-    // }
+    try {
+      const audio = new Audio('/trophy-sound.mp3');
+      audio.volume = 0.5;
+      audio.play().catch(() => {
+      });
+    } catch (e) {
+      // Ignore
+    }
 
     // Hide after 3 seconds
     currentTimeout = window.setTimeout(() => {
