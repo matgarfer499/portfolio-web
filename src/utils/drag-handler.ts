@@ -24,7 +24,7 @@ interface DragConfig {
 export class DragHandler {
   private dragState: DragState | null = null;
   private config: Required<DragConfig>;
-  private currentMaxZIndex: number = 1000;
+  private static globalMaxZIndex: number = 100; // Shared across all instances
 
   constructor(config: DragConfig = {}) {
     this.config = {
@@ -35,6 +35,16 @@ export class DragHandler {
       minVelocity: config.minVelocity || 0.3,
       speedThreshold: config.speedThreshold || 1,
     };
+  }
+
+  // Static method to get and increment the global z-index
+  public static getNextZIndex(): number {
+    return ++DragHandler.globalMaxZIndex;
+  }
+
+  // Static method to get current max z-index
+  public static getCurrentMaxZIndex(): number {
+    return DragHandler.globalMaxZIndex;
   }
 
   public initialize(selector: string): void {
@@ -56,9 +66,8 @@ export class DragHandler {
 
     e.preventDefault();
 
-    // Bring the current photo to the front
-    this.currentMaxZIndex++;
-    target.style.zIndex = this.currentMaxZIndex.toString();
+    // Bring the current photo to the front using shared z-index
+    target.style.zIndex = DragHandler.getNextZIndex().toString();
 
     const currentLeft = parseFloat(target.style.left || '0');
     const currentTop = parseFloat(target.style.top || '0');
@@ -94,9 +103,8 @@ export class DragHandler {
 
     const touch = e.touches[0];
 
-    // Bring the current photo to the front
-    this.currentMaxZIndex++;
-    target.style.zIndex = this.currentMaxZIndex.toString();
+    // Bring the current photo to the front using shared z-index
+    target.style.zIndex = DragHandler.getNextZIndex().toString();
 
     const currentLeft = parseFloat(target.style.left || '0');
     const currentTop = parseFloat(target.style.top || '0');
