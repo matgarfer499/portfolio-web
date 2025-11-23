@@ -140,10 +140,13 @@ import { ABOUT_PHOTOS } from "@constants/photos";
         // Add random rotation for variety
         const rotation = (Math.random() - 0.5) * 15;
 
+        // Use shared global z-index from DragHandler
+        const zIndex = DragHandler.getNextZIndex();
+
         polaroidClone.style.left = `${leftPosition}px`;
         polaroidClone.style.top = "0px";
         polaroidClone.style.transform = `translateX(-150%) rotate(${rotation}deg)`;
-        polaroidClone.style.zIndex = (10 + photoIndex).toString();
+        polaroidClone.style.zIndex = zIndex.toString();
 
         photosDisplay.appendChild(polaroidClone);
 
