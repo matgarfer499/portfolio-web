@@ -7,9 +7,8 @@ import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
-  // global ignores — legacy src/ lifted in Phase 1
   {
-    ignores: ['dist/', '.astro/', 'node_modules/', 'public/', 'src/'],
+    ignores: ['dist/', '.astro/', 'node_modules/', 'public/'],
   },
 
   // TypeScript base
