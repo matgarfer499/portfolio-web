@@ -14,8 +14,9 @@ export default tseslint.config(
   // TypeScript base
   ...tseslint.configs.recommended,
 
-  // React
+  // React (applied to TS/TSX/JS/JSX only — Astro files use their own parser)
   {
+    files: ['**/*.{ts,tsx,js,jsx}'],
     plugins: {
       react,
       'react-hooks': reactHooks,
