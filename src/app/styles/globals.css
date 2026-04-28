@@ -1,0 +1,82 @@
+@import 'tailwindcss';
+@import './tokens.css';
+@import '@fontsource-variable/inter/index.css';
+@import '@fontsource-variable/newsreader/index.css';
+@import '@fontsource-variable/jetbrains-mono/index.css';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme inline {
+  /* Font families */
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: 'Newsreader Variable', ui-serif, Georgia, serif;
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, 'Cascadia Code', monospace;
+
+  /* Neutral scale → Tailwind utilities (bg-neutral-50, text-neutral-900, etc.) */
+  --color-neutral-50: var(--neutral-50);
+  --color-neutral-100: var(--neutral-100);
+  --color-neutral-200: var(--neutral-200);
+  --color-neutral-300: var(--neutral-300);
+  --color-neutral-400: var(--neutral-400);
+  --color-neutral-500: var(--neutral-500);
+  --color-neutral-600: var(--neutral-600);
+  --color-neutral-700: var(--neutral-700);
+  --color-neutral-800: var(--neutral-800);
+  --color-neutral-900: var(--neutral-900);
+  --color-neutral-950: var(--neutral-950);
+
+  /* Accent scale → Tailwind utilities (bg-accent-600, text-accent-400, etc.) */
+  --color-accent-50: var(--accent-50);
+  --color-accent-100: var(--accent-100);
+  --color-accent-200: var(--accent-200);
+  --color-accent-300: var(--accent-300);
+  --color-accent-400: var(--accent-400);
+  --color-accent-500: var(--accent-500);
+  --color-accent-600: var(--accent-600);
+  --color-accent-700: var(--accent-700);
+  --color-accent-800: var(--accent-800);
+  --color-accent-900: var(--accent-900);
+  --color-accent-950: var(--accent-950);
+
+  /* Semantic tokens → auto-flipping Tailwind utilities (bg-bg, text-fg, etc.) */
+  --color-bg: var(--sys-bg);
+  --color-surface: var(--sys-surface);
+  --color-fg: var(--sys-fg);
+  --color-fg-muted: var(--sys-fg-muted);
+  --color-border: var(--sys-border);
+  --color-accent: var(--sys-accent);
+  --color-accent-fg: var(--sys-accent-fg);
+
+  /* Radii — static, no CSS var reference */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-full: 9999px;
+
+  /* Shadows — static */
+  --shadow-sm: 0 1px 3px oklch(0 0 0 / 0.08), 0 1px 2px oklch(0 0 0 / 0.06);
+  --shadow-md: 0 4px 6px oklch(0 0 0 / 0.07), 0 2px 4px oklch(0 0 0 / 0.06);
+  --shadow-lg: 0 10px 15px oklch(0 0 0 / 0.08), 0 4px 6px oklch(0 0 0 / 0.05);
+  --shadow-xl: 0 20px 25px oklch(0 0 0 / 0.1), 0 8px 10px oklch(0 0 0 / 0.04);
+}
+
+@layer base {
+  html {
+    color-scheme: light dark;
+  }
+  html.dark {
+    color-scheme: dark;
+  }
+  body {
+    background-color: var(--sys-bg);
+    color: var(--sys-fg);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  *:focus-visible {
+    outline: 2px solid var(--sys-accent);
+    outline-offset: 2px;
+  }
+}
