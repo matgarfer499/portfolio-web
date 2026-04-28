@@ -23,6 +23,9 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 
+# git worktrees
+.worktrees/
+
 # AI workflow files — local only, not committed
 CLAUDE.md
 .claude/
