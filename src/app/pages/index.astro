@@ -1,9 +1,156 @@
 ---
 import BaseLayout from '@app/layouts/BaseLayout.astro';
+import { Button, Card, Container, Eyebrow, Heading, Link, Section, Tag, Text } from '@shared/ui';
+import { ThemeToggle } from '@features/theme';
 ---
 
-<BaseLayout title="Matías García — Full-stack engineer">
+<BaseLayout title="Phase 2 — Design system review">
+  <!-- Header -->
+  <header class="border-border bg-bg/95 sticky top-0 z-10 border-b backdrop-blur-sm">
+    <Container className="flex items-center justify-between py-3">
+      <Eyebrow>Phase 2 · Design system</Eyebrow>
+      <ThemeToggle client:load />
+    </Container>
+  </header>
+
   <main>
-    <h1>Matías García</h1>
+    <!-- 1. Typography -->
+    <Section id="typography">
+      <Container>
+        <Eyebrow>01 · Typography</Eyebrow>
+        <div class="mt-6 space-y-8">
+          <div>
+            <Eyebrow>Heading level 1</Eyebrow>
+            <Heading level={1}>Full-stack engineer integrating AI into how teams ship</Heading>
+          </div>
+          <div>
+            <Eyebrow>Heading level 2</Eyebrow>
+            <Heading level={2}>Selected projects</Heading>
+          </div>
+          <div>
+            <Eyebrow>Heading level 3</Eyebrow>
+            <Heading level={3}>Senior Full-Stack Engineer</Heading>
+          </div>
+          <div>
+            <Eyebrow>Text · lead</Eyebrow>
+            <Text variant="lead"
+              >Mid-level engineer building tools that automate manual work so teams spend their time
+              building, not toiling.</Text
+            >
+          </div>
+          <div>
+            <Eyebrow>Text · body</Eyebrow>
+            <Text
+              >I'm a full-stack engineer based in Spain with a focus on developer tooling, AI
+              integration, and team productivity. I build things that make the boring parts
+              disappear.</Text
+            >
+          </div>
+          <div>
+            <Eyebrow>Text · small</Eyebrow>
+            <Text variant="small"
+              >Currently open to EU remote opportunities · Full-stack · AI/ML tooling</Text
+            >
+          </div>
+        </div>
+      </Container>
+    </Section>
+
+    <!-- 2. Buttons -->
+    <Section id="buttons">
+      <Container>
+        <Eyebrow>02 · Buttons</Eyebrow>
+        <div class="mt-6 space-y-6">
+          <div class="flex flex-wrap items-center gap-3">
+            <Button variant="primary" size="sm">Primary SM</Button>
+            <Button variant="primary" size="md">Primary MD</Button>
+            <Button variant="primary" size="lg">Primary LG</Button>
+          </div>
+          <div class="flex flex-wrap items-center gap-3">
+            <Button variant="secondary" size="sm">Secondary SM</Button>
+            <Button variant="secondary" size="md">Secondary MD</Button>
+            <Button variant="secondary" size="lg">Secondary LG</Button>
+          </div>
+          <div class="flex flex-wrap items-center gap-3">
+            <Button variant="ghost" size="sm">Ghost SM</Button>
+            <Button variant="ghost" size="md">Ghost MD</Button>
+            <Button variant="ghost" size="lg">Ghost LG</Button>
+          </div>
+          <div class="flex flex-wrap items-center gap-3">
+            <Button disabled>Disabled</Button>
+          </div>
+        </div>
+      </Container>
+    </Section>
+
+    <!-- 3. Cards -->
+    <Section id="cards">
+      <Container>
+        <Eyebrow>03 · Cards</Eyebrow>
+        <div class="mt-6 grid gap-6 md:grid-cols-2">
+          <Card>
+            <Heading level={3}>Project card</Heading>
+            <Text variant="small" className="mt-2"
+              >A physics simulation built with React and WebGL. Fully interactive, mobile-friendly.</Text
+            >
+            <div class="mt-4 flex flex-wrap gap-2">
+              <Tag>TypeScript</Tag>
+              <Tag>React</Tag>
+              <Tag>WebGL</Tag>
+            </div>
+          </Card>
+          <Card as="article">
+            <Eyebrow>2023 – Present</Eyebrow>
+            <Heading level={3} className="mt-1">Bettergy</Heading>
+            <Text variant="small" className="mt-2"
+              >Senior Full-Stack Engineer. Built internal tooling reducing manual data entry by 70%.</Text
+            >
+          </Card>
+        </div>
+      </Container>
+    </Section>
+
+    <!-- 4. Tags and Links -->
+    <Section id="tags-links">
+      <Container>
+        <Eyebrow>04 · Tags &amp; Links</Eyebrow>
+        <div class="mt-6 space-y-6">
+          <div class="flex flex-wrap gap-2">
+            <Tag>TypeScript</Tag>
+            <Tag>Astro</Tag>
+            <Tag>React</Tag>
+            <Tag>Tailwind</Tag>
+            <Tag>Node.js</Tag>
+            <Tag>PostgreSQL</Tag>
+          </div>
+          <div class="flex flex-wrap gap-4">
+            <Link href="#typography">Internal link</Link>
+            <Link href="https://github.com" external>GitHub (external)</Link>
+            <Link href="https://linkedin.com" external>LinkedIn (external)</Link>
+          </div>
+        </div>
+      </Container>
+    </Section>
+
+    <!-- 5. Color tokens (visual smoke test) -->
+    <Section id="tokens">
+      <Container>
+        <Eyebrow>05 · Semantic tokens</Eyebrow>
+        <div class="mt-6 grid grid-cols-2 gap-3 md:grid-cols-4">
+          <div class="border-border bg-bg rounded-md border p-4">
+            <Text variant="small">bg</Text>
+          </div>
+          <div class="border-border bg-surface rounded-md border p-4">
+            <Text variant="small">surface</Text>
+          </div>
+          <div class="bg-accent rounded-md p-4">
+            <Text variant="small" className="text-accent-fg">accent</Text>
+          </div>
+          <div class="rounded-md bg-neutral-950 p-4 dark:bg-neutral-50">
+            <Text variant="small" className="text-neutral-50 dark:text-neutral-950">inverted</Text>
+          </div>
+        </div>
+      </Container>
+    </Section>
   </main>
 </BaseLayout>
