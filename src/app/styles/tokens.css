@@ -46,22 +46,22 @@
   --duration-slow: 250ms;
 
   /* === Semantic tokens — Light defaults === */
-  --color-bg: var(--neutral-50);
-  --color-surface: var(--neutral-100);
-  --color-fg: var(--neutral-900);
-  --color-fg-muted: var(--neutral-600);
-  --color-border: var(--neutral-200);
-  --color-accent: var(--accent-600);
-  --color-accent-fg: oklch(1 0 0);
+  --sys-bg: var(--neutral-50);
+  --sys-surface: var(--neutral-100);
+  --sys-fg: var(--neutral-900);
+  --sys-fg-muted: var(--neutral-600);
+  --sys-border: var(--neutral-200);
+  --sys-accent: var(--accent-600);
+  --sys-accent-fg: oklch(1 0 0);
 }
 
 /* === Semantic tokens — Dark overrides === */
 :where(html.dark) {
-  --color-bg: var(--neutral-950);
-  --color-surface: var(--neutral-900);
-  --color-fg: var(--neutral-50);
-  --color-fg-muted: var(--neutral-400);
-  --color-border: var(--neutral-800);
-  --color-accent: var(--accent-400);
-  --color-accent-fg: oklch(1 0 0);
+  --sys-bg: var(--neutral-950);
+  --sys-surface: var(--neutral-900);
+  --sys-fg: var(--neutral-50);
+  --sys-fg-muted: var(--neutral-400);
+  --sys-border: var(--neutral-800);
+  --sys-accent: var(--accent-400);
+  --sys-accent-fg: var(--neutral-950); /* dark blue text on light accent-400 — passes contrast */
 }
