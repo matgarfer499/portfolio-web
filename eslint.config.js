@@ -1,0 +1,49 @@
+// @ts-check
+import eslintPluginAstro from 'eslint-plugin-astro';
+import jsxA11y from 'eslint-plugin-jsx-a11y';
+import react from 'eslint-plugin-react';
+import reactHooks from 'eslint-plugin-react-hooks';
+import globals from 'globals';
+import tseslint from 'typescript-eslint';
+
+export default tseslint.config(
+  // global ignores — legacy src/ lifted in Phase 1
+  {
+    ignores: ['dist/', '.astro/', 'node_modules/', 'public/', 'src/'],
+  },
+
+  // TypeScript base
+  ...tseslint.configs.recommended,
+
+  // React
+  {
+    plugins: {
+      react,
+      'react-hooks': reactHooks,
+    },
+    languageOptions: {
+      globals: globals.browser,
+      parserOptions: {
+        ecmaFeatures: { jsx: true },
+      },
+    },
+    settings: {
+      react: { version: 'detect' },
+    },
+    rules: {
+      ...react.configs.recommended.rules,
+      ...reactHooks.configs.recommended.rules,
+      'react/react-in-jsx-scope': 'off', // React 17+ JSX transform
+      'react/prop-types': 'off', // TypeScript handles this
+    },
+  },
+
+  // Accessibility
+  {
+    plugins: { 'jsx-a11y': jsxA11y },
+    rules: jsxA11y.configs.recommended.rules,
+  },
+
+  // Astro files
+  ...eslintPluginAstro.configs.recommended,
+);

@@ -1,0 +1,8 @@
+dist/
+.astro/
+node_modules/
+pnpm-lock.yaml
+# legacy src/ — lifted in Phase 1
+src/
+public/*.pdf
+public/*.svg
