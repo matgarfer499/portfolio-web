@@ -22,3 +22,9 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# AI workflow files — local only, not committed
+CLAUDE.md
+.claude/
+docs/remake-brief.md
+docs/roadmap.md
