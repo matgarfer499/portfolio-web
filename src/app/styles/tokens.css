@@ -1,0 +1,67 @@
+:root {
+  /* === Neutral scale (OKLCH, near-white → near-black) === */
+  --neutral-50: oklch(0.985 0 0);
+  --neutral-100: oklch(0.965 0 0);
+  --neutral-200: oklch(0.93 0 0);
+  --neutral-300: oklch(0.87 0 0);
+  --neutral-400: oklch(0.72 0 0);
+  --neutral-500: oklch(0.556 0 0);
+  --neutral-600: oklch(0.44 0 0);
+  --neutral-700: oklch(0.371 0 0);
+  --neutral-800: oklch(0.269 0 0);
+  --neutral-900: oklch(0.205 0 0);
+  --neutral-950: oklch(0.145 0 0);
+
+  /* === Blue accent scale (electric/cool blue, OKLCH hue 240–245) === */
+  --accent-50: oklch(0.975 0.025 243);
+  --accent-100: oklch(0.945 0.055 243);
+  --accent-200: oklch(0.89 0.105 243);
+  --accent-300: oklch(0.81 0.165 243);
+  --accent-400: oklch(0.7 0.2 243);
+  --accent-500: oklch(0.6 0.22 243);
+  --accent-600: oklch(0.51 0.22 243);
+  --accent-700: oklch(0.42 0.195 243);
+  --accent-800: oklch(0.33 0.155 243);
+  --accent-900: oklch(0.245 0.105 243);
+  --accent-950: oklch(0.165 0.065 243);
+
+  /* === Radii === */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-full: 9999px;
+
+  /* === Shadows (neutral-toned) === */
+  --shadow-sm: 0 1px 3px oklch(0 0 0 / 0.08), 0 1px 2px oklch(0 0 0 / 0.06);
+  --shadow-md: 0 4px 6px oklch(0 0 0 / 0.07), 0 2px 4px oklch(0 0 0 / 0.06);
+  --shadow-lg: 0 10px 15px oklch(0 0 0 / 0.08), 0 4px 6px oklch(0 0 0 / 0.05);
+  --shadow-xl: 0 20px 25px oklch(0 0 0 / 0.1), 0 8px 10px oklch(0 0 0 / 0.04);
+
+  /* === Motion === */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.45, 0, 0.55, 1);
+  --duration-fast: 120ms;
+  --duration-base: 200ms;
+  --duration-slow: 250ms;
+
+  /* === Semantic tokens — Light defaults === */
+  --color-bg: var(--neutral-50);
+  --color-surface: var(--neutral-100);
+  --color-fg: var(--neutral-900);
+  --color-fg-muted: var(--neutral-600);
+  --color-border: var(--neutral-200);
+  --color-accent: var(--accent-600);
+  --color-accent-fg: oklch(1 0 0);
+}
+
+/* === Semantic tokens — Dark overrides === */
+:where(html.dark) {
+  --color-bg: var(--neutral-950);
+  --color-surface: var(--neutral-900);
+  --color-fg: var(--neutral-50);
+  --color-fg-muted: var(--neutral-400);
+  --color-border: var(--neutral-800);
+  --color-accent: var(--accent-400);
+  --color-accent-fg: oklch(1 0 0);
+}
