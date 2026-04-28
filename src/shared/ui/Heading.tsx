@@ -3,7 +3,7 @@ import { cn } from '@shared/lib';
 
 type Props = {
   readonly level: 1 | 2 | 3;
-  readonly as?: 'h1' | 'h2' | 'h3' | 'h4' | 'p';
+  readonly as?: 'h1' | 'h2' | 'h3' | 'p';
   readonly className?: string;
   readonly children: ReactNode;
 };

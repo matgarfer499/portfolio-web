@@ -9,7 +9,7 @@ export function ThemeToggle() {
       <button
         onClick={toggle}
         aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-        className="relative flex h-9 w-9 items-center justify-center rounded-md text-[--sys-fg-muted] hover:bg-[--sys-surface] hover:text-[--sys-fg] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[--sys-accent] motion-safe:transition-colors motion-safe:duration-[120ms]"
+        className="text-fg-muted hover:bg-surface hover:text-fg focus-visible:outline-accent relative flex h-9 w-9 items-center justify-center rounded-md focus-visible:outline-2 focus-visible:outline-offset-2 motion-safe:transition-colors motion-safe:duration-[120ms]"
       >
         <span
           aria-hidden="true"

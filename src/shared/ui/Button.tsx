@@ -22,9 +22,17 @@ const sizeStyles: Record<'sm' | 'md' | 'lg', string> = {
   lg: 'h-12 px-6 text-base rounded-lg',
 };
 
-export function Button({ variant = 'primary', size = 'md', className, children, ...props }: Props) {
+export function Button({
+  variant = 'primary',
+  size = 'md',
+  className,
+  children,
+  type = 'button',
+  ...props
+}: Props) {
   return (
     <button
+      type={type}
       {...props}
       className={cn(
         'inline-flex cursor-pointer items-center justify-center border font-mono tracking-wide uppercase',

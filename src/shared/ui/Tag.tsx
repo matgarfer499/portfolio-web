@@ -11,7 +11,7 @@ export function Tag({ className, children }: Props) {
     <span
       className={cn(
         'inline-flex items-center font-mono text-xs tracking-wide uppercase',
-        'text-fg-muted rounded-sm bg-neutral-100 px-2 py-0.5 dark:bg-neutral-900',
+        'text-fg-muted bg-surface rounded-sm px-2 py-0.5',
         className,
       )}
     >
