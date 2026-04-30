@@ -1,0 +1,28 @@
+---
+import { Container } from '@shared/ui';
+import HeroPortrait from './HeroPortrait.astro';
+import { HeroAccent } from './HeroAccent';
+import { HeroIntro } from './HeroIntro';
+import { HeroCTAs } from './HeroCTAs';
+import { ScrollIndicator } from './ScrollIndicator';
+---
+
+<section id="hero" class="relative flex min-h-[100svh] items-center py-16 md:py-24">
+  <Container>
+    <div class="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
+      <!-- Text column -->
+      <div class="lg:col-span-7">
+        <HeroIntro />
+        <HeroCTAs />
+      </div>
+
+      <!-- Visual column -->
+      <div class="relative lg:col-span-5">
+        <HeroAccent />
+        <HeroPortrait />
+      </div>
+    </div>
+  </Container>
+
+  <ScrollIndicator client:idle />
+</section>
