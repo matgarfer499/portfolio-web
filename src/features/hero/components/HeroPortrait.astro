@@ -1,0 +1,16 @@
+---
+import { Image } from 'astro:assets';
+import portraitImage from '@assets/photos/matias-portrait.webp';
+---
+
+<div class="relative z-10">
+  <Image
+    src={portraitImage}
+    alt="Portrait of Matías García"
+    width={480}
+    height={640}
+    loading="eager"
+    fetchpriority="high"
+    class="border-border w-full rounded-lg border object-cover shadow-lg"
+  />
+</div>
