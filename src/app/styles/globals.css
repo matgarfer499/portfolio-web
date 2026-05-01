@@ -91,6 +91,11 @@
   }
 }
 
+/* Hide the system cursor inside cursor-zone elements (custom cursor takes over) */
+[data-cursor-zone] {
+  cursor: none;
+}
+
 @layer base {
   html {
     color-scheme: light dark;

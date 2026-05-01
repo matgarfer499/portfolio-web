@@ -29,7 +29,7 @@ export function HeroCTAs() {
           <ArrowRightIcon />
         </a>
         <a
-          href="/matias-garcia-cv.pdf"
+          href="/cv.pdf"
           download="Matias-Garcia-CV.pdf"
           className={cn(ctaSecondary, 'w-full sm:w-auto')}
         >

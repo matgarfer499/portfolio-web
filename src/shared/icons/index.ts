@@ -1,2 +1,2 @@
 export { IconProvider } from './IconProvider';
-export { SunIcon, MoonIcon } from '@phosphor-icons/react';
+export { ArrowUpRightIcon, SunIcon, MoonIcon } from '@phosphor-icons/react';

@@ -38,8 +38,8 @@ export const CONTACTS: readonly ContactEntry[] = [
   {
     kind: 'cv',
     label: 'CV',
-    href: '/matias-garcia-cv.pdf',
-    display: 'matias-garcia-cv.pdf',
+    href: '/cv.pdf',
+    display: 'cv.pdf',
     ariaLabel: 'Download CV (PDF)',
     external: false,
     download: 'Matias-Garcia-CV.pdf',
