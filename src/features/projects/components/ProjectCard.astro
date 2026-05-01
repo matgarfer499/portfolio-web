@@ -1,0 +1,54 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import { ArrowUpRight } from '@phosphor-icons/react/dist/ssr';
+import { staggerDelay } from '@shared/lib';
+import { Heading, Tag, Text } from '@shared/ui';
+
+type Props = {
+  project: CollectionEntry<'projects'>;
+  index: number;
+};
+
+const { project, index } = Astro.props;
+const { title, description, tech, url, image, imageAlt } = project.data;
+---
+
+<a
+  href={url}
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label={`${title} — opens in new tab`}
+  style={staggerDelay(index)}
+  class="group border-border bg-surface motion-safe:animate-fade-up focus-visible:ring-accent relative block overflow-hidden rounded-lg border hover:shadow-lg focus-visible:shadow-lg focus-visible:ring-2 focus-visible:outline-none motion-safe:transition-all motion-safe:duration-150 motion-safe:ease-out motion-safe:hover:-translate-y-1 motion-safe:focus-visible:-translate-y-1"
+>
+  <!-- image -->
+  <div class="overflow-hidden">
+    <Image
+      src={image}
+      alt={imageAlt}
+      widths={[480, 800, 1200]}
+      sizes="(min-width: 1024px) 50vw, 100vw"
+      loading="lazy"
+      class="aspect-[16/10] w-full object-cover motion-safe:transition-transform motion-safe:duration-200 motion-safe:group-hover:scale-[1.02]"
+    />
+  </div>
+
+  <!-- copy -->
+  <div class="p-6">
+    <Heading level={3}>{title}</Heading>
+    <Text variant="small" className="text-fg-muted mt-2 line-clamp-2 leading-relaxed">
+      {description}
+    </Text>
+    <div class="mt-4 flex flex-wrap gap-2">
+      {tech.map((t) => <Tag>{t}</Tag>)}
+    </div>
+  </div>
+
+  <!-- external link indicator -->
+  <ArrowUpRight
+    size={18}
+    weight="light"
+    className="absolute top-4 right-4 opacity-60 transition-opacity duration-150 group-hover:opacity-100 group-focus-visible:opacity-100"
+  />
+</a>
