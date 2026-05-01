@@ -45,4 +45,16 @@ const photos = defineCollection({
   schema: photoSchema,
 });
 
-export const collections = { projects, experiences, photos };
+const about = defineCollection({
+  loader: glob({ pattern: '*.md', base: './src/content/about' }),
+  schema: z.object({
+    title: z.string(),
+    values: z
+      .array(z.object({ lead: z.string(), body: z.string() }))
+      .max(5)
+      .default([]),
+    note: z.string().min(1),
+  }),
+});
+
+export const collections = { projects, experiences, photos, about };

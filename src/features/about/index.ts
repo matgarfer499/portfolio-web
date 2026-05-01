@@ -1,1 +1,1 @@
-export {};
+export { default as AboutSection } from './components/AboutSection.astro';
