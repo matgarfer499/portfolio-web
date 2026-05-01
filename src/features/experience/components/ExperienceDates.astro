@@ -1,0 +1,28 @@
+---
+import { formatRange, toDatetimeAttr } from '@shared/lib';
+
+type Props = { startDate: string; endDate?: string };
+
+const { startDate, endDate } = Astro.props;
+const label = formatRange(startDate, endDate);
+const parts = label.split(' – ');
+const startLabel = parts[0] ?? '';
+const endLabel = parts[1] ?? '';
+const hasRange = label.includes('–');
+---
+
+<span class="font-mono text-sm">
+  <time datetime={toDatetimeAttr(startDate)}>{startLabel}</time>
+  {
+    hasRange && (
+      <>
+        <span aria-hidden="true"> – </span>
+        {endDate ? (
+          <time datetime={toDatetimeAttr(endDate)}>{endLabel}</time>
+        ) : (
+          <span>Present</span>
+        )}
+      </>
+    )
+  }
+</span>

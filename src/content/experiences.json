@@ -1,11 +1,21 @@
 [
   {
-    "id": "stub",
-    "company": "Stub Co",
-    "logo": "/logos/bettergy.png",
-    "position": "Stub Engineer",
-    "startDate": "Jan 2024",
-    "endDate": "Present",
-    "description": ["Phase 1 placeholder; replaced in Phase 5."]
+    "id": "bettergy",
+    "company": "Bettergy",
+    "role": "Software Engineer",
+    "startDate": "2024-01",
+    "location": "Remote, EU",
+    "bullets": ["Stub bullet — replaced in Phase 5.", "Stub bullet — replaced in Phase 5."],
+    "order": 0
+  },
+  {
+    "id": "uniklinik-koeln",
+    "company": "Uniklinik Köln",
+    "role": "Software Engineering Intern",
+    "startDate": "2022-09",
+    "endDate": "2023-02",
+    "location": "Cologne, Germany",
+    "bullets": ["Stub bullet — replaced in Phase 5."],
+    "order": 0
   }
 ]

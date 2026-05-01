@@ -1,39 +1,38 @@
 import { defineCollection, z } from 'astro:content';
-import { file } from 'astro/loaders';
+import { file, glob } from 'astro/loaders';
 
-const projectSchema = z.object({
-  name: z.string(),
-  tagline: z.string(),
-  description: z.string(),
-  technologies: z.array(z.string()),
-  desktopImage: z.string(),
-  mobileImage: z.string(),
-  demoUrl: z.string().url().optional(),
-  repoUrl: z.string().url().optional(),
-  highlights: z.array(z.string()).default([]),
+const projects = defineCollection({
+  loader: glob({ pattern: '*.md', base: './src/content/projects' }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      description: z.string().max(180),
+      tech: z.array(z.string()).min(1),
+      url: z.string().url(),
+      image: image(),
+      imageAlt: z.string(),
+      featured: z.boolean().default(true),
+      order: z.number().default(0),
+    }),
 });
 
 const experienceSchema = z.object({
   company: z.string(),
-  logo: z.string(),
-  position: z.string(),
-  startDate: z.string(),
-  endDate: z.string(),
-  description: z.array(z.string()),
-  current: z.boolean().optional(),
-  internship: z.boolean().optional(),
-  technologies: z.array(z.string()).optional(),
+  role: z.string(),
+  startDate: z.string().regex(/^\d{4}-\d{2}(-\d{2})?$/, 'Use YYYY-MM or YYYY-MM-DD'),
+  endDate: z
+    .string()
+    .regex(/^\d{4}-\d{2}(-\d{2})?$/)
+    .optional(),
+  location: z.string().optional(),
+  bullets: z.array(z.string()).min(1).max(4),
+  order: z.number().default(0),
 });
 
 const photoSchema = z.object({
   src: z.string(),
   alt: z.string(),
   caption: z.string(),
-});
-
-const projects = defineCollection({
-  loader: file('src/content/projects.json'),
-  schema: projectSchema,
 });
 
 const experiences = defineCollection({

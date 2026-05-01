@@ -1,0 +1,37 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { staggerDelay } from '@shared/lib';
+import { Heading } from '@shared/ui';
+import ExperienceDates from './ExperienceDates.astro';
+
+type Props = { entry: CollectionEntry<'experiences'>; index: number };
+
+const { entry, index } = Astro.props;
+const { company, role, startDate, endDate, location, bullets } = entry.data;
+---
+
+<li
+  style={staggerDelay(index, 60)}
+  class="border-border motion-safe:animate-fade-up border-b py-12 last:border-b-0"
+>
+  <div class="flex flex-col gap-2 md:flex-row md:items-baseline md:justify-between">
+    <div>
+      <Heading level={3}>{company}</Heading>
+      <p class="text-fg-muted mt-1 font-mono text-sm">{role}</p>
+    </div>
+    <div class="text-fg-muted md:text-right">
+      <ExperienceDates startDate={startDate} {...endDate !== undefined ? { endDate } : {}} />
+      {location && <div class="mt-1 font-mono text-sm opacity-70">{location}</div>}
+    </div>
+  </div>
+
+  <ul class="mt-6 space-y-2 pl-4">
+    {
+      bullets.map((bullet) => (
+        <li class="text-fg relative leading-relaxed before:absolute before:-left-4 before:content-['–']">
+          {bullet}
+        </li>
+      ))
+    }
+  </ul>
+</li>

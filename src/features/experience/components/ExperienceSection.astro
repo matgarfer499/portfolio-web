@@ -1,0 +1,21 @@
+---
+import { getCollection } from 'astro:content';
+import { Container, Eyebrow, Heading } from '@shared/ui';
+import { sortExperience } from '../lib/sortExperience';
+import ExperienceList from './ExperienceList.astro';
+
+const all = await getCollection('experiences');
+const experiences = all.sort(sortExperience);
+
+if (experiences.length === 0) return null;
+---
+
+<section id="experience" class="py-20 md:py-32" aria-labelledby="experience-heading">
+  <Container>
+    <div class="mx-auto max-w-[840px]">
+      <Eyebrow>03 · Experience</Eyebrow>
+      <Heading level={2} id="experience-heading" className="mt-2">Where I've worked</Heading>
+      <ExperienceList experiences={experiences} />
+    </div>
+  </Container>
+</section>

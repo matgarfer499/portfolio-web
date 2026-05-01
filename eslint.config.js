@@ -8,7 +8,7 @@ import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
   {
-    ignores: ['dist/', '.astro/', 'node_modules/', 'public/'],
+    ignores: ['dist/', '.astro/', 'node_modules/', 'public/', '.worktrees/'],
   },
 
   // TypeScript base
