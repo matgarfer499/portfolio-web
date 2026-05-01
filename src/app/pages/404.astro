@@ -3,7 +3,10 @@ import BaseLayout from '@app/layouts/BaseLayout.astro';
 ---
 
 <BaseLayout title="404 — Page not found · Matías García">
-  <main class="flex min-h-dvh flex-col items-center justify-center px-6 text-center">
+  <main
+    data-page="404"
+    class="flex min-h-dvh flex-col items-center justify-center px-6 text-center"
+  >
     <p class="text-fg-muted mb-4 font-mono text-sm tracking-widest uppercase">Error 404</p>
     <h1 class="text-fg mb-4 font-serif text-6xl md:text-8xl">Lost?</h1>
     <p class="text-fg-muted mb-10 max-w-sm text-lg">

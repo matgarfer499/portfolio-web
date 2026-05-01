@@ -5,12 +5,13 @@ import { usePointerPosition } from '../hooks/usePointerPosition';
 
 export function CursorHost() {
   const isFinePointer = useMediaQuery('(pointer: fine)');
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
   const dotRef = useRef<HTMLDivElement>(null);
   const [inZone, setInZone] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
 
   usePointerPosition((x, y) => {
-    if (!isFinePointer) return;
+    if (!isFinePointer || prefersReducedMotion) return;
     const target = document.elementFromPoint(x, y);
     const zone = target?.closest('[data-cursor-zone]') ?? null;
     const interactive = zone ? (target?.closest('a, button, [role="button"]') ?? null) : null;
@@ -23,7 +24,7 @@ export function CursorHost() {
     }
   });
 
-  if (!isFinePointer) return null;
+  if (!isFinePointer || prefersReducedMotion) return null;
 
   return (
     <div

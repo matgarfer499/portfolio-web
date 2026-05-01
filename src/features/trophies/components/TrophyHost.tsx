@@ -4,7 +4,7 @@ import { getUnlockedTrophies, persistTrophy } from '../lib/trophyStorage';
 import { initWindowUnlock, cleanupWindowUnlock } from '../lib/consoleSignature';
 import { useScrollAllSections } from '../triggers/useScrollAllSections';
 import { useThemeToggleListener } from '../triggers/useThemeToggleListener';
-import { useCvVisitListener } from '../triggers/useCvVisitListener';
+import { use404VisitListener } from '../triggers/use404VisitListener';
 import { TrophyToast } from './TrophyToast';
 
 type ToastState = { visible: Trophy | null; queue: Trophy[] };
@@ -49,7 +49,7 @@ export function TrophyHost() {
   // Triggers
   useScrollAllSections(unlock);
   useThemeToggleListener(unlock);
-  useCvVisitListener(unlock);
+  use404VisitListener(unlock);
 
   if (!visible) return null;
   return <TrophyToast trophy={visible} onDismiss={() => setState(advance)} />;

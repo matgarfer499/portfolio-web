@@ -35,6 +35,6 @@ const { title = 'Matías García' } = Astro.props;
   <body>
     <slot />
     <TrophyHost client:idle />
-    <CursorHost client:idle />
+    <CursorHost client:only="react" />
   </body>
 </html>
