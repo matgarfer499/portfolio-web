@@ -1,5 +1,10 @@
 ---
-import { EnvelopeIcon, GithubLogoIcon, LinkedinLogoIcon } from '@phosphor-icons/react/dist/ssr';
+import {
+  EnvelopeIcon,
+  FileArrowDownIcon,
+  GithubLogoIcon,
+  LinkedinLogoIcon,
+} from '@phosphor-icons/react/dist/ssr';
 import type { ContactEntry } from '../lib/contacts';
 
 type Props = { readonly entry: ContactEntry };
@@ -10,6 +15,7 @@ const iconMap = {
   email: EnvelopeIcon,
   linkedin: LinkedinLogoIcon,
   github: GithubLogoIcon,
+  cv: FileArrowDownIcon,
 } as const;
 
 const Icon = iconMap[entry.kind];
@@ -20,6 +26,7 @@ const Icon = iconMap[entry.kind];
   aria-label={entry.ariaLabel}
   target={entry.external ? '_blank' : null}
   rel={entry.external ? 'noopener noreferrer' : null}
+  download={entry.download ?? null}
   class="group text-fg hover:text-accent focus-visible:text-accent focus-visible:outline-accent flex min-h-11 w-full items-center gap-4 px-1 py-3 focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 motion-safe:transition-colors motion-safe:duration-[120ms]"
 >
   <Icon size={18} weight="light" className="flex-shrink-0 opacity-70" />

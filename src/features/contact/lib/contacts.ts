@@ -1,4 +1,4 @@
-type ContactKind = 'email' | 'linkedin' | 'github';
+type ContactKind = 'email' | 'linkedin' | 'github' | 'cv';
 
 type ContactEntry = {
   readonly kind: ContactKind;
@@ -7,6 +7,7 @@ type ContactEntry = {
   readonly display: string;
   readonly ariaLabel: string;
   readonly external: boolean;
+  readonly download?: string;
 };
 
 export const CONTACTS: readonly ContactEntry[] = [
@@ -33,6 +34,15 @@ export const CONTACTS: readonly ContactEntry[] = [
     display: 'github.com/matgarfer499',
     ariaLabel: 'Matías García on GitHub (opens in new tab)',
     external: true,
+  },
+  {
+    kind: 'cv',
+    label: 'CV',
+    href: '/matias-garcia-cv.pdf',
+    display: 'matias-garcia-cv.pdf',
+    ariaLabel: 'Download CV (PDF)',
+    external: false,
+    download: 'Matias-Garcia-CV.pdf',
   },
 ] as const;
 
