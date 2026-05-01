@@ -1,0 +1,24 @@
+---
+import { Container, Eyebrow, Heading } from '@shared/ui';
+import ContactLink from './ContactLink.astro';
+import { CONTACTS } from '../lib/contacts';
+---
+
+<section id="contact" class="py-20 md:py-32" aria-labelledby="contact-heading">
+  <Container>
+    <div class="mx-auto max-w-[640px]">
+      <Eyebrow>05 · Contact</Eyebrow>
+      <Heading level={2} id="contact-heading" className="mt-2">Get in touch</Heading>
+      <p class="text-fg-muted mt-6 leading-relaxed">Open to roles in EU remote teams.</p>
+      <ul class="divide-border border-border mt-10 divide-y border-y">
+        {
+          CONTACTS.map((entry) => (
+            <li>
+              <ContactLink entry={entry} />
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </Container>
+</section>
