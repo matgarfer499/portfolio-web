@@ -29,20 +29,9 @@ const experienceSchema = z.object({
   order: z.number().default(0),
 });
 
-const photoSchema = z.object({
-  src: z.string(),
-  alt: z.string(),
-  caption: z.string(),
-});
-
 const experiences = defineCollection({
   loader: file('src/content/experiences.json'),
   schema: experienceSchema,
-});
-
-const photos = defineCollection({
-  loader: file('src/content/photos.json'),
-  schema: photoSchema,
 });
 
 const about = defineCollection({
@@ -57,4 +46,4 @@ const about = defineCollection({
   }),
 });
 
-export const collections = { projects, experiences, photos, about };
+export const collections = { projects, experiences, about };
