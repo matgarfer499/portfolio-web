@@ -1,2 +1,1 @@
-export { useLocalStorage } from './useLocalStorage';
-export { useMediaQuery } from './useMediaQuery';
+export { useToonGradient } from './useToonGradient';

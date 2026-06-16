@@ -1,0 +1,42 @@
+{
+  "Meta": {
+    "title": "Matías García — ingeniero de software que pone la IA a trabajar",
+    "description": "El portfolio de Matías García como un mundo 3D explorable. Ingeniero full-stack que integra la IA en cómo los equipos entregan. La versión rápida y accesible está a un clic."
+  },
+  "PressStart": {
+    "tagline": "Portfolio — el videojuego",
+    "enter": "Entrar al juego",
+    "fast": "Versión rápida",
+    "hint": "Mejor en escritorio · ~30s para explorar",
+    "loading": "Cargando mundo…"
+  },
+  "Hud": {
+    "zone": "Zona",
+    "achievements": "Logros",
+    "exit": "Salir al inicio",
+    "fastVersion": "Versión rápida",
+    "language": "Idioma",
+    "controlsTitle": "Controles",
+    "controlsMove": "Moverse",
+    "controlsKeys": "WASD / Flechas"
+  },
+  "Achievements": {
+    "unlocked": "Logro desbloqueado",
+    "firstContact": {
+      "title": "Primer contacto",
+      "description": "Entraste en tu primera zona."
+    }
+  },
+  "Fast": {
+    "badge": "Versión rápida",
+    "intro": "El portfolio completo sin el 3D — navegable por teclado e indexable.",
+    "playGame": "Jugar a la versión 3D",
+    "exploreHeading": "Zonas",
+    "projectsHeading": "Proyectos",
+    "contactHeading": "Contacto",
+    "emailLabel": "Email",
+    "githubLabel": "GitHub",
+    "linkedinLabel": "LinkedIn",
+    "cvLabel": "Descargar CV"
+  }
+}
