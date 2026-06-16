@@ -1,6 +1,11 @@
+.next/
+out/
 dist/
-.astro/
+build/
+coverage/
 node_modules/
 pnpm-lock.yaml
-public/*.pdf
-public/*.svg
+test-results/
+playwright-report/
+public/
+next-env.d.ts

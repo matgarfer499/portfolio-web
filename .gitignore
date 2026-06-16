@@ -1,13 +1,24 @@
-# build output
-dist/
-
-# generated types
-.astro/
-
 # dependencies
 node_modules/
+.pnp
+.pnp.*
 
-# logs
+# next.js
+/.next/
+/out/
+
+# production / build output
+/build
+/dist
+
+# testing
+/coverage
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+
+# debug logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
@@ -15,21 +26,27 @@ pnpm-debug.log*
 
 # environment variables
 .env
+.env*.local
 .env.production
 
-# macOS-specific files
+# typescript build info
+*.tsbuildinfo
+
+# vercel
+.vercel
+
+# os
 .DS_Store
 
-# jetbrains setting folder
+# editors
 .idea/
 
 # git worktrees
 .worktrees/
 
-# AI workflow files — local only, not committed
-CLAUDE.md
-.claude/
-docs/remake-brief.md
-docs/roadmap.md
-docs/content-snapshot.md
-docs/phase-3/
+# --- AI / planning ---
+# v3 exception: CLAUDE.md and .claude/ ARE committed (shown off as part of the work).
+# Personal planning docs stay local-only:
+docs/redesign/
+.lighthouse/
+.claude/settings.local.json
