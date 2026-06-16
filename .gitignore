@@ -48,5 +48,9 @@ pnpm-debug.log*
 # v3 exception: CLAUDE.md and .claude/ ARE committed (shown off as part of the work).
 # Personal planning docs stay local-only:
 docs/redesign/
+docs/remake-brief.md
+docs/roadmap.md
+docs/content-snapshot.md
+docs/phase-3/
 .lighthouse/
 .claude/settings.local.json
