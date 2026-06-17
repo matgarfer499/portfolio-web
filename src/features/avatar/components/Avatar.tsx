@@ -1,12 +1,12 @@
 'use client';
 
-import { Outlines, useKeyboardControls } from '@react-three/drei';
+import { useKeyboardControls } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { CapsuleCollider, RigidBody, type RapierRigidBody } from '@react-three/rapier';
 import { useRef } from 'react';
 import { type Group, MathUtils, Quaternion, Vector3 } from 'three';
-import { useToonGradient } from '@shared/hooks';
 import { type ControlName } from '../controls';
+import { MiniHero } from './MiniHero';
 
 const SPEED = 6;
 /** Accel/decel rate (1/s): ~95% of target speed in ~0.25s. Higher = snappier. */
@@ -35,7 +35,6 @@ export function Avatar() {
   const body = useRef<RapierRigidBody>(null);
   const visual = useRef<Group>(null);
   const [, getKeys] = useKeyboardControls<ControlName>();
-  const gradient = useToonGradient();
 
   useFrame((state, delta) => {
     const rb = body.current;
@@ -86,7 +85,7 @@ export function Avatar() {
     <RigidBody
       ref={body}
       type="dynamic"
-      position={[0, 2, 7]}
+      position={[2, 2, 37]}
       colliders={false}
       lockRotations
       friction={0.5}
@@ -96,16 +95,7 @@ export function Avatar() {
     >
       <CapsuleCollider args={[0.5, 0.5]} />
       <group ref={visual}>
-        <mesh castShadow>
-          <capsuleGeometry args={[0.5, 1, 6, 16]} />
-          <meshToonMaterial color="#ff7a1a" gradientMap={gradient} />
-          <Outlines thickness={0.045} color="#0b1020" />
-        </mesh>
-        {/* Visor accent (local +z) so the placeholder reads as a character with a facing. */}
-        <mesh castShadow position={[0, 0.35, 0.4]}>
-          <boxGeometry args={[0.55, 0.16, 0.12]} />
-          <meshToonMaterial color="#0b1020" gradientMap={gradient} />
-        </mesh>
+        <MiniHero />
       </group>
     </RigidBody>
   );
