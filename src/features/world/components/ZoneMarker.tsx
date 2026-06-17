@@ -5,10 +5,11 @@ import { useToonGradient } from '@shared/hooks';
 import { DoubleSide } from 'three';
 import type { Zone } from '@content/index';
 import { useWorldStore } from '../store';
+import { ZoneLandmark } from './Landmarks';
 
 const ACCENT_HEX: Record<Zone['accent'], string> = {
-  flame: '#ff7a1a',
-  azure: '#3aa0ff',
+  flame: '#ff8a3d',
+  azure: '#1fb6d6',
 };
 
 interface ZoneMarkerProps {
@@ -28,19 +29,18 @@ export function ZoneMarker({ zone }: ZoneMarkerProps) {
 
   return (
     <group position={[...zone.position]}>
-      <mesh castShadow position={[0, 1.6, 0]}>
-        <cylinderGeometry args={[0.45, 0.45, 3.2, 8]} />
+      <ZoneLandmark zoneId={zone.id} />
+
+      {/* Glowing "approach me" ring on the walkway. */}
+      <mesh receiveShadow position={[0, 0.03, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+        <ringGeometry args={[1.7, 2.5, 28]} />
         <meshToonMaterial
           color={color}
           gradientMap={gradient}
           emissive={color}
-          emissiveIntensity={0.3}
+          emissiveIntensity={0.35}
+          side={DoubleSide}
         />
-      </mesh>
-
-      <mesh receiveShadow position={[0, 0.03, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-        <ringGeometry args={[1.7, 2.5, 28]} />
-        <meshToonMaterial color={color} gradientMap={gradient} side={DoubleSide} />
       </mesh>
 
       <RigidBody

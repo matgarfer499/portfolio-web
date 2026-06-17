@@ -1,23 +1,29 @@
 'use client';
 
-/** Warm key light + cool fill — the orange/blue palette expressed as light. */
+/**
+ * Deep-navy dusk over the seafront: a cool ambient/hemisphere fill (sky → ground) plus a
+ * single warm, low key light raking across the promenade from over the sea for long shadows.
+ * Shadow-camera bounds are widened to cover the long paseo (a deliberate trade vs. a tight
+ * frustum — acceptable for chunky toon shadows at 2048²).
+ */
 export function Lighting() {
   return (
     <>
-      <ambientLight intensity={0.55} />
-      <hemisphereLight args={['#ffd9b0', '#1b2547', 0.5]} />
+      <ambientLight intensity={0.38} color="#8fb4d0" />
+      <hemisphereLight args={['#a9c6dc', '#16242f', 0.5]} />
       <directionalLight
         castShadow
-        position={[10, 16, 8]}
-        intensity={2.4}
-        color="#fff1e0"
+        position={[-22, 10, 12]}
+        intensity={1.95}
+        color="#ffc78f"
         shadow-mapSize={[2048, 2048]}
         shadow-bias={-0.0005}
-        shadow-camera-left={-24}
-        shadow-camera-right={24}
-        shadow-camera-top={24}
-        shadow-camera-bottom={-24}
-        shadow-camera-far={60}
+        shadow-camera-left={-44}
+        shadow-camera-right={44}
+        shadow-camera-top={20}
+        shadow-camera-bottom={-20}
+        shadow-camera-near={1}
+        shadow-camera-far={90}
       />
     </>
   );

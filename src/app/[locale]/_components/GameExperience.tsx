@@ -48,8 +48,8 @@ export function GameExperience({ zones, onExit }: GameExperienceProps) {
     <div data-testid="game-canvas" className="bg-bg fixed inset-0">
       <KeyboardControls map={controlsMap}>
         <Canvas shadows dpr={[1, 2]} camera={{ position: [0, 9, 18], fov: 50 }}>
-          <color attach="background" args={['#0b1020']} />
-          <fog attach="fog" args={['#0b1020', 26, 60]} />
+          <color attach="background" args={['#0e3a63']} />
+          <fog attach="fog" args={['#123049', 40, 95]} />
           <Suspense fallback={null}>
             <Physics>
               <Scene />

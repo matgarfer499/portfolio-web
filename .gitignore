@@ -54,3 +54,8 @@ docs/content-snapshot.md
 docs/phase-3/
 .lighthouse/
 .claude/settings.local.json
+
+# v3 local-only visual self-verification harness
+.pw-libs/
+shots/
+scripts/shoot.mjs
