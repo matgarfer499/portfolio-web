@@ -89,20 +89,40 @@ The avatar is a `type="dynamic"` `RigidBody` with `lockRotations` and a `Capsule
 (`colliders={false}` on the body so the collider is explicit). Movement **sets linear velocity**
 each frame — it never teleports `position`, which would fight the physics solver.
 
+Velocity is **damped toward a target** each frame (`MathUtils.damp`, framerate-independent) so the
+avatar accelerates and eases to a stop instead of snapping. Gravity on `y` is preserved. Reuse a
+module-scope `Vector3` for the write — no per-frame object literals:
+
 ```tsx
-const { y } = rb.linvel(); // preserve gravity on Y
 const length = Math.hypot(dx, dz); // normalize so diagonals aren't faster
-rb.setLinvel(
-  length > 0 ? { x: (dx / length) * SPEED, y, z: (dz / length) * SPEED } : { x: 0, y, z: 0 },
-  true,
+const tx = length > 0 ? (dx / length) * SPEED : 0;
+const tz = length > 0 ? (dz / length) * SPEED : 0;
+const { x: vx, y, z: vz } = rb.linvel(); // preserve gravity on Y
+nextVel.set(
+  MathUtils.damp(vx, tx, MOVE_LAMBDA, delta),
+  y,
+  MathUtils.damp(vz, tz, MOVE_LAMBDA, delta),
 );
+rb.setLinvel(nextVel, true); // set linearDamping={0}: we own decel here
 ```
 
-Camera trails with **frame-rate-independent exponential smoothing** — the lerp factor depends on
-`delta`, so follow speed is identical at 30 or 144 fps:
+Facing is a **visual** concern: the body keeps `lockRotations`, and an inner `<group ref={visual}>`
+(wrapping only the meshes, collider stays outside) yaws toward the heading via shortest-path slerp.
+Hold the last facing when idle:
 
 ```tsx
-state.camera.position.lerp(desiredCamera, 1 - Math.pow(0.0015, delta));
+if (vis && length > 0) {
+  targetQuat.setFromAxisAngle(UP, Math.atan2(dx, dz));
+  vis.quaternion.slerp(targetQuat, 1 - Math.exp(-TURN_LAMBDA * delta));
+}
+```
+
+Camera trails with **frame-rate-independent exponential smoothing** — the factor depends on `delta`,
+so follow speed is identical at 30 or 144 fps. Express the rate as `1 - exp(-λ·dt)` (λ in 1/s,
+self-documenting) rather than an opaque `pow(base, dt)`:
+
+```tsx
+state.camera.position.lerp(desiredCamera, 1 - Math.exp(-CAMERA_LAMBDA * delta));
 state.camera.lookAt(position.x, position.y + 1, position.z);
 ```
 
