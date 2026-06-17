@@ -3,37 +3,47 @@ name: art-direction
 description: Use when styling UI, picking colors/fonts, or adding motion in portfolio v3 during the placeholder art phase — defines the palette tokens, system fonts, motion budget, glass policy, and the cel-shaded look so you don't over-invest in non-final visuals.
 ---
 
-# Art direction (placeholder phase)
+# Art direction (Phase 1 locked · "Costa Azul")
 
-The current visual layer is **deliberately placeholder**. Real models, palette, typography, and the
-final low-poly world arrive in Phase 1 **with Matías** — do not over-invest in final visuals now.
-Build with the tokens and rules below so swapping in real art later is a token edit, not a rewrite.
+The **palette, type, and motion are locked** (Phase 1, approved with Matías — see
+`docs/redesign/04-art-direction.md`). The **geometry/models are still placeholder** until the Phase 3
+rebuild (Málaga seaside town, mini-hero avatar, radar HUD, Matadragones climax). Build with the
+tokens and rules below; the Phase 3 reskin is a token edit, not a rewrite.
 
-## Palette — orange/blue on deep night
+Direction in one line: a **Málaga-inspired coastal town**, **sea-blue-led** (warmth is the rare pop),
+**monospace "terminal friki"** type, anime / cel-shaded.
+
+## Palette — "Costa Azul": sea-blue lead, warm accent, deep navy
 
 Tokens live in `src/app/globals.css` under `@theme`. Tailwind 4 generates utilities from each
-`--color-*` token (`bg-bg`, `text-flame`, `border-azure`, `bg-surface`, `text-muted`, …). Use the
+`--color-*` token (`bg-bg`, `text-azure`, `border-flame`, `bg-surface`, `text-muted`, …). Use the
 utilities — never hardcode hex in components.
 
-| Token                | Hex       | Role                         | Generated utilities (examples)           |
-| -------------------- | --------- | ---------------------------- | ---------------------------------------- |
-| `--color-bg`         | `#0b1020` | deep-night page base         | `bg-bg`, `text-bg`                       |
-| `--color-surface`    | `#121a33` | raised surface               | `bg-surface`                             |
-| `--color-surface-2`  | `#1b2547` | higher surface               | `bg-surface-2`                           |
-| `--color-flame`      | `#ff7a1a` | primary accent (CTA, labels) | `bg-flame`, `text-flame`, `border-flame` |
-| `--color-flame-soft` | `#ffb27a` | soft flame                   | `text-flame-soft`                        |
-| `--color-azure`      | `#3aa0ff` | secondary accent, focus ring | `text-azure`, `border-azure`             |
-| `--color-azure-soft` | `#8fc7ff` | soft azure                   | `text-azure-soft`                        |
-| `--color-ink`        | `#e8edff` | primary text                 | `text-ink`, `bg-ink`                     |
-| `--color-muted`      | `#9aa6cc` | secondary text, labels       | `text-muted`                             |
+**Roles:** blue (`azure`) now **leads** (CTAs, focus, the world); orange (`flame`) is the **accent /
+rare pop** (the avatar, highlights); `gold` is for achievements. Token names describe the _hue_, not
+the role — `flame` is still warm-orange, `azure` still blue.
+
+| Token                | Hex       | Role                                | Generated utilities (examples)           |
+| -------------------- | --------- | ----------------------------------- | ---------------------------------------- |
+| `--color-bg`         | `#0c1622` | deep-navy page + canvas base        | `bg-bg`, `text-bg`                       |
+| `--color-surface`    | `#11202f` | raised surface                      | `bg-surface`                             |
+| `--color-surface-2`  | `#16293b` | higher surface                      | `bg-surface-2`                           |
+| `--color-azure`      | `#1fb6d6` | **primary/lead** — CTA, focus       | `bg-azure`, `text-azure`, `border-azure` |
+| `--color-azure-soft` | `#74d0e6` | soft sea-blue (hovers, fills)       | `text-azure-soft`                        |
+| `--color-flame`      | `#ff8a3d` | **accent/pop** — avatar, highlights | `bg-flame`, `text-flame`, `border-flame` |
+| `--color-flame-soft` | `#ffb27a` | soft warm                           | `text-flame-soft`                        |
+| `--color-gold`       | `#ffd45e` | achievements / stars / climax       | `text-gold`, `bg-gold`                   |
+| `--color-ink`        | `#eaf4fb` | primary text                        | `text-ink`, `bg-ink`                     |
+| `--color-muted`      | `#94b2c8` | secondary text, labels              | `text-muted`                             |
 
 `color-scheme: dark` is set on `:root`; the site is dark-only. Opacity modifiers are the way to
-soften (`text-ink/90`, `bg-bg/60`, `bg-flame/10`), not new tokens.
+soften (`text-ink/90`, `bg-bg/60`, `bg-flame/10`), not new tokens. In-canvas world ground uses a warm
+sand (`#e9cfa0`) — that's a material color, not a UI token.
 
-Focus ring is global and always visible (WCAG AA): `:focus-visible { outline: 2px solid azure }`.
-Don't remove or override it per-component.
+Focus ring is global and always visible (WCAG AA): `:focus-visible { outline: 2px solid azure }` (now
+sea-blue). Don't remove or override it per-component.
 
-## Typography — system stacks only
+## Typography — "Terminal Friki", system stacks only
 
 Two font tokens, both system stacks — **no network fonts** (keeps PRESS START instant, avoids CLS):
 
@@ -43,7 +53,9 @@ Two font tokens, both system stacks — **no network fonts** (keeps PRESS START 
 --font-mono: ui-monospace, 'JetBrains Mono', 'Fira Code', Menlo, Consolas, monospace;
 ```
 
-- Body defaults to `--font-sans`. Use `font-mono` for labels, kickers, chips, dates, controls.
+- **Display + headings use `--font-mono`** — the engineer/friki signature (the name can stylize as
+  `Matías_García`). **Body / long copy uses `--font-sans`** for readability.
+- `font-mono` also drives labels, kickers, chips, dates, controls.
 - The friki/game register comes from **monospace + uppercase + wide tracking**, e.g.
   `text-azure font-mono text-sm tracking-[0.2em] uppercase`. Reuse this kicker pattern; don't
   introduce a third typeface.
@@ -92,6 +104,8 @@ the canvas is fine, but it is not the decorative frosted-glass look — keep tha
 - ❌ Parallax on content text (explicitly banned by the design direction).
 - ❌ Any motion without a reduced-motion guard (`motion-safe:` or relying on the global MotionConfig).
 - ❌ Glass / frosted `backdrop-blur` surfaces outside the achievement toast.
-- ❌ Hardcoded hex or new ad-hoc colors — extend `@theme` tokens instead, and only with Matías.
+- ❌ Hardcoded hex or new ad-hoc colors — use the locked `@theme` tokens; propose new tokens to Matías.
+- ❌ Reviving the old orange-led split — blue (`azure`) leads now; orange (`flame`) is the accent.
+- ❌ A sans (or any third typeface) for display/headings — display is mono now.
 - ❌ Network/custom web fonts.
-- ❌ Polishing placeholder 3D primitives toward "final" — real art lands later with Matías.
+- ❌ Polishing placeholder 3D primitives toward "final" — the real Málaga world lands in Phase 3.
