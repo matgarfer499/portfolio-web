@@ -158,14 +158,18 @@ pnpm test:e2e
 ## 3D assets & licenses
 
 Models live in `public/models/` and load with drei `useGLTF`; `toonifyScene` re-shades each one to
-match the Costa Azul cel look. They are **placeholders** for this round (a generic animated character
+match the Costa Azul cel look. They are **placeholders** for this round — a generic animated
+character plus low-poly kit props; a real-likeness avatar swaps in later through the single
+`<Character>` seam. All assets are **CC0** unless noted:
 
-- low-poly kit props); a real-likeness avatar swaps in later through the single `<Character>` seam.
-  All assets are **CC0** unless noted:
+| Asset                                                                            | Path                                           | Source                                                                                                                                                  | License |
+| -------------------------------------------------------------------------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| RobotExpressive — animated character (idle/walk/run)                             | `public/models/character/robot-expressive.glb` | [Quaternius](https://quaternius.com/), via the [three.js examples](https://github.com/mrdoob/three.js/tree/master/examples/models/gltf/RobotExpressive) | CC0     |
+| City Kit (Commercial) — buildings + café parasols (with `Textures/colormap.png`) | `public/models/world/city/`                    | [Kenney](https://kenney.nl/assets/city-kit-commercial)                                                                                                  | CC0     |
+| Nature Kit — palms + canoe                                                       | `public/models/world/nature/`                  | [Kenney](https://kenney.nl/assets/nature-kit)                                                                                                           | CC0     |
 
-| Asset                                                | Path                                           | Source                                                                                                                                                  | License |
-| ---------------------------------------------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
-| RobotExpressive — animated character (idle/walk/run) | `public/models/character/robot-expressive.glb` | [Quaternius](https://quaternius.com/), via the [three.js examples](https://github.com/mrdoob/three.js/tree/master/examples/models/gltf/RobotExpressive) | CC0     |
+The stylized lighthouse and the other per-zone landmarks are still hand-built primitives for now
+(they read as intentional zone markers); a dedicated kit lighthouse for La Farola can swap in later.
 
 ## CI & Deploy
 
