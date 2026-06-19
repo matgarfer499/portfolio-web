@@ -6,6 +6,7 @@ import { CapsuleCollider, RigidBody, type RapierRigidBody } from '@react-three/r
 import { useRef } from 'react';
 import { type Group, MathUtils, Quaternion, Vector3 } from 'three';
 import { type ControlName } from '../controls';
+import { avatarPosition } from '../state';
 import { MiniHero } from './MiniHero';
 
 const SPEED = 6;
@@ -13,13 +14,9 @@ const SPEED = 6;
 const MOVE_LAMBDA = 12;
 /** Yaw slerp rate (1/s): turns to face the heading without spinning instantly. */
 const TURN_LAMBDA = 10;
-/** Camera follow rate (1/s): tight track without floating. */
-const CAMERA_LAMBDA = 9;
 /** Below this residual speed on release, snap to a clean stop. */
 const STOP_EPSILON = 0.01;
 
-const CAMERA_OFFSET = new Vector3(0, 8, 13);
-const desiredCamera = new Vector3();
 const UP = new Vector3(0, 1, 0);
 const targetQuat = new Quaternion();
 const nextVel = new Vector3();
@@ -36,7 +33,7 @@ export function Avatar() {
   const visual = useRef<Group>(null);
   const [, getKeys] = useKeyboardControls<ControlName>();
 
-  useFrame((state, delta) => {
+  useFrame((_, delta) => {
     const rb = body.current;
     if (!rb) return;
 
@@ -70,15 +67,9 @@ export function Avatar() {
       vis.quaternion.slerp(targetQuat, 1 - Math.exp(-TURN_LAMBDA * delta));
     }
 
+    // Publish the position for the CameraRig (which owns the camera) to follow.
     const position = rb.translation();
-    desiredCamera.set(
-      position.x + CAMERA_OFFSET.x,
-      position.y + CAMERA_OFFSET.y,
-      position.z + CAMERA_OFFSET.z,
-    );
-    // Exponential smoothing keeps the follow speed stable across frame rates.
-    state.camera.position.lerp(desiredCamera, 1 - Math.exp(-CAMERA_LAMBDA * delta));
-    state.camera.lookAt(position.x, position.y + 1, position.z);
+    avatarPosition.set(position.x, position.y, position.z);
   });
 
   return (

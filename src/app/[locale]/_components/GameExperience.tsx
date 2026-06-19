@@ -10,7 +10,7 @@ import {
   selectUnlockedCount,
   useAchievementsStore,
 } from '@features/achievements';
-import { Avatar, controlsMap } from '@features/avatar';
+import { Avatar, CameraRig, controlsMap } from '@features/avatar';
 import { Hud } from '@features/hud';
 import { Scene, useWorldStore } from '@features/world';
 import type { LocalizedZone } from './HomeExperience';
@@ -47,7 +47,7 @@ export function GameExperience({ zones, onExit }: GameExperienceProps) {
   return (
     <div data-testid="game-canvas" className="bg-bg fixed inset-0">
       <KeyboardControls map={controlsMap}>
-        <Canvas shadows dpr={[1, 2]} camera={{ position: [0, 9, 18], fov: 50 }}>
+        <Canvas shadows dpr={[1, 2]} camera={{ position: [2, 18, 48], fov: 45 }}>
           <color attach="background" args={['#0e3a63']} />
           <fog attach="fog" args={['#123049', 40, 95]} />
           <Suspense fallback={null}>
@@ -55,6 +55,7 @@ export function GameExperience({ zones, onExit }: GameExperienceProps) {
               <Scene />
               <Avatar />
             </Physics>
+            <CameraRig />
           </Suspense>
         </Canvas>
       </KeyboardControls>
