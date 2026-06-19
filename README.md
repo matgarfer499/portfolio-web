@@ -155,6 +155,18 @@ export LD_LIBRARY_PATH="$PWD/.pw-libs/usr/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH"
 pnpm test:e2e
 ```
 
+## 3D assets & licenses
+
+Models live in `public/models/` and load with drei `useGLTF`; `toonifyScene` re-shades each one to
+match the Costa Azul cel look. They are **placeholders** for this round (a generic animated character
+
+- low-poly kit props); a real-likeness avatar swaps in later through the single `<Character>` seam.
+  All assets are **CC0** unless noted:
+
+| Asset                                                | Path                                           | Source                                                                                                                                                  | License |
+| ---------------------------------------------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| RobotExpressive — animated character (idle/walk/run) | `public/models/character/robot-expressive.glb` | [Quaternius](https://quaternius.com/), via the [three.js examples](https://github.com/mrdoob/three.js/tree/master/examples/models/gltf/RobotExpressive) | CC0     |
+
 ## CI & Deploy
 
 `.github/workflows/ci.yml` runs on push to `v3`/`master` and on PRs, in two jobs:

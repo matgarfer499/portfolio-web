@@ -6,8 +6,8 @@ import { CapsuleCollider, RigidBody, type RapierRigidBody } from '@react-three/r
 import { useRef } from 'react';
 import { type Group, MathUtils, Quaternion, Vector3 } from 'three';
 import { type ControlName } from '../controls';
-import { avatarPosition } from '../state';
-import { MiniHero } from './MiniHero';
+import { avatarMotion, avatarPosition } from '../state';
+import { Character } from './Character';
 
 const SPEED = 6;
 /** Accel/decel rate (1/s): ~95% of target speed in ~0.25s. Higher = snappier. */
@@ -60,6 +60,9 @@ export function Avatar() {
     nextVel.set(nx, y, nz);
     rb.setLinvel(nextVel, true);
 
+    // Publish horizontal speed so Character can blend idle/walk/run.
+    avatarMotion.speed = Math.hypot(nx, nz);
+
     // Smoothly yaw the visual toward the heading; hold the last facing when idle.
     const vis = visual.current;
     if (vis && length > 0) {
@@ -86,7 +89,7 @@ export function Avatar() {
     >
       <CapsuleCollider args={[0.5, 0.5]} />
       <group ref={visual}>
-        <MiniHero />
+        <Character />
       </group>
     </RigidBody>
   );
