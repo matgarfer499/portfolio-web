@@ -1,17 +1,17 @@
 ---
 name: i18n-bilingue
-description: Use when adding, translating, or wiring any user-facing text in the v3 portfolio — covers next-intl 4 routing/middleware/messages and the UI-chrome vs domain-content split.
+description: Use when adding, translating or wiring any user-facing text in portfolio v4 — a new label, aria text, section copy, Spanish translation, locale switch, /es route, hreflang, or a missing-message / parity test failure.
 ---
 
 # i18n: bilingual EN/ES with next-intl 4
 
-The site ships in two locales: **EN is the default and has no URL prefix** (`/`, `/fast`),
-**ES is prefixed** (`/es`, `/es/fast`). Two layers of text coexist and must not be mixed:
+The site ships in two locales: **EN is the default and has no URL prefix** (`/`, `/cv`),
+**ES is prefixed** (`/es`, `/es/cv`). Two layers of text coexist and must not be mixed:
 
 - **UI chrome** (buttons, labels, headings, meta) → `src/messages/{en,es}.json`, read via `useTranslations` / `getTranslations`.
-- **Portfolio domain content** (profile copy, zone bodies, project descriptions) → `src/content` as `Localized` values, resolved with `localize()`.
+- **Portfolio domain content** (bio, records, experience, captions, projects) → `src/content` as `Localized` values, resolved with `localize()`. Unknown facts → `pending()`.
 
-Both layers render from the same content source, so the game layer and the fast layer stay in sync.
+Parity tests fail if a message key or a `Localized` value exists in one language only.
 
 ## Wiring (read these before touching i18n)
 
@@ -102,7 +102,7 @@ declare module 'next-intl' {
 }
 ```
 
-Consequence: `t('Hud.exit')` is autocompleted and a typo is a type error. `en.json` is the source
+Consequence: `t('Header.hire')` is autocompleted and a typo is a type error. `en.json` is the source
 of truth for the key shape — **add a key to both `en.json` and `es.json`**, or types/builds break.
 
 ### Reading UI chrome
@@ -113,8 +113,8 @@ const t = await getTranslations({ locale, namespace: 'Meta' });
 t('title');
 
 // client component
-const t = useTranslations('Hud');
-t('exit');
+const t = useTranslations('Header');
+t('hire');
 ```
 
 ## Domain content: `Localized` + `localize()`
@@ -125,12 +125,12 @@ Portfolio copy is bilingual by construction. `src/content/types.ts`:
 export type Localized = Record<Locale, string>; // { en: '…', es: '…' }
 ```
 
-Content objects (`profile`, `zones`, `projects`) hold `Localized` fields. Resolve to a string for
+Content objects (`profile`, `records`, `experience`, `projects`…) hold `Localized` fields. Resolve to a string for
 the active locale with `localize()` from `src/content`:
 
 ```ts
-import { localize, zones } from '@content/index';
-const heading = localize(zone.heading, locale); // locale is a narrowed Locale
+import { localize, profile } from '@content/index';
+const role = localize(profile.role, locale); // locale is a narrowed Locale
 ```
 
 `localize` is just `value[locale]` — pass a real `Locale`, never an unchecked `string`.
@@ -152,3 +152,23 @@ const heading = localize(zone.heading, locale); // locale is a narrowed Locale
   mirror it exactly or `typecheck`/`build` fail.
 - **Hardcoding `/es/...` paths.** Let `localePrefix: 'as-needed'` + the navigation `Link` add the
   prefix; EN must stay unprefixed.
+
+## Spanish that sounds native
+
+Translate the idea, not the words. Use the voice of a Spanish developer from Málaga: direct, warm,
+tú, no corporate passive. Fixed section names (decided, keep them):
+
+| EN                        | ES                                |
+| ------------------------- | --------------------------------- |
+| Personal records          | Récords personales                |
+| Training log              | Diario de entreno                 |
+| Off the clock             | Fuera del horario                 |
+| Projects                  | Proyectos                         |
+| Hire me                   | Contrátame                        |
+| Let's build it end to end | Construyámoslo de principio a fin |
+| Trophy unlocked           | Trofeo desbloqueado               |
+
+Keep tech names, units and numbers as they are (`90 s → 1 s`, `Lighthouse 100`). Dates and times go
+through `Intl` with the active locale (`es-ES` / `en-GB`), timezone `Europe/Madrid`.
+
+- **Literal calques** ("Registro de entrenamiento", "Fuera del reloj") → use the table above.
