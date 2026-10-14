@@ -60,6 +60,10 @@ properties. The catalogue (what moves where) is in DESIGN.md § Motion. Rules:
 3. `prefers-reduced-motion: reduce` → no movement (MotionConfig `reducedMotion="user"` + CSS media
    query). Pointer effects (magnetic, parallax) only under `(pointer: fine)`.
 4. Scroll-driven effects observe scroll (rAF-throttled or `animation-timeline`), never take it over.
+   The `animation` shorthand resets `animation-timeline`: keep the pair in one `@utility` in
+   globals.css (see `rail-fill`), with `display` owned there too.
+5. Reduced motion sets `transition-duration: 0s` globally (not 0.01ms: `transition-property`
+   defaults to `all`, which would make every change a transition).
 
 ## Bans (design-taste-frontend guardrails, DESIGN.md wins on values)
 

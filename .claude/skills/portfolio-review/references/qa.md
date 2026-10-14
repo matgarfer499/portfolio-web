@@ -31,7 +31,8 @@ PID (`ss -ltnp | grep :3000`), never `pkill -f next` (it can kill the calling sh
 
 Widths: **360, 390, 768, 1024, 1280, 1440, 1920, 2560, 3840** × **light / dark** × **en / es** =
 36 cells per screen. `node scripts/qa-shots.mjs <route> [--widths=…] [--themes=…] [--locales=…]`
-writes full-page PNGs to `shots/<phase>/<route>-<locale>-<theme>-<width>.png` (gitignored) and
+walks the page a screen at a time (so below-the-fold motion plays and settles), then writes
+full-page PNGs to `shots/<phase>/<route>-<locale>-<theme>-<width>.png` (gitignored) and
 prints, per cell, `scrollWidth > clientWidth` (horizontal scroll) and console errors.
 
 Look at the screenshots: a script that ran is not QA. Per cell check: no horizontal scroll, nothing

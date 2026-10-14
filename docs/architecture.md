@@ -17,7 +17,7 @@ src/
     index.ts                the feature's public API — the only import path from outside
   shared/                   domain-agnostic, imported by file path (no barrels)
     components/atoms/<Name>/        Button, Chip, Label, Display, Placeholder, Container, Section, Icon
-    components/molecules/<Name>/
+    components/molecules/<Name>/    SectionHead (section title + lede)
     motion/                 tokens.ts, MotionProvider.tsx, hooks (reduced motion, in-view)
     events/trophy-bus.ts    typed event bus: features emit, only `trophies` listens
     lib/                    cn, formatters, storage (try/catch localStorage)

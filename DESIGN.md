@@ -126,20 +126,21 @@ Tokens live in `src/shared/motion/tokens.ts` (durations, eases, the toast spring
 opacity and clip-path animate. Every effect has a reduced-motion version (usually: none) and starts
 from server-rendered final content.
 
-| Effect           | Where                                | Spec                                                                                          |
-| ---------------- | ------------------------------------ | --------------------------------------------------------------------------------------------- |
-| Name mask reveal | Hero                                 | per letter, clip-path inset bottom → 0, 60 ms stagger, CSS on load                            |
-| Marquee          | Hero band                            | 26 s loop; speed follows scroll velocity, direction follows scroll direction, pauses on hover |
-| Scroll progress  | Header                               | volt bar, scaleX from scroll position                                                         |
-| Mobile menu      | Header                               | full-screen, giant Anton links staggered in                                                   |
-| Count-up         | Records                              | odometer digits, ease-out cubic 1.4 s, once in view                                           |
-| Strike draw      | Records                              | the "before" line-through drawn left → right                                                  |
-| Reveal           | Below the fold only                  | opacity + 28 px rise, 0.6 s, `cubic-bezier(.2,.7,.2,1)`                                       |
-| Progress rail    | Training log                         | CSS `animation-timeline: view()` with a static fallback                                       |
-| Toast            | Trophies                             | `cubic-bezier(.34,1.56,.64,1)` 0.55 s rise, rotated -3deg                                     |
-| Button hover     | Everywhere                           | translate(-2px,-2px) + offset shadow, 150 ms                                                  |
-| Magnetic         | Contact (pointer: fine only)         | translate toward the pointer, max 6 px                                                        |
-| Parallax         | About, Projects (pointer: fine only) | ≤12 px translate on pointer move                                                              |
+| Effect           | Where                                | Spec                                                                                                      |
+| ---------------- | ------------------------------------ | --------------------------------------------------------------------------------------------------------- |
+| Name mask reveal | Hero                                 | per letter, clip-path inset bottom → 0, 60 ms stagger, CSS on load                                        |
+| Marquee          | Hero band                            | 26 s loop; speed follows scroll velocity, direction follows scroll direction, pauses on hover             |
+| Scroll progress  | Header                               | volt bar, scaleX from scroll position                                                                     |
+| Mobile menu      | Header                               | full-screen, giant Anton links staggered in                                                               |
+| Count-up         | Records                              | odometer digits, ease-out cubic 1.4 s, once in view                                                       |
+| Strike draw      | Records                              | the "before" line-through drawn left → right                                                              |
+| Record flash     | Records                              | volt top bar: on pointer hover, and once as a card finishes counting                                      |
+| Reveal           | Below the fold only                  | opacity + 28 px rise, 0.6 s, `cubic-bezier(.2,.7,.2,1)`                                                   |
+| Progress rail    | Training log                         | named view timeline, fills along a mid-viewport reading line; none without support or with reduced motion |
+| Toast            | Trophies                             | `cubic-bezier(.34,1.56,.64,1)` 0.55 s rise, rotated -3deg                                                 |
+| Button hover     | Everywhere                           | translate(-2px,-2px) + offset shadow, 150 ms                                                              |
+| Magnetic         | Contact (pointer: fine only)         | translate toward the pointer, max 6 px                                                                    |
+| Parallax         | About, Projects (pointer: fine only) | ≤12 px translate on pointer move                                                                          |
 
 ## Do's and Don'ts
 
