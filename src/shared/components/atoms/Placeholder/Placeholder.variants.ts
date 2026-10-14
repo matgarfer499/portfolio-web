@@ -9,7 +9,7 @@ export const placeholderVariants = cva('border-dashed', {
     },
     size: {
       text: 'font-bold',
-      poster: 'font-display text-[3.5rem] leading-none uppercase',
+      poster: 'font-display text-[2.25rem] leading-none uppercase stack:text-[3.5rem]',
     },
     tone: {
       paper: 'border-ink text-ink',
