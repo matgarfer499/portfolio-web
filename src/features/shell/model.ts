@@ -1,4 +1,4 @@
-import type { Locale } from '@/i18n/routing';
+import { INTL_LOCALE, type Locale } from '@/i18n/routing';
 
 export const SECTIONS = ['records', 'log', 'about', 'projects', 'contact'] as const;
 export type SectionId = (typeof SECTIONS)[number];
@@ -20,10 +20,8 @@ export function isFinishLine({
   return fullyVisible && (scrollY > 0 || scrollHeight <= innerHeight);
 }
 
-const CLOCK_LOCALE: Record<Locale, string> = { en: 'en-GB', es: 'es-ES' };
-
 export function formatClock(now: Date, locale: Locale): string {
-  return new Intl.DateTimeFormat(CLOCK_LOCALE[locale], {
+  return new Intl.DateTimeFormat(INTL_LOCALE[locale], {
     timeZone: 'Europe/Madrid',
     hour: '2-digit',
     minute: '2-digit',

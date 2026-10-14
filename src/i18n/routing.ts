@@ -10,3 +10,6 @@ export const routing = defineRouting({
 });
 
 export type Locale = (typeof routing.locales)[number];
+
+/** The BCP 47 tag each locale formats dates and numbers with (British English: "14 Oct", 24 h). */
+export const INTL_LOCALE: Record<Locale, string> = { en: 'en-GB', es: 'es-ES' };
