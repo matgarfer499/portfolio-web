@@ -1,45 +1,42 @@
-import type { Profile, Project } from './types';
+import type { LinkItem, Localized } from './types';
 
-// The single source of truth for portfolio content (rewritten in P2).
-// Strings that vary by language carry both locales; pick one with `localize()`.
-export const profile: Profile = {
+export const profile = {
   name: 'Matías García',
-  role: {
-    en: 'Software engineer',
-    es: 'Ingeniero de software',
-  },
-  hook: {
-    en: 'I put AI to work inside developer workflows — shipping in days what used to take months.',
-    es: 'Pongo la IA a trabajar dentro del flujo del equipo — entrego en días lo que antes tomaba meses.',
-  },
-  summary: {
-    en: 'Full-stack engineer (Next.js · Django · Python · TypeScript · PostgreSQL) who automates the toil so teams spend their time building.',
-    es: 'Ingeniero full-stack (Next.js · Django · Python · TypeScript · PostgreSQL) que automatiza lo tedioso para que el equipo dedique su tiempo a construir.',
-  },
-  location: {
-    en: 'Remote · EU',
-    es: 'Remoto · UE',
-  },
+  fullName: 'Matías José García Fernández',
+  role: { en: 'Tech Lead · Full Stack Developer', es: 'Tech Lead · Desarrollador Full Stack' },
+  location: { en: 'Málaga, Spain', es: 'Málaga, España' },
+  city: 'Málaga',
+  timeZone: 'Europe/Madrid',
   email: 'mjgarciadev14@gmail.com',
-  cvUrl: '/matias-garcia-cv.pdf',
-  socials: {
-    github: 'https://github.com/matgarfer499',
-    linkedin: 'https://www.linkedin.com/in/mgarfer',
+  cv: '/matias-garcia-cv.pdf',
+  // The month the working career starts (Bettergy); "2+ yrs" is derived from it, never typed.
+  careerSince: '2024-01',
+  availability: {
+    status: 'open',
+    label: { en: 'Open to new projects', es: 'Disponible para nuevos proyectos' },
   },
+  languages: [
+    { name: { en: 'Spanish', es: 'Español' }, level: { en: 'Native', es: 'Nativo' } },
+    {
+      name: { en: 'English', es: 'Inglés' },
+      level: { en: 'B2 · Cambridge First', es: 'B2 · Cambridge First' },
+    },
+  ],
+  socials: [
+    { id: 'linkedin', label: 'LinkedIn', href: 'https://www.linkedin.com/in/mgarfer/' },
+    { id: 'github', label: 'GitHub', href: 'https://github.com/matgarfer499' },
+  ],
+} as const satisfies {
+  readonly name: string;
+  readonly fullName: string;
+  readonly role: Localized;
+  readonly location: Localized;
+  readonly city: string;
+  readonly timeZone: string;
+  readonly email: string;
+  readonly cv: string;
+  readonly careerSince: string;
+  readonly availability: { readonly status: 'open' | 'busy'; readonly label: Localized };
+  readonly languages: readonly { readonly name: Localized; readonly level: Localized }[];
+  readonly socials: readonly LinkItem[];
 };
-
-export const projects: readonly Project[] = [
-  {
-    id: 'chefory',
-    name: 'Chefory',
-    tagline: {
-      en: 'A recipe & meal manager',
-      es: 'Un gestor de recetas y comidas',
-    },
-    description: {
-      en: 'My first shipped product: plan meals, organize recipes, and keep a kitchen running without the spreadsheet chaos.',
-      es: 'Mi primer producto en producción: planifica comidas, organiza recetas y mantén la cocina en marcha sin el caos de las hojas de cálculo.',
-    },
-    stack: ['Next.js', 'TypeScript', 'Supabase', 'Tailwind CSS'],
-  },
-];
