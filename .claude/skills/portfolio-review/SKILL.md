@@ -27,8 +27,9 @@ pnpm content:pending                                                   # from P2
 ```
 
 Redirect long output to a file and read its tail. A red gate is a Critical finding by itself.
-Every pattern-scan hit is a lead: open the line and decide. From the build output, record the
-home route's first-load JS (budget ≤ 130 kB gz).
+Every pattern-scan hit is a lead: open the line and decide. With the production server running,
+`node scripts/bundle-size.mjs` records the home's first-load JS (owner budget 130 kB gz; the
+Next 16 + React 19 floor is ≈142 kB gz, so report the number and the app's share).
 
 ## 2. Code review
 
