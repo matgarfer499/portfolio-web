@@ -5,7 +5,11 @@
 set -uo pipefail
 cd "$(git rev-parse --show-toplevel)"
 BASE="${1:-$(git describe --tags --abbrev=0 --match 'v4-p*' 2>/dev/null || echo v3)}"
-mapfile -t FILES < <(git diff --name-only --diff-filter=AM "$(git merge-base "$BASE" HEAD)" HEAD -- 'src/**' | grep -E '\.(ts|tsx|css)$')
+# Working tree against the base, plus untracked files: uncommitted work is what is under review.
+mapfile -t FILES < <({
+  git diff --name-only --diff-filter=AMR "$(git merge-base "$BASE" HEAD)" -- 'src/**'
+  git ls-files --others --exclude-standard -- src
+} | grep -E '\.(ts|tsx|css)$' | sort -u)
 [ ${#FILES[@]} -eq 0 ] && { echo "no changed src files since $BASE"; exit 0; }
 TSX=(); TS=(); for f in "${FILES[@]}"; do [[ $f == *.tsx ]] && TSX+=("$f"); [[ $f == *.ts ]] && TS+=("$f"); done
 echo "base: $BASE"
