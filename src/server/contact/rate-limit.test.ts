@@ -28,4 +28,12 @@ describe('createRateLimit', () => {
     hit('late', 10 * MIN);
     expect(hit.size()).toBe(1);
   });
+
+  it('never holds more than maxKeys addresses, dropping the oldest first', () => {
+    const hit = createRateLimit({ limit: 1, windowMs: 10 * MIN, maxKeys: 3 });
+    for (const ip of ['a', 'b', 'c', 'd']) hit(ip, 0);
+    expect(hit.size()).toBe(3);
+    expect(hit('a', 0)).toBe(true);
+    expect(hit('d', 0)).toBe(false);
+  });
 });

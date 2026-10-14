@@ -13,6 +13,7 @@ export async function sendMessage(
   _previous: ContactResult,
   data: FormData,
 ): Promise<ContactResult> {
+  // Vercel sets x-forwarded-for itself (a client-sent value is overwritten), so the first hop is real.
   const ip = (await headers()).get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
   return handleContact(data, {
     env: contactEnv(),
