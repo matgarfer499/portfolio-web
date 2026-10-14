@@ -78,4 +78,12 @@ describe('trophy store', () => {
       store.getState().reset();
     }).not.toThrow();
   });
+
+  it('a second hydrate (next page) keeps in-memory trophies when storage fails', () => {
+    const store = createTrophyStore(() => broken);
+    store.getState().hydrate();
+    store.getState().unlock('konami');
+    store.getState().hydrate();
+    expect(store.getState().unlocked).toEqual(['konami']);
+  });
 });

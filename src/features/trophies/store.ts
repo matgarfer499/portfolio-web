@@ -27,6 +27,10 @@ function attempt<T>(run: () => T, fallback: T): T {
   }
 }
 
+function persist(write: () => void): void {
+  attempt(write, undefined);
+}
+
 // Starts empty: the server renders 0/8 and the first client render must match; hydrate() runs in
 // an effect. unlock() persists synchronously because the CV link leaves the page right after.
 export function createTrophyStore(storage: () => KeyValueStorage) {
@@ -36,23 +40,25 @@ export function createTrophyStore(storage: () => KeyValueStorage) {
     latest: null,
     hydrate: () =>
       set({
-        unlocked: attempt(() => parseUnlocked(storage().getItem(TROPHIES_KEY)), []),
-        sound: attempt(() => storage().getItem(SOUND_KEY) === '1', false),
+        // Re-run on every page's header mount: unreadable storage keeps what memory already has.
+        unlocked: attempt(() => parseUnlocked(storage().getItem(TROPHIES_KEY)), get().unlocked),
+        sound: attempt(() => storage().getItem(SOUND_KEY) === '1', get().sound),
       }),
     unlock: (id) => {
-      if (get().unlocked.includes(id)) return;
-      const unlocked = [...get().unlocked, id];
-      attempt(() => storage().setItem(TROPHIES_KEY, JSON.stringify(unlocked)), undefined);
-      set({ unlocked, latest: id });
+      const { unlocked } = get();
+      if (unlocked.includes(id)) return;
+      const next = [...unlocked, id];
+      persist(() => storage().setItem(TROPHIES_KEY, JSON.stringify(next)));
+      set({ unlocked: next, latest: id });
     },
     dismiss: () => set({ latest: null }),
     toggleSound: () => {
       const sound = !get().sound;
-      attempt(() => storage().setItem(SOUND_KEY, sound ? '1' : '0'), undefined);
+      persist(() => storage().setItem(SOUND_KEY, sound ? '1' : '0'));
       set({ sound });
     },
     reset: () => {
-      attempt(() => storage().removeItem(TROPHIES_KEY), undefined);
+      persist(() => storage().removeItem(TROPHIES_KEY));
       set({ unlocked: [], latest: null });
     },
   }));

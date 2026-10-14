@@ -43,4 +43,8 @@ describe('konamiStep', () => {
     expect(run(['ArrowUp', 'ArrowUp', 'ArrowUp'])).toBe(2);
     expect(run(['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowUp'])).toBe(1);
   });
+
+  it('ignores modifier keys, so Shift+B still counts', () => {
+    expect(run([...KONAMI.slice(0, 8), 'Shift', 'B', 'Shift', 'A'])).toBe(KONAMI.length);
+  });
 });
