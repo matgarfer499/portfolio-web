@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { hasLocale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
@@ -10,8 +11,18 @@ import { RecordsSection } from '@features/records';
 import { Footer, Header, SkipLink } from '@features/shell';
 import { Trophies } from '@features/trophies';
 import { routing } from '@/i18n/routing';
+import { alternatesFor } from '@shared/config/seo';
 import { PageTransition } from '@shared/motion/PageTransition';
 import { RevealController } from '@shared/motion/RevealController';
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  return hasLocale(routing.locales, locale) ? { alternates: alternatesFor(locale, '/') } : {};
+}
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;

@@ -6,6 +6,7 @@ import { CaseStudyPage, caseMeta, caseSlugs, findCase } from '@features/projects
 import { Footer, Header, SkipLink } from '@features/shell';
 import { Trophies } from '@features/trophies';
 import { routing } from '@/i18n/routing';
+import { alternatesFor } from '@shared/config/seo';
 import { site } from '@shared/config/site';
 import { PageTransition } from '@shared/motion/PageTransition';
 import { RevealController } from '@shared/motion/RevealController';
@@ -22,7 +23,10 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   const { locale, slug } = await params;
   const study = findCase(slug);
   if (!study || !hasLocale(routing.locales, locale)) return {};
-  return caseMeta(study, locale, site.name);
+  return {
+    ...caseMeta(study, locale, site.name),
+    alternates: alternatesFor(locale, `/projects/${slug}`),
+  };
 }
 
 export default async function CasePage({ params }: { params: Params }) {
