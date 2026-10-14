@@ -1,25 +1,24 @@
 import { hasLocale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
-import { profile } from '@content/index';
+import { Hero } from '@features/hero';
+import { Footer, Header, SkipLink } from '@features/shell';
 import { routing } from '@/i18n/routing';
 
-interface PageProps {
-  params: Promise<{ locale: string }>;
-}
-
-export default async function HomePage({ params }: PageProps) {
+export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  if (!hasLocale(routing.locales, locale)) {
-    notFound();
-  }
+  if (!hasLocale(routing.locales, locale)) notFound();
   setRequestLocale(locale);
-  const t = await getTranslations('Home');
+  const t = await getTranslations({ locale, namespace: 'Shell' });
 
   return (
-    <main>
-      <h1>{profile.name}</h1>
-      <p>{t('placeholder')}</p>
-    </main>
+    <>
+      <SkipLink label={t('skip')} />
+      <Header locale={locale} />
+      <main id="main">
+        <Hero locale={locale} />
+      </main>
+      <Footer locale={locale} />
+    </>
   );
 }

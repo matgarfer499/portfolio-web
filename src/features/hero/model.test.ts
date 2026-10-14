@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { yearsSince } from './model';
+import { marqueeRate, yearsSince } from './model';
 
 describe('yearsSince', () => {
   const at = (iso: string) => new Date(`${iso}T12:00:00Z`);
@@ -15,5 +15,21 @@ describe('yearsSince', () => {
 
   it('never goes negative for a future start', () => {
     expect(yearsSince('2030-01', at('2026-10-14'))).toBe(0);
+  });
+});
+
+describe('marqueeRate', () => {
+  it('runs at base speed forward when the page is still', () => {
+    expect(marqueeRate(0, 1)).toBe(1);
+  });
+
+  it('speeds up with scroll velocity, up to 4×', () => {
+    expect(marqueeRate(1, 1)).toBeGreaterThan(1);
+    expect(marqueeRate(50, 1)).toBe(4);
+  });
+
+  it('flips direction with the scroll direction and keeps it when scrolling stops', () => {
+    expect(marqueeRate(-1, 1)).toBeLessThan(-1);
+    expect(marqueeRate(0, -1)).toBe(-1);
   });
 });

@@ -38,7 +38,15 @@ for (const locale of LOCALES) {
       await context.addInitScript((t) => localStorage.setItem('pr-theme', t), theme);
       const page = await context.newPage();
       const errors = [];
-      page.on('console', (m) => m.type() === 'error' && errors.push(m.text()));
+      // Vercel Analytics scripts exist only on Vercel; any other failed request is a problem.
+      page.on('response', (r) => {
+        if (r.status() >= 400 && !r.url().includes('/_vercel/'))
+          errors.push(`${r.status()} ${r.url()}`);
+      });
+      page.on('console', (m) => {
+        if (m.type() === 'error' && !m.text().startsWith('Failed to load resource'))
+          errors.push(m.text());
+      });
       page.on('pageerror', (e) => errors.push(e.message));
       await page.goto(BASE + path, { waitUntil: 'networkidle' });
       await page.addStyleTag({ content: 'nextjs-portal{display:none!important}' });
