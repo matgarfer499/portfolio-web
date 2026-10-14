@@ -34,9 +34,9 @@
     "title": "Personal records",
     "before": "Before",
     "after": "Now",
-    "faster": "{ratio}× faster",
-    "fewer": "{ratio}× fewer",
-    "points": "+{points} points"
+    "faster": "{value}× faster",
+    "fewer": "{value}× fewer",
+    "points": "+{value} points"
   },
   "Log": {
     "title": "Training log",

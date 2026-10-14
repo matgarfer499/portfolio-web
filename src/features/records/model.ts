@@ -2,7 +2,7 @@ import { INTL_LOCALE, type Locale } from '@/i18n/routing';
 import type { RecordItem } from '@content/index';
 import { easeOutCubic } from '@shared/motion/tokens';
 
-export type Improvement = { kind: 'faster' | 'fewer' | 'points'; ratio: string };
+type Improvement = { kind: 'faster' | 'fewer' | 'points'; value: string };
 
 const TIME_UNITS = new Set(['s', 'ms']);
 
@@ -10,12 +10,12 @@ const TIME_UNITS = new Set(['s', 'ms']);
 // higher-is-better: the difference in points.
 export function improvement(record: Pick<RecordItem, 'before' | 'after' | 'better'>): Improvement {
   const { before, after, better } = record;
-  if (better === 'higher') return { kind: 'points', ratio: String(after.value - before.value) };
+  if (better === 'higher') return { kind: 'points', value: String(after.value - before.value) };
   const ratio = before.value / after.value;
   const rounded = ratio >= 10 ? Math.round(ratio) : Math.round(ratio * 10) / 10;
   return {
     kind: before.unit && TIME_UNITS.has(before.unit) ? 'faster' : 'fewer',
-    ratio: String(rounded),
+    value: String(rounded),
   };
 }
 

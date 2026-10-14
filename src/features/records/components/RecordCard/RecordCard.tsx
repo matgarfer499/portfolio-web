@@ -35,11 +35,7 @@ export async function RecordCard({ record, locale }: { record: RecordItem; local
           </small>
         ) : null}
       </div>
-      <span className={styles.badge()}>
-        {gain.kind === 'points'
-          ? t('points', { points: gain.ratio })
-          : t(gain.kind, { ratio: gain.ratio })}
-      </span>
+      <span className={styles.badge()}>{t(gain.kind, { value: gain.value })}</span>
       <p className={styles.note()}>{localize(record.note, locale)}</p>
     </article>
   );

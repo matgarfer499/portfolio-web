@@ -4,7 +4,7 @@ import { cva } from 'class-variance-authority';
 // stacks on the right; from `board` the artifact's four columns.
 export const logRowVariants = {
   root: cva(
-    'grid grid-cols-1 gap-3.5 border-b-2 border-ink py-6 stack:grid-cols-[9.375rem_minmax(0,1fr)] stack:gap-x-7 stack:py-7 stack:[grid-template-areas:"when_team"_"when_head"_"when_list"_"when_chips"] board:grid-cols-[10.625rem_13.75rem_minmax(0,1fr)_16.25rem] board:grid-rows-[auto_1fr] board:gap-y-2.5 board:[grid-template-areas:"when_team_head_chips"_"when_team_list_chips"]',
+    'grid grid-cols-1 gap-3.5 border-b-2 border-ink py-6 stack:grid-cols-[9.375rem_minmax(0,1fr)] stack:gap-x-7 stack:py-7 stack:[grid-template-areas:"when_team"_"when_head"_"when_list"_"when_chips"] board:grid-cols-(--log-cols) board:grid-rows-[auto_1fr] board:gap-y-2.5 board:[grid-template-areas:"when_team_head_chips"_"when_team_list_chips"]',
   ),
   when: cva(
     'font-display text-[1.875rem] leading-none uppercase stack:sticky stack:top-20 stack:self-start stack:[grid-area:when]',

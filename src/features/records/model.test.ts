@@ -9,21 +9,21 @@ const rec = (before: number, after: number, better: 'lower' | 'higher', unit?: s
 
 describe('improvement', () => {
   it('reads a time going down as × faster', () => {
-    expect(improvement(rec(90, 1, 'lower', 's'))).toEqual({ kind: 'faster', ratio: '90' });
-    expect(improvement(rec(900, 300, 'lower', 'ms'))).toEqual({ kind: 'faster', ratio: '3' });
+    expect(improvement(rec(90, 1, 'lower', 's'))).toEqual({ kind: 'faster', value: '90' });
+    expect(improvement(rec(900, 300, 'lower', 'ms'))).toEqual({ kind: 'faster', value: '3' });
   });
 
   it('reads a count going down as × fewer, rounded to whole numbers from 10 up', () => {
-    expect(improvement(rec(6000, 7, 'lower'))).toEqual({ kind: 'fewer', ratio: '857' });
+    expect(improvement(rec(6000, 7, 'lower'))).toEqual({ kind: 'fewer', value: '857' });
   });
 
   it('keeps one decimal under 10 and drops a trailing .0', () => {
-    expect(improvement(rec(19, 2, 'lower'))).toEqual({ kind: 'fewer', ratio: '9.5' });
-    expect(improvement(rec(8, 2, 'lower'))).toEqual({ kind: 'fewer', ratio: '4' });
+    expect(improvement(rec(19, 2, 'lower'))).toEqual({ kind: 'fewer', value: '9.5' });
+    expect(improvement(rec(8, 2, 'lower'))).toEqual({ kind: 'fewer', value: '4' });
   });
 
   it('reads a score going up as + points', () => {
-    expect(improvement(rec(60, 100, 'higher'))).toEqual({ kind: 'points', ratio: '40' });
+    expect(improvement(rec(60, 100, 'higher'))).toEqual({ kind: 'points', value: '40' });
   });
 });
 

@@ -12,7 +12,7 @@ export function PendingRecordCard({ record, locale }: { record: PendingRecord; l
     <article className={styles.root()}>
       <Label>{localize(record.label, locale)}</Label>
       {metric.kind === 'pending' ? (
-        <Placeholder note={metric.note} size="display" tone="night" />
+        <Placeholder note={metric.note} size="poster" tone="night" />
       ) : (
         <span>{metric.text}</span>
       )}

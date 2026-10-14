@@ -73,6 +73,8 @@ describe('content invariants', () => {
       const improved =
         r.better === 'lower' ? r.after.value < r.before.value : r.after.value > r.before.value;
       expect(improved, r.id).toBe(true);
+      // "× faster" divides before by after.
+      if (r.better === 'lower') expect(r.after.value, r.id).toBeGreaterThan(0);
     }
   });
 });

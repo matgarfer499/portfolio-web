@@ -6,7 +6,9 @@ function month(iso: string, locale: Locale, style: 'short' | 'long'): string {
     new Date(Date.UTC(year, m - 1, 1)),
   );
 }
-const year = (iso: string) => iso.slice(0, 4);
+function year(iso: string): string {
+  return iso.slice(0, 4);
+}
 
 // The big line is years; the small line adds months and the place. CSS uppercases both.
 export function formatWhen(
@@ -16,20 +18,21 @@ export function formatWhen(
   now: string,
 ): { big: string; small: string } {
   const short = (iso: string) => month(iso, locale, 'short');
-  if (!start && end) return { big: year(end), small: `${month(end, locale, 'long')} · ${place}` };
-  if (start && !end)
+  if (!start)
+    return end
+      ? { big: year(end), small: `${month(end, locale, 'long')} · ${place}` }
+      : { big: '', small: place };
+  if (!end)
     return { big: `${year(start)} — ${now}`, small: `${short(start)} ${year(start)} · ${place}` };
-  if (start && end && year(start) === year(end))
+  if (year(start) === year(end))
     return { big: year(start), small: `${short(start)} — ${short(end)} · ${place}` };
-  if (start && end)
-    return {
-      big: `${year(start)} — ${year(end)}`,
-      small: `${short(start)} ${year(start)} — ${short(end)} ${year(end)} · ${place}`,
-    };
-  return { big: '', small: place };
+  return {
+    big: `${year(start)} — ${year(end)}`,
+    small: `${short(start)} ${year(start)} — ${short(end)} ${year(end)} · ${place}`,
+  };
 }
 
-// Collapse on phones only while the log is below the fold, so nothing shifts in view.
-export function shouldCollapse(input: { narrow: boolean; listTop: number; innerHeight: number }) {
-  return input.narrow && input.listTop > input.innerHeight;
+// Fold only while the log is below the fold, so nothing shifts in view (CSS limits it to phones).
+export function shouldCollapse(input: { listTop: number; innerHeight: number }) {
+  return input.listTop > input.innerHeight;
 }

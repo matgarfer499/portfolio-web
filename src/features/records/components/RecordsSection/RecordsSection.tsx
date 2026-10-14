@@ -7,7 +7,6 @@ import { SectionHead } from '@shared/components/molecules/SectionHead/SectionHea
 import { PendingRecordCard } from '../PendingRecordCard/PendingRecordCard';
 import { RecordCard } from '../RecordCard/RecordCard';
 import { RecordsMotion } from '../RecordsMotion/RecordsMotion';
-import { recordsSectionVariants as styles } from './RecordsSection.variants';
 
 export async function RecordsSection({ locale }: { locale: Locale }) {
   const t = await getTranslations({ locale, namespace: 'Records' });
@@ -15,7 +14,7 @@ export async function RecordsSection({ locale }: { locale: Locale }) {
     <Section id="records" tone="night" aria-labelledby="records-title">
       <Container>
         <SectionHead id="records-title" title={t('title')} lede={localize(records.lede, locale)} />
-        <RecordsMotion locale={locale} className={styles.board()}>
+        <RecordsMotion locale={locale}>
           {records.items.map((record) => (
             <RecordCard key={record.id} record={record} locale={locale} />
           ))}

@@ -6,10 +6,8 @@ import { Icon } from '@shared/components/atoms/Icon/Icon';
 import { shouldCollapse } from '../../model';
 import { logDisclosureVariants as styles } from './LogDisclosure.variants';
 
-const NARROW = '(width < 51.25rem)';
-
-// The server shows every detail. On phones, while the log is still below the fold, the details
-// fold behind a button so the list reads as a timeline; already in view, nothing changes.
+// The server shows every detail. While the log is still below the fold the details fold behind a
+// button so the list reads as a timeline; the fold and the button exist only below `stack` (CSS).
 export function LogDisclosure({
   id,
   labels,
@@ -29,7 +27,6 @@ export function LogDisclosure({
     const hash = decodeURIComponent(window.location.hash.slice(1));
     const landing = hash ? document.getElementById(hash) : null;
     const collapse = shouldCollapse({
-      narrow: window.matchMedia(NARROW).matches,
       listTop: list.getBoundingClientRect().top - (landing?.getBoundingClientRect().top ?? 0),
       innerHeight: window.innerHeight,
     });

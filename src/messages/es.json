@@ -34,9 +34,9 @@
     "title": "Récords personales",
     "before": "Antes",
     "after": "Ahora",
-    "faster": "{ratio}× más rápido",
-    "fewer": "{ratio}× menos",
-    "points": "+{points} puntos"
+    "faster": "{value}× más rápido",
+    "fewer": "{value}× menos",
+    "points": "+{value} puntos"
   },
   "Log": {
     "title": "Diario de entreno",
