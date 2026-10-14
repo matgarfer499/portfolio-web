@@ -64,6 +64,11 @@ properties. The catalogue (what moves where) is in DESIGN.md § Motion. Rules:
    globals.css (see `rail-fill`), with `display` owned there too.
 5. Reduced motion sets `transition-duration: 0s` globally (not 0.01ms: `transition-property`
    defaults to `all`, which would make every change a transition).
+6. Below-the-fold entrances: mark the element `data-reveal` (RevealController arms it) or, in an
+   island, gate on `isBelowFold(el)` from `shared/motion/viewport.ts` — never re-derive the check.
+7. View transitions: links into/out of a case pass `transitionTypes={['nav-forward'|'nav-back']}`;
+   shared elements use `caseTransition(part, slug)` names. Untyped navigations (hash, language) do
+   not slide. CSS for the pseudo-elements lives in globals.css.
 
 ## Bans (design-taste-frontend guardrails, DESIGN.md wins on values)
 

@@ -54,7 +54,8 @@ feature. Features: `shell` (header, nav, mobile menu, theme + language switch, s
 - Server Components by default. `"use client"` only on the leaf that needs state, effects or
   browser APIs; pass server-rendered children through it instead of moving a tree to the client.
 - **No content hidden until hydration.** Every enhancement (reveal, count-up, marquee speed) starts
-  from the final server-rendered state and animates only when JS and motion are allowed.
+  from the final server-rendered state and animates only when JS and motion are allowed. Islands
+  decide "below the fold" with `isBelowFold` (`shared/motion/viewport.ts`), which honours deep links.
 - `process.env` is read only in `src/server/**` and `src/shared/config/site.ts`
   (`NEXT_PUBLIC_SITE_URL`). Secrets (`RESEND_API_KEY`, `CONTACT_TO`) are read and validated once in
   `src/server/env.ts` and never leave `src/server`.
