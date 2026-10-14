@@ -38,7 +38,7 @@ export function Styleguide() {
     <main className={styles.root()}>
       <Container className={styles.bar()}>
         <Label tone="ink">PR Board · styleguide (dev only)</Label>
-        <ThemeToggle />
+        <ThemeToggle label="Dark theme" />
       </Container>
 
       <Section id="type">
