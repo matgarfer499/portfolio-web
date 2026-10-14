@@ -46,27 +46,24 @@ export function MobileMenu({ locale, labels, text, tools }: MobileMenuProps) {
       >
         <Container className={styles.top()}>
           <span aria-hidden>MG</span>
-          <button
-            type="button"
-            className={styles.trigger()}
-            aria-label={text.close}
-            onClick={close}
-          >
+          <button type="button" className={styles.close()} aria-label={text.close} onClick={close}>
             <Icon name="close" size="lg" strokeWidth={2.2} />
           </button>
         </Container>
         <Container className={styles.links()}>
-          {SECTIONS.map((id, i) => (
-            <Link
-              key={id}
-              href={localizedPath(locale, `/#${id}`)}
-              className={styles.link()}
-              style={{ '--i': i } as CSSProperties}
-              onClick={close}
-            >
-              {labels[id]}
-            </Link>
-          ))}
+          <nav aria-label={text.nav} className={styles.nav()}>
+            {SECTIONS.map((id, i) => (
+              <Link
+                key={id}
+                href={localizedPath(locale, `/#${id}`)}
+                className={styles.link()}
+                style={{ '--i': i } as CSSProperties}
+                onClick={close}
+              >
+                {labels[id]}
+              </Link>
+            ))}
+          </nav>
         </Container>
         <Container className={styles.bottom()}>{tools}</Container>
       </dialog>

@@ -8,9 +8,10 @@ import { emitTrophy } from '@shared/events/trophy-bus';
 import { languageSwitchVariants } from './LanguageSwitch.variants';
 
 export function LanguageSwitch({ to, label }: { to: Locale; label: string }) {
+  const pathname = usePathname();
   return (
     <Link
-      href={switchLocalePath(usePathname(), to)}
+      href={switchLocalePath(pathname, to)}
       hrefLang={to}
       aria-label={label}
       className={languageSwitchVariants()}

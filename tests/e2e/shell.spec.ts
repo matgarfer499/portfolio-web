@@ -114,3 +114,13 @@ test('with reduced motion nothing animates', async ({ page }) => {
   );
   expect(running).toBe(0);
 });
+
+test('the scroll progress bar grows as the page scrolls', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 600 });
+  await page.goto('/');
+  const bar = page.locator('header > div[aria-hidden]');
+  const width = () => bar.evaluate((el) => el.getBoundingClientRect().width);
+  expect(await width()).toBe(0);
+  await page.mouse.wheel(0, 400);
+  await expect.poll(width).toBeGreaterThan(0);
+});

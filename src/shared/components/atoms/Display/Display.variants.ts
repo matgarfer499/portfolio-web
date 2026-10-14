@@ -2,7 +2,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 
 // Giant type is sized in cqi against the nearest Container, never the viewport (DESIGN.md).
 export const displayVariants = cva(
-  'm-0 font-display font-normal tracking-[0.005em] text-balance uppercase',
+  'font-display font-normal tracking-[0.005em] text-balance uppercase',
   {
     variants: {
       size: {

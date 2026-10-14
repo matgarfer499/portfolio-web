@@ -4,11 +4,8 @@ import { routing, type Locale } from './routing';
 // (~12 kB gz) never ships. Mirrors localePrefix 'as-needed': English has no prefix.
 export function localizedPath(locale: Locale, path: string): string {
   if (locale === routing.defaultLocale) return path;
-  return path === '/'
-    ? `/${locale}`
-    : path.startsWith('/#')
-      ? `/${locale}${path.slice(1)}`
-      : `/${locale}${path}`;
+  if (path === '/') return `/${locale}`;
+  return `/${locale}${path.startsWith('/#') ? path.slice(1) : path}`;
 }
 
 const PREFIX = new RegExp(
