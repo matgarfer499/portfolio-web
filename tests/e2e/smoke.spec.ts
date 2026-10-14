@@ -9,7 +9,7 @@ test('the home page server-renders the name in English', async ({ page }) => {
 test('the Spanish home page lives under /es', async ({ page }) => {
   await page.goto('/es');
   await expect(page.locator('html')).toHaveAttribute('lang', 'es');
-  await expect(page.getByText('El portfolio v4 se está reconstruyendo')).toBeVisible();
+  await expect(page.getByText('Llevo productos de principio a fin')).toBeVisible();
 });
 
 test('the styleguide is a dev-only page: production answers 404', async ({ request }) => {
