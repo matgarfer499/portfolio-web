@@ -2,6 +2,7 @@ import { getTranslations } from 'next-intl/server';
 import Image from 'next/image';
 import type { Locale } from '@/i18n/routing';
 import { localize, profile, resolve, resolveRich, type LogEntry } from '@content/index';
+import { Bullet, Bullets } from '@shared/components/atoms/Bullets/Bullets';
 import { Chip } from '@shared/components/atoms/Chip/Chip';
 import { Placeholder } from '@shared/components/atoms/Placeholder/Placeholder';
 import { formatWhen } from '../../model';
@@ -58,9 +59,9 @@ export async function LogRow({ entry, locale }: { entry: LogEntry; locale: Local
         id={`log-${entry.id}-details`}
         labels={{ show: t('showDetails'), hide: t('hideDetails') }}
       >
-        <ul className={styles.list()}>
+        <Bullets className={styles.list()}>
           {entry.bullets.map((bullet, i) => (
-            <li key={i} className={styles.bullet()}>
+            <Bullet key={i}>
               {resolveRich(bullet, locale).map((part, j) =>
                 part.kind === 'pending' ? (
                   <Placeholder key={j} note={part.note} />
@@ -68,9 +69,9 @@ export async function LogRow({ entry, locale }: { entry: LogEntry; locale: Local
                   <span key={j}>{part.text} </span>
                 ),
               )}
-            </li>
+            </Bullet>
           ))}
-        </ul>
+        </Bullets>
         {chips.length > 0 ? (
           <div translate={entry.showLanguages ? undefined : 'no'} className={styles.chips()}>
             <span className="sr-only">{t('columns.equipment')}: </span>

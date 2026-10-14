@@ -21,9 +21,6 @@ export const logRowVariants = {
     'm-0 text-[1.375rem] leading-[1.15] font-extrabold tracking-[-0.01em] text-balance stack:text-[1.5rem]',
   ),
   since: cva('m-0 text-[0.875rem] font-semibold text-steel'),
-  list: cva('m-0 grid list-none gap-2 p-0 stack:[grid-area:list]'),
-  bullet: cva(
-    'relative pl-[1.375rem] text-ink-soft before:absolute before:top-[0.55em] before:left-0 before:size-2.5 before:border-2 before:border-ink before:bg-volt',
-  ),
+  list: cva('stack:[grid-area:list]'),
   chips: cva('flex flex-wrap content-start gap-1.5 stack:[grid-area:chips]'),
 };
