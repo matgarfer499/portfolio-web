@@ -11,3 +11,8 @@ test('the Spanish home page lives under /es', async ({ page }) => {
   await expect(page.locator('html')).toHaveAttribute('lang', 'es');
   await expect(page.getByText('El portfolio v4 se está reconstruyendo')).toBeVisible();
 });
+
+test('the styleguide is a dev-only page: production answers 404', async ({ request }) => {
+  expect((await request.get('/styleguide')).status()).toBe(404);
+  expect((await request.get('/es/styleguide')).status()).toBe(404);
+});
