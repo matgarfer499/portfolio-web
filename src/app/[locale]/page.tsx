@@ -2,6 +2,8 @@ import { hasLocale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { Hero } from '@features/hero';
+import { LogSection } from '@features/log';
+import { RecordsSection } from '@features/records';
 import { Footer, Header, SkipLink } from '@features/shell';
 import { routing } from '@/i18n/routing';
 
@@ -17,6 +19,8 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <Header locale={locale} />
       <main id="main">
         <Hero locale={locale} />
+        <RecordsSection locale={locale} />
+        <LogSection locale={locale} />
       </main>
       <Footer locale={locale} />
     </>
