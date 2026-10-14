@@ -4,6 +4,7 @@ import { hero, localize, profile } from '@content/index';
 import { buttonVariants } from '@shared/components/atoms/Button/Button.variants';
 import { Container } from '@shared/components/atoms/Container/Container';
 import { Icon } from '@shared/components/atoms/Icon/Icon';
+import { TrophyLink } from '@shared/components/atoms/TrophyLink/TrophyLink';
 import { yearsSince } from '../../model';
 import { HeroName } from '../HeroName/HeroName';
 import { HeroPhoto } from '../HeroPhoto/HeroPhoto';
@@ -41,9 +42,9 @@ export async function Hero({ locale }: { locale: Locale }) {
                 {t('getInTouch')}
                 <Icon name="arrow-right" />
               </a>
-              <a href={profile.cv} className={buttonVariants()}>
+              <TrophyLink event="cv-opened" href={profile.cv} className={buttonVariants()}>
                 {t('viewCv')}
-              </a>
+              </TrophyLink>
             </div>
             <dl className={styles.stats()}>
               {stats.map((stat) => (
