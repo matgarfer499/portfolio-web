@@ -4,6 +4,10 @@ export interface GalleryPhoto extends ImageAsset {
   readonly id: string;
   readonly caption: Localized;
   readonly tall?: boolean;
+  /** Crop focus (CSS object-position) when the frame cuts the photo. */
+  readonly focus?: string;
+  /** Show the whole photo (a wide code snippet would be cropped unreadable). */
+  readonly fit?: 'contain';
 }
 
 export const about = {
@@ -21,6 +25,8 @@ export const about = {
       es: 'Al final, soy solo yo: apasionado, con los pies en la tierra y siempre buscando lo siguiente que aprender o construir.',
     },
   ],
+  // Grid order: the photo with his mother opens the grid, apart from the two friends photos,
+  // which share the last row; the wide code shot closes it.
   photos: [
     {
       id: 'me',
@@ -28,33 +34,12 @@ export const about = {
       width: 1200,
       height: 1600,
       tall: true,
+      focus: '58% 78%',
       alt: {
         en: 'Matías standing in a lilac inflatable art installation',
         es: 'Matías de pie en una instalación artística hinchable de color lila',
       },
       caption: { en: 'Just me chilling', es: 'Aquí, de chill' },
-    },
-    {
-      id: 'videogames',
-      src: '/photos/videogames-collage.webp',
-      width: 3264,
-      height: 3264,
-      alt: {
-        en: 'Collage of favourite games: Zelda Twilight Princess, Super Mario Galaxy, Spider-Man 2, Red Dead Redemption 2, Metal Gear Solid, God of War Ragnarök, Battlefield Bad Company 2, Bloodborne, Ghost of Tsushima',
-        es: 'Collage de juegos favoritos: Zelda Twilight Princess, Super Mario Galaxy, Spider-Man 2, Red Dead Redemption 2, Metal Gear Solid, God of War Ragnarök, Battlefield Bad Company 2, Bloodborne, Ghost of Tsushima',
-      },
-      caption: { en: 'A collection of my favorite games', es: 'Mis juegos favoritos' },
-    },
-    {
-      id: 'cheesecake',
-      src: '/photos/cheesecake.webp',
-      width: 1200,
-      height: 1600,
-      alt: { en: 'A slice of cheesecake', es: 'Una porción de tarta de queso' },
-      caption: {
-        en: "I can't choose between sweet or savory",
-        es: 'No sé elegir entre dulce y salado',
-      },
     },
     {
       id: 'mama',
@@ -69,6 +54,36 @@ export const about = {
         en: 'With my mom on the Camino de Santiago',
         es: 'Con mi madre en el Camino de Santiago',
       },
+    },
+    {
+      id: 'cheesecake',
+      src: '/photos/cheesecake.webp',
+      width: 1200,
+      height: 1600,
+      alt: { en: 'A slice of cheesecake', es: 'Una porción de tarta de queso' },
+      caption: {
+        en: "I can't choose between sweet or savory",
+        es: 'No sé elegir entre dulce y salado',
+      },
+    },
+    {
+      id: 'videogames',
+      src: '/photos/videogames-collage.webp',
+      width: 3264,
+      height: 3264,
+      alt: {
+        en: 'Collage of favourite games: Zelda Twilight Princess, Super Mario Galaxy, Spider-Man 2, Red Dead Redemption 2, Metal Gear Solid, God of War Ragnarök, Battlefield Bad Company 2, Bloodborne, Ghost of Tsushima',
+        es: 'Collage de juegos favoritos: Zelda Twilight Princess, Super Mario Galaxy, Spider-Man 2, Red Dead Redemption 2, Metal Gear Solid, God of War Ragnarök, Battlefield Bad Company 2, Bloodborne, Ghost of Tsushima',
+      },
+      caption: { en: 'A collection of my favorite games', es: 'Mis juegos favoritos' },
+    },
+    {
+      id: 'plane',
+      src: '/photos/plane.webp',
+      width: 1200,
+      height: 1600,
+      alt: { en: 'View from an airplane window', es: 'Vista desde la ventanilla de un avión' },
+      caption: { en: 'Love to explore new places', es: 'Me encanta descubrir sitios nuevos' },
     },
     {
       id: 'friends-cafe',
@@ -96,18 +111,11 @@ export const about = {
       },
     },
     {
-      id: 'plane',
-      src: '/photos/plane.webp',
-      width: 1200,
-      height: 1600,
-      alt: { en: 'View from an airplane window', es: 'Vista desde la ventanilla de un avión' },
-      caption: { en: 'Love to explore new places', es: 'Me encanta descubrir sitios nuevos' },
-    },
-    {
       id: 'code',
       src: '/photos/code.webp',
       width: 1128,
       height: 582,
+      fit: 'contain',
       alt: {
         en: 'A code snippet describing Matías as a JavaScript object: loves gym, travel, programming and gaming, lives in Málaga',
         es: 'Un fragmento de código que describe a Matías como un objeto JavaScript: le gustan el gimnasio, viajar, programar y los videojuegos, vive en Málaga',
