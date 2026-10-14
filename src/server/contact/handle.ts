@@ -5,8 +5,7 @@ import type { OutgoingEmail } from './resend';
 export type ContactResult =
   | { status: 'idle' | 'sent' }
   | { status: 'error'; reason: 'invalid'; fieldErrors: FieldErrors; values: ContactValues }
-  | { status: 'error'; reason: 'rateLimited' }
-  | { status: 'error'; reason: 'unconfigured' | 'failed'; values: ContactValues };
+  | { status: 'error'; reason: 'rateLimited' | 'unconfigured' | 'failed'; values: ContactValues };
 
 export interface ContactDeps {
   env: ContactEnv;
@@ -19,8 +18,8 @@ export async function handleContact(data: FormData, deps: ContactDeps): Promise<
   const parsed = parseContact(data);
   if (!parsed.ok) return { status: 'error', reason: 'invalid', ...parsed };
   if (parsed.bot) return { status: 'sent' };
-  if (!deps.allow()) return { status: 'error', reason: 'rateLimited' };
   const values = parsed.data;
+  if (!deps.allow()) return { status: 'error', reason: 'rateLimited', values };
   const { apiKey, from, to } = deps.env;
   if (!apiKey) return { status: 'error', reason: 'unconfigured', values };
   const sent = await deps.send({

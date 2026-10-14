@@ -47,9 +47,10 @@ describe('handleContact', () => {
     expect(d.send).not.toHaveBeenCalled();
   });
 
-  it('stops a visitor over the rate limit', async () => {
+  // React 19 resets the form after every action: each error echoes the values to refill it.
+  it('stops a visitor over the rate limit and keeps the message', async () => {
     const result = await handleContact(form(valid), deps({ allow: () => false }));
-    expect(result).toMatchObject({ status: 'error', reason: 'rateLimited' });
+    expect(result).toEqual({ status: 'error', reason: 'rateLimited', values: valid });
   });
 
   it('without an API key hands the values back for the mailto fallback', async () => {
