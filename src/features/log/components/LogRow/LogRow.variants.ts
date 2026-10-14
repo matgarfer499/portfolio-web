@@ -18,7 +18,7 @@ export const logRowVariants = {
   teamName: cva('text-[0.9375rem] font-bold'),
   head: cva('flex flex-col gap-1.5 stack:[grid-area:head]'),
   role: cva(
-    'm-0 text-[1.375rem] leading-[1.15] font-extrabold tracking-[-0.01em] stack:text-[1.5rem]',
+    'm-0 text-[1.375rem] leading-[1.15] font-extrabold tracking-[-0.01em] text-balance stack:text-[1.5rem]',
   ),
   since: cva('m-0 text-[0.875rem] font-semibold text-steel'),
   list: cva('m-0 grid list-none gap-2 p-0 stack:[grid-area:list]'),

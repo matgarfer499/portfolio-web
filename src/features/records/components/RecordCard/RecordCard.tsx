@@ -12,7 +12,7 @@ export async function RecordCard({ record, locale }: { record: RecordItem; local
   const { before, after } = record;
   const gain = improvement(record);
   const withUnit = (value: number, unit?: string) =>
-    unit ? `${formatCount(value, locale)} ${unit}` : formatCount(value, locale);
+    unit ? `${formatCount(value, locale)}\u00a0${unit}` : formatCount(value, locale);
 
   return (
     <article data-record className={styles.root()}>

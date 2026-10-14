@@ -6,7 +6,7 @@ test('the server HTML carries the final numbers, the ratios and the screen-reade
   const en = await (await request.get('/')).text();
   for (const text of ['90× faster', '857× fewer', '+40 points', '6,000'])
     expect(en).toContain(text);
-  expect(en).toMatch(/Before(<!-- -->)?: <\/span>90 s/);
+  expect(en).toMatch(/Before(<!-- -->)?: <\/span>90\u00a0s/);
   expect(en).toMatch(/data-to="7"[^>]*>7</);
 
   const es = await (await request.get('/es')).text();

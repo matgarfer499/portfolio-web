@@ -26,7 +26,7 @@ export async function LogRow({ entry, locale }: { entry: LogEntry; locale: Local
         {when.big}
         <small className={styles.whenSmall()}>{when.small}</small>
       </p>
-      <div className={styles.team()}>
+      <div translate="no" className={styles.team()}>
         <span className="sr-only">{t('columns.team')}: </span>
         {entry.team.logo ? (
           <span className={styles.logo()}>
@@ -72,7 +72,7 @@ export async function LogRow({ entry, locale }: { entry: LogEntry; locale: Local
           ))}
         </ul>
         {chips.length > 0 ? (
-          <div className={styles.chips()}>
+          <div translate={entry.showLanguages ? undefined : 'no'} className={styles.chips()}>
             <span className="sr-only">{t('columns.equipment')}: </span>
             {chips.map((chip) => (
               <Chip key={chip}>{chip}</Chip>
