@@ -1,9 +1,6 @@
 import { defineRouting } from 'next-intl/routing';
 
-/**
- * Routing contract for the whole site.
- * English is the default and has no prefix (`/`, `/fast`); Spanish is prefixed (`/es`, `/es/fast`).
- */
+// English is the default and has no prefix (`/`, `/cv`); Spanish is prefixed (`/es`, `/es/cv`).
 export const routing = defineRouting({
   locales: ['en', 'es'],
   defaultLocale: 'en',

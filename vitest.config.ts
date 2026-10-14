@@ -15,6 +15,7 @@ export default defineConfig({
   },
   test: {
     environment: 'node',
-    include: ['src/**/*.test.{ts,tsx}'],
+    // The ESLint rule tests are .mjs: career-os's .ts-only include silently skipped them.
+    include: ['src/**/*.test.{ts,tsx}', 'eslint/**/*.test.mjs', 'scripts/**/*.test.{ts,mjs}'],
   },
 });

@@ -1,6 +1,7 @@
 import next from 'eslint-config-next';
 import prettier from 'eslint-config-prettier';
 import globals from 'globals';
+import maxCommentLines from './eslint/rules/max-comment-lines.mjs';
 
 /** Features must not reach into other features or up into the app layer. */
 const featureBoundary = {
@@ -32,6 +33,12 @@ const config = [
 
   ...next,
   prettier,
+
+  // Comments explain why in 3 lines at most; longer detail belongs in docs/ (architecture.md).
+  {
+    plugins: { local: { rules: { 'max-comment-lines': maxCommentLines } } },
+    rules: { 'local/max-comment-lines': ['error', { max: 3 }] },
+  },
 
   // Everywhere: import features only through their public index, never deep paths.
   {
@@ -80,7 +87,7 @@ const config = [
 
   // Tooling, tests and scripts run in Node.
   {
-    files: ['*.{config,setup}.{ts,mjs,js}', 'tests/**', 'scripts/**'],
+    files: ['*.{config,setup}.{ts,mjs,js}', 'tests/**', 'scripts/**', 'eslint/**'],
     languageOptions: { globals: { ...globals.node } },
   },
 ];
