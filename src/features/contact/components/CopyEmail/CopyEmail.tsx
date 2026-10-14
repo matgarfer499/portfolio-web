@@ -45,7 +45,7 @@ export function CopyEmail({ email, labels }: { email: string; labels: Record<Out
 
   return (
     <div className={styles.root()}>
-      <a ref={address} href={`mailto:${email}`} className={styles.address()}>
+      <a ref={address} href={`mailto:${email}`} translate="no" className={styles.address()}>
         {email}
       </a>
       <Button variant="dark" onClick={copy} className={styles.button()}>

@@ -51,7 +51,7 @@ export async function ContactSection({ locale }: { locale: Locale }) {
           </div>
           <Magnetic className={styles.social()}>
             {profile.socials.map((social) => (
-              <a key={social.id} href={social.href} rel="noopener" className={link}>
+              <a key={social.id} href={social.href} rel="noopener" translate="no" className={link}>
                 {social.label}
               </a>
             ))}
