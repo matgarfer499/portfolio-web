@@ -136,3 +136,11 @@ test('the home does not shift while it loads and is scrolled', async ({ page }) 
   }
   expect(await page.evaluate(() => (window as unknown as { cls: number }).cls)).toBeLessThan(0.02);
 });
+
+test('the old accented CV address redirects to the current PDF', async ({ request }) => {
+  const response = await request.get('/Mat%C3%ADas-Jos%C3%A9-Garc%C3%ADa-Fern%C3%A1ndez-CV.pdf', {
+    maxRedirects: 0,
+  });
+  expect(response.status()).toBe(308);
+  expect(response.headers()['location']).toBe('/matias-garcia-cv.pdf');
+});
