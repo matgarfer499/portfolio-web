@@ -28,20 +28,3 @@ export interface Project {
   readonly url?: string;
   readonly repo?: string;
 }
-
-/** Accent tokens that map to the orange/blue palette. */
-export type Accent = 'flame' | 'azure';
-
-/**
- * A zone in the 3D world. One zone == one section of the portfolio, so the game layer
- * and the fast layer can be generated from the exact same list.
- */
-export interface Zone {
-  readonly id: string;
-  readonly name: Localized;
-  readonly heading: Localized;
-  readonly body: Localized;
-  /** World-space position of the zone marker `[x, y, z]`. */
-  readonly position: readonly [number, number, number];
-  readonly accent: Accent;
-}

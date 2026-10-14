@@ -1,57 +1,9 @@
 @import 'tailwindcss';
 
-/* Design tokens — "Costa Azul": sea-blue lead, warm accent, gold, on a deep navy base.
-   Tailwind 4 turns each token into utilities (bg-bg, text-azure, border-flame, text-gold, …). */
-@theme {
-  --color-bg: #0c1622;
-  --color-surface: #11202f;
-  --color-surface-2: #16293b;
-  --color-azure: #1fb6d6;
-  --color-azure-soft: #74d0e6;
-  --color-flame: #ff8a3d;
-  --color-flame-soft: #ffb27a;
-  --color-gold: #ffd45e;
-  --color-ink: #eaf4fb;
-  --color-muted: #94b2c8;
-
-  --font-sans:
-    ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  --font-mono: ui-monospace, 'JetBrains Mono', 'Fira Code', Menlo, Consolas, monospace;
-}
-
+/* Placeholder until P1 lands the PR Board tokens (DESIGN.md). */
 @layer base {
-  :root {
-    color-scheme: dark;
-  }
-
-  html,
   body {
-    height: 100%;
-  }
-
-  body {
-    background-color: var(--color-bg);
-    color: var(--color-ink);
-    font-family: var(--font-sans);
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-  }
-
-  /* Terminal-friki register: monospace display/headings; body copy stays sans.
-     Explicit font utilities (font-sans/font-mono) still override this base rule. */
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-family: var(--font-mono);
-  }
-
-  /* Always-visible focus ring for keyboard users (WCAG AA). */
-  :focus-visible {
-    outline: 2px solid var(--color-azure);
-    outline-offset: 2px;
-    border-radius: 4px;
+    background-color: #ffffff;
+    color: #111111;
   }
 }

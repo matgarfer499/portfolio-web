@@ -1,1 +1,0 @@
-export { useToonGradient } from './useToonGradient';

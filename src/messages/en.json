@@ -1,42 +1,9 @@
 {
   "Meta": {
-    "title": "Matías García — software engineer who puts AI to work",
-    "description": "The portfolio of Matías García as an explorable 3D world. Full-stack engineer integrating AI into how teams ship. A keyboard-friendly fast version is one click away."
+    "title": "Matías García — Tech Lead · Full Stack Developer",
+    "description": "Matías García, Tech Lead and full stack developer in Málaga. Products owned end to end, from the database query to the last pixel."
   },
-  "PressStart": {
-    "tagline": "Portfolio — the game",
-    "enter": "Enter game",
-    "fast": "Fast version",
-    "hint": "Best on desktop · ~30s to explore",
-    "loading": "Loading world…"
-  },
-  "Hud": {
-    "zone": "Zone",
-    "achievements": "Achievements",
-    "exit": "Exit to start",
-    "fastVersion": "Fast version",
-    "language": "Language",
-    "controlsTitle": "Controls",
-    "controlsMove": "Move",
-    "controlsKeys": "WASD / Arrow keys"
-  },
-  "Achievements": {
-    "unlocked": "Achievement unlocked",
-    "firstContact": {
-      "title": "First Contact",
-      "description": "You walked into your first zone."
-    }
-  },
-  "Fast": {
-    "badge": "Fast version",
-    "intro": "The full portfolio without the 3D — keyboard-navigable and indexable.",
-    "playGame": "Play the 3D version",
-    "exploreHeading": "Zones",
-    "projectsHeading": "Projects",
-    "contactHeading": "Contact",
-    "emailLabel": "Email",
-    "githubLabel": "GitHub",
-    "linkedinLabel": "LinkedIn",
-    "cvLabel": "Download CV"
+  "Home": {
+    "placeholder": "Portfolio v4 is being rebuilt. Back soon."
   }
 }
