@@ -5,5 +5,8 @@
   },
   "Home": {
     "placeholder": "Portfolio v4 is being rebuilt. Back soon."
+  },
+  "Shell": {
+    "darkTheme": "Dark theme"
   }
 }
