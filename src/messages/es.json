@@ -7,6 +7,158 @@
     "placeholder": "El portfolio v4 se está reconstruyendo. Vuelvo enseguida."
   },
   "Shell": {
-    "darkTheme": "Tema oscuro"
+    "skip": "Saltar al contenido",
+    "home": "Matías García, volver arriba",
+    "navLabel": "Secciones",
+    "nav": {
+      "records": "Récords",
+      "log": "Diario de entreno",
+      "about": "Fuera del horario",
+      "projects": "Proyectos",
+      "contact": "Contacto"
+    },
+    "hire": "Contrátame",
+    "menuOpen": "Abrir menú",
+    "menuClose": "Cerrar menú",
+    "darkTheme": "Tema oscuro",
+    "language": "Idioma",
+    "switchLanguage": "View in English",
+    "progress": "Progreso de lectura"
+  },
+  "Hero": {
+    "getInTouch": "Hablemos",
+    "viewCv": "Ver CV",
+    "yearsPlus": "{count}+ años"
+  },
+  "Records": {
+    "title": "Récords personales",
+    "before": "Antes",
+    "after": "Ahora",
+    "faster": "{ratio}× más rápido",
+    "fewer": "{ratio}× menos",
+    "points": "+{points} puntos"
+  },
+  "Log": {
+    "title": "Diario de entreno",
+    "lede": "Donde se hicieron las repeticiones. Lo más reciente, primero.",
+    "columns": {
+      "when": "Cuándo",
+      "team": "Equipo",
+      "session": "Sesión",
+      "equipment": "Material"
+    },
+    "now": "Ahora",
+    "internship": "Prácticas",
+    "showDetails": "Ver detalles",
+    "hideDetails": "Ocultar detalles",
+    "roleSince": "Tech Lead desde"
+  },
+  "About": {
+    "title": "Fuera del horario",
+    "openPhoto": "Abrir foto: {caption}",
+    "close": "Cerrar",
+    "previous": "Foto anterior",
+    "next": "Foto siguiente",
+    "counter": "{current} de {total}"
+  },
+  "Projects": {
+    "title": "Proyectos",
+    "lede": "Proyectos personales, de principio a fin.",
+    "try": "Prueba {name}",
+    "readCase": "Leer el caso",
+    "nextCase": "Próximo caso",
+    "stackTitle": "El stack",
+    "back": "Volver a proyectos",
+    "visit": "Visitar la web"
+  },
+  "Contact": {
+    "email": "Email",
+    "copy": "Copiar email",
+    "copied": "Copiado",
+    "selected": "Seleccionado, pulsa Ctrl+C",
+    "localTime": "{city} · {time} hora local",
+    "clockFallback": "Málaga · hora central europea",
+    "backToTop": "Volver arriba",
+    "form": {
+      "title": "O déjame un mensaje",
+      "name": "Nombre",
+      "email": "Email",
+      "message": "Mensaje",
+      "send": "Enviar mensaje",
+      "sending": "Enviando…",
+      "sent": "Mensaje enviado. Te respondo pronto.",
+      "honeypot": "Deja este campo vacío",
+      "unconfigured": "El formulario aún no está conectado: se abrirá tu app de correo con el mensaje listo.",
+      "openMail": "Abrir mi app de correo",
+      "errors": {
+        "name": "Dime tu nombre.",
+        "email": "Ese email no parece correcto.",
+        "message": "Escribe al menos 10 caracteres.",
+        "rateLimited": "Demasiados mensajes. Prueba de nuevo en unos minutos.",
+        "failed": "No se pudo enviar. Escríbeme directamente."
+      }
+    }
+  },
+  "Trophies": {
+    "counter": "{count}/{total} trofeos",
+    "shelf": "Vitrina de trofeos",
+    "openShelf": "Abrir la vitrina de trofeos",
+    "unlocked": "Trofeo desbloqueado",
+    "locked": "Bloqueado",
+    "sound": "Sonido de trofeos",
+    "reset": "Reiniciar trofeos",
+    "items": {
+      "finishLine": {
+        "title": "Nuevo récord",
+        "description": "Has llegado a la meta."
+      },
+      "recordsSeen": {
+        "title": "Ojeador",
+        "description": "Has visto todos los récords."
+      },
+      "caseStudyOpened": {
+        "title": "Análisis de vídeo",
+        "description": "Has abierto un caso de estudio."
+      },
+      "languageSwitched": {
+        "title": "Partido fuera",
+        "description": "Has cambiado de idioma."
+      },
+      "themeSwitched": {
+        "title": "Sesión nocturna",
+        "description": "Has cambiado el tema."
+      },
+      "emailCopied": {
+        "title": "Fichado",
+        "description": "Has copiado el email."
+      },
+      "cvOpened": {
+        "title": "Historial revisado",
+        "description": "Has abierto el CV."
+      },
+      "konami": {
+        "title": "Modo bestia",
+        "description": "Has encontrado el truco."
+      }
+    }
+  },
+  "Cv": {
+    "title": "Currículum",
+    "print": "Descargar PDF",
+    "experience": "Experiencia",
+    "education": "Formación",
+    "skills": "Habilidades",
+    "languages": "Idiomas",
+    "projects": "Proyectos",
+    "contact": "Contacto",
+    "back": "Volver a la web"
+  },
+  "Pending": {
+    "prefix": "Próximamente:"
+  },
+  "NotFound": {
+    "title": "Fuera de pista",
+    "body": "Esta página no existe.",
+    "home": "Volver al inicio"
   }
 }

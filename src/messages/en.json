@@ -7,6 +7,158 @@
     "placeholder": "Portfolio v4 is being rebuilt. Back soon."
   },
   "Shell": {
-    "darkTheme": "Dark theme"
+    "skip": "Skip to content",
+    "home": "Matías García, back to top",
+    "navLabel": "Sections",
+    "nav": {
+      "records": "Records",
+      "log": "Training log",
+      "about": "Off the clock",
+      "projects": "Projects",
+      "contact": "Contact"
+    },
+    "hire": "Hire me",
+    "menuOpen": "Open menu",
+    "menuClose": "Close menu",
+    "darkTheme": "Dark theme",
+    "language": "Language",
+    "switchLanguage": "Ver en español",
+    "progress": "Reading progress"
+  },
+  "Hero": {
+    "getInTouch": "Get in touch",
+    "viewCv": "View CV",
+    "yearsPlus": "{count}+ yrs"
+  },
+  "Records": {
+    "title": "Personal records",
+    "before": "Before",
+    "after": "Now",
+    "faster": "{ratio}× faster",
+    "fewer": "{ratio}× fewer",
+    "points": "+{points} points"
+  },
+  "Log": {
+    "title": "Training log",
+    "lede": "Where the reps happened. Newest session first.",
+    "columns": {
+      "when": "When",
+      "team": "Team",
+      "session": "Session",
+      "equipment": "Equipment"
+    },
+    "now": "Now",
+    "internship": "Internship",
+    "showDetails": "Show details",
+    "hideDetails": "Hide details",
+    "roleSince": "Tech Lead since"
+  },
+  "About": {
+    "title": "Off the clock",
+    "openPhoto": "Open photo: {caption}",
+    "close": "Close",
+    "previous": "Previous photo",
+    "next": "Next photo",
+    "counter": "{current} of {total}"
+  },
+  "Projects": {
+    "title": "Projects",
+    "lede": "Side projects, built end to end.",
+    "try": "Try {name}",
+    "readCase": "Read the case study",
+    "nextCase": "Next case study",
+    "stackTitle": "The stack",
+    "back": "Back to projects",
+    "visit": "Visit the site"
+  },
+  "Contact": {
+    "email": "Email",
+    "copy": "Copy email",
+    "copied": "Copied",
+    "selected": "Selected, press Ctrl+C",
+    "localTime": "{city} · {time} local time",
+    "clockFallback": "Málaga · Central European Time",
+    "backToTop": "Back to top",
+    "form": {
+      "title": "Or leave a message",
+      "name": "Name",
+      "email": "Email",
+      "message": "Message",
+      "send": "Send message",
+      "sending": "Sending…",
+      "sent": "Message sent. I'll get back to you soon.",
+      "honeypot": "Leave this field empty",
+      "unconfigured": "The form isn't connected yet, so your email app will open with the message ready.",
+      "openMail": "Open my email app",
+      "errors": {
+        "name": "Tell me your name.",
+        "email": "That email doesn't look right.",
+        "message": "Write at least 10 characters.",
+        "rateLimited": "Too many messages. Try again in a few minutes.",
+        "failed": "It couldn't be sent. Email me directly instead."
+      }
+    }
+  },
+  "Trophies": {
+    "counter": "{count}/{total} trophies",
+    "shelf": "Trophy shelf",
+    "openShelf": "Open the trophy shelf",
+    "unlocked": "Trophy unlocked",
+    "locked": "Locked",
+    "sound": "Trophy sound",
+    "reset": "Reset trophies",
+    "items": {
+      "finishLine": {
+        "title": "New PR",
+        "description": "You made it to the finish line."
+      },
+      "recordsSeen": {
+        "title": "Scout",
+        "description": "You checked every personal record."
+      },
+      "caseStudyOpened": {
+        "title": "Film study",
+        "description": "You opened a case study."
+      },
+      "languageSwitched": {
+        "title": "Away game",
+        "description": "You switched the language."
+      },
+      "themeSwitched": {
+        "title": "Night session",
+        "description": "You switched the theme."
+      },
+      "emailCopied": {
+        "title": "Signed",
+        "description": "You copied the email."
+      },
+      "cvOpened": {
+        "title": "Background check",
+        "description": "You opened the CV."
+      },
+      "konami": {
+        "title": "Beast mode",
+        "description": "You found the cheat code."
+      }
+    }
+  },
+  "Cv": {
+    "title": "Curriculum vitae",
+    "print": "Download PDF",
+    "experience": "Experience",
+    "education": "Education",
+    "skills": "Skills",
+    "languages": "Languages",
+    "projects": "Projects",
+    "contact": "Contact",
+    "back": "Back to the site"
+  },
+  "Pending": {
+    "prefix": "Coming soon:"
+  },
+  "NotFound": {
+    "title": "Off the track",
+    "body": "This page doesn't exist.",
+    "home": "Back home"
   }
 }
