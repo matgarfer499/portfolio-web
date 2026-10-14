@@ -79,10 +79,20 @@ const config = [
               group: ['@app/*', '@app/*/**'],
               message: 'shared/ must not depend on the app layer.',
             },
+            {
+              group: ['@content/*', '@content/*/**', '@/server/*'],
+              message: 'shared/ is domain-agnostic: no content, no server code.',
+            },
           ],
         },
       ],
     },
+  },
+
+  // server/ and content/ sit below the features: they never import a feature or the app layer.
+  {
+    files: ['src/server/**/*.ts', 'src/content/**/*.ts'],
+    rules: { 'no-restricted-imports': ['error', featureBoundary] },
   },
 
   // Tooling, tests and scripts run in Node.
