@@ -36,6 +36,10 @@ A new token is added in `src/app/globals.css` for **both** themes and joins `src
 Put night/volt content inside `<Section tone="night|volt">`: it remaps the paper/ink tokens, so
 atoms keep working (DESIGN.md § Surfaces). Don't add per-surface variants to atoms, and don't use
 Tailwind `@utility` for token-only classes (it is not emitted): plain classes in `@layer components`.
+Any volt fill that holds ink details (the marquee band, a toast) also takes `surface-volt`, or its
+borders and marks turn light in dark mode. Tailwind 4 `scale-*`/`rotate-*`/`translate-*` set the
+individual CSS properties (`scale`, `rotate`, `translate`), not `transform`: an inline `transform`
+from JS stacks with them — drive the same property the class sets.
 
 ## Dark mode
 

@@ -2,7 +2,7 @@ import { cva } from 'class-variance-authority';
 
 export const marqueeVariants = {
   band: cva(
-    'absolute top-[44%] -right-[60%] -left-[6%] z-[3] -rotate-4 overflow-hidden border-y-[3px] border-ink bg-volt text-on-volt stack:top-[46%] stack:-right-[30%]',
+    'surface-volt absolute top-[44%] -right-[60%] -left-[6%] z-[3] -rotate-4 overflow-hidden border-y-[3px] border-ink bg-volt text-on-volt stack:top-[46%] stack:-right-[30%]',
   ),
   track: cva('flex w-max motion-safe:animate-[marquee_26s_linear_infinite]'),
   item: cva(
