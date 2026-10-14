@@ -8,4 +8,6 @@ export const site = {
   locales: routing.locales,
   defaultLocale: routing.defaultLocale,
   isProduction: process.env.NODE_ENV === 'production',
+  // Analytics and Speed Insights only exist on Vercel; elsewhere their scripts 404 in the console.
+  onVercel: Boolean(process.env.VERCEL),
 } as const;

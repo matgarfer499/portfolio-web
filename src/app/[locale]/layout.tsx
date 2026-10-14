@@ -76,8 +76,12 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
         {/* Sets data-theme before the first paint; suppressHydrationWarning covers the attribute. */}
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <MotionProvider>{children}</MotionProvider>
-        <Analytics />
-        <SpeedInsights />
+        {site.onVercel ? (
+          <>
+            <Analytics />
+            <SpeedInsights />
+          </>
+        ) : null}
       </body>
     </html>
   );
