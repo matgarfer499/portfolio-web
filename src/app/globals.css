@@ -119,6 +119,38 @@
   }
 }
 
+@keyframes record-flash {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+}
+
+@keyframes rail-fill {
+  from {
+    scale: 1 0;
+  }
+}
+
+/* The training-log rail fills as the list scrolls through the viewport. The animation shorthand
+   resets animation-timeline, so the pair lives here, in order, not in two utilities. Without
+   scroll-driven animations or with reduced motion there is no fill at all. */
+@utility rail-fill {
+  display: none;
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      display: block;
+      animation: rail-fill linear both;
+      animation-timeline: --log;
+      /* 0 when the list top meets the middle of the viewport, 1 when its bottom does. */
+      animation-range: cover 50vh cover calc(100% - 50vh);
+    }
+  }
+}
+
 @keyframes marquee {
   to {
     transform: translateX(-50%);
