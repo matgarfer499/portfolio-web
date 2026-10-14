@@ -151,7 +151,12 @@
     "languages": "Idiomas",
     "projects": "Proyectos",
     "contact": "Contacto",
-    "back": "Volver a la web"
+    "back": "Volver a la web",
+    "profile": "Perfil",
+    "originalPdf": "PDF original",
+    "now": "Actualidad",
+    "description": "Currículum de Matías García, Tech Lead y desarrollador full stack en Málaga: experiencia, proyectos, habilidades e idiomas.",
+    "printHint": "Imprimir o guardar en PDF"
   },
   "Pending": {
     "prefix": "Próximamente:"

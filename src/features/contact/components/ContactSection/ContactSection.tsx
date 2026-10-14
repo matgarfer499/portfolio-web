@@ -1,4 +1,6 @@
 import { getTranslations } from 'next-intl/server';
+import Link from 'next/link';
+import { localizedPath } from '@/i18n/paths';
 import type { Locale } from '@/i18n/routing';
 import { contact, localize, profile } from '@content/index';
 import { buttonVariants } from '@shared/components/atoms/Button/Button.variants';
@@ -6,7 +8,6 @@ import { Container } from '@shared/components/atoms/Container/Container';
 import { Display } from '@shared/components/atoms/Display/Display';
 import { Label } from '@shared/components/atoms/Label/Label';
 import { Section } from '@shared/components/atoms/Section/Section';
-import { TrophyLink } from '@shared/components/atoms/TrophyLink/TrophyLink';
 import { cn } from '@shared/lib/cn';
 import { Availability } from '../Availability/Availability';
 import { ContactForm } from '../ContactForm/ContactForm';
@@ -55,9 +56,9 @@ export async function ContactSection({ locale }: { locale: Locale }) {
                 {social.label}
               </a>
             ))}
-            <TrophyLink event="cv-opened" href={profile.cv} className={link}>
+            <Link href={localizedPath(locale, '/cv')} className={link}>
               {t('cv')}
-            </TrophyLink>
+            </Link>
           </Magnetic>
         </div>
         <ContactForm

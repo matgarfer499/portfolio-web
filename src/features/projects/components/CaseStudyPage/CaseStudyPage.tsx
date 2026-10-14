@@ -14,8 +14,8 @@ import { Icon } from '@shared/components/atoms/Icon/Icon';
 import { Label } from '@shared/components/atoms/Label/Label';
 import { Placeholder } from '@shared/components/atoms/Placeholder/Placeholder';
 import { Section } from '@shared/components/atoms/Section/Section';
+import { TrophyOnMount } from '@shared/components/atoms/TrophyOnMount/TrophyOnMount';
 import { caseTransition, nextCase } from '../../model';
-import { CaseOpened } from '../CaseOpened/CaseOpened';
 import { NextCase } from '../NextCase/NextCase';
 import { caseStudyPageVariants as styles } from './CaseStudyPage.variants';
 
@@ -120,7 +120,7 @@ export async function CaseStudyPage({ study, locale }: { study: CaseStudy; local
           </div>
         </Container>
       </Section>
-      <CaseOpened />
+      <TrophyOnMount event="case-study-opened" />
     </>
   );
 }

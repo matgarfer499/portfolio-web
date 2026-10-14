@@ -42,11 +42,8 @@ test('all eight trophies unlock in one visit and survive a reload', async ({ pag
   await expect(counter(page)).toContainText('7/8');
 
   await page.goto('/es');
-  // Headless Chromium downloads the PDF instead of navigating: keep the page, the click still emits.
-  await page.evaluate(() =>
-    document.addEventListener('click', (e) => e.preventDefault(), { once: true }),
-  );
   await page.getByRole('link', { name: 'Ver CV' }).click();
+  await page.waitForURL('**/es/cv');
   await expect(counter(page)).toContainText('8/8');
   await page.reload();
   await expect(counter(page)).toContainText('8/8');

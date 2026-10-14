@@ -80,6 +80,6 @@ test('the contact links and the CV are there without JS', async ({ request }) =>
   const html = await (await request.get('/es')).text();
   expect(html).toContain(`href="mailto:${EMAIL}"`);
   expect(html).toContain('href="https://www.linkedin.com/in/mgarfer/"');
-  expect(html).toContain('href="/matias-garcia-cv.pdf"');
+  expect(html).toContain('href="/es/cv"');
   expect(html).not.toMatch(/RESEND|re_[A-Za-z0-9]{8}/);
 });

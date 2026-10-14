@@ -365,3 +365,23 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* Print (the CV's "Download PDF"): always the light tokens, whatever the theme or beast mode.
+   `:not(#print)` outranks `:root[data-theme='dark']` and `:root[data-beast]` without !important. */
+@media print {
+  html:root:not(#print) {
+    --paper: #ffffff;
+    --ink: #111111;
+    --ink-soft: #2b2d29;
+    --steel: #555a50;
+    --line: #dcded8;
+
+    color-scheme: light;
+    font-size: 10pt;
+  }
+
+  @page {
+    size: A4;
+    margin: 14mm;
+  }
+}
