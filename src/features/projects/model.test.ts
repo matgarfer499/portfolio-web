@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { caseMeta, caseSlugs, caseText, caseTransition, findCase, nextCase } from './model';
+import { caseMeta, caseOg, caseSlugs, caseText, caseTransition, findCase, nextCase } from './model';
 
 describe('findCase / nextCase', () => {
   it('finds a case study by slug and nothing for an unknown one', () => {
@@ -37,5 +37,12 @@ describe('case pages', () => {
   it('gives each case its own shared-element names for the title and the shot', () => {
     expect(caseTransition('title', 'chefory')).toBe('case-title-chefory');
     expect(caseTransition('shot', 'chefory')).not.toBe(caseTransition('shot', 'tech-lead'));
+  });
+
+  it('gives the share image a pending case its bracketed title', () => {
+    expect(caseOg('tech-lead', 'en')).toEqual({
+      title: '[Product you led as Tech Lead]',
+      kicker: '[One-line description of the product]',
+    });
   });
 });
