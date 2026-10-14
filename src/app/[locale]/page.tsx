@@ -12,6 +12,7 @@ import { Footer, Header, SkipLink } from '@features/shell';
 import { Trophies } from '@features/trophies';
 import { routing } from '@/i18n/routing';
 import { alternatesFor } from '@shared/config/seo';
+import { jsonLd, personSchema, websiteSchema } from './json-ld';
 import { PageTransition } from '@shared/motion/PageTransition';
 import { RevealController } from '@shared/motion/RevealController';
 
@@ -46,6 +47,10 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       </PageTransition>
       <Footer locale={locale} />
       <RevealController />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLd([personSchema(locale), websiteSchema(locale)]) }}
+      />
     </>
   );
 }
