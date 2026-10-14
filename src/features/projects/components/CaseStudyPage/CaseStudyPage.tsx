@@ -14,7 +14,7 @@ import { Icon } from '@shared/components/atoms/Icon/Icon';
 import { Label } from '@shared/components/atoms/Label/Label';
 import { Placeholder } from '@shared/components/atoms/Placeholder/Placeholder';
 import { Section } from '@shared/components/atoms/Section/Section';
-import { nextCase } from '../../model';
+import { caseTransition, nextCase } from '../../model';
 import { CaseOpened } from '../CaseOpened/CaseOpened';
 import { NextCase } from '../NextCase/NextCase';
 import { caseStudyPageVariants as styles } from './CaseStudyPage.variants';
@@ -43,7 +43,7 @@ export async function CaseStudyPage({ study, locale }: { study: CaseStudy; local
             ) : (
               <Label>{tagline.text}</Label>
             )}
-            <ViewTransition name={`case-title-${study.slug}`} share="morph">
+            <ViewTransition name={caseTransition('title', study.slug)} share="morph">
               <Display as="h1">
                 {name.kind === 'pending' ? (
                   <Placeholder note={name.note} size="poster" />
@@ -73,7 +73,7 @@ export async function CaseStudyPage({ study, locale }: { study: CaseStudy; local
           </div>
           {study.shots ? (
             <div className={styles.shot()}>
-              <ViewTransition name={`case-shot-${study.slug}`} share="morph">
+              <ViewTransition name={caseTransition('shot', study.slug)} share="morph">
                 <Image
                   src={study.shots.desktop.src}
                   width={study.shots.desktop.width}

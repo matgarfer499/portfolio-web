@@ -10,7 +10,7 @@ import { Chip } from '@shared/components/atoms/Chip/Chip';
 import { Display } from '@shared/components/atoms/Display/Display';
 import { Icon } from '@shared/components/atoms/Icon/Icon';
 import { Label } from '@shared/components/atoms/Label/Label';
-import { caseText } from '../../model';
+import { caseText, caseTransition } from '../../model';
 import { featuredCaseVariants as styles } from './FeaturedCase.variants';
 
 // The title and the laptop shot share view-transition names with /projects/[slug].
@@ -21,7 +21,7 @@ export async function FeaturedCase({ study, locale }: { study: CaseStudy; locale
     <article data-reveal aria-labelledby={`case-${study.slug}`} className={styles.root()}>
       {study.shots ? (
         <div className={styles.visual()}>
-          <ViewTransition name={`case-shot-${study.slug}`} share="morph">
+          <ViewTransition name={caseTransition('shot', study.slug)} share="morph">
             <Image
               src={study.shots.desktop.src}
               width={study.shots.desktop.width}
@@ -43,7 +43,7 @@ export async function FeaturedCase({ study, locale }: { study: CaseStudy; locale
       ) : null}
       <div className={styles.copy()}>
         <Label>{caseText(study.tagline, locale)}</Label>
-        <ViewTransition name={`case-title-${study.slug}`} share="morph">
+        <ViewTransition name={caseTransition('title', study.slug)} share="morph">
           <Display as="h3" size="card" id={`case-${study.slug}`}>
             {name}
           </Display>

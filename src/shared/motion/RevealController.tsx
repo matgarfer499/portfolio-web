@@ -1,8 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { startsBelowFold } from './reveal';
-import { landingOffset, prefersReducedMotion } from './viewport';
+import { isBelowFold, landingOffset, prefersReducedMotion } from './viewport';
 
 // Mounted once per page. Elements marked `data-reveal` are visible in the server HTML; below the
 // fold, with motion allowed, they are armed (hidden, lowered) and shown as they scroll into view.
@@ -21,8 +20,7 @@ export function RevealController() {
       { threshold: 0.12 },
     );
     for (const el of document.querySelectorAll<HTMLElement>('[data-reveal]')) {
-      const top = el.getBoundingClientRect().top;
-      if (!startsBelowFold({ top, landing, innerHeight: window.innerHeight })) continue;
+      if (!isBelowFold(el, landing)) continue;
       el.dataset.reveal = 'armed';
       observer.observe(el);
     }

@@ -3,8 +3,7 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Button } from '@shared/components/atoms/Button/Button';
 import { Icon } from '@shared/components/atoms/Icon/Icon';
-import { startsBelowFold } from '@shared/motion/reveal';
-import { landingOffset } from '@shared/motion/viewport';
+import { isBelowFold } from '@shared/motion/viewport';
 import { logDisclosureVariants as styles } from './LogDisclosure.variants';
 
 // The server shows every detail. While the log is still below the fold the details fold behind a
@@ -24,12 +23,7 @@ export function LogDisclosure({
   useEffect(() => {
     const list = details.current?.closest('[data-log]');
     if (!list) return;
-    const collapse = startsBelowFold({
-      top: list.getBoundingClientRect().top,
-      landing: landingOffset(),
-      innerHeight: window.innerHeight,
-    });
-    if (collapse) setOpen(false);
+    if (isBelowFold(list)) setOpen(false);
   }, []);
 
   return (

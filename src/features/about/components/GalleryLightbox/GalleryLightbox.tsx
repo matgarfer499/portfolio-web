@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type MouseEvent, type ReactNode } from 'react';
 import { Button } from '@shared/components/atoms/Button/Button';
 import { Icon } from '@shared/components/atoms/Icon/Icon';
 import { prefersReducedMotion } from '@shared/motion/viewport';
@@ -30,23 +30,8 @@ export function GalleryLightbox({
 }) {
   const gallery = useRef<HTMLDivElement>(null);
   const dialog = useRef<HTMLDialogElement>(null);
-  const opener = useRef<HTMLElement | null>(null);
+  const opener = useRef<HTMLElement>(null);
   const [index, setIndex] = useState<number | null>(null);
-
-  useEffect(() => {
-    const el = gallery.current;
-    if (!el) return;
-    const open = (event: MouseEvent) => {
-      const link = (event.target as Element).closest<HTMLAnchorElement>('a[data-photo]');
-      if (!link || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey) return;
-      event.preventDefault();
-      opener.current = link;
-      setIndex(Number(link.dataset.photo));
-      dialog.current?.showModal();
-    };
-    el.addEventListener('click', open);
-    return () => el.removeEventListener('click', open);
-  }, []);
 
   useEffect(() => {
     const el = gallery.current;
@@ -78,13 +63,21 @@ export function GalleryLightbox({
     };
   }, []);
 
+  const open = (event: MouseEvent) => {
+    const link = (event.target as Element).closest<HTMLAnchorElement>('a[data-photo]');
+    if (!link || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey) return;
+    event.preventDefault();
+    opener.current = link;
+    setIndex(Number(link.dataset.photo));
+    dialog.current?.showModal();
+  };
   const step = (delta: number) =>
     setIndex((i) => (i === null ? i : wrapIndex(i + delta, photos.length)));
   const photo = index === null ? undefined : photos[index];
 
   return (
     <>
-      <div ref={gallery} className={styles.gallery()}>
+      <div ref={gallery} onClick={open} className={styles.gallery()}>
         {children}
       </div>
       <dialog

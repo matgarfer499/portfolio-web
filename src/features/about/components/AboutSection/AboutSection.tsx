@@ -10,14 +10,13 @@ import { aboutSectionVariants as styles } from './AboutSection.variants';
 
 export async function AboutSection({ locale }: { locale: Locale }) {
   const t = await getTranslations({ locale, namespace: 'About' });
-  const total = about.photos.length;
   const photos = about.photos.map((photo, i) => ({
     src: photo.src,
     width: photo.width,
     height: photo.height,
     alt: localize(photo.alt, locale),
     caption: localize(photo.caption, locale),
-    counter: t('counter', { current: i + 1, total }),
+    counter: t('counter', { current: i + 1, total: about.photos.length }),
   }));
 
   return (

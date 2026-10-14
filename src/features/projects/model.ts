@@ -10,7 +10,7 @@ export function findCase(slug: string): CaseStudy | undefined {
 // Every case page ends on the next one; the last wraps to the first.
 export function nextCase(slug: string): CaseStudy {
   const i = cases.findIndex((c) => c.slug === slug);
-  return cases[(i + 1) % cases.length] ?? cases[0]!;
+  return cases[(i + 1) % cases.length]!;
 }
 
 // For plain-text slots (titles, metadata, alt): a pending value reads as its note in brackets.
@@ -24,9 +24,18 @@ export function caseSlugs(): string[] {
 }
 
 // <title> and description of a case page; pending fields read as their bracketed notes.
-export function caseMeta(study: CaseStudy, locale: Locale, siteName: string) {
+export function caseMeta(
+  study: CaseStudy,
+  locale: Locale,
+  siteName: string,
+): { title: string; description: string } {
   return {
     title: `${caseText(study.name, locale)} — ${siteName}`,
     description: caseText(study.summary, locale),
   };
+}
+
+// Shared-element names: the home card and the case page must use the same one to morph.
+export function caseTransition(part: 'title' | 'shot', slug: string): string {
+  return `case-${part}-${slug}`;
 }

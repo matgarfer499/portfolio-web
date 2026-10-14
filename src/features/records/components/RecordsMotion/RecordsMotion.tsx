@@ -3,9 +3,8 @@
 import { useEffect, useRef, type ReactNode } from 'react';
 import type { Locale } from '@/i18n/routing';
 import { emitTrophy } from '@shared/events/trophy-bus';
-import { startsBelowFold } from '@shared/motion/reveal';
 import { DURATION } from '@shared/motion/tokens';
-import { landingOffset, prefersReducedMotion } from '@shared/motion/viewport';
+import { isBelowFold, prefersReducedMotion } from '@shared/motion/viewport';
 import { countUp, formatCount } from '../../model';
 import { recordsMotionVariants as styles } from './RecordsMotion.variants';
 
@@ -37,13 +36,7 @@ export function RecordsMotion({ locale, children }: { locale: Locale; children: 
     const digitsOf = new Map(
       cards.map((card) => [card, card.querySelector<HTMLElement>('[data-count]')]),
     );
-    const armed =
-      !prefersReducedMotion() &&
-      startsBelowFold({
-        top: el.getBoundingClientRect().top,
-        landing: landingOffset(),
-        innerHeight: window.innerHeight,
-      });
+    const armed = !prefersReducedMotion() && isBelowFold(el);
     const frames: Frames = new Map();
 
     if (armed) {
