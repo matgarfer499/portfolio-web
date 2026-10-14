@@ -102,7 +102,7 @@ export function Styleguide() {
       <Section id="night" tone="night">
         <Container className={styles.block()}>
           <Display size="section">Night board</Display>
-          <Label tone="night">API response time</Label>
+          <Label>API response time</Label>
           <Buttons />
           <Placeholder
             display="block"

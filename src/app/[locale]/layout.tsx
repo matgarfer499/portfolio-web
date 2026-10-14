@@ -27,11 +27,9 @@ export async function generateMetadata({
 }: {
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
-  const { locale } = await params;
-  const t = await getTranslations({
-    locale: hasLocale(routing.locales, locale) ? locale : routing.defaultLocale,
-    namespace: 'Meta',
-  });
+  const requested = (await params).locale;
+  const locale = hasLocale(routing.locales, requested) ? requested : routing.defaultLocale;
+  const t = await getTranslations({ locale, namespace: 'Meta' });
 
   return {
     metadataBase: new URL(site.url),

@@ -3,8 +3,7 @@ import { cn } from '@shared/lib/cn';
 import { ICONS, type IconName } from './icons';
 import { iconVariants, type IconVariantProps } from './Icon.variants';
 
-type IconProps = ComponentProps<'svg'> &
-  IconVariantProps & { name: IconName; label?: string; strokeWidth?: number };
+type IconProps = ComponentProps<'svg'> & IconVariantProps & { name: IconName; label?: string };
 
 // Decorative by default; pass `label` only when the icon is the sole name of its control.
 export function Icon({ name, label, size, strokeWidth = 2.6, className, ...props }: IconProps) {

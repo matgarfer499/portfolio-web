@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { isTheme, resolveTheme, THEME_STORAGE_KEY, themeScript } from './theme';
+import { isTheme, THEME_STORAGE_KEY, themeScript } from './theme';
 
 function runScript(stored: string | null, prefersDark: boolean, storageThrows = false) {
   const attrs: Record<string, string> = {};
@@ -33,18 +33,13 @@ describe('theme', () => {
     expect(isTheme(null)).toBe(false);
   });
 
-  it('prefers a stored choice over the system preference', () => {
-    expect(resolveTheme('light', true)).toBe('light');
-    expect(resolveTheme('dark', false)).toBe('dark');
-  });
-
-  it('falls back to the system preference when nothing valid is stored', () => {
-    expect(resolveTheme(null, true)).toBe('dark');
-    expect(resolveTheme('purple', false)).toBe('light');
-  });
-
-  it('inline script sets data-theme from storage before paint', () => {
+  it('inline script prefers a stored choice over the system, before paint', () => {
     expect(runScript('dark', false).attrs['data-theme']).toBe('dark');
+    expect(runScript('light', true).attrs['data-theme']).toBe('light');
+  });
+
+  it('inline script ignores an invalid stored value', () => {
+    expect(runScript('purple', true).attrs['data-theme']).toBe('dark');
   });
 
   it('inline script follows the system, live, when nothing is stored', () => {

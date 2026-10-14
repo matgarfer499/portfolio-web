@@ -2,8 +2,8 @@
 
 import { useSyncExternalStore } from 'react';
 import { useTranslations } from 'next-intl';
-import { emitTrophy } from '@shared/events/trophy-bus';
 import { Icon } from '@shared/components/atoms/Icon/Icon';
+import { emitTrophy } from '@shared/events/trophy-bus';
 import { applyTheme, isTheme, type Theme } from '@shared/lib/theme';
 import { themeToggleVariants as styles } from './ThemeToggle.variants';
 
@@ -13,14 +13,17 @@ function subscribe(onChange: () => void) {
   observer.observe(document.documentElement, { attributeFilter: ['data-theme'] });
   return () => observer.disconnect();
 }
-const getTheme = (): Theme => {
+function getTheme(): Theme {
   const value = document.documentElement.getAttribute('data-theme');
   return isTheme(value) ? value : 'light';
-};
+}
+function getServerTheme(): Theme {
+  return 'light';
+}
 
 export function ThemeToggle() {
   const t = useTranslations('Shell');
-  const theme = useSyncExternalStore(subscribe, getTheme, () => 'light' as const);
+  const theme = useSyncExternalStore(subscribe, getTheme, getServerTheme);
   const dark = theme === 'dark';
 
   return (

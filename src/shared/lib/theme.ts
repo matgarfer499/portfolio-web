@@ -3,21 +3,7 @@ export const THEMES = ['light', 'dark'] as const;
 export type Theme = (typeof THEMES)[number];
 
 export function isTheme(value: unknown): value is Theme {
-  return value === 'light' || value === 'dark';
-}
-
-export function resolveTheme(stored: unknown, prefersDark: boolean): Theme {
-  if (isTheme(stored)) return stored;
-  return prefersDark ? 'dark' : 'light';
-}
-
-export function readStoredTheme(): Theme | null {
-  try {
-    const value = localStorage.getItem(THEME_STORAGE_KEY);
-    return isTheme(value) ? value : null;
-  } catch {
-    return null;
-  }
+  return (THEMES as readonly unknown[]).includes(value);
 }
 
 export function applyTheme(theme: Theme): void {
