@@ -8,6 +8,7 @@ import { LogSection } from '@features/log';
 import { ProjectsSection } from '@features/projects';
 import { RecordsSection } from '@features/records';
 import { Footer, Header, SkipLink } from '@features/shell';
+import { Trophies } from '@features/trophies';
 import { routing } from '@/i18n/routing';
 import { PageTransition } from '@shared/motion/PageTransition';
 import { RevealController } from '@shared/motion/RevealController';
@@ -21,7 +22,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   return (
     <>
       <SkipLink label={t('skip')} />
-      <Header locale={locale} />
+      <Header locale={locale} trophies={<Trophies locale={locale} />} />
       <PageTransition>
         <main id="main">
           <Hero locale={locale} />

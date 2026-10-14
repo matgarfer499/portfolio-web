@@ -4,6 +4,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { CaseStudyPage, caseMeta, caseSlugs, findCase } from '@features/projects';
 import { Footer, Header, SkipLink } from '@features/shell';
+import { Trophies } from '@features/trophies';
 import { routing } from '@/i18n/routing';
 import { site } from '@shared/config/site';
 import { PageTransition } from '@shared/motion/PageTransition';
@@ -34,7 +35,7 @@ export default async function CasePage({ params }: { params: Params }) {
   return (
     <>
       <SkipLink label={t('skip')} />
-      <Header locale={locale} />
+      <Header locale={locale} trophies={<Trophies locale={locale} />} />
       <PageTransition>
         <main id="main">
           <CaseStudyPage study={study} locale={locale} />
