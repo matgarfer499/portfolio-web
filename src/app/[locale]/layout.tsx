@@ -2,7 +2,7 @@ import '../globals.css';
 
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { hasLocale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
@@ -11,12 +11,21 @@ import { routing } from '@/i18n/routing';
 import { site } from '@shared/config/site';
 import { themeScript } from '@shared/lib/theme';
 import { MotionProvider } from '@shared/motion/MotionProvider';
+import { BRAND } from '../brand';
 import { anton, interTight } from '../fonts';
 
 interface LocaleLayoutProps {
   children: ReactNode;
   params: Promise<{ locale: string }>;
 }
+
+// The browser chrome matches the page in each colour scheme (data-theme overrides aren't visible here).
+export const viewport: Viewport = {
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: BRAND.paper },
+    { media: '(prefers-color-scheme: dark)', color: BRAND.darkPaper },
+  ],
+};
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -35,7 +44,6 @@ export async function generateMetadata({
     metadataBase: new URL(site.url),
     title: t('title'),
     description: t('description'),
-    icons: { icon: '/favicon.svg' },
     openGraph: {
       title: t('title'),
       description: t('description'),
