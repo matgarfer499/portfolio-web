@@ -60,7 +60,11 @@ export const about = {
       src: '/photos/cheesecake.webp',
       width: 1200,
       height: 1600,
-      alt: { en: 'A slice of cheesecake', es: 'Una porción de tarta de queso' },
+      focus: '50% 72%',
+      alt: {
+        en: 'Matías smiling as he holds up a plate with a slice of cheesecake topped with pistachio',
+        es: 'Matías sonriendo mientras enseña un plato con una porción de tarta de queso con pistacho',
+      },
       caption: {
         en: "I can't choose between sweet or savory",
         es: 'No sé elegir entre dulce y salado',
