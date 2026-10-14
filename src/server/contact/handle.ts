@@ -1,5 +1,6 @@
 import type { ContactEnv } from '../env';
 import { parseContact, type ContactValues, type FieldErrors } from './schema';
+import { contactSubject } from './subject';
 import type { OutgoingEmail } from './resend';
 
 export type ContactResult =
@@ -16,7 +17,10 @@ export interface ContactDeps {
 // The whole contact flow with its I/O injected; action.ts wires the real request, env and sender.
 export async function handleContact(data: FormData, deps: ContactDeps): Promise<ContactResult> {
   const parsed = parseContact(data);
-  if (!parsed.ok) return { status: 'error', reason: 'invalid', ...parsed };
+  if (!parsed.ok) {
+    const { fieldErrors, values } = parsed;
+    return { status: 'error', reason: 'invalid', fieldErrors, values };
+  }
   if (parsed.bot) return { status: 'sent' };
   const values = parsed.data;
   if (!deps.allow()) return { status: 'error', reason: 'rateLimited', values };
@@ -27,7 +31,7 @@ export async function handleContact(data: FormData, deps: ContactDeps): Promise<
     from,
     to,
     replyTo: values.email,
-    subject: `Portfolio — ${values.name}`,
+    subject: contactSubject(values.name),
     text: values.message,
   });
   return sent ? { status: 'sent' } : { status: 'error', reason: 'failed', values };

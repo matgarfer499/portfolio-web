@@ -5,7 +5,6 @@ import { sendMessage } from '@/server/contact/action';
 import type { ContactResult } from '@/server/contact/handle';
 import type { ContactField } from '@/server/contact/schema';
 import { Button } from '@shared/components/atoms/Button/Button';
-import { cn } from '@shared/lib/cn';
 import { mailtoHref } from '../../model';
 import { contactFormVariants as styles } from './ContactForm.variants';
 
@@ -34,18 +33,21 @@ export function ContactForm({ to, labels }: { to: string; labels: ContactFormLab
   });
   const form = useRef<HTMLFormElement>(null);
   const values = 'values' in state ? state.values : undefined;
-  const fieldErrors =
-    state.status === 'error' && state.reason === 'invalid' ? state.fieldErrors : {};
+  const invalid = state.status === 'error' && state.reason === 'invalid';
+  const fieldErrors = invalid ? state.fieldErrors : {};
 
   useEffect(() => {
-    if (state.status !== 'error' || state.reason !== 'invalid') return;
+    if (!invalid) return;
     form.current?.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus();
-  }, [state]);
+  }, [state, invalid]);
 
   return (
     <form
       ref={form}
       action={action}
+      onSubmit={(event) => {
+        if (pending) event.preventDefault();
+      }}
       noValidate
       aria-labelledby="contact-form-title"
       className={styles.root()}
@@ -70,7 +72,7 @@ export function ContactForm({ to, labels }: { to: string; labels: ContactFormLab
               defaultValue={values?.[field]}
               aria-invalid={error ? true : undefined}
               aria-describedby={error ? `contact-${field}-error` : undefined}
-              className={cn(styles.input(), field === 'message' && styles.textarea())}
+              className={styles.input({ multiline: field === 'message' })}
             />
             {error ? (
               <p id={`contact-${field}-error`} className={styles.error()}>

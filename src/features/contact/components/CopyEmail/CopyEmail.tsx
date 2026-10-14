@@ -27,12 +27,15 @@ export function CopyEmail({ email, labels }: { email: string; labels: Record<Out
     if (!el) return;
     const range = document.createRange();
     range.selectNodeContents(el);
-    window.getSelection()?.removeAllRanges();
-    window.getSelection()?.addRange(range);
+    const selection = window.getSelection();
+    selection?.removeAllRanges();
+    selection?.addRange(range);
     setOutcome('selected');
   };
 
   const copy = () => {
+    // No clipboard API outside secure contexts (plain http, some webviews): select instead.
+    if (!navigator.clipboard) return select();
     navigator.clipboard.writeText(email).then(() => {
       setOutcome('copied');
       setBursts((n) => n + 1);

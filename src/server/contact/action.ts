@@ -17,6 +17,6 @@ export async function sendMessage(
   return handleContact(data, {
     env: contactEnv(),
     allow: () => allow(ip, Date.now()),
-    send: (email) => sendWithResend(email),
+    send: sendWithResend,
   });
 }

@@ -21,4 +21,11 @@ describe('createRateLimit', () => {
     expect(hit('a', 9 * MIN)).toBe(false);
     expect(hit('a', 10 * MIN)).toBe(true);
   });
+
+  it('forgets expired windows, so memory does not grow with every address', () => {
+    const hit = createRateLimit({ limit: 1, windowMs: 10 * MIN });
+    for (let i = 0; i < 100; i++) hit(`ip-${i}`, 0);
+    hit('late', 10 * MIN);
+    expect(hit.size()).toBe(1);
+  });
 });
