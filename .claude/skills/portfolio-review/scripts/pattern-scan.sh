@@ -46,8 +46,14 @@ done
 
 section "Server boundaries"
 for f in "${FILES[@]}"; do
-  [[ $f == src/server/* && $f != *.test.ts ]] && ! grep -q "^import 'server-only'" "$f" && hit "$f" "server/ file without import 'server-only'"
-  if grep -qE "^['\"]use client['\"]" "$f"; then grep -nE "from '@/server/" "$f" | sed "s|^|$f:|; s|$| (client file importing server code)|"; fi
+  # Files that touch secrets or I/O need the guard; pure, tested modules (schema, limiter, subject…)
+  # run under vitest and may be imported by client code, so only env/action-style files are checked.
+  [[ $f == src/server/* && $f != *.test.ts ]] && grep -qE "process\.env|^['\"]use server['\"]" "$f" &&
+    ! grep -q "^import 'server-only'" "$f" && hit "$f" "server/ file reading env or exporting actions without import 'server-only'"
+  # A client file may import a Server Action reference and erased type-only imports; anything else ships.
+  if grep -qE "^['\"]use client['\"]" "$f"; then
+    grep -nE "from '@/server/" "$f" | grep -vE "^[0-9]+:import type |/action'" | sed "s|^|$f:|; s|$| (client file importing server code)|"
+  fi
   [[ $f != src/server/* && $f != src/shared/config/site.ts ]] && grep -nE 'process\.env' "$f" | sed "s|^|$f:|; s|$| (env read outside src/server and site.ts)|"
 done
 
