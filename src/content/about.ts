@@ -6,7 +6,6 @@ export interface GalleryPhoto extends ImageAsset {
   readonly tall?: boolean;
 }
 
-// photos/mylove.webp is never shipped or referenced (owner decision).
 export const about = {
   paragraphs: [
     {

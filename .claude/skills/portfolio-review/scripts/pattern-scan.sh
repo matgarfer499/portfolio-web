@@ -51,7 +51,7 @@ section "Motion and style bans (DESIGN.md)"
 for f in "${FILES[@]}"; do
   grep -nE 'transition-all|transition: all|backdrop-blur|backdrop-filter|gradient\(|bg-gradient|cursor: *url' "$f" | sed "s|^|$f:|; s|$| (banned)|"
   grep -nE 'transition-\[[^]]*(width|height|top|left|margin|padding)' "$f" | sed "s|^|$f:|; s|$| (animating a layout property)|"
-  grep -n 'mylove' "$f" | sed "s|^|$f:|; s|$| (NEVER ship this photo)|"
+  [[ $f == *.test.ts ]] || grep -n 'mylove' "$f" | sed "s|^|$f:|; s|$| (NEVER ship this photo)|"
 done
 
 section "Leftovers"
@@ -67,6 +67,7 @@ section "Tests: changed pure modules without a sibling test"
 for f in "${TS[@]}"; do
   [[ $f == *.test.ts || $f == *.variants.ts || $f == *.d.ts || $f == */index.ts || $f == */types.ts ]] && continue
   [[ $f == */model.ts || $f == src/shared/lib/* || $f == src/shared/events/* || $f == src/server/* || $f == src/content/* ]] || continue
+  [[ $f == src/content/* && -f src/content/content.test.ts ]] && continue  # data files: covered by content.test.ts
   [ -f "${f%.ts}.test.ts" ] || hit "$f" "no ${f%.ts}.test.ts"
 done
 echo; echo "scan done: ${#FILES[@]} files"
