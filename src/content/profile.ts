@@ -21,7 +21,7 @@ export const profile: Profile = {
     es: 'Remoto · UE',
   },
   email: 'mjgarciadev14@gmail.com',
-  cvUrl: '/cv.pdf',
+  cvUrl: '/matias-garcia-cv.pdf',
   socials: {
     github: 'https://github.com/matgarfer499',
     linkedin: 'https://www.linkedin.com/in/mgarfer',
