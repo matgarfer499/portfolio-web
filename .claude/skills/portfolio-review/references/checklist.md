@@ -20,6 +20,8 @@ Simplification
 ## 2. Components and styles
 
 - `Name/Name.tsx` + `Name.variants.ts` (CVA). No inline class string over 4 classes in `.tsx`.
+- `cn` is clsx (no tailwind-merge): a `className` passed to an atom must not set a property its
+  variants set (two `px-*`, two `text-*` sizes) — the winner would depend on CSS order.
 - Tokens only; no hex outside `globals.css` / `src/app/brand.ts`; rem units; `cqi` for giant type.
 - React 19: `ref` is a prop, no `forwardRef`. No `useMemo`/`useCallback` without a measured reason
   (React Compiler).

@@ -68,7 +68,9 @@ feature. Features: `shell` (header, nav, mobile menu, theme + language switch, s
 - Atoms export one `cva` + its `VariantProps` (`buttonVariants`, `ButtonVariantProps`); organisms
   export one object of slots: `export const heroVariants = { root: cva('…'), name: cva('…') }`,
   used as `import { heroVariants as styles } from './Hero.variants'` → `className={styles.root()}`.
-- Merge caller overrides with `cn` (`@shared/lib/cn`). Tokens only, never hex values in components
+- Join caller classes with `cn` (`@shared/lib/cn`, clsx only: tailwind-merge cost ~10 kB gz on
+  the client). A caller class must not set a property the component's variants already set; add a
+  variant instead. Tokens only, never hex values in components
   (DESIGN.md). Units in rem (the root font size scales for big screens).
 
 ## 4. Components (React 19)
