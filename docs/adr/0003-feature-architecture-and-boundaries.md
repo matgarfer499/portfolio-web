@@ -1,6 +1,6 @@
 # 0003 — Feature-based architecture with enforced import boundaries
 
-- Status: Accepted
+- Status: Accepted, amended by 0004 (3D stack removed)
 - Date: 2026-06
 
 ## Context

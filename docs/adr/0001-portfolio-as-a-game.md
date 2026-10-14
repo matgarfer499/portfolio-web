@@ -1,6 +1,6 @@
 # ADR 0001 — Portfolio as an explorable 3D game with a parallel fast layer
 
-- **Status:** Accepted
+- **Status:** Superseded by 0004 (2026-10-14)
 - **Date:** 2026-06
 - **Scope:** Portfolio v3 (branch `v3`, full rebuild)
 

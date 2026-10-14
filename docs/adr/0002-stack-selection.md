@@ -1,6 +1,6 @@
 # 2. Stack selection: Next.js + React Three Fiber + Rapier + next-intl
 
-- **Status:** Accepted
+- **Status:** Accepted, amended by 0004 (3D stack removed)
 - **Date:** 2026-06
 - **Supersedes:** the v2 Astro stack (retired with the v3 rebuild)
 
