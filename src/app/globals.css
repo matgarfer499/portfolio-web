@@ -60,6 +60,7 @@
 @theme {
   --breakpoint-stack: 51.25rem;
   --breakpoint-board: 68.75rem;
+  --drop-shadow-mockup: 0 1.125rem 1.5rem rgb(0 0 0 / 0.35);
 }
 
 @theme inline {
@@ -144,6 +145,25 @@
 @keyframes rail-fill {
   from {
     scale: 1 0;
+  }
+}
+
+@keyframes mockup-rise {
+  from {
+    translate: 0 var(--rise);
+  }
+  to {
+    translate: 0 calc(var(--rise) * -1);
+  }
+}
+
+/* Project mockups rise at their own depth (--rise) across the card's view timeline (--case). */
+@utility mockup-rise {
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      animation: mockup-rise linear both;
+      animation-timeline: --case;
+    }
   }
 }
 

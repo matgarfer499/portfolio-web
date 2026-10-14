@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { AboutSection } from '@features/about';
 import { Hero } from '@features/hero';
 import { LogSection } from '@features/log';
+import { ProjectsSection } from '@features/projects';
 import { RecordsSection } from '@features/records';
 import { Footer, Header, SkipLink } from '@features/shell';
 import { routing } from '@/i18n/routing';
@@ -24,6 +25,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         <RecordsSection locale={locale} />
         <LogSection locale={locale} />
         <AboutSection locale={locale} />
+        <ProjectsSection locale={locale} />
       </main>
       <Footer locale={locale} />
       <RevealController />
