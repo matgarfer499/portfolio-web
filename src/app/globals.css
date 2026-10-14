@@ -85,6 +85,25 @@
   --ease-pr-cubic: var(--ease-out-cubic);
 }
 
+/* Surfaces remap the page tokens so atoms (Button, Chip, Placeholder) read right on them. */
+@layer components {
+  .surface-night {
+    --paper: var(--night);
+    --ink: var(--night-ink);
+    --ink-soft: var(--night-ink);
+    --steel: var(--night-muted);
+    --ring: var(--volt);
+  }
+
+  .surface-volt {
+    --paper: #ffffff;
+    --ink: #111111;
+    --ink-soft: #2b2d29;
+    --steel: #3d4139;
+    --ring: var(--on-volt);
+  }
+}
+
 @layer base {
   /* rem scales the whole composition on big screens instead of a separate TV layout. */
   html {

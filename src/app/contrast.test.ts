@@ -56,6 +56,27 @@ for (const [theme, source] of Object.entries(THEMES)) {
   });
 }
 
+// Inside a night or volt Section the atoms see remapped tokens: each pair must still pass.
+function utility(name: string): string {
+  return block(`.${name}`);
+}
+for (const [theme, source] of Object.entries(THEMES)) {
+  describe(`surfaces — ${theme}`, () => {
+    const volt = source + utility('surface-volt');
+    it('buttons on the volt band: ink on paper and on volt', () => {
+      expect(ratio(token(volt, 'ink'), token(volt, 'paper'))).toBeGreaterThanOrEqual(4.5);
+      for (const fg of ['ink', 'ink-soft', 'steel'])
+        expect(ratio(token(volt, fg), token(volt, 'volt')), fg).toBeGreaterThanOrEqual(4.5);
+    });
+    it('buttons on the night board: night-ink against night, both ways', () => {
+      expect(ratio(token(source, 'night-ink'), token(source, 'night'))).toBeGreaterThanOrEqual(4.5);
+      expect(ratio(token(source, 'night-muted'), token(source, 'night'))).toBeGreaterThanOrEqual(
+        4.5,
+      );
+    });
+  });
+}
+
 describe('no dimmed text or rings in the styles', () => {
   it('never fades text or ring tokens with alpha', () => {
     const src = join(__dirname, '..');
