@@ -1,6 +1,6 @@
 import { pending, type Localized, type Maybe } from './types';
 
-export interface Measure {
+interface Measure {
   readonly value: number;
   readonly unit?: string;
 }

@@ -11,7 +11,6 @@ import { routing, toLocale } from '@/i18n/routing';
 import { pageMeta } from '@shared/config/seo';
 import { site } from '@shared/config/site';
 import { themeScript } from '@shared/lib/theme';
-import { MotionProvider } from '@shared/motion/MotionProvider';
 import { BRAND } from '../brand';
 import { anton, interTight } from '../fonts';
 
@@ -62,7 +61,7 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
       <body>
         {/* Sets data-theme before the first paint; suppressHydrationWarning covers the attribute. */}
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
-        <MotionProvider>{children}</MotionProvider>
+        {children}
         {site.onVercel && (
           <>
             <Analytics />
