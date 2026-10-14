@@ -1,9 +1,149 @@
 @import 'tailwindcss';
 
-/* Placeholder until P1 lands the PR Board tokens (DESIGN.md). */
+/* PR Board tokens (DESIGN.md). Raw values per theme; contrast.test.ts parses these blocks. */
+:root {
+  --paper: #ffffff;
+  --ink: #111111;
+  --ink-soft: #2b2d29;
+  --steel: #555a50;
+  --line: #dcded8;
+  --ghost: #8a8f84;
+  --volt: #d4ff1f;
+  --on-volt: #111111;
+  --night: #111111;
+  --night-ink: #ffffff;
+  --night-muted: #b9bdb3;
+  --night-ghost: #8a8f84;
+  --night-line: #2e302b;
+  --ring: var(--ink);
+
+  --dur-fast: 150ms;
+  --dur-base: 300ms;
+  --dur-reveal: 600ms;
+  --dur-count: 1400ms;
+  --dur-toast: 550ms;
+  --ease-out-soft: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-out-cubic: cubic-bezier(0.33, 1, 0.68, 1);
+
+  color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+  --paper: #0e0f0c;
+  --ink: #f2f3ee;
+  --ink-soft: #d9dcd4;
+  --steel: #a3a89b;
+  --line: #2e302b;
+  --ghost: #8a8f84;
+  --night: #171814;
+  --night-ink: #f2f3ee;
+  --night-line: #34362f;
+
+  color-scheme: dark;
+}
+
+/* Beast mode (Konami trophy): the page turns volt, ink stays black in either theme. */
+:root[data-beast] {
+  --paper: #d4ff1f;
+  --ink: #111111;
+  --ink-soft: #2b2d29;
+  --steel: #3d4139;
+  --line: #111111;
+  --ghost: #3d4139;
+
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-steel: var(--steel);
+  --color-line: var(--line);
+  --color-ghost: var(--ghost);
+  --color-volt: var(--volt);
+  --color-on-volt: var(--on-volt);
+  --color-night: var(--night);
+  --color-night-ink: var(--night-ink);
+  --color-night-muted: var(--night-muted);
+  --color-night-ghost: var(--night-ghost);
+  --color-night-line: var(--night-line);
+  --color-ring: var(--ring);
+
+  --font-display: var(--font-anton), 'Oswald', 'Arial Narrow', Impact, sans-serif;
+  --font-body: var(--font-inter-tight), 'Helvetica Neue', Arial, sans-serif;
+
+  --ease-pr-out: var(--ease-out-soft);
+  --ease-pr-spring: var(--ease-spring);
+  --ease-pr-cubic: var(--ease-out-cubic);
+}
+
 @layer base {
+  /* rem scales the whole composition on big screens instead of a separate TV layout. */
+  html {
+    font-size: 100%;
+    -webkit-text-size-adjust: 100%;
+  }
+  @media (min-width: 1920px) {
+    html {
+      font-size: 112.5%;
+    }
+  }
+  @media (min-width: 2560px) {
+    html {
+      font-size: 137.5%;
+    }
+  }
+  @media (min-width: 3840px) {
+    html {
+      font-size: 200%;
+    }
+  }
+
   body {
-    background-color: #ffffff;
-    color: #111111;
+    background-color: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: clip;
+  }
+
+  ::selection {
+    background-color: var(--volt);
+    color: var(--on-volt);
+  }
+
+  :focus-visible {
+    outline: 0.1875rem solid var(--ring);
+    outline-offset: 0.1875rem;
+  }
+
+  img,
+  svg,
+  video {
+    display: block;
+    max-width: 100%;
+  }
+
+  a,
+  button,
+  summary,
+  label[for] {
+    cursor: pointer;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

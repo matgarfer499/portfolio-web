@@ -10,12 +10,13 @@ colors:
     ink-soft: '#2B2D29' # long-form body copy
     steel: '#555A50' # labels, ledes, meta (AA on paper)
     line: '#DCDED8' # hairlines that are not ink borders
-    ghost: '#8A8F84' # LARGE text or on night only (≈3.3:1 on paper fails body AA)
+    ghost: '#8A8F84' # LARGE text only on paper (≈3.3:1 fails body AA)
     volt: '#D4FF1F' # the one accent: band, CTA, highlights, toast
     on-volt: '#111111' # text on volt, both themes
     night: '#111111' # records board background
     night-ink: '#FFFFFF' # text on night
     night-muted: '#B9BDB3' # labels on night
+    night-ghost: '#8A8F84' # struck-through "before" values on the board
     night-line: '#2E302B' # grid gaps of the board
   dark: # paper/ink invert; values below proven by src/app/contrast.test.ts (P1)
     paper: '#0E0F0C'
@@ -78,7 +79,8 @@ the toast, the scroll-progress bar and focus accents. Nothing else is volt. Text
 - **Dark theme** inverts paper and ink; volt stays; the records board becomes `night` #171814,
   slightly lighter than the page, so it still reads as a raised board. System preference by
   default, a toggle, persisted, applied before paint by an inline head script (no flash).
-- **Beast mode** (Konami trophy) swaps paper for volt and keeps ink: an inverted volt theme.
+- **Beast mode** (Konami trophy) swaps paper for volt and keeps ink #111 in either theme; steel and
+  ghost darken to #3D4139 so they still pass on volt. The night board keeps its own tokens.
 - No gradients, no glass, no glow, no pure decoration.
 
 ## Typography
