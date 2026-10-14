@@ -14,6 +14,6 @@ export const caseStudyPageVariants = {
   next: cva('mt-14'),
   body: cva('flex max-w-[46rem] flex-col gap-10'),
   block: cva('flex flex-col gap-3'),
-  heading: cva('m-0 font-display text-[2.125rem] leading-none uppercase'),
+  heading: cva('m-0 font-display text-[2.125rem] leading-none text-balance uppercase'),
   text: cva('m-0 text-ink-soft'),
 };
