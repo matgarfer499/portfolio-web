@@ -12,7 +12,8 @@ export interface CaseStudy {
   readonly sections: readonly {
     readonly id: string;
     readonly heading: Localized;
-    readonly body: Maybe<Localized> | readonly Localized[];
+    readonly body?: Maybe<Localized>;
+    readonly list?: readonly Localized[];
   }[];
 }
 
@@ -43,16 +44,16 @@ const chefory = {
   sections: [
     {
       id: 'overview',
-      heading: { en: 'Overview', es: 'Visión general' },
+      heading: { en: 'Overview', es: 'De qué va' },
       body: {
         en: 'A web application for kitchen inventory management, designed to help businesses track stock, control expenses and manage suppliers. Built as a fully functional SaaS-style product with scalability and user experience in mind.',
-        es: 'Una aplicación web de gestión de inventario para cocinas, pensada para que los negocios controlen el stock, los gastos y los proveedores. Construida como un producto SaaS completo, con la escalabilidad y la experiencia de usuario en mente.',
+        es: 'Una aplicación web de gestión de inventario para cocinas, pensada para que los negocios controlen el stock, los gastos y los proveedores. Construida como un SaaS completo y funcional, pensando en la escalabilidad y en la experiencia de usuario.',
       },
     },
     {
       id: 'features',
       heading: { en: 'What it does', es: 'Qué hace' },
-      body: [
+      list: [
         {
           en: 'Real-time product entry and exit tracking',
           es: 'Registro de entradas y salidas de producto en tiempo real',
@@ -132,9 +133,8 @@ const techLead = {
   ],
 } as const satisfies CaseStudy;
 
+// Order matters: the first is featured on the home, each page links to the next one.
 export const projects = {
-  featured: chefory,
-  next: techLead,
   caseStudies: [chefory, techLead],
   stack: [
     {
@@ -153,4 +153,11 @@ export const projects = {
       items: ['Docker', 'Kubernetes', 'Git', 'Jira', 'Figma'],
     },
   ],
-} as const;
+} as const satisfies {
+  readonly caseStudies: readonly CaseStudy[];
+  readonly stack: readonly {
+    readonly id: string;
+    readonly title: Localized;
+    readonly items: readonly string[];
+  }[];
+};

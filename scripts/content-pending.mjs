@@ -27,8 +27,11 @@ export function findPending(source) {
         break;
       }
     }
-    const note = EN.exec(source.slice(start, end))?.[2]?.replace(/\\(.)/g, '$1');
-    if (note) found.push({ line: source.slice(0, start).split('\n').length, note });
+    // A call the scan cannot read is still listed: dropping a gap is the worst failure here.
+    const note =
+      EN.exec(source.slice(start, end))?.[2]?.replace(/\\(.)/g, '$1') ||
+      '(unreadable note: open the file)';
+    found.push({ line: source.slice(0, start).split('\n').length, note });
   }
   return found;
 }

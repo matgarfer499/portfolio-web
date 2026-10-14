@@ -1,10 +1,15 @@
 import { pending, type Localized, type Maybe } from './types';
 
+export interface Measure {
+  readonly value: number;
+  readonly unit?: string;
+}
+
 export interface RecordItem {
   readonly id: string;
   readonly label: Localized;
-  readonly before: { readonly value: number; readonly unit?: string };
-  readonly after: { readonly value: number; readonly unit?: string };
+  readonly before: Measure;
+  readonly after: Measure;
   /** Which way is an improvement: response times go down, scores go up. */
   readonly better: 'lower' | 'higher';
   readonly note: Localized;
@@ -20,7 +25,7 @@ export interface PendingRecord {
 export const records = {
   lede: {
     en: 'Production numbers from my work at Bettergy, before and after.',
-    es: 'Números de producción de mi trabajo en Bettergy, antes y después.',
+    es: 'Cifras reales de producción de mi trabajo en Bettergy, antes y después.',
   },
   items: [
     {

@@ -18,7 +18,7 @@ export const about = {
     },
     {
       en: "At the end of the day I'm just me: passionate, grounded, and always looking for the next thing to learn or build.",
-      es: 'Al final del día, solo soy yo: apasionado, con los pies en la tierra y siempre buscando lo próximo que aprender o construir.',
+      es: 'Al final, soy solo yo: apasionado, con los pies en la tierra y siempre buscando lo siguiente que aprender o construir.',
     },
   ],
   photos: [
@@ -53,7 +53,7 @@ export const about = {
       alt: { en: 'A slice of cheesecake', es: 'Una porción de tarta de queso' },
       caption: {
         en: "I can't choose between sweet or savory",
-        es: 'No sé elegir entre dulce o salado',
+        es: 'No sé elegir entre dulce y salado',
       },
     },
     {
@@ -79,7 +79,7 @@ export const about = {
         en: 'Selfie of Matías with three friends at a café terrace on a sunny day',
         es: 'Selfie de Matías con tres amigos en una terraza un día de sol',
       },
-      caption: { en: 'Friends who make life better', es: 'Amigos que hacen la vida mejor' },
+      caption: { en: 'Friends who make life better', es: 'Amigos que me alegran la vida' },
     },
     {
       id: 'friends-beach',

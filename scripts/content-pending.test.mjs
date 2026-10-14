@@ -21,6 +21,12 @@ describe('findPending', () => {
     ]);
   });
 
+  it('still lists a call whose English note it cannot read', () => {
+    expect(findPending("pending({ es: 'Solo español' })")).toEqual([
+      { line: 1, note: '(unreadable note: open the file)' },
+    ]);
+  });
+
   it('ignores the definition and imports of pending itself', () => {
     const src = "import { pending } from './types';\nexport function pending(note) {}\n";
     expect(findPending(src)).toEqual([]);

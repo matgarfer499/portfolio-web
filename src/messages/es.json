@@ -1,7 +1,7 @@
 {
   "Meta": {
     "title": "Matías García — Tech Lead · Desarrollador Full Stack",
-    "description": "Matías García, Tech Lead y desarrollador full stack en Málaga. Producto de principio a fin, de la consulta a la base de datos al último píxel."
+    "description": "Tech Lead y desarrollador full stack en Málaga que lleva productos de principio a fin, de la consulta a la base de datos al último píxel."
   },
   "Home": {
     "placeholder": "El portfolio v4 se está reconstruyendo. Vuelvo enseguida."
@@ -40,7 +40,7 @@
   },
   "Log": {
     "title": "Diario de entreno",
-    "lede": "Donde se hicieron las repeticiones. Lo más reciente, primero.",
+    "lede": "Aquí es donde hice las repeticiones. Lo más reciente, primero.",
     "columns": {
       "when": "Cuándo",
       "team": "Equipo",
@@ -66,7 +66,7 @@
     "lede": "Proyectos personales, de principio a fin.",
     "try": "Prueba {name}",
     "readCase": "Leer el caso",
-    "nextCase": "Próximo caso",
+    "nextCase": "Siguiente caso",
     "stackTitle": "El stack",
     "back": "Volver a proyectos",
     "visit": "Visitar la web"
@@ -77,7 +77,7 @@
     "copied": "Copiado",
     "selected": "Seleccionado, pulsa Ctrl+C",
     "localTime": "{city} · {time} hora local",
-    "clockFallback": "Málaga · hora central europea",
+    "clockFallback": "Málaga · hora de Europa central",
     "backToTop": "Volver arriba",
     "form": {
       "title": "O déjame un mensaje",
@@ -121,7 +121,7 @@
         "description": "Has abierto un caso de estudio."
       },
       "languageSwitched": {
-        "title": "Partido fuera",
+        "title": "Partido fuera de casa",
         "description": "Has cambiado de idioma."
       },
       "themeSwitched": {

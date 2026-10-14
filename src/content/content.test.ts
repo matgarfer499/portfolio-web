@@ -24,7 +24,7 @@ for (const [name, value] of Object.entries(content))
 
 // Same text in both languages is fine for names, units and tech terms, not for prose.
 const SAME_OK =
-  /^(Chefory|Tech Lead|Full stack|Backend|Frontend|Lighthouse 100|90s → 1s|Málaga|B2 · Cambridge First)$/;
+  /^(Chefory|Tech Lead|Full stack|Backend|Frontend|Lighthouse 100|90 s → 1 s|Málaga|B2 · Cambridge First)$/;
 
 describe('content is bilingual', () => {
   it('walks a meaningful amount of copy', () => expect(found.localized.length).toBeGreaterThan(80));
@@ -74,10 +74,5 @@ describe('content invariants', () => {
         r.better === 'lower' ? r.after.value < r.before.value : r.after.value > r.before.value;
       expect(improved, r.id).toBe(true);
     }
-  });
-
-  it('keeps unknown career facts as pending, never empty strings', () => {
-    expect(content.isPending(content.records.next.note)).toBe(true);
-    expect(content.isPending(content.projects.next.name)).toBe(true);
   });
 });

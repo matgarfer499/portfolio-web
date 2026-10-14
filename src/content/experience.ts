@@ -1,4 +1,4 @@
-import { pending, type Localized, type Maybe, type Rich } from './types';
+import { pending, type ImageAsset, type Localized, type Maybe, type Rich } from './types';
 
 export interface LogEntry {
   readonly id: string;
@@ -9,12 +9,14 @@ export interface LogEntry {
   readonly place: Localized;
   readonly team: {
     readonly name: string;
-    readonly logo?: { readonly src: string; readonly width: number; readonly height: number };
+    readonly logo?: Omit<ImageAsset, 'alt'>;
   };
   readonly role: Localized;
   readonly roleSince?: Maybe<Localized>;
   readonly bullets: readonly Rich[];
-  readonly chips: readonly (string | Localized)[];
+  readonly chips: readonly string[];
+  /** The degree row lists the spoken languages from profile.languages (one source). */
+  readonly showLanguages?: boolean;
 }
 
 // Newest first, in the artifact's order (the degree only has a completion month, so no sorting).
@@ -56,7 +58,7 @@ export const experience = [
       [
         {
           en: 'Defined a Screaming Architecture folder structure that speeds up onboarding.',
-          es: 'Definí una estructura de carpetas Screaming Architecture que agiliza la incorporación de gente nueva.',
+          es: 'Definí una estructura de carpetas basada en Screaming Architecture que agiliza la incorporación de gente nueva.',
         },
       ],
       [
@@ -107,7 +109,7 @@ export const experience = [
       [
         {
           en: 'Worked in a fully English-speaking team.',
-          es: 'Trabajé en un equipo íntegramente angloparlante.',
+          es: 'Trabajé en un equipo en el que todo era en inglés.',
         },
       ],
     ],
@@ -131,9 +133,7 @@ export const experience = [
         },
       ],
     ],
-    chips: [
-      { en: 'Spanish · Native', es: 'Español · Nativo' },
-      { en: 'English · B2 First', es: 'Inglés · B2 First' },
-    ],
+    chips: [],
+    showLanguages: true,
   },
 ] as const satisfies readonly LogEntry[];
