@@ -197,7 +197,9 @@
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    /* 0s, not 0.01ms: transition-property defaults to all, so any non-zero value would make
+       every property change on every element a transition. */
+    transition-duration: 0s !important;
     scroll-behavior: auto !important;
   }
 }
