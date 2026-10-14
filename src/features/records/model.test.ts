@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { countUp, improvement, shouldArm } from './model';
+import { countUp, formatCount, improvement, shouldArm } from './model';
 
 const rec = (before: number, after: number, better: 'lower' | 'higher', unit?: string) => ({
   before: unit ? { value: before, unit } : { value: before },
@@ -45,5 +45,13 @@ describe('shouldArm', () => {
     expect(shouldArm({ boardTop: 1200, innerHeight: 800, reducedMotion: false })).toBe(true);
     expect(shouldArm({ boardTop: 400, innerHeight: 800, reducedMotion: false })).toBe(false);
     expect(shouldArm({ boardTop: 1200, innerHeight: 800, reducedMotion: true })).toBe(false);
+  });
+});
+
+describe('formatCount', () => {
+  it('groups thousands the way each locale does', () => {
+    expect(formatCount(6000, 'en')).toBe('6,000');
+    expect(formatCount(6000, 'es')).toBe('6000');
+    expect(formatCount(12000, 'es')).toBe('12.000');
   });
 });

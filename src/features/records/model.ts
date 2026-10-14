@@ -1,3 +1,4 @@
+import { INTL_LOCALE, type Locale } from '@/i18n/routing';
 import type { RecordItem } from '@content/index';
 import { easeOutCubic } from '@shared/motion/tokens';
 
@@ -30,4 +31,8 @@ export function shouldArm(input: {
   reducedMotion: boolean;
 }) {
   return !input.reducedMotion && input.boardTop > input.innerHeight;
+}
+
+export function formatCount(value: number, locale: Locale): string {
+  return new Intl.NumberFormat(INTL_LOCALE[locale]).format(value);
 }
