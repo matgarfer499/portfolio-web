@@ -65,6 +65,9 @@ emitTrophy('email-copied');
 const off = onTrophy((event) => unlock(event));
 ```
 
+A link that should report an event (the CV in hero and contact) uses the shared client atom
+`TrophyLink` (`event="cv-opened"`): still a plain `<a>` without JS, and no feature imports another.
+
 The event names are a closed `as const` union in the bus file; adding a trophy means adding the
 name there first. Nothing but `trophies` calls `onTrophy`.
 

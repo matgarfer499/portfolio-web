@@ -59,7 +59,11 @@ feature. Features: `shell` (header, nav, mobile menu, theme + language switch, s
 - `process.env` is read only in `src/server/**` and `src/shared/config/site.ts`
   (`NEXT_PUBLIC_SITE_URL`). Secrets (`RESEND_API_KEY`, `CONTACT_TO`) are read and validated once in
   `src/server/env.ts` and never leave `src/server`.
-- **Server Actions** (contact form): zod parse → honeypot → rate limit → adapter → typed result
+- **Server Actions** (contact form, `src/server/contact/`): the flow lives in `handle.ts` with its env,
+  limiter and sender injected (unit-tested); `action.ts` only wires `headers()` and the real deps. Pure
+  server modules skip `server-only` so vitest can run them (vitest aliases it to a stub); anything a
+  client file imports from `server/` must be dependency-free (`subject.ts`) or type-only.
+  zod parse → honeypot → rate limit → adapter → typed result
   `{ ok: true } | { ok: false, reason, fieldErrors? }`. With no API key the action reports
   `reason: 'unconfigured'` and the form shows the mailto fallback.
 

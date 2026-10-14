@@ -139,7 +139,9 @@ from server-rendered final content.
 | Progress rail    | Training log                 | named view timeline, fills along a mid-viewport reading line; none without support or with reduced motion |
 | Toast            | Trophies                     | `cubic-bezier(.34,1.56,.64,1)` 0.55 s rise, rotated -3deg                                                 |
 | Button hover     | Everywhere                   | translate(-2px,-2px) + offset shadow, 150 ms                                                              |
-| Magnetic         | Contact (pointer: fine only) | translate toward the pointer, max 6 px                                                                    |
+| Magnetic         | Contact (pointer: fine only) | `transform` toward the pointer, max 6 px (composes with the hover lift's `translate`)                     |
+| Copy burst       | Contact                      | five ink rays out of the button's top-right corner, 450 ms, once per copy; none with reduced motion       |
+| Availability dot | Contact                      | ring scales 1 → 2.6 and fades, 1.8 s loop; static with reduced motion                                     |
 | Parallax         | About (pointer: fine only)   | ≤12 px translate on pointer move, per-photo depth                                                         |
 | Mockup depth     | Projects                     | laptop/phone rise at their own `--rise` on the card's view timeline; none without support/reduced motion  |
 | Page transition  | Case links                   | typed `nav-forward`/`nav-back` slide 400 ms; title + shot morph by shared name; hash links none           |
