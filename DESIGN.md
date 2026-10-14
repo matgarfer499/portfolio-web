@@ -137,7 +137,9 @@ from server-rendered final content.
 | Record flash     | Records                      | volt top bar: on pointer hover, and once as a card finishes counting                                      |
 | Reveal           | Below the fold only          | opacity + 28 px rise, 0.6 s, `cubic-bezier(.2,.7,.2,1)`                                                   |
 | Progress rail    | Training log                 | named view timeline, fills along a mid-viewport reading line; none without support or with reduced motion |
-| Toast            | Trophies                     | `cubic-bezier(.34,1.56,.64,1)` 0.55 s rise, rotated -3deg                                                 |
+| Toast            | Trophies                     | `cubic-bezier(.34,1.56,.64,1)` 0.55 s rise, rotated -3deg, stays 4.2 s; one always-mounted live region    |
+| Counter pop      | Header trophies              | the X/8 digits scale 1 → 1.35 → 1 in 300 ms on unlock (motion-safe)                                       |
+| Trophy shelf     | Header trophies              | drawer slides from the right via `@starting-style`, 300 ms; instant with reduced motion                   |
 | Button hover     | Everywhere                   | translate(-2px,-2px) + offset shadow, 150 ms                                                              |
 | Magnetic         | Contact (pointer: fine only) | `transform` toward the pointer, max 6 px (composes with the hover lift's `translate`)                     |
 | Copy burst       | Contact                      | five ink rays out of the button's top-right corner, 450 ms, once per copy; none with reduced motion       |

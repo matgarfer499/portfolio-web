@@ -48,6 +48,8 @@ feature. Features: `shell` (header, nav, mobile menu, theme + language switch, s
   `setRequestLocale`, and renders features. No markup beyond layout glue, no styles.
 - **Cross-feature effects** go through the trophy bus, not imports: `emitTrophy('email-copied')`
   in `contact`, the `trophies` feature subscribes. Event names are a closed union in the bus.
+  The trophies island mounts in the shell header's `trophies` slot (filled by each page); its zustand
+  store starts empty (server 0/8 = first client render) and hydrates from localStorage in an effect.
 
 ## 2. Server and client
 
