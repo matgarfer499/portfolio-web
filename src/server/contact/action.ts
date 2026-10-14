@@ -1,5 +1,6 @@
 'use server';
 
+import 'server-only';
 import { headers } from 'next/headers';
 import { contactEnv } from '../env';
 import { handleContact, type ContactResult } from './handle';

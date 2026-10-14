@@ -11,6 +11,7 @@ export default defineConfig({
       '@content': resolvePath('./src/content'),
       '@app': resolvePath('./src/app'),
       '@': resolvePath('./src'),
+      'server-only': resolvePath('./tests/stubs/server-only.ts'),
     },
   },
   test: {
