@@ -20,7 +20,7 @@ export async function LogRow({ entry, locale }: { entry: LogEntry; locale: Local
     : entry.chips;
 
   return (
-    <article aria-labelledby={`log-${entry.id}`} className={styles.root()}>
+    <article data-reveal aria-labelledby={`log-${entry.id}`} className={styles.root()}>
       <p className={styles.when()}>
         <span className="sr-only">{t('columns.when')}: </span>
         {when.big}

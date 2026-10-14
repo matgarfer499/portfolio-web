@@ -31,8 +31,3 @@ export function formatWhen(
     small: `${short(start)} ${year(start)} — ${short(end)} ${year(end)} · ${place}`,
   };
 }
-
-// Fold only while the log is below the fold, so nothing shifts in view (CSS limits it to phones).
-export function shouldCollapse(input: { listTop: number; innerHeight: number }) {
-  return input.listTop > input.innerHeight;
-}

@@ -3,7 +3,8 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Button } from '@shared/components/atoms/Button/Button';
 import { Icon } from '@shared/components/atoms/Icon/Icon';
-import { shouldCollapse } from '../../model';
+import { startsBelowFold } from '@shared/motion/reveal';
+import { landingOffset } from '@shared/motion/viewport';
 import { logDisclosureVariants as styles } from './LogDisclosure.variants';
 
 // The server shows every detail. While the log is still below the fold the details fold behind a
@@ -23,11 +24,9 @@ export function LogDisclosure({
   useEffect(() => {
     const list = details.current?.closest('[data-log]');
     if (!list) return;
-    // A deep link (/#log, /#contact) may not have scrolled yet: measure from where it will land.
-    const hash = decodeURIComponent(window.location.hash.slice(1));
-    const landing = hash ? document.getElementById(hash) : null;
-    const collapse = shouldCollapse({
-      listTop: list.getBoundingClientRect().top - (landing?.getBoundingClientRect().top ?? 0),
+    const collapse = startsBelowFold({
+      top: list.getBoundingClientRect().top,
+      landing: landingOffset(),
       innerHeight: window.innerHeight,
     });
     if (collapse) setOpen(false);

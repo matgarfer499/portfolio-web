@@ -97,6 +97,18 @@
     --ring: var(--volt);
   }
 
+  /* RevealController arms below-the-fold [data-reveal] elements; server HTML stays visible. */
+  [data-reveal] {
+    transition:
+      opacity var(--dur-reveal) var(--ease-out-soft),
+      translate var(--dur-reveal) var(--ease-out-soft);
+  }
+
+  [data-reveal='armed'] {
+    opacity: 0;
+    translate: 0 1.75rem;
+  }
+
   .surface-volt {
     --paper: #ffffff;
     --ink: #111111;

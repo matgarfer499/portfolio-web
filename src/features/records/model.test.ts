@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { countUp, formatCount, improvement, shouldArm } from './model';
+import { countUp, formatCount, improvement } from './model';
 
 const rec = (before: number, after: number, better: 'lower' | 'higher', unit?: string) => ({
   before: unit ? { value: before, unit } : { value: before },
@@ -37,14 +37,6 @@ describe('countUp', () => {
   it('clamps progress outside 0..1', () => {
     expect(countUp(60, 100, 2)).toBe(100);
     expect(countUp(60, 100, -1)).toBe(60);
-  });
-});
-
-describe('shouldArm', () => {
-  it('arms only below the fold, with motion allowed', () => {
-    expect(shouldArm({ boardTop: 1200, innerHeight: 800, reducedMotion: false })).toBe(true);
-    expect(shouldArm({ boardTop: 400, innerHeight: 800, reducedMotion: false })).toBe(false);
-    expect(shouldArm({ boardTop: 1200, innerHeight: 800, reducedMotion: true })).toBe(false);
   });
 });
 

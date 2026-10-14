@@ -3,8 +3,10 @@
 import { useEffect, useRef, type ReactNode } from 'react';
 import type { Locale } from '@/i18n/routing';
 import { emitTrophy } from '@shared/events/trophy-bus';
+import { startsBelowFold } from '@shared/motion/reveal';
 import { DURATION } from '@shared/motion/tokens';
-import { countUp, formatCount, shouldArm } from '../../model';
+import { landingOffset, prefersReducedMotion } from '@shared/motion/viewport';
+import { countUp, formatCount } from '../../model';
 import { recordsMotionVariants as styles } from './RecordsMotion.variants';
 
 type Frames = Map<Element, number>;
@@ -35,11 +37,13 @@ export function RecordsMotion({ locale, children }: { locale: Locale; children: 
     const digitsOf = new Map(
       cards.map((card) => [card, card.querySelector<HTMLElement>('[data-count]')]),
     );
-    const armed = shouldArm({
-      boardTop: el.getBoundingClientRect().top,
-      innerHeight: window.innerHeight,
-      reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
-    });
+    const armed =
+      !prefersReducedMotion() &&
+      startsBelowFold({
+        top: el.getBoundingClientRect().top,
+        landing: landingOffset(),
+        innerHeight: window.innerHeight,
+      });
     const frames: Frames = new Map();
 
     if (armed) {

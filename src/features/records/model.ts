@@ -24,15 +24,6 @@ export function countUp(from: number, to: number, progress: number): number {
   return Math.round(from + (to - from) * easeOutCubic(t));
 }
 
-// The artifact's rule: only content that starts below the first screen animates in.
-export function shouldArm(input: {
-  boardTop: number;
-  innerHeight: number;
-  reducedMotion: boolean;
-}) {
-  return !input.reducedMotion && input.boardTop > input.innerHeight;
-}
-
 export function formatCount(value: number, locale: Locale): string {
   return new Intl.NumberFormat(INTL_LOCALE[locale]).format(value);
 }

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { formatWhen, shouldCollapse } from './model';
+import { formatWhen } from './model';
 
 const place = 'Málaga';
 
@@ -35,13 +35,5 @@ describe('formatWhen', () => {
       small: 'June · Málaga',
     });
     expect(formatWhen({ end: '2023-06' }, place, 'es', 'Ahora').small).toBe('junio · Málaga');
-  });
-});
-
-describe('shouldCollapse', () => {
-  it('collapses rows only while the log is still below the fold', () => {
-    expect(shouldCollapse({ listTop: 1500, innerHeight: 800 })).toBe(true);
-    expect(shouldCollapse({ listTop: 300, innerHeight: 800 })).toBe(false);
-    expect(shouldCollapse({ listTop: -200, innerHeight: 800 })).toBe(false);
   });
 });

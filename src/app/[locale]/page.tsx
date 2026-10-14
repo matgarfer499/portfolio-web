@@ -6,6 +6,7 @@ import { LogSection } from '@features/log';
 import { RecordsSection } from '@features/records';
 import { Footer, Header, SkipLink } from '@features/shell';
 import { routing } from '@/i18n/routing';
+import { RevealController } from '@shared/motion/RevealController';
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -23,6 +24,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         <LogSection locale={locale} />
       </main>
       <Footer locale={locale} />
+      <RevealController />
     </>
   );
 }
