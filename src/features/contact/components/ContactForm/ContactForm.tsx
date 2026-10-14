@@ -91,21 +91,22 @@ export function ContactForm({ to, labels }: { to: string; labels: ContactFormLab
           {pending ? labels.sending : labels.send}
         </Button>
       </div>
-      {state.status === 'sent' ? (
-        <p role="status" className={styles.status()}>
-          {labels.sent}
-        </p>
-      ) : null}
-      {state.status === 'error' && state.reason !== 'invalid' ? (
-        <div role="alert" className={styles.status()}>
-          {state.reason === 'unconfigured' ? labels.unconfigured : labels.errors[state.reason]}
-          {state.reason !== 'rateLimited' ? (
-            <a href={mailtoHref(to, state.values)} className={styles.mail()}>
-              {labels.openMail}
-            </a>
-          ) : null}
-        </div>
-      ) : null}
+      {/* Live regions stay mounted (empty when idle) so their content is announced on arrival. */}
+      <div role="status">
+        {state.status === 'sent' ? <p className={styles.status()}>{labels.sent}</p> : null}
+      </div>
+      <div role="alert">
+        {state.status === 'error' && state.reason !== 'invalid' ? (
+          <div className={styles.status()}>
+            {state.reason === 'unconfigured' ? labels.unconfigured : labels.errors[state.reason]}
+            {state.reason !== 'rateLimited' ? (
+              <a href={mailtoHref(to, state.values)} className={styles.mail()}>
+                {labels.openMail}
+              </a>
+            ) : null}
+          </div>
+        ) : null}
+      </div>
     </form>
   );
 }

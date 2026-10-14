@@ -63,6 +63,14 @@ describe('handleContact', () => {
     expect(d.send).not.toHaveBeenCalled();
   });
 
+  it('never rate-limits the mailto fallback, which sends nothing', async () => {
+    const d = deps({
+      env: { apiKey: undefined, to: 'me@example.com', from: 'x' },
+      allow: () => false,
+    });
+    await expect(handleContact(form(valid), d)).resolves.toMatchObject({ reason: 'unconfigured' });
+  });
+
   it('reports a failed send and keeps the values', async () => {
     const result = await handleContact(
       form(valid),

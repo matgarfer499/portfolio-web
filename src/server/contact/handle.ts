@@ -23,9 +23,10 @@ export async function handleContact(data: FormData, deps: ContactDeps): Promise<
   }
   if (parsed.bot) return { status: 'sent' };
   const values = parsed.data;
-  if (!deps.allow()) return { status: 'error', reason: 'rateLimited', values };
   const { apiKey, from, to } = deps.env;
+  // The limiter guards sending; the mailto fallback costs nothing, so it is never limited.
   if (!apiKey) return { status: 'error', reason: 'unconfigured', values };
+  if (!deps.allow()) return { status: 'error', reason: 'rateLimited', values };
   const sent = await deps.send({
     apiKey,
     from,
