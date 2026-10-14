@@ -21,6 +21,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
+    "content:pending": "node scripts/content-pending.mjs",
     "prepare": "husky"
   },
   "dependencies": {
