@@ -13,8 +13,6 @@ import { RevealController } from '@shared/motion/RevealController';
 
 type Params = Promise<{ locale: string; slug: string }>;
 
-export const dynamicParams = false;
-
 export function generateStaticParams() {
   return routing.locales.flatMap((locale) => caseSlugs().map((slug) => ({ locale, slug })));
 }
