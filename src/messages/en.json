@@ -54,7 +54,6 @@
   },
   "About": {
     "title": "Off the clock",
-    "openPhoto": "Open photo: {caption}",
     "close": "Close",
     "previous": "Previous photo",
     "next": "Next photo",

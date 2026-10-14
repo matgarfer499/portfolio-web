@@ -54,7 +54,6 @@
   },
   "About": {
     "title": "Fuera del horario",
-    "openPhoto": "Abrir foto: {caption}",
     "close": "Cerrar",
     "previous": "Foto anterior",
     "next": "Foto siguiente",
