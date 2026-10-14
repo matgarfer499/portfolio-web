@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { caseText, findCase, nextCase } from './model';
+import { caseMeta, caseSlugs, caseText, findCase, nextCase } from './model';
 
 describe('findCase / nextCase', () => {
   it('finds a case study by slug and nothing for an unknown one', () => {
@@ -19,5 +19,18 @@ describe('caseText', () => {
     expect(caseText(findCase('tech-lead')!.name, 'es')).toBe(
       '[Producto que lideraste como Tech Lead]',
     );
+  });
+});
+
+describe('case pages', () => {
+  it('has one static page per case study', () => {
+    expect(caseSlugs()).toEqual(['chefory', 'tech-lead']);
+  });
+
+  it('titles a pending case with its bracketed note', () => {
+    expect(caseMeta(findCase('tech-lead')!, 'en', 'Matías García')).toEqual({
+      title: '[Product you led as Tech Lead] — Matías García',
+      description: '[Problem, your role, the team, what shipped and the result]',
+    });
   });
 });

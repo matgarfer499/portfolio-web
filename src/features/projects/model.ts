@@ -18,3 +18,15 @@ export function caseText(value: Maybe<Localized>, locale: Locale): string {
   const r = resolve(value, locale);
   return r.kind === 'pending' ? `[${r.note}]` : r.text;
 }
+
+export function caseSlugs(): string[] {
+  return cases.map((c) => c.slug);
+}
+
+// <title> and description of a case page; pending fields read as their bracketed notes.
+export function caseMeta(study: CaseStudy, locale: Locale, siteName: string) {
+  return {
+    title: `${caseText(study.name, locale)} — ${siteName}`,
+    description: caseText(study.summary, locale),
+  };
+}

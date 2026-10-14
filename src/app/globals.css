@@ -148,6 +148,71 @@
   }
 }
 
+/* View transitions (React <ViewTransition>): the header stays put, shared case titles and shots
+   morph (share="morph"), page content slides with the link's direction. */
+::view-transition-group(site-header) {
+  animation: none;
+  z-index: 100;
+}
+
+::view-transition-old(site-header) {
+  display: none;
+}
+
+::view-transition-new(site-header) {
+  animation: none;
+}
+
+::view-transition-group(.morph) {
+  animation-duration: 400ms;
+  animation-timing-function: var(--ease-out-soft);
+}
+
+::view-transition-old(.nav-forward),
+::view-transition-old(.nav-back) {
+  animation:
+    var(--dur-fast) ease-in both vt-fade reverse,
+    400ms var(--ease-out-soft) both vt-slide reverse;
+}
+
+::view-transition-new(.nav-forward),
+::view-transition-new(.nav-back) {
+  animation:
+    210ms ease-out var(--dur-fast) both vt-fade,
+    400ms var(--ease-out-soft) both vt-slide;
+}
+
+::view-transition-old(.nav-forward),
+::view-transition-new(.nav-back) {
+  --slide: -3.75rem;
+}
+
+::view-transition-new(.nav-forward),
+::view-transition-old(.nav-back) {
+  --slide: 3.75rem;
+}
+
+@keyframes vt-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes vt-slide {
+  from {
+    translate: var(--slide) 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
+}
+
 @keyframes mockup-rise {
   from {
     translate: 0 var(--rise);

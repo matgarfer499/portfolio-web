@@ -21,7 +21,7 @@ export async function FeaturedCase({ study, locale }: { study: CaseStudy; locale
     <article data-reveal aria-labelledby={`case-${study.slug}`} className={styles.root()}>
       {study.shots ? (
         <div className={styles.visual()}>
-          <ViewTransition name={`case-shot-${study.slug}`}>
+          <ViewTransition name={`case-shot-${study.slug}`} share="morph">
             <Image
               src={study.shots.desktop.src}
               width={study.shots.desktop.width}
@@ -43,7 +43,7 @@ export async function FeaturedCase({ study, locale }: { study: CaseStudy; locale
       ) : null}
       <div className={styles.copy()}>
         <Label>{caseText(study.tagline, locale)}</Label>
-        <ViewTransition name={`case-title-${study.slug}`}>
+        <ViewTransition name={`case-title-${study.slug}`} share="morph">
           <Display as="h3" size="card" id={`case-${study.slug}`}>
             {name}
           </Display>
