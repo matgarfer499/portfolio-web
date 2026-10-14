@@ -37,12 +37,12 @@ const config = [
   {
     rules: {
       'no-restricted-imports': [
-        'warn',
+        'error',
         {
           patterns: [
             {
               group: ['@features/*/*'],
-              message: 'Import a feature through its public index (e.g. `@features/world`).',
+              message: 'Import a feature through its public index (e.g. `@features/records`).',
             },
           ],
         },
@@ -76,17 +76,6 @@ const config = [
         },
       ],
     },
-  },
-
-  // React Three Fiber declares Three.js props on intrinsic elements (args, position, …),
-  // which the DOM-oriented rule cannot know about.
-  {
-    files: [
-      'src/features/world/**/*.tsx',
-      'src/features/avatar/**/*.tsx',
-      'src/app/**/_components/GameExperience.tsx',
-    ],
-    rules: { 'react/no-unknown-property': 'off' },
   },
 
   // Tooling, tests and scripts run in Node.

@@ -5,10 +5,7 @@ const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  // The WebGL game layer ships only to the client; the fast layer stays fully SSG.
-  experimental: {
-    optimizePackageImports: ['three', '@react-three/drei'],
-  },
+  reactCompiler: true,
 };
 
 export default withNextIntl(nextConfig);
