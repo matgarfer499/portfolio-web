@@ -1,7 +1,6 @@
 'use client';
 
 import { useSyncExternalStore } from 'react';
-import { useTranslations } from 'next-intl';
 import { Icon } from '@shared/components/atoms/Icon/Icon';
 import { emitTrophy } from '@shared/events/trophy-bus';
 import { applyTheme, isTheme, type Theme } from '@shared/lib/theme';
@@ -21,8 +20,7 @@ function getServerTheme(): Theme {
   return 'light';
 }
 
-export function ThemeToggle() {
-  const t = useTranslations('Shell');
+export function ThemeToggle({ label }: { label: string }) {
   const theme = useSyncExternalStore(subscribe, getTheme, getServerTheme);
   const dark = theme === 'dark';
 
@@ -30,7 +28,7 @@ export function ThemeToggle() {
     <button
       type="button"
       aria-pressed={dark}
-      aria-label={t('darkTheme')}
+      aria-label={label}
       className={styles.root()}
       onClick={() => {
         applyTheme(dark ? 'light' : 'dark');

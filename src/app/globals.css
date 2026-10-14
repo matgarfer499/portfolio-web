@@ -104,11 +104,40 @@
   }
 }
 
+@keyframes letter-rise {
+  from {
+    transform: translateY(110%);
+  }
+}
+
+@keyframes menu-rise {
+  from {
+    opacity: 0;
+    transform: translateY(1.5rem);
+  }
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
 @layer base {
   /* rem scales the whole composition on big screens instead of a separate TV layout. */
   html {
     font-size: 100%;
     -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 4.5rem;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+  /* The open menu dialog owns the screen: the page behind must not scroll. */
+  html:has(dialog[open]) {
+    overflow: hidden;
   }
   @media (min-width: 1920px) {
     html {
