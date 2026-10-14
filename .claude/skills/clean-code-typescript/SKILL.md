@@ -131,8 +131,8 @@ types alongside values: `export type { RecordItem } from './model';`.
 
 Content in `src/content` is authored in TS and proved by the compiler: no runtime schema. Zod is
 for data from outside the repo: the contact form (`features/contact/model.ts` holds the schema,
-parsed in the Server Action) and anything read from `localStorage` (trophies, theme, sound),
-which a user or an older version may have written in another shape.
+parsed in the Server Action). `localStorage` values (trophies, theme, sound) are also untrusted, but
+they are narrowed with small type guards: full zod would cost ~13 kB gz on the client.
 
 ## Anti-patterns → fixes
 
@@ -148,5 +148,5 @@ which a user or an older version may have written in another shape.
 - **Deep import `@features/records/components/…`** → import from `@features/records` (the index).
 - **Mutable content fields / single-language strings** → keep fields `readonly` and bilingual via
   `Localized`; collapse with `localize` at render.
-- **Zod over in-repo content** → unnecessary; **`JSON.parse(localStorage…)` without zod** → a crash waiting for old data.
+- **Zod over in-repo content** → unnecessary; **`JSON.parse(localStorage…)` without a guard** → a crash waiting for old data.
 - **`forwardRef`** → `ref` is a regular prop in React 19.

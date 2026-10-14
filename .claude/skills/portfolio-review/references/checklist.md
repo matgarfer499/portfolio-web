@@ -37,7 +37,8 @@ Simplification
   secrets read in `src/server/env.ts` only; no secret in a client bundle (`grep` the `.next/static`
   output for `RESEND`).
 - Effects only to sync with external systems; listeners and observers cleaned up.
-- `localStorage` access wrapped in try/catch and parsed with zod (theme, trophies, sound).
+- `localStorage` access wrapped in try/catch and narrowed with type guards (theme, trophies, sound);
+  full zod stays server-side (client budget).
 
 ## 5. Content and i18n
 
