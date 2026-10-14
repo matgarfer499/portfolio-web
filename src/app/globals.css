@@ -98,8 +98,9 @@
     --ring: var(--volt);
   }
 
-  /* RevealController arms below-the-fold [data-reveal] elements; server HTML stays visible. */
-  [data-reveal] {
+  /* RevealController arms below-the-fold [data-reveal] elements; server HTML stays visible.
+     Only the way in is animated: arming hides at once (a fade-out would be wasted work). */
+  [data-reveal='shown'] {
     transition:
       opacity var(--dur-reveal) var(--ease-out-soft),
       translate var(--dur-reveal) var(--ease-out-soft);
