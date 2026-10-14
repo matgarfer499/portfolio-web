@@ -50,7 +50,15 @@ for (const locale of LOCALES) {
       page.on('pageerror', (e) => errors.push(e.message));
       await page.goto(BASE + path, { waitUntil: 'networkidle' });
       await page.addStyleTag({ content: 'nextjs-portal{display:none!important}' });
-      await page.waitForTimeout(900);
+      // Walk the page a screen at a time so below-the-fold motion plays and settles first.
+      await page.evaluate(async () => {
+        for (let y = 0; y < document.documentElement.scrollHeight; y += innerHeight / 2) {
+          window.scrollTo(0, y);
+          await new Promise((r) => setTimeout(r, 120));
+        }
+        window.scrollTo(0, 0);
+      });
+      await page.waitForTimeout(1600);
       const overflow = await page.evaluate(
         () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
       );
