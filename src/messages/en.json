@@ -23,7 +23,10 @@
     "darkTheme": "Dark theme",
     "language": "Language",
     "switchLanguage": "Ver en español",
-    "progress": "Reading progress"
+    "progress": "Reading progress",
+    "localTime": "{city} · {time} local time",
+    "backToTop": "Back to top",
+    "clockFallback": "{city} · Spanish time"
   },
   "Hero": {
     "getInTouch": "Get in touch",
@@ -75,9 +78,6 @@
     "copied": "Copied",
     "selected": "Selected, press Ctrl+C",
     "cv": "CV",
-    "localTime": "{city} · {time} local time",
-    "clockFallback": "Málaga · Central European Time",
-    "backToTop": "Back to top",
     "form": {
       "title": "Or leave a message",
       "name": "Name",

@@ -18,7 +18,8 @@ export interface TrophyBus {
   on(handler: Handler): () => void;
 }
 
-// The trophy shelf loads on demand, so events fired before it subscribes are kept and replayed once.
+// Events fired before the trophies island subscribes (it mounts after hydration) are kept and
+// replayed once.
 export function createTrophyBus({ enabled = true }: { enabled?: boolean } = {}): TrophyBus {
   const handlers = new Set<Handler>();
   let pending: TrophyEvent[] = [];

@@ -1,6 +1,5 @@
 import { contactSubject } from '@/server/contact/subject';
-
-const clamp = (n: number) => Math.min(1, Math.max(-1, n));
+import { pointerShift } from '@shared/motion/pointer';
 
 // Magnetic buttons: offset toward the pointer, from the centre (0) to `max` at the edges.
 export function magnetPull(
@@ -9,8 +8,7 @@ export function magnetPull(
   rect: { left: number; top: number; width: number; height: number },
   max: number,
 ): { x: number; y: number } {
-  const x = clamp(((clientX - rect.left) / rect.width) * 2 - 1);
-  const y = clamp(((clientY - rect.top) / rect.height) * 2 - 1);
+  const { x, y } = pointerShift(clientX, clientY, rect);
   return { x: x * max + 0, y: y * max + 0 }; // + 0 turns -0 into 0
 }
 

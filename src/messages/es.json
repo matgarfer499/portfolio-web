@@ -23,7 +23,10 @@
     "darkTheme": "Tema oscuro",
     "language": "Idioma",
     "switchLanguage": "View in English",
-    "progress": "Progreso de lectura"
+    "progress": "Progreso de lectura",
+    "localTime": "{city} · {time} hora local",
+    "backToTop": "Volver arriba",
+    "clockFallback": "{city} · hora peninsular"
   },
   "Hero": {
     "getInTouch": "Hablemos",
@@ -75,9 +78,6 @@
     "copied": "Copiado",
     "selected": "Seleccionado, pulsa Ctrl+C",
     "cv": "CV",
-    "localTime": "{city} · {time} hora local",
-    "clockFallback": "Málaga · hora de Europa central",
-    "backToTop": "Volver arriba",
     "form": {
       "title": "O déjame un mensaje",
       "name": "Nombre",

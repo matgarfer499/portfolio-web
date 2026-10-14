@@ -1,10 +1,11 @@
 import type { MetadataRoute } from 'next';
+import { profile } from '@content/index';
 import { site } from '@shared/config/site';
 import { BRAND } from './brand';
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: `${site.name} — Tech Lead · Full Stack Developer`,
+    name: `${site.name} — ${profile.role.en}`,
     short_name: site.name,
     start_url: '/',
     display: 'browser',

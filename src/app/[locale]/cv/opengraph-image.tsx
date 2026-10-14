@@ -1,6 +1,8 @@
+import { hasLocale } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import type { ImageResponse } from 'next/og';
-import { routing, toLocale } from '@/i18n/routing';
+import { notFound } from 'next/navigation';
+import { routing } from '@/i18n/routing';
 import { profile } from '@content/index';
 import { site } from '@shared/config/site';
 import { OG_SIZE, posterImage } from '../../og';
@@ -19,7 +21,9 @@ export default async function Image({
 }: {
   params: Promise<{ locale: string }>;
 }): Promise<ImageResponse> {
-  const locale = toLocale((await params).locale);
+  const requested = (await params).locale;
+  if (!hasLocale(routing.locales, requested)) notFound();
+  const locale = requested;
   const t = await getTranslations({ locale, namespace: 'Cv' });
   return posterImage({ kicker: t('title'), title: profile.name, foot: `${site.shortName}/cv` });
 }

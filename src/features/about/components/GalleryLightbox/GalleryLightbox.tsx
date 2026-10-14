@@ -4,8 +4,9 @@ import Image from 'next/image';
 import { useEffect, useRef, useState, type MouseEvent, type ReactNode } from 'react';
 import { Button } from '@shared/components/atoms/Button/Button';
 import { Icon } from '@shared/components/atoms/Icon/Icon';
+import { pointerShift } from '@shared/motion/pointer';
 import { prefersReducedMotion } from '@shared/motion/viewport';
-import { pointerShift, wrapIndex } from '../../model';
+import { wrapIndex } from '../../model';
 import { galleryLightboxVariants as styles } from './GalleryLightbox.variants';
 
 interface LightboxPhoto {

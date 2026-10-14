@@ -52,11 +52,15 @@ export async function ContactSection({ locale }: { locale: Locale }) {
           </div>
           <Magnetic className={styles.social()}>
             {profile.socials.map((social) => (
-              <a key={social.id} href={social.href} rel="noopener" translate="no" className={link}>
+              <a key={social.id} href={social.href} translate="no" className={link}>
                 {social.label}
               </a>
             ))}
-            <Link href={localizedPath(locale, '/cv')} className={link}>
+            <Link
+              href={localizedPath(locale, '/cv')}
+              transitionTypes={['nav-forward']}
+              className={link}
+            >
               {t('cv')}
             </Link>
           </Magnetic>

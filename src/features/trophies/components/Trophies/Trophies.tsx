@@ -10,7 +10,7 @@ import { trophyStore } from '../../store';
 import type { ShelfLabels } from '../TrophyShelf/TrophyShelf';
 import { trophiesVariants as styles } from './Trophies.variants';
 
-// The shelf is only fetched the first time it opens; events before that wait in the bus.
+// The shelf is only fetched the first time it opens.
 const TrophyShelf = dynamic(() => import('../TrophyShelf/TrophyShelf').then((m) => m.TrophyShelf), {
   ssr: false,
 });

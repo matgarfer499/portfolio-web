@@ -7,6 +7,7 @@ import { CvPage } from '@features/cv';
 import { routing } from '@/i18n/routing';
 import { pageMeta } from '@shared/config/seo';
 import { site } from '@shared/config/site';
+import { PageTransition } from '@shared/motion/PageTransition';
 import { PageChrome } from '../_components/PageChrome';
 
 type Params = Promise<{ locale: string }>;
@@ -30,9 +31,11 @@ export default async function CvRoute({ params }: { params: Params }): Promise<R
 
   return (
     <PageChrome locale={locale}>
-      <main id="main">
-        <CvPage locale={locale} />
-      </main>
+      <PageTransition>
+        <main id="main">
+          <CvPage locale={locale} />
+        </main>
+      </PageTransition>
     </PageChrome>
   );
 }

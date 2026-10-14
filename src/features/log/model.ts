@@ -1,11 +1,7 @@
-import { INTL_LOCALE, type Locale } from '@/i18n/routing';
+import type { Locale } from '@/i18n/routing';
+import { monthName } from '@shared/lib/date';
 
-function month(iso: string, locale: Locale, style: 'short' | 'long'): string {
-  const [year = 0, m = 1] = iso.split('-').map(Number);
-  return new Intl.DateTimeFormat(INTL_LOCALE[locale], { month: style, timeZone: 'UTC' }).format(
-    new Date(Date.UTC(year, m - 1, 1)),
-  );
-}
+const month = monthName;
 function year(iso: string): string {
   return iso.slice(0, 4);
 }

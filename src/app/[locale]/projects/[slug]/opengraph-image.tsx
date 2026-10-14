@@ -1,7 +1,8 @@
+import { hasLocale } from 'next-intl';
 import type { ImageResponse } from 'next/og';
 import { notFound } from 'next/navigation';
 import { caseOg, caseSlugs, findCase } from '@features/projects';
-import { routing, toLocale } from '@/i18n/routing';
+import { routing } from '@/i18n/routing';
 import { site } from '@shared/config/site';
 import { OG_SIZE, posterImage } from '../../../og';
 
@@ -20,7 +21,7 @@ export default async function Image({
 }): Promise<ImageResponse> {
   const { locale, slug } = await params;
   const study = findCase(slug);
-  if (!study) notFound();
-  const { title, kicker } = caseOg(study, toLocale(locale));
+  if (!study || !hasLocale(routing.locales, locale)) notFound();
+  const { title, kicker } = caseOg(study, locale);
   return posterImage({ kicker, title, foot: `${site.shortName} · ${site.name}` });
 }

@@ -8,6 +8,7 @@ import { Container } from '@shared/components/atoms/Container/Container';
 import { Display } from '@shared/components/atoms/Display/Display';
 import { Icon } from '@shared/components/atoms/Icon/Icon';
 import { Section } from '@shared/components/atoms/Section/Section';
+import { site } from '@shared/config/site';
 import { PageChrome } from './_components/PageChrome';
 
 // not-found gets no params: the locale comes from the request (set by the proxy).
@@ -17,6 +18,7 @@ export default async function NotFound(): Promise<ReactNode> {
 
   return (
     <PageChrome locale={locale}>
+      <title>{`${t('title')} — ${site.name}`}</title>
       <main id="main">
         <Section>
           <Container>

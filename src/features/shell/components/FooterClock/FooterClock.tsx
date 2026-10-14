@@ -8,10 +8,12 @@ import { formatClock, msToNextMinute } from '../../model';
 // `template` is the translated line with a literal {time} slot.
 export function FooterClock({
   locale,
+  timeZone,
   template,
   fallback,
 }: {
   locale: Locale;
+  timeZone: string;
   template: string;
   fallback: string;
 }) {
@@ -21,12 +23,12 @@ export function FooterClock({
     let timer: ReturnType<typeof setTimeout>;
     const tick = () => {
       const now = new Date();
-      setTime(formatClock(now, locale));
+      setTime(formatClock(now, locale, timeZone));
       timer = setTimeout(tick, msToNextMinute(now));
     };
     tick();
     return () => clearTimeout(timer);
-  }, [locale]);
+  }, [locale, timeZone]);
 
   return <span>{time ? template.replace('{time}', time) : fallback}</span>;
 }

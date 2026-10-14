@@ -7,15 +7,16 @@ import { FooterClock } from '../FooterClock/FooterClock';
 import { footerVariants as styles } from './Footer.variants';
 
 export async function Footer({ locale }: { locale: Locale }) {
-  const t = await getTranslations({ locale, namespace: 'Contact' });
+  const t = await getTranslations({ locale, namespace: 'Shell' });
   return (
     <footer className={styles.root()}>
       <Container className={styles.row()}>
         <span>{profile.fullName}</span>
         <FooterClock
           locale={locale}
+          timeZone={profile.timeZone}
           template={t('localTime', { city: profile.city, time: '{time}' })}
-          fallback={t('clockFallback')}
+          fallback={t('clockFallback', { city: profile.city })}
         />
         <a href="#top" className={styles.top()}>
           {t('backToTop')}

@@ -1,10 +1,13 @@
+import { hasLocale } from 'next-intl';
 import type { ImageResponse } from 'next/og';
-import { routing, toLocale } from '@/i18n/routing';
+import { notFound } from 'next/navigation';
+import { routing } from '@/i18n/routing';
 import { localize, profile } from '@content/index';
 import { site } from '@shared/config/site';
 import { OG_SIZE, posterImage } from '../og';
 
-export const alt = `${site.name} — Tech Lead · Full Stack Developer`;
+// Static per route (one alt for both locales): name and role, from content.
+export const alt = `${site.name} — ${profile.role.en}`;
 export const size = OG_SIZE;
 export const contentType = 'image/png';
 
@@ -17,7 +20,9 @@ export default async function Image({
 }: {
   params: Promise<{ locale: string }>;
 }): Promise<ImageResponse> {
-  const locale = toLocale((await params).locale);
+  const requested = (await params).locale;
+  if (!hasLocale(routing.locales, requested)) notFound();
+  const locale = requested;
   return posterImage({
     kicker: localize(profile.role, locale),
     title: profile.name,

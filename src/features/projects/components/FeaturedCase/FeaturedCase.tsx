@@ -4,16 +4,18 @@ import Link from 'next/link';
 import { ViewTransition } from 'react';
 import { localizedPath } from '@/i18n/paths';
 import type { Locale } from '@/i18n/routing';
-import { localize, type CaseStudy } from '@content/index';
+import { localize, resolve, type CaseStudy } from '@content/index';
 import { buttonVariants } from '@shared/components/atoms/Button/Button.variants';
 import { Chip } from '@shared/components/atoms/Chip/Chip';
 import { Display } from '@shared/components/atoms/Display/Display';
 import { Icon } from '@shared/components/atoms/Icon/Icon';
 import { Label } from '@shared/components/atoms/Label/Label';
+import { RichText } from '@shared/components/atoms/RichText/RichText';
 import { caseText, caseTransition } from '../../model';
 import { featuredCaseVariants as styles } from './FeaturedCase.variants';
 
-// The title and the laptop shot share view-transition names with /projects/[slug].
+// The title and the laptop shot share view-transition names with /projects/[slug]. Pending fields
+// render as dashed placeholders, as on the case page.
 export async function FeaturedCase({ study, locale }: { study: CaseStudy; locale: Locale }) {
   const t = await getTranslations({ locale, namespace: 'Projects' });
   const name = caseText(study.name, locale);
@@ -42,13 +44,17 @@ export async function FeaturedCase({ study, locale }: { study: CaseStudy; locale
         </div>
       ) : null}
       <div className={styles.copy()}>
-        <Label>{caseText(study.tagline, locale)}</Label>
+        <Label>
+          <RichText parts={[resolve(study.tagline, locale)]} />
+        </Label>
         <ViewTransition name={caseTransition('title', study.slug)} share="morph">
           <Display as="h3" size="card" id={`case-${study.slug}`}>
-            {name}
+            <RichText parts={[resolve(study.name, locale)]} />
           </Display>
         </ViewTransition>
-        <p className={styles.summary()}>{caseText(study.summary, locale)}</p>
+        <p className={styles.summary()}>
+          <RichText parts={[resolve(study.summary, locale)]} />
+        </p>
         <div translate="no" className={styles.chips()}>
           {study.stack.map((tech) => (
             <Chip key={tech}>{tech}</Chip>

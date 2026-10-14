@@ -34,13 +34,13 @@ feature. Features: `shell` (header, nav, mobile menu, theme + language switch, s
 
 **Dependency direction** (ESLint `no-restricted-imports` enforces it, a violation fails the build):
 
-| Layer          | May import                                                                                                    |
-| -------------- | ------------------------------------------------------------------------------------------------------------- |
-| `app/`         | everything; the only place that composes several features                                                     |
-| `features/<f>` | its own files, `shared/`, `content/`, `i18n/`, `server/` (actions only) — never another feature, never `app/` |
-| `shared/`      | `shared/`, `i18n/` — never `features/`, `app/`, `content/`                                                    |
-| `server/`      | `shared/`, `content/`                                                                                         |
-| `content/`     | `i18n/` types only                                                                                            |
+| Layer          | May import                                                                                                                               |
+| -------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| `app/`         | everything; the only place that composes several features                                                                                |
+| `features/<f>` | its own files, `shared/`, `content/`, `i18n/`, `server/` (actions, dependency-free helpers, types) — never another feature, never `app/` |
+| `shared/`      | `shared/`, `i18n/` — never `features/`, `app/`, `content/`                                                                               |
+| `server/`      | `shared/`, `content/`                                                                                                                    |
+| `content/`     | `i18n/` types only                                                                                                                       |
 
 - **Barrels:** each feature exposes `index.ts`, and so does `content/` (`@content/index`); outside code imports `@features/records`, never a
   deep path. `shared/` has no barrels: import the file (`@shared/components/atoms/Button/Button`).

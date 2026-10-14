@@ -46,7 +46,11 @@ export async function CvPage({ locale }: { locale: Locale }) {
             <a href={profile.cv} className={styles.link()}>
               {t('originalPdf')}
             </a>
-            <Link href={localizedPath(locale, '/')} className={styles.link()}>
+            <Link
+              href={localizedPath(locale, '/')}
+              transitionTypes={['nav-back']}
+              className={styles.link()}
+            >
               <Icon name="arrow-left" />
               {t('back')}
             </Link>

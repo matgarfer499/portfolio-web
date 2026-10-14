@@ -43,7 +43,11 @@ export async function Hero({ locale }: { locale: Locale }) {
                 {t('getInTouch')}
                 <Icon name="arrow-right" />
               </a>
-              <Link href={localizedPath(locale, '/cv')} className={buttonVariants()}>
+              <Link
+                href={localizedPath(locale, '/cv')}
+                transitionTypes={['nav-forward']}
+                className={buttonVariants()}
+              >
                 {t('viewCv')}
               </Link>
             </div>

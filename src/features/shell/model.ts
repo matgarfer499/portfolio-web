@@ -20,9 +20,9 @@ export function isFinishLine({
   return fullyVisible && (scrollY > 0 || scrollHeight <= innerHeight);
 }
 
-export function formatClock(now: Date, locale: Locale): string {
+export function formatClock(now: Date, locale: Locale, timeZone: string): string {
   return new Intl.DateTimeFormat(INTL_LOCALE[locale], {
-    timeZone: 'Europe/Madrid',
+    timeZone,
     hour: '2-digit',
     minute: '2-digit',
     hourCycle: 'h23',

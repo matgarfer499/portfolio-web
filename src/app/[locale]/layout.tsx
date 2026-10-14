@@ -4,11 +4,10 @@ import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata, Viewport } from 'next';
 import { hasLocale } from 'next-intl';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import type { ReactNode } from 'react';
-import { routing, toLocale } from '@/i18n/routing';
-import { pageMeta } from '@shared/config/seo';
+import { routing } from '@/i18n/routing';
 import { site } from '@shared/config/site';
 import { themeScript } from '@shared/lib/theme';
 import { BRAND } from '../brand';
@@ -31,19 +30,9 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-// The home's metadata; every other page replaces it with its own pageMeta().
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
-  const locale = toLocale((await params).locale);
-  const t = await getTranslations({ locale, namespace: 'Meta' });
-  return {
-    metadataBase: new URL(site.url),
-    ...pageMeta({ locale, path: '/', title: t('title'), description: t('description') }),
-  };
-}
+// Only the base URL: each page returns its own pageMeta(), and the 404 renders its own <title>,
+// so it never claims to be the home page.
+export const metadata: Metadata = { metadataBase: new URL(site.url) };
 
 export default async function LocaleLayout({ children, params }: LocaleLayoutProps) {
   const { locale } = await params;
