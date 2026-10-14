@@ -8,7 +8,7 @@ description: Use when adding, translating or wiring any user-facing text in port
 The site ships in two locales: **EN is the default and has no URL prefix** (`/`, `/cv`),
 **ES is prefixed** (`/es`, `/es/cv`). Two layers of text coexist and must not be mixed:
 
-- **UI chrome** (buttons, labels, headings, meta) → `src/messages/{en,es}.json`, read via `useTranslations` / `getTranslations`.
+- **UI chrome** (buttons, labels, headings, meta) → `src/messages/{en,es}.json`, read on the server with `getTranslations({ locale, namespace })`.
 - **Portfolio domain content** (bio, records, experience, captions, projects) → `src/content` as `Localized` values, resolved with `localize()`. Unknown facts → `pending()`.
 
 Parity tests fail if a message key or a `Localized` value exists in one language only.
@@ -50,11 +50,16 @@ export default getRequestConfig(async ({ requestLocale }) => {
 });
 ```
 
-`src/i18n/navigation.ts` — locale-aware navigation primitives. **Use these, not `next/link` / `next/navigation`**, so the active locale is preserved across links/redirects:
+`src/i18n/paths.ts` — `localizedPath(locale, path)` and `switchLocalePath(pathname, to)`. Links use
+plain `next/link` with these helpers. **There is no next-intl client runtime** (no
+`NextIntlClientProvider`, no `useTranslations` in client components): it cost ~12 kB gz on every
+page. Client islands receive already-translated strings as props from their server parent.
 
-```ts
-export const { Link, redirect, usePathname, useRouter, getPathname } = createNavigation(routing);
+```tsx
+<Link href={localizedPath(locale, '/#records')}>{t('nav.records')}</Link>
 ```
+
+`localeDetection` is off: `/` is always English, Spanish is the explicit `/es`.
 
 ## The `[locale]` layout pattern
 
@@ -74,9 +79,7 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
   setRequestLocale(locale); // REQUIRED for static rendering
   return (
     <html lang={locale} suppressHydrationWarning>
-      <body>
-        <NextIntlClientProvider>{children}</NextIntlClientProvider>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
@@ -112,9 +115,8 @@ of truth for the key shape — **add a key to both `en.json` and `es.json`**, or
 const t = await getTranslations({ locale, namespace: 'Meta' });
 t('title');
 
-// client component
-const t = useTranslations('Header');
-t('hire');
+// client island: the server parent passes the strings
+<ThemeToggle label={t('darkTheme')} />;
 ```
 
 ## Domain content: `Localized` + `localize()`
@@ -146,12 +148,12 @@ const role = localize(profile.role, locale); // locale is a narrowed Locale
   static rendering and opts the route into dynamic rendering.
 - **Using the raw `string` locale** without `hasLocale` narrowing before passing it to `localize`,
   `getTranslations({ locale })`, or anything typed `Locale`.
-- **`next/link` / `next/navigation`** for internal nav — use the `@/i18n/navigation` exports so the
-  ES prefix is preserved.
+- **`useTranslations` / next-intl `Link` in a client component** — ships the client runtime and
+  throws without a provider. Pass strings as props; link with `next/link` + `localizedPath()`.
+- **A PDF or external URL through `localizedPath`** — it would get `/es` prepended. Plain `<a>`.
 - **Adding a key to only one message file.** `en.json` defines the typed shape; `es.json` must
   mirror it exactly or `typecheck`/`build` fail.
-- **Hardcoding `/es/...` paths.** Let `localePrefix: 'as-needed'` + the navigation `Link` add the
-  prefix; EN must stay unprefixed.
+- **Hardcoding `/es/...` paths.** Use `localizedPath()`; EN must stay unprefixed.
 
 ## Spanish that sounds native
 

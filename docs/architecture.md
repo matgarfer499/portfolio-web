@@ -86,6 +86,10 @@ feature. Features: `shell` (header, nav, mobile menu, theme + language switch, s
 
 ## 5. Content and i18n
 
+- Translation happens on the server (`getTranslations({ locale, namespace })`). Client islands
+  get finished strings as props; there is no next-intl client runtime. Internal links use
+  `next/link` + `localizedPath()` (`src/i18n/paths.ts`); PDFs and external URLs are plain `<a>`.
+
 - `src/content/` holds every career fact as typed data with `Localized` strings (`{ en, es }`).
   UI chrome (buttons, labels, aria) lives in `src/messages/{en,es}.json`, typed by `en.json`.
 - Unknown facts are `pending('what is missing')`, a `Pending` value (`{ kind: 'pending', note }`)
