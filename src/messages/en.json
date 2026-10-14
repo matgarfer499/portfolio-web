@@ -106,6 +106,7 @@
     "locked": "Locked",
     "sound": "Trophy sound",
     "reset": "Reset trophies",
+    "close": "Close the trophy shelf",
     "items": {
       "finishLine": {
         "title": "New PR",

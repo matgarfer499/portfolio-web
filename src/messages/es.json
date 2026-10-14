@@ -106,6 +106,7 @@
     "locked": "Bloqueado",
     "sound": "Sonido de trofeos",
     "reset": "Reiniciar trofeos",
+    "close": "Cerrar la vitrina de trofeos",
     "items": {
       "finishLine": {
         "title": "Nuevo récord",

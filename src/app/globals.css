@@ -249,6 +249,13 @@
   }
 }
 
+/* Trophies: the header counter pops when a trophy unlocks. */
+@keyframes counter-pop {
+  50% {
+    scale: 1.35;
+  }
+}
+
 /* Contact: the availability dot's ring, and the rays of the copy-email burst (rotated by --a). */
 @keyframes dot-pulse {
   from {
