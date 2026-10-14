@@ -45,7 +45,7 @@ pnpm-debug.log*
 .worktrees/
 
 # --- AI / planning ---
-# v3 exception: CLAUDE.md and .claude/ ARE committed (shown off as part of the work).
+# CLAUDE.md, AGENTS.md and .claude/ ARE committed (shown off as part of the work).
 # Personal planning docs stay local-only:
 docs/redesign/
 docs/remake-brief.md
@@ -55,7 +55,6 @@ docs/phase-3/
 .lighthouse/
 .claude/settings.local.json
 
-# v3 local-only visual self-verification harness
+# Local-only: WSL2 Chromium libs and QA screenshots (see portfolio-review qa.md)
 .pw-libs/
 shots/
-scripts/shoot.mjs
