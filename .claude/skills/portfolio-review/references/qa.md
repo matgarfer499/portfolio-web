@@ -55,8 +55,9 @@ scaled (not a narrow column), dark theme has no light-only leftovers, Spanish st
 - **e2e**: `pnpm test:e2e` (both locales + axe). Zero axe violations.
 - **Lighthouse**: `CHROME_PATH=$(node -e "console.log(require('@playwright/test').chromium.executablePath())")`
   plus the `LD_LIBRARY_PATH` above, then `npx lighthouse <url> [--preset=desktop] --chrome-flags="--headless=new
---no-sandbox" --output=json` with `TEMP=$SCRATCH TMP=$SCRATCH` (under WSL Lighthouse otherwise
-  creates `C:\Users\…\lighthouse.*` profile folders in the repo root). Run it on the **Vercel preview** too (real compression/CDN). Off the
+--no-sandbox" --output=json` from inside `$SCRATCH` (`cd` there first: under WSL chrome-launcher creates `C:\Users\…\lighthouse.*`
+  profile folders in the current directory; TEMP/TMP do not help). Mobile scores vary between runs: take
+  the median of three. Run it on the **Vercel preview** too (real compression/CDN). Off the
   production domain `canonical` and (on previews) `is-crawlable` fail by design.
 
 ## 5. Preview deployment
