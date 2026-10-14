@@ -53,7 +53,9 @@ describe('content invariants', () => {
 
   it('never ships or references the excluded photo', () => {
     expect(existsSync(join(publicDir, 'photos/mylove.webp'))).toBe(false);
-    const sources = readdirSync(__dirname).map((f) => readFileSync(join(__dirname, f), 'utf8'));
+    const sources = readdirSync(__dirname)
+      .filter((f) => !f.endsWith('.test.ts'))
+      .map((f) => readFileSync(join(__dirname, f), 'utf8'));
     expect(sources.filter((s) => s.includes('mylove'))).toEqual([]);
     expect(found.localized.filter((l) => /girlfriend|novia/i.test(l.en + l.es))).toEqual([]);
   });
