@@ -14,6 +14,8 @@ export const sectionVariants = cva('scroll-mt-16', {
       flush: 'py-0',
       // Follows another paper section: the previous one's bottom padding is the gap.
       continued: 'pt-0 pb-14 stack:pb-[5.5rem]',
+      // Runs into the footer, whose top rule closes it.
+      footed: 'pt-14 pb-16 stack:pt-20',
     },
   },
   defaultVariants: { tone: 'paper', spacing: 'default' },

@@ -74,6 +74,7 @@
     "copy": "Copy email",
     "copied": "Copied",
     "selected": "Selected, press Ctrl+C",
+    "cv": "CV",
     "localTime": "{city} · {time} local time",
     "clockFallback": "Málaga · Central European Time",
     "backToTop": "Back to top",

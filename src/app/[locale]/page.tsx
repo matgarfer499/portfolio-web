@@ -2,6 +2,7 @@ import { hasLocale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { AboutSection } from '@features/about';
+import { ContactSection } from '@features/contact';
 import { Hero } from '@features/hero';
 import { LogSection } from '@features/log';
 import { ProjectsSection } from '@features/projects';
@@ -28,6 +29,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           <LogSection locale={locale} />
           <AboutSection locale={locale} />
           <ProjectsSection locale={locale} />
+          <ContactSection locale={locale} />
         </main>
       </PageTransition>
       <Footer locale={locale} />

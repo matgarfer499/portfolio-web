@@ -249,6 +249,29 @@
   }
 }
 
+/* Contact: the availability dot's ring, and the rays of the copy-email burst (rotated by --a). */
+@keyframes dot-pulse {
+  from {
+    opacity: 0.6;
+    scale: 1;
+  }
+  to {
+    opacity: 0;
+    scale: 2.6;
+  }
+}
+
+@keyframes copy-burst {
+  from {
+    opacity: 1;
+    transform: rotate(var(--a)) translateY(-0.5rem) scaleY(0.3);
+  }
+  to {
+    opacity: 0;
+    transform: rotate(var(--a)) translateY(-1.75rem) scaleY(1);
+  }
+}
+
 @keyframes marquee {
   to {
     transform: translateX(-50%);
