@@ -1,6 +1,7 @@
 import '../globals.css';
 
 import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata } from 'next';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
@@ -8,6 +9,9 @@ import { notFound } from 'next/navigation';
 import type { ReactNode } from 'react';
 import { routing } from '@/i18n/routing';
 import { site } from '@shared/config/site';
+import { themeScript } from '@shared/lib/theme';
+import { MotionProvider } from '@shared/motion/MotionProvider';
+import { anton, interTight } from '../fonts';
 
 interface LocaleLayoutProps {
   children: ReactNode;
@@ -58,10 +62,19 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
   setRequestLocale(locale);
 
   return (
-    <html lang={locale} suppressHydrationWarning>
-      <body className="min-h-dvh antialiased">
-        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+    <html
+      lang={locale}
+      className={`${anton.variable} ${interTight.variable}`}
+      suppressHydrationWarning
+    >
+      <body>
+        {/* Sets data-theme before the first paint; suppressHydrationWarning covers the attribute. */}
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <NextIntlClientProvider>
+          <MotionProvider>{children}</MotionProvider>
+        </NextIntlClientProvider>
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
