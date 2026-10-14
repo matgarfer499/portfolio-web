@@ -15,6 +15,7 @@
   --night-muted: #b9bdb3;
   --night-ghost: #8a8f84;
   --night-line: #2e302b;
+  --logo: #ffffff;
   --ring: var(--ink);
 
   --dur-fast: 150ms;
@@ -75,6 +76,7 @@
   --color-night-muted: var(--night-muted);
   --color-night-ghost: var(--night-ghost);
   --color-night-line: var(--night-line);
+  --color-logo: var(--logo);
   --color-ring: var(--ring);
 
   --font-display: var(--font-anton), 'Oswald', 'Arial Narrow', Impact, sans-serif;

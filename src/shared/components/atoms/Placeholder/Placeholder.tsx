@@ -4,9 +4,13 @@ import { placeholderVariants, type PlaceholderVariantProps } from './Placeholder
 
 type PlaceholderProps = ComponentProps<'span'> & PlaceholderVariantProps & { note: string };
 
-export function Placeholder({ note, display, tone, className, ...props }: PlaceholderProps) {
+export function Placeholder({ note, display, size, tone, className, ...props }: PlaceholderProps) {
   return (
-    <span data-pending className={cn(placeholderVariants({ display, tone }), className)} {...props}>
+    <span
+      data-pending
+      className={cn(placeholderVariants({ display, size, tone }), className)}
+      {...props}
+    >
       [{note}]
     </span>
   );
