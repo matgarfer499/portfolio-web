@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs';
+import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 
@@ -58,15 +58,14 @@ for (const [theme, source] of Object.entries(THEMES)) {
 
 describe('no dimmed text or rings in the styles', () => {
   it('never fades text or ring tokens with alpha', () => {
-    const files = import.meta.glob(['../**/*.variants.ts', '../**/*.tsx', './globals.css'], {
-      query: '?raw',
-      import: 'default',
-      eager: true,
-    });
-    expect(Object.keys(files).some((f) => f.endsWith('globals.css'))).toBe(true);
-    const offenders = Object.entries(files).filter(([, src]) =>
+    const src = join(__dirname, '..');
+    const files = readdirSync(src, { recursive: true, encoding: 'utf8' })
+      .filter((f) => f.endsWith('.tsx') || f.endsWith('.variants.ts') || f.endsWith('.css'))
+      .map((f) => [f, readFileSync(join(src, f), 'utf8')] as const);
+    expect(files.some(([f]) => f.endsWith('globals.css'))).toBe(true);
+    const offenders = files.filter(([, text]) =>
       /(text|outline|ring)-(ink|ink-soft|steel|ghost|night-ink|night-muted|night-ghost|on-volt)\/\d/.test(
-        String(src),
+        text,
       ),
     );
     expect(offenders.map(([path]) => path)).toEqual([]);
