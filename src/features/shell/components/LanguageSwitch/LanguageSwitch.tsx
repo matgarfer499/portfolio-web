@@ -13,6 +13,7 @@ export function LanguageSwitch({ to, label }: { to: Locale; label: string }) {
     <Link
       href={switchLocalePath(pathname, to)}
       hrefLang={to}
+      lang={to}
       aria-label={label}
       className={languageSwitchVariants()}
       onClick={() => emitTrophy('language-switched')}
