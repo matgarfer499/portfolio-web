@@ -8,7 +8,8 @@ const featureBoundary = {
   patterns: [
     {
       group: ['@features/*', '@features/*/**'],
-      message: 'Features must not import other features — compose them in the app/ layer.',
+      message:
+        'Features must not import other features: compose markup in app/, send effects through @shared/events/trophy-bus.',
     },
     {
       group: ['@app/*', '@app/*/**'],
@@ -63,7 +64,7 @@ const config = [
     rules: { 'no-restricted-imports': ['error', featureBoundary] },
   },
 
-  // shared/ is the bottom of the dependency graph: it depends on nothing above it.
+  // shared/ is the bottom of the dependency graph: no features, app, content or server code.
   {
     files: ['src/shared/**/*.{ts,tsx}'],
     rules: {
@@ -71,14 +72,7 @@ const config = [
         'error',
         {
           patterns: [
-            {
-              group: ['@features/*', '@features/*/**'],
-              message: 'shared/ must not depend on features.',
-            },
-            {
-              group: ['@app/*', '@app/*/**'],
-              message: 'shared/ must not depend on the app layer.',
-            },
+            ...featureBoundary.patterns,
             {
               group: ['@content/*', '@content/*/**', '@/server/*'],
               message: 'shared/ is domain-agnostic: no content, no server code.',

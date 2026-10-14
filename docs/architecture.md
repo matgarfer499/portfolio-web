@@ -28,7 +28,8 @@ src/
   proxy.ts                  next-intl locale proxy (Next 16 name for middleware)
 ```
 
-Features: `shell` (header, nav, mobile menu, theme + language switch, scroll progress, footer),
+The atom list grows when needed; a domain-flavoured piece (the records' ratio badge) stays in its
+feature. Features: `shell` (header, nav, mobile menu, theme + language switch, scroll progress, footer),
 `hero`, `records`, `log`, `about`, `projects`, `contact`, `trophies`, `cv`.
 
 **Dependency direction** (ESLint `no-restricted-imports` enforces it, a violation fails the build):
@@ -41,7 +42,7 @@ Features: `shell` (header, nav, mobile menu, theme + language switch, scroll pro
 | `server/`      | `shared/`, `content/`                                                                                         |
 | `content/`     | `i18n/` types only                                                                                            |
 
-- **Barrels:** each feature exposes `index.ts`; outside code imports `@features/records`, never a
+- **Barrels:** each feature exposes `index.ts`, and so does `content/` (`@content/index`); outside code imports `@features/records`, never a
   deep path. `shared/` has no barrels: import the file (`@shared/components/atoms/Button/Button`).
 - **Routes are thin:** a page awaits `params`, narrows the locale with `hasLocale`, calls
   `setRequestLocale`, and renders features. No markup beyond layout glue, no styles.
@@ -55,7 +56,8 @@ Features: `shell` (header, nav, mobile menu, theme + language switch, scroll pro
 - **No content hidden until hydration.** Every enhancement (reveal, count-up, marquee speed) starts
   from the final server-rendered state and animates only when JS and motion are allowed.
 - `process.env` is read only in `src/server/**` and `src/shared/config/site.ts`
-  (`NEXT_PUBLIC_SITE_URL`). Secrets (`RESEND_API_KEY`, `CONTACT_TO`) never leave `src/server`.
+  (`NEXT_PUBLIC_SITE_URL`). Secrets (`RESEND_API_KEY`, `CONTACT_TO`) are read and validated once in
+  `src/server/env.ts` and never leave `src/server`.
 - **Server Actions** (contact form): zod parse → honeypot → rate limit → adapter → typed result
   `{ ok: true } | { ok: false, reason, fieldErrors? }`. With no API key the action reports
   `reason: 'unconfigured'` and the form shows the mailto fallback.
@@ -71,6 +73,8 @@ Features: `shell` (header, nav, mobile menu, theme + language switch, scroll pro
 
 ## 4. Components (React 19)
 
+- Named exports only (`export function Button`), no default exports except where Next requires
+  them (pages, layouts, metadata routes).
 - `ref` is a regular prop: no `forwardRef`, no `displayName`.
 - The React Compiler memoises: no `useMemo`/`useCallback` unless a profiler says so.
 - Effects only to sync with the outside world (observers, listeners, timers); derive state in render.
@@ -82,8 +86,10 @@ Features: `shell` (header, nav, mobile menu, theme + language switch, scroll pro
 
 - `src/content/` holds every career fact as typed data with `Localized` strings (`{ en, es }`).
   UI chrome (buttons, labels, aria) lives in `src/messages/{en,es}.json`, typed by `en.json`.
-- Unknown facts are `pending('what is missing')`: typed, rendered as the dashed Placeholder atom,
-  and listed with file paths by `pnpm content:pending`. Never invent a fact or a metric.
+- Unknown facts are `pending('what is missing')`, a `Pending` value (`{ kind: 'pending', note }`)
+  accepted wherever a field is typed `Localized | Pending` (or `T | Pending`). It renders as the dashed
+  Placeholder atom, and `pnpm content:pending` lists every call with its file and line. Never invent
+  a fact or a metric.
 - Parity tests fail when a key or a localized value exists in one language only.
 
 ## 6. Comments: 3 lines at most

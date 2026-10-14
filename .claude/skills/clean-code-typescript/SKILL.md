@@ -137,7 +137,7 @@ which a user or an older version may have written in another shape.
 ## Anti-patterns → fixes
 
 - **`enum Theme { ... }`** → `as const` object or a string union.
-- **`const t = TROPHIES[0]; t.id`** → `noUncheckedIndexedAccess` makes `a` possibly `undefined`;
+- **`const t = TROPHIES[0]; t.id`** → `noUncheckedIndexedAccess` makes `t` possibly `undefined`;
   guard with `if (!t) ...` first.
 - **Plain `import { Locale }` for a type** → fails under `verbatimModuleSyntax`; use `import type`.
 - **`{ url: maybeUrl ?? undefined }`** → `exactOptionalPropertyTypes` rejects it; omit the key or

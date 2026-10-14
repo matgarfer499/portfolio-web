@@ -5,9 +5,9 @@ with those files, the files win: report the drift.
 
 ## Contents
 
-1. Layers and boundaries · 2. Components and styles · 3. Comments · 4. Next 16, server and client ·
-2. Content and i18n · 6. Motion · 7. Responsive and big screens · 8. Accessibility · 9. Performance ·
-3. Tests · 11. Docs · 12. Simplification
+Layers and boundaries · Components and styles · Comments · Next 16, server and client · Content
+and i18n · Motion · Responsive and big screens · Accessibility · Performance · Tests · Docs ·
+Simplification
 
 ## 1. Layers and boundaries
 

@@ -44,7 +44,7 @@ src/features/records/
 ## Boundaries (eslint.config.mjs)
 
 ```
-app      → features, shared, content, i18n, server     (only layer composing several features)
+app      → everything                                   (only layer composing several features' markup)
 features → shared, content, i18n, server (actions)     (never another feature, never app)
 shared   → shared, i18n                                 (never features, app, content, server)
 server   → shared, content                              (never features, app)
