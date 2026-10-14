@@ -35,6 +35,10 @@ walks the page a screen at a time (so below-the-fold motion plays and settles), 
 full-page PNGs to `shots/<phase>/<route>-<locale>-<theme>-<width>.png` (gitignored) and
 prints, per cell, `scrollWidth > clientWidth` (horizontal scroll) and console errors.
 
+Breakpoint edges are not in the matrix: when the header or a grid changes, also check the first
+width of each breakpoint (`stack` 820, `board` 1100) in **Spanish** (the longer labels) — P7's trophy
+counter overflowed the ES header at 1100–1180 while every matrix cell was clean.
+
 Look at the screenshots: a script that ran is not QA. Per cell check: no horizontal scroll, nothing
 clipped or overlapping, giant type within the container, the composition at ≥1920 is the 1440 one
 scaled (not a narrow column), dark theme has no light-only leftovers, Spanish strings fit (longer).
