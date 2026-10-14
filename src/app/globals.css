@@ -1,17 +1,18 @@
 @import 'tailwindcss';
 
-/* Design tokens — the orange/blue palette on a deep night base.
-   Tailwind 4 turns each token into utilities (bg-bg, text-flame, border-azure, …). */
+/* Design tokens — "Costa Azul": sea-blue lead, warm accent, gold, on a deep navy base.
+   Tailwind 4 turns each token into utilities (bg-bg, text-azure, border-flame, text-gold, …). */
 @theme {
-  --color-bg: #0b1020;
-  --color-surface: #121a33;
-  --color-surface-2: #1b2547;
-  --color-flame: #ff7a1a;
+  --color-bg: #0c1622;
+  --color-surface: #11202f;
+  --color-surface-2: #16293b;
+  --color-azure: #1fb6d6;
+  --color-azure-soft: #74d0e6;
+  --color-flame: #ff8a3d;
   --color-flame-soft: #ffb27a;
-  --color-azure: #3aa0ff;
-  --color-azure-soft: #8fc7ff;
-  --color-ink: #e8edff;
-  --color-muted: #9aa6cc;
+  --color-gold: #ffd45e;
+  --color-ink: #eaf4fb;
+  --color-muted: #94b2c8;
 
   --font-sans:
     ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
@@ -34,6 +35,17 @@
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+  }
+
+  /* Terminal-friki register: monospace display/headings; body copy stays sans.
+     Explicit font utilities (font-sans/font-mono) still override this base rule. */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-mono);
   }
 
   /* Always-visible focus ring for keyboard users (WCAG AA). */
