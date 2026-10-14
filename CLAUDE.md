@@ -89,3 +89,9 @@ Consult these when the task matches:
 - `.claude/` and `CLAUDE.md` **are committed** for v3 (shown off as part of the work). Personal
   planning docs in `docs/redesign/` stay gitignored.
 - Lint + format run on commit (Husky + lint-staged). Don't bypass.
+
+## Summary instructions
+
+When compacting, keep: the current v4 phase and branch (`v4`), the files touched in this phase, the last
+test / build / lint output (pass or the failing lines), and the pointer to
+`docs/redesign/v4/loop-state.md` — the loop's source of truth: read it first after a compaction.
