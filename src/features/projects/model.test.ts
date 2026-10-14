@@ -40,7 +40,7 @@ describe('case pages', () => {
   });
 
   it('gives the share image a pending case its bracketed title', () => {
-    expect(caseOg('tech-lead', 'en')).toEqual({
+    expect(caseOg(findCase('tech-lead')!, 'en')).toEqual({
       title: '[Product you led as Tech Lead]',
       kicker: '[One-line description of the product]',
     });

@@ -17,6 +17,7 @@ import { Bullet, Bullets } from '@shared/components/atoms/Bullets/Bullets';
 import { Container } from '@shared/components/atoms/Container/Container';
 import { Icon } from '@shared/components/atoms/Icon/Icon';
 import { Placeholder } from '@shared/components/atoms/Placeholder/Placeholder';
+import { RichText } from '@shared/components/atoms/RichText/RichText';
 import { Section } from '@shared/components/atoms/Section/Section';
 import { TrophyOnMount } from '@shared/components/atoms/TrophyOnMount/TrophyOnMount';
 import { absoluteUrl } from '@shared/config/seo';
@@ -34,7 +35,7 @@ export async function CvPage({ locale }: { locale: Locale }) {
   const t = await getTranslations({ locale, namespace: 'Cv' });
   const work = experience.filter((entry) => entry.kind !== 'education');
   const education = experience.filter((entry) => entry.kind === 'education');
-  const site = new URL(absoluteUrl(locale, '/')).host;
+  const host = new URL(absoluteUrl(locale, '/')).host;
 
   return (
     <Section spacing="tight">
@@ -57,7 +58,7 @@ export async function CvPage({ locale }: { locale: Locale }) {
             <p translate="no" className={styles.contact()}>
               <span>{localize(profile.location, locale)}</span>
               <a href={`mailto:${profile.email}`}>{profile.email}</a>
-              <a href={absoluteUrl(locale, '/')}>{site}</a>
+              <a href={absoluteUrl(locale, '/')}>{host}</a>
               {profile.socials.map((social) => (
                 <a key={social.id} href={social.href}>
                   {social.href.replace(/^https:\/\/(www\.)?/, '')}
@@ -88,13 +89,7 @@ export async function CvPage({ locale }: { locale: Locale }) {
                   <Bullets className={styles.list()}>
                     {entry.bullets.map((bullet, i) => (
                       <Bullet key={i}>
-                        {resolveRich(bullet, locale).map((part, j) =>
-                          part.kind === 'pending' ? (
-                            <Placeholder key={j} note={part.note} />
-                          ) : (
-                            <span key={j}>{part.text} </span>
-                          ),
-                        )}
+                        <RichText parts={resolveRich(bullet, locale)} />
                       </Bullet>
                     ))}
                   </Bullets>

@@ -16,9 +16,9 @@ describe('sitemap', () => {
 });
 
 describe('robots', () => {
-  it('allows the site, keeps the dev styleguide out and points at the sitemap', () => {
+  it('allows the whole site and points at the sitemap', () => {
     expect(robots()).toMatchObject({
-      rules: { allow: '/', disallow: ['/styleguide', '/es/styleguide'] },
+      rules: { allow: '/' },
       sitemap: 'https://matiasgarcia.dev/sitemap.xml',
     });
   });

@@ -40,8 +40,7 @@ export function caseTransition(part: 'title' | 'shot', slug: string): string {
   return `case-${part}-${slug}`;
 }
 
-// Text for a case's share image; an unknown slug falls back to the first case (static params only).
-export function caseOg(slug: string, locale: Locale): { title: string; kicker: string } {
-  const study = findCase(slug) ?? cases[0]!;
+// Text for a case's share image (pending fields read as their bracketed notes).
+export function caseOg(study: CaseStudy, locale: Locale): { title: string; kicker: string } {
   return { title: caseText(study.name, locale), kicker: caseText(study.tagline, locale) };
 }

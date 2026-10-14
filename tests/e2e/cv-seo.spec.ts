@@ -57,6 +57,20 @@ test('every page declares its canonical and both languages', async ({ request })
   );
   expect(html).toContain('hrefLang="en" href="https://matiasgarcia.dev/projects/chefory"');
   expect(html).toContain('hrefLang="x-default" href="https://matiasgarcia.dev/projects/chefory"');
+  expect(html).toContain('<meta property="og:title" content="Chefory — Matías García"');
+});
+
+test('every page shares its own title and image, not the home page', async ({ request }) => {
+  for (const [path, title] of [
+    ['/cv', 'Curriculum vitae — Matías García'],
+    ['/es/projects/tech-lead', '[Producto que lideraste como Tech Lead] — Matías García'],
+  ]) {
+    const html = await (await request.get(path!)).text();
+    expect(html, path).toContain(`<meta property="og:title" content="${title}"`);
+    const image = html.match(/<meta property="og:image" content="([^"]+)"/)?.[1];
+    expect(image, path).toContain(`${path}/opengraph-image`);
+  }
+  expect((await request.get('/projects/bogus/opengraph-image')).status()).toBe(404);
 });
 
 test('the home carries Person structured data', async ({ page }) => {

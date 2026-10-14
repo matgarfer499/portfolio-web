@@ -1,5 +1,5 @@
-import { hasLocale } from 'next-intl';
-import { routing } from '@/i18n/routing';
+import type { ImageResponse } from 'next/og';
+import { routing, toLocale } from '@/i18n/routing';
 import { localize, profile } from '@content/index';
 import { site } from '@shared/config/site';
 import { OG_SIZE, posterImage } from '../og';
@@ -8,13 +8,16 @@ export const alt = `${site.name} — Tech Lead · Full Stack Developer`;
 export const size = OG_SIZE;
 export const contentType = 'image/png';
 
-export function generateStaticParams() {
+export function generateStaticParams(): { locale: string }[] {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-export default async function Image({ params }: { params: Promise<{ locale: string }> }) {
-  const { locale: requested } = await params;
-  const locale = hasLocale(routing.locales, requested) ? requested : routing.defaultLocale;
+export default async function Image({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<ImageResponse> {
+  const locale = toLocale((await params).locale);
   return posterImage({
     kicker: localize(profile.role, locale),
     title: profile.name,

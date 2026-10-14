@@ -7,5 +7,7 @@ export default createMiddleware(routing);
 export const config = {
   // Run on every path except Next internals, Vercel internals, files with an extension, and the
   // extension-less generated images (icons; /en/opengraph-image must not redirect to /opengraph-image).
-  matcher: ['/((?!api|_next|_vercel|icon|apple-icon|.*opengraph-image|.*\\..*).*)'],
+  matcher: [
+    '/((?!api|_next|_vercel|(?:apple-)?icon(?:/|$)|(?:[^/]+/)*opengraph-image$|.*\\..*).*)',
+  ],
 };

@@ -1,29 +1,22 @@
-import { hasLocale } from 'next-intl';
 import { getLocale, getTranslations } from 'next-intl/server';
 import Link from 'next/link';
-import { Footer, Header, SkipLink } from '@features/shell';
-import { Trophies } from '@features/trophies';
+import type { ReactNode } from 'react';
 import { localizedPath } from '@/i18n/paths';
-import { routing } from '@/i18n/routing';
+import { toLocale } from '@/i18n/routing';
 import { buttonVariants } from '@shared/components/atoms/Button/Button.variants';
 import { Container } from '@shared/components/atoms/Container/Container';
 import { Display } from '@shared/components/atoms/Display/Display';
 import { Icon } from '@shared/components/atoms/Icon/Icon';
 import { Section } from '@shared/components/atoms/Section/Section';
+import { PageChrome } from './_components/PageChrome';
 
 // not-found gets no params: the locale comes from the request (set by the proxy).
-export default async function NotFound() {
-  const requested = await getLocale();
-  const locale = hasLocale(routing.locales, requested) ? requested : routing.defaultLocale;
-  const [t, shell] = await Promise.all([
-    getTranslations({ locale, namespace: 'NotFound' }),
-    getTranslations({ locale, namespace: 'Shell' }),
-  ]);
+export default async function NotFound(): Promise<ReactNode> {
+  const locale = toLocale(await getLocale());
+  const t = await getTranslations({ locale, namespace: 'NotFound' });
 
   return (
-    <>
-      <SkipLink label={shell('skip')} />
-      <Header locale={locale} trophies={<Trophies locale={locale} />} />
+    <PageChrome locale={locale}>
       <main id="main">
         <Section>
           <Container>
@@ -38,7 +31,6 @@ export default async function NotFound() {
           </Container>
         </Section>
       </main>
-      <Footer locale={locale} />
-    </>
+    </PageChrome>
   );
 }

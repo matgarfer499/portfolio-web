@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og';
 import { BRAND, ogFonts } from './brand';
 
-export const OG_SIZE = { width: 1200, height: 630 };
+export const OG_SIZE = { width: 1200, height: 630 } as const;
 
 // The header mark: MG in volt Anton on a night square.
 export async function markImage(size: number): Promise<ImageResponse> {

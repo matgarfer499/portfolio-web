@@ -1,6 +1,6 @@
-import type { Metadata } from 'next';
+import type { ReactNode } from 'react';
 import { hasLocale } from 'next-intl';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { AboutSection } from '@features/about';
 import { ContactSection } from '@features/contact';
@@ -8,33 +8,24 @@ import { Hero } from '@features/hero';
 import { LogSection } from '@features/log';
 import { ProjectsSection } from '@features/projects';
 import { RecordsSection } from '@features/records';
-import { Footer, Header, SkipLink } from '@features/shell';
-import { Trophies } from '@features/trophies';
 import { routing } from '@/i18n/routing';
-import { alternatesFor } from '@shared/config/seo';
-import { jsonLd, personSchema, websiteSchema } from './json-ld';
 import { PageTransition } from '@shared/motion/PageTransition';
 import { RevealController } from '@shared/motion/RevealController';
+import { PageChrome } from './_components/PageChrome';
+import { jsonLd, personSchema, websiteSchema } from './json-ld';
 
-export async function generateMetadata({
+// Metadata: the layout's (the home is the site's default page).
+export default async function HomePage({
   params,
 }: {
   params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
-  const { locale } = await params;
-  return hasLocale(routing.locales, locale) ? { alternates: alternatesFor(locale, '/') } : {};
-}
-
-export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
+}): Promise<ReactNode> {
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
   setRequestLocale(locale);
-  const t = await getTranslations({ locale, namespace: 'Shell' });
 
   return (
-    <>
-      <SkipLink label={t('skip')} />
-      <Header locale={locale} trophies={<Trophies locale={locale} />} />
+    <PageChrome locale={locale}>
       <PageTransition>
         <main id="main">
           <Hero locale={locale} />
@@ -45,12 +36,11 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           <ContactSection locale={locale} />
         </main>
       </PageTransition>
-      <Footer locale={locale} />
       <RevealController />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: jsonLd([personSchema(locale), websiteSchema(locale)]) }}
       />
-    </>
+    </PageChrome>
   );
 }

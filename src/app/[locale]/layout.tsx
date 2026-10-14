@@ -7,7 +7,8 @@ import { hasLocale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import type { ReactNode } from 'react';
-import { routing } from '@/i18n/routing';
+import { routing, toLocale } from '@/i18n/routing';
+import { pageMeta } from '@shared/config/seo';
 import { site } from '@shared/config/site';
 import { themeScript } from '@shared/lib/theme';
 import { MotionProvider } from '@shared/motion/MotionProvider';
@@ -31,31 +32,17 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
+// The home's metadata; every other page replaces it with its own pageMeta().
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
-  const requested = (await params).locale;
-  const locale = hasLocale(routing.locales, requested) ? requested : routing.defaultLocale;
+  const locale = toLocale((await params).locale);
   const t = await getTranslations({ locale, namespace: 'Meta' });
-
   return {
     metadataBase: new URL(site.url),
-    title: t('title'),
-    description: t('description'),
-    openGraph: {
-      title: t('title'),
-      description: t('description'),
-      siteName: site.name,
-      locale,
-      type: 'website',
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: t('title'),
-      description: t('description'),
-    },
+    ...pageMeta({ locale, path: '/', title: t('title'), description: t('description') }),
   };
 }
 
@@ -76,12 +63,12 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
         {/* Sets data-theme before the first paint; suppressHydrationWarning covers the attribute. */}
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <MotionProvider>{children}</MotionProvider>
-        {site.onVercel ? (
+        {site.onVercel && (
           <>
             <Analytics />
             <SpeedInsights />
           </>
-        ) : null}
+        )}
       </body>
     </html>
   );
