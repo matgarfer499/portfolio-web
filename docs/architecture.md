@@ -44,6 +44,14 @@ feature. Features: `shell` (header, nav, mobile menu, theme + language switch, s
 
 - **Barrels:** each feature exposes `index.ts`, and so does `content/` (`@content/index`); outside code imports `@features/records`, never a
   deep path. `shared/` has no barrels: import the file (`@shared/components/atoms/Button/Button`).
+- **Page shell:** `app/[locale]/_components/PageChrome` (skip link, header with the trophies slot, footer)
+  wraps every page; it lives in the app layer because shell may not import trophies. Unknown paths hit
+  `app/[locale]/[...rest]` → `notFound()` → the localized `not-found.tsx` (real 404).
+- **Metadata:** every page returns `pageMeta()` (`shared/config/seo.ts`): title, description, canonical +
+  hreflang, and openGraph + twitter **in full** — Next merges metadata shallowly, so a partial `openGraph`
+  would keep the home's. A page that sets `openGraph` loses the inherited `opengraph-image`: give it its own.
+  next/og images use `src/app/brand.ts` (token mirrors) + `assets/fonts/*.ttf`; the proxy matcher skips the
+  extension-less image routes so `/en/opengraph-image` never redirects.
 - **Routes are thin:** a page awaits `params`, narrows the locale with `hasLocale`, calls
   `setRequestLocale`, and renders features. No markup beyond layout glue, no styles.
 - **Cross-feature effects** go through the trophy bus, not imports: `emitTrophy('email-copied')`

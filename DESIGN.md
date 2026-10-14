@@ -148,6 +148,13 @@ from server-rendered final content.
 | Mockup depth     | Projects                     | laptop/phone rise at their own `--rise` on the card's view timeline; none without support/reduced motion  |
 | Page transition  | Case links                   | typed `nav-forward`/`nav-back` slide 400 ms; title + shot morph by shared name; hash links none           |
 
+## Print
+
+The /cv page prints as an A4 document: `@media print` forces the light tokens with
+`html:root:not(#print)` (beats dark and beast mode without `!important`), `@page` A4 with 14 mm
+margins, 10 pt root; header, footer, toast and the CV toolbar are `print:hidden`; entries
+`break-inside: avoid`.
+
 ## Do's and Don'ts
 
 Do

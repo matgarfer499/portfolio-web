@@ -53,8 +53,10 @@ scaled (not a narrow column), dark theme has no light-only leftovers, Spanish st
 - **Touch**: 390 with `hasTouch: true, isMobile: true` → menu, disclosures, lightbox usable,
   targets ≥ 44 px.
 - **e2e**: `pnpm test:e2e` (both locales + axe). Zero axe violations.
-- **Lighthouse** (P8): `npx lighthouse http://localhost:3000 --chrome-flags="--headless"` with the
-  Playwright Chromium (`CHROME_PATH`), mobile + desktop, both locales.
+- **Lighthouse**: `CHROME_PATH=$(node -e "console.log(require('@playwright/test').chromium.executablePath())")`
+  plus the `LD_LIBRARY_PATH` above, then `npx lighthouse <url> [--preset=desktop] --chrome-flags="--headless=new
+--no-sandbox" --output=json`. Run it on the **Vercel preview** too (real compression/CDN). Off the
+  production domain `canonical` and (on previews) `is-crawlable` fail by design.
 
 ## 5. Preview deployment
 

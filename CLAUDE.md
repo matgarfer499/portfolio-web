@@ -13,6 +13,7 @@ Audience: recruiters → tech leads → freelance clients. Bilingual EN (default
 - Career facts live in `src/content/` only. Unknown → `pending()`; never invent facts or metrics.
   `pnpm content:pending` lists what the owner still has to fill.
 - Fonts: Anton + Inter Tight through `next/font/google` (self-hosted at build). No runtime font requests.
+  OG images/icons (next/og) read the committed TTFs in `assets/fonts/` (OFL).
 - Reviews and QA of a phase or branch: the `portfolio-review` skill (gates, pattern scan, QA matrix).
 
 ## Commands
