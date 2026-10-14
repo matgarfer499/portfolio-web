@@ -31,6 +31,12 @@ A new token is added in `src/app/globals.css` for **both** themes and joins `src
 - Focus ring: 3 px ink outline, 3 px offset (thicker at ≥2560 because it is rem-based); DOM order =
   visual order, so a TV D-pad walks the page top to bottom, left to right.
 
+## Surfaces
+
+Put night/volt content inside `<Section tone="night|volt">`: it remaps the paper/ink tokens, so
+atoms keep working (DESIGN.md § Surfaces). Don't add per-surface variants to atoms, and don't use
+Tailwind `@utility` for token-only classes (it is not emitted): plain classes in `@layer components`.
+
 ## Dark mode
 
 `data-theme="dark"` on `<html>`, set before paint by the inline script in the root layout from

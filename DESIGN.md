@@ -83,6 +83,14 @@ the toast, the scroll-progress bar and focus accents. Nothing else is volt. Text
   ghost darken to #3D4139 so they still pass on volt. The night board keeps its own tokens.
 - No gradients, no glass, no glow, no pure decoration.
 
+## Surfaces
+
+`Section tone="night"` and `tone="volt"` add `.surface-night` / `.surface-volt` (globals.css), which
+remap `paper`, `ink`, `ink-soft`, `steel` and `ring` for everything inside. Atoms never need a
+"on night" variant: a default Button on the night board is night with a light border, a dark
+Button is light; on the volt band buttons are white/black in both themes. New surfaces follow the
+same pattern and join the contrast test.
+
 ## Typography
 
 - **Anton** for display (names, section titles, numbers, record values, card titles), uppercase.

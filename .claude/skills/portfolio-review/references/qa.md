@@ -67,5 +67,7 @@ Android Chrome, a 4K TV).
 
 Extend per phase. Each row is a state to reach across the matrix.
 
-- **Styleguide (P1, dev only)**: every atom variant; theme toggle; reduced motion; `/styleguide`
-  returns 404 on `pnpm start`.
+- **Styleguide (P1, dev only)**: every atom variant on paper/night/volt; theme toggle; `/styleguide`
+  returns 404 on `pnpm start` (QA it under `pnpm dev`).
+- **Focus on surfaces**: focus a button in a paper, night and volt section in both themes and
+  screenshot the section — the ring must be visible on each.
