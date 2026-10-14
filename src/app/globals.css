@@ -55,6 +55,12 @@
   color-scheme: light;
 }
 
+/* stack: hero and grids go single-column below it; board: the records board gets 4 columns. */
+@theme {
+  --breakpoint-stack: 51.25rem;
+  --breakpoint-board: 68.75rem;
+}
+
 @theme inline {
   --color-paper: var(--paper);
   --color-ink: var(--ink);
