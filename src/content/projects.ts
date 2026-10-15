@@ -1,20 +1,20 @@
-import type { ImageAsset, Localized, Maybe } from './types';
+import type { ImageAsset, Localized } from './types';
 
 export interface CaseStudy {
   readonly slug: string;
-  readonly name: Maybe<Localized>;
-  readonly tagline: Maybe<Localized>;
-  readonly summary: Maybe<Localized>;
+  readonly name: Localized;
+  readonly tagline: Localized;
+  readonly summary: Localized;
   readonly stack: readonly string[];
   readonly url?: string;
   readonly shots?: { readonly desktop: ImageAsset; readonly phone?: ImageAsset };
   /** Extra screens shown under the long-form sections of the case page. */
   readonly gallery?: readonly ImageAsset[];
-  /** Long-form sections of /projects/[slug]: heading + body, each possibly still pending. */
+  /** Long-form sections of /projects/[slug]: heading + body. */
   readonly sections: readonly {
     readonly id: string;
     readonly heading: Localized;
-    readonly body?: Maybe<Localized>;
+    readonly body?: Localized;
     readonly list?: readonly Localized[];
   }[];
 }

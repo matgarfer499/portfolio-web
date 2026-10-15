@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { ViewTransition } from 'react';
 import { localizedPath } from '@/i18n/paths';
 import type { Locale } from '@/i18n/routing';
-import { localize, resolve, type CaseStudy } from '@content/index';
+import { localize, type CaseStudy } from '@content/index';
 import { buttonVariants } from '@shared/components/atoms/Button/Button.variants';
 import { Bullet, Bullets } from '@shared/components/atoms/Bullets/Bullets';
 import { Chip } from '@shared/components/atoms/Chip/Chip';
@@ -12,18 +12,14 @@ import { Container } from '@shared/components/atoms/Container/Container';
 import { Display } from '@shared/components/atoms/Display/Display';
 import { Icon } from '@shared/components/atoms/Icon/Icon';
 import { Label } from '@shared/components/atoms/Label/Label';
-import { Placeholder } from '@shared/components/atoms/Placeholder/Placeholder';
 import { Section } from '@shared/components/atoms/Section/Section';
 import { TrophyOnMount } from '@shared/components/atoms/TrophyOnMount/TrophyOnMount';
-import { caseAnchor, caseText, caseTransition, nextCase } from '../../model';
+import { caseAnchor, caseTransition, nextCase } from '../../model';
 import { NextCase } from '../NextCase/NextCase';
 import { caseStudyPageVariants as styles } from './CaseStudyPage.variants';
 
 export async function CaseStudyPage({ study, locale }: { study: CaseStudy; locale: Locale }) {
   const t = await getTranslations({ locale, namespace: 'Projects' });
-  const name = resolve(study.name, locale);
-  const tagline = resolve(study.tagline, locale);
-  const summary = resolve(study.summary, locale);
   const next = nextCase(study.slug);
 
   return (
@@ -44,30 +40,16 @@ export async function CaseStudyPage({ study, locale }: { study: CaseStudy; local
               transitionTypes={['nav-forward']}
               className={styles.back()}
             >
-              {t('nextShort', { name: caseText(next.name, locale) })}
+              {t('nextShort', { name: localize(next.name, locale) })}
               <Icon name="arrow-right" />
             </Link>
           </nav>
           <div className={styles.head()}>
-            {tagline.kind === 'pending' ? (
-              <Placeholder note={tagline.note} />
-            ) : (
-              <Label>{tagline.text}</Label>
-            )}
+            <Label>{localize(study.tagline, locale)}</Label>
             <ViewTransition name={caseTransition('title', study.slug)} share="morph">
-              <Display as="h1">
-                {name.kind === 'pending' ? (
-                  <Placeholder note={name.note} size="poster" />
-                ) : (
-                  name.text
-                )}
-              </Display>
+              <Display as="h1">{localize(study.name, locale)}</Display>
             </ViewTransition>
-            {summary.kind === 'pending' ? (
-              <Placeholder note={summary.note} />
-            ) : (
-              <p className={styles.summary()}>{summary.text}</p>
-            )}
+            <p className={styles.summary()}>{localize(study.summary, locale)}</p>
             {study.stack.length > 0 ? (
               <div translate="no" className={styles.chips()}>
                 {study.stack.map((tech) => (
@@ -107,7 +89,6 @@ export async function CaseStudyPage({ study, locale }: { study: CaseStudy; local
         <Container>
           <div className={styles.body()}>
             {study.sections.map((section) => {
-              const body = section.body ? resolve(section.body, locale) : null;
               return (
                 <section
                   key={section.id}
@@ -117,8 +98,9 @@ export async function CaseStudyPage({ study, locale }: { study: CaseStudy; local
                   <h2 id={`${study.slug}-${section.id}`} className={styles.heading()}>
                     {localize(section.heading, locale)}
                   </h2>
-                  {body?.kind === 'pending' ? <Placeholder note={body.note} /> : null}
-                  {body?.kind === 'text' ? <p className={styles.text()}>{body.text}</p> : null}
+                  {section.body ? (
+                    <p className={styles.text()}>{localize(section.body, locale)}</p>
+                  ) : null}
                   {section.list ? (
                     <Bullets>
                       {section.list.map((item) => (

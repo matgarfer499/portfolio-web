@@ -9,7 +9,7 @@ The site ships in two locales: **EN is the default and has no URL prefix** (`/`,
 **ES is prefixed** (`/es`, `/es/cv`). Two layers of text coexist and must not be mixed:
 
 - **UI chrome** (buttons, labels, headings, meta) → `src/messages/{en,es}.json`, read on the server with `getTranslations({ locale, namespace })`.
-- **Portfolio domain content** (bio, records, experience, captions, projects) → `src/content` as `Localized` values, resolved with `localize()`. Unknown facts → `pending()`.
+- **Portfolio domain content** (bio, records, experience, captions, projects) → `src/content` as `Localized` values, resolved with `localize()`. Unknown facts → ask the owner.
 
 Parity tests fail if a message key or a `Localized` value exists in one language only.
 

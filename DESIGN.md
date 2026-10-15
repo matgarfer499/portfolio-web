@@ -48,8 +48,7 @@ scale:
   container: { max: 85rem, gutter: '2rem (≥820px) · 1rem (<820px)' }
   breakpoints: { stack: 51.25rem, board-2col: 68.75rem }
 
-borders:
-  { hard: 2px ink, heavy: 3px ink, dashed-placeholder: 2-3px dashed currentColor, radius: 2px }
+borders: { hard: 2px ink, heavy: 3px ink, radius: 2px }
 shadow: { offset: '4px 4px 0 ink (button hover)', toast: '8px 8px 0 ink' }
 spacing: { section: '5.5rem block (3.5rem <820px)', touch-target: 2.75rem }
 motion:
@@ -113,7 +112,6 @@ at any width from 360 px up.
 - **Chip**: 2 px ink border, 700 0.8125rem, paper background.
 - **Label**: the eyebrow style above.
 - **Display**: Anton heading with size variants (hero, section, card, stat).
-- **Placeholder**: dashed 2–3 px block for `pending()` content: it says what is missing.
 - **Container / Section**: width cap + gutters; section block padding and an anchor id.
 - **Icon**: inline SVG, `currentColor`, 2.6 stroke for arrows, `aria-hidden` unless it is the only
   label. No emoji, no icon fonts.

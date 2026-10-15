@@ -1,4 +1,4 @@
-import type { ImageAsset, Localized, Maybe, Rich } from './types';
+import type { ImageAsset, Localized, Rich } from './types';
 
 export interface LogEntry {
   readonly id: string;
@@ -12,7 +12,7 @@ export interface LogEntry {
     readonly logo?: Omit<ImageAsset, 'alt'>;
   };
   readonly role: Localized;
-  readonly roleSince?: Maybe<Localized>;
+  readonly roleSince?: Localized;
   readonly bullets: readonly Rich[];
   readonly chips: readonly string[];
   /** The degree row lists the spoken languages from profile.languages (one source). */

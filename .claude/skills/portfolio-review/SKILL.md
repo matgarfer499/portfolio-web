@@ -23,7 +23,6 @@ when the task says so (the v4 loop does: fix every confirmed finding, rerun unti
 ```bash
 pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build
 bash .claude/skills/portfolio-review/scripts/pattern-scan.sh          # base auto-detected
-pnpm content:pending                                                   # from P2: what the owner must fill
 ```
 
 Redirect long output to a file and read its tail. A red gate is a Critical finding by itself.
@@ -36,7 +35,7 @@ Next 16 + React 19 floor is ≈142 kB gz, so report the number and the app's sha
 Read every changed file against `references/checklist.md` (read it once per review). The areas
 most likely to bite this project: content hidden before hydration, motion without a reduced-motion
 path, a feature importing another feature instead of the trophy bus, untranslated strings,
-invented career facts instead of `pending()`, env reads outside `src/server`, hex values, layout
+invented career facts, env reads outside `src/server`, hex values, layout
 shift from images/fonts.
 
 ## 3. Simplification pass

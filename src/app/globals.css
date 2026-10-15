@@ -62,7 +62,7 @@
   --ease-pr-cubic: var(--ease-out-cubic);
 }
 
-/* Surfaces remap the page tokens so atoms (Button, Chip, Placeholder) read right on them. */
+/* Surfaces remap the page tokens so atoms (Button, Chip) read right on them. */
 @layer components {
   .surface-night {
     --paper: var(--night);

@@ -23,7 +23,6 @@ test('the cv is built from the content', async ({ page }) => {
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Matías José García Fernández');
   await expect(page.getByRole('heading', { name: 'Experience' })).toBeVisible();
   await expect(page.getByText('Built MIOT Sentra', { exact: false })).toBeVisible();
-  await expect(page.locator('[data-pending]')).toHaveCount(0);
 });
 
 test('download PDF serves the original PDF, and the cv has no link to the site', async ({

@@ -2,34 +2,17 @@ import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
 import { localizedPath } from '@/i18n/paths';
 import type { Locale } from '@/i18n/routing';
-import {
-  experience,
-  hero,
-  localize,
-  profile,
-  projects,
-  resolve,
-  resolveRich,
-  type Maybe,
-  type Localized,
-} from '@content/index';
+import { experience, hero, localize, localizeRich, profile, projects } from '@content/index';
 import { buttonVariants } from '@shared/components/atoms/Button/Button.variants';
 import { Bullet, Bullets } from '@shared/components/atoms/Bullets/Bullets';
 import { Container } from '@shared/components/atoms/Container/Container';
 import { Icon } from '@shared/components/atoms/Icon/Icon';
-import { Placeholder } from '@shared/components/atoms/Placeholder/Placeholder';
-import { RichText } from '@shared/components/atoms/RichText/RichText';
 import { Section } from '@shared/components/atoms/Section/Section';
 import { TrophyOnMount } from '@shared/components/atoms/TrophyOnMount/TrophyOnMount';
 import { cvPeriod } from '../../model';
 import { cvPageVariants as styles } from './CvPage.variants';
 
-function Text({ value, locale }: { value: Maybe<Localized>; locale: Locale }) {
-  const r = resolve(value, locale);
-  return r.kind === 'pending' ? <Placeholder note={r.note} /> : <>{r.text}</>;
-}
-
-// The CV is the same content as the site, one column, printable as A4. Pending stays visible.
+// The CV is the same content as the site, one column, printable as A4.
 export async function CvPage({ locale }: { locale: Locale }) {
   const t = await getTranslations({ locale, namespace: 'Cv' });
   const work = experience.filter((entry) => entry.kind !== 'education');
@@ -93,9 +76,7 @@ export async function CvPage({ locale }: { locale: Locale }) {
                   <p className={styles.meta()}>{localize(entry.place, locale)}</p>
                   <Bullets className={styles.list()}>
                     {entry.bullets.map((bullet, i) => (
-                      <Bullet key={i}>
-                        <RichText parts={resolveRich(bullet, locale)} />
-                      </Bullet>
+                      <Bullet key={i}>{localizeRich(bullet, locale)}</Bullet>
                     ))}
                   </Bullets>
                 </div>
@@ -110,15 +91,13 @@ export async function CvPage({ locale }: { locale: Locale }) {
             {projects.caseStudies.map((study) => (
               <div key={study.slug} className={styles.project()}>
                 <h3 className={styles.title()}>
-                  <Text value={study.name} locale={locale} />
+                  {localize(study.name, locale)}
                   <span className={styles.meta()}>
                     {' · '}
-                    <Text value={study.tagline} locale={locale} />
+                    {localize(study.tagline, locale)}
                   </span>
                 </h3>
-                <p className={styles.text()}>
-                  <Text value={study.summary} locale={locale} />
-                </p>
+                <p className={styles.text()}>{localize(study.summary, locale)}</p>
                 <p translate="no" className={styles.stack()}>
                   {study.stack.join(' · ')}
                 </p>

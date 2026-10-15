@@ -28,7 +28,6 @@ pnpm test             # vitest (models, content parity, contrast, server, SEO)
 pnpm test:e2e         # playwright + axe on the production build
 pnpm typecheck        # tsc --noEmit
 pnpm format           # prettier
-pnpm content:pending  # facts the owner still has to fill in
 ```
 
 Husky + lint-staged run eslint/prettier and commitlint (Conventional Commits) on every commit.
@@ -47,8 +46,7 @@ Every career fact lives in `src/content/` — typed (`{ en }` strings, so a lang
 | `projects.ts`   | case studies (the first is featured) and the stack groups                   |
 | `contact.ts`    | contact headline                                                            |
 
-Unknown facts are written as `pending({ en })`: they render as dashed placeholders and show up
-in `pnpm content:pending`. Replace each with the real value. UI strings (labels, buttons) live in
+Every fact is real: if one is unknown, it is left out until the owner confirms it. UI strings (labels, buttons) live in
 `src/messages/en.json`.
 
 ## Contact form

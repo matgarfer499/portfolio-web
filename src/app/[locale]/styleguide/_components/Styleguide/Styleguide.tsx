@@ -6,7 +6,6 @@ import { Display } from '@shared/components/atoms/Display/Display';
 import { Icon } from '@shared/components/atoms/Icon/Icon';
 import { ICONS, type IconName } from '@shared/components/atoms/Icon/icons';
 import { Label } from '@shared/components/atoms/Label/Label';
-import { Placeholder } from '@shared/components/atoms/Placeholder/Placeholder';
 import { Section } from '@shared/components/atoms/Section/Section';
 import { cn } from '@shared/lib/cn';
 import { SWATCHES, styleguideVariants as styles } from './Styleguide.variants';
@@ -87,13 +86,6 @@ export function Styleguide() {
             <Chip>SvelteKit</Chip>
             <Chip>English · B2 First</Chip>
           </div>
-          <p>
-            Tech lead of my team. <Placeholder note="Products you lead and their outcomes" />
-          </p>
-          <Placeholder
-            display="block"
-            note="Problem, your role, the team, what shipped and the result"
-          />
         </Container>
       </Section>
 
@@ -102,11 +94,6 @@ export function Styleguide() {
           <Display size="section">Night board</Display>
           <Label>API response time</Label>
           <Buttons />
-          <Placeholder
-            display="block"
-            tone="night"
-            note="New PR — a product you led as Tech Lead"
-          />
         </Container>
       </Section>
 

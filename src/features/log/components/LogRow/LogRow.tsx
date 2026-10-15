@@ -1,11 +1,9 @@
 import { getTranslations } from 'next-intl/server';
 import Image from 'next/image';
 import type { Locale } from '@/i18n/routing';
-import { localize, profile, resolve, resolveRich, type LogEntry } from '@content/index';
+import { localize, localizeRich, profile, type LogEntry } from '@content/index';
 import { Bullet, Bullets } from '@shared/components/atoms/Bullets/Bullets';
 import { Chip } from '@shared/components/atoms/Chip/Chip';
-import { Placeholder } from '@shared/components/atoms/Placeholder/Placeholder';
-import { RichText } from '@shared/components/atoms/RichText/RichText';
 import { formatWhen } from '../../model';
 import { LogDisclosure } from '../LogDisclosure/LogDisclosure';
 import { logRowVariants as styles } from './LogRow.variants';
@@ -14,7 +12,7 @@ import { logRowVariants as styles } from './LogRow.variants';
 export async function LogRow({ entry, locale }: { entry: LogEntry; locale: Locale }) {
   const t = await getTranslations({ locale, namespace: 'Log' });
   const when = formatWhen(entry, localize(entry.place, locale), locale, t('now'));
-  const since = entry.roleSince ? resolve(entry.roleSince, locale) : null;
+  const since = entry.roleSince ? localize(entry.roleSince, locale) : null;
   const chips = entry.showLanguages
     ? profile.languages.map(
         ({ name, level }) => `${localize(name, locale)} · ${localize(level, locale)}`,
@@ -51,8 +49,7 @@ export async function LogRow({ entry, locale }: { entry: LogEntry; locale: Local
         </h3>
         {since ? (
           <p className={styles.since()}>
-            {t('roleSince')}{' '}
-            {since.kind === 'pending' ? <Placeholder note={since.note} /> : since.text}
+            {t('roleSince')} {since}
           </p>
         ) : null}
       </div>
@@ -62,9 +59,7 @@ export async function LogRow({ entry, locale }: { entry: LogEntry; locale: Local
       >
         <Bullets className={styles.list()}>
           {entry.bullets.map((bullet, i) => (
-            <Bullet key={i}>
-              <RichText parts={resolveRich(bullet, locale)} />
-            </Bullet>
+            <Bullet key={i}>{localizeRich(bullet, locale)}</Bullet>
           ))}
         </Bullets>
         {chips.length > 0 ? (

@@ -46,8 +46,7 @@ Simplification
 
 - Every visible string is a message key or `Localized` content. EN and ES both present (parity
   tests). Spanish reads native (i18n-bilingue glossary).
-- Career facts: nothing invented. Unknown → `pending()`, rendered as Placeholder, listed by
-  `pnpm content:pending`.
+- Career facts: nothing invented. Unknown → ask the owner or leave it out.
 - Photos: never `mylove.webp`. `lamama.webp` captioned as Matías with his mother (Camino de
   Santiago), separate from the friends photos. About copy never mentions a girlfriend.
 - Internal links via `@/i18n/navigation` so `/es` is kept.

@@ -15,7 +15,7 @@ how to apply them. If the two disagree, `DESIGN.md` wins and the drift is a find
 | colour    | `bg-paper text-ink border-ink bg-volt text-on-volt text-steel bg-night text-night-ink` | hex/rgb in a component, `text-black`, opacity-faded text |
 | body copy | `text-ink-soft` (long form), `text-steel` (lede, meta)                                 | `ghost` for body text (fails AA on paper)                |
 | size      | rem (`text-[1.0625rem]` only via tokens/variants), `cqi` for giant type                | px for type or spacing                                   |
-| border    | 2 px ink (hard), 3 px ink (heavy), dashed for `pending()`                              | grey 1 px hairlines as the main structure                |
+| border    | 2 px ink (hard), 3 px ink (heavy)                                                      | grey 1 px hairlines as the main structure                |
 | radius    | 2 px                                                                                   | rounded cards, pills                                     |
 | depth     | offset shadow `4px 4px 0 ink` on hover, `8px 8px 0 ink` toast                          | blur shadows, glow                                       |
 

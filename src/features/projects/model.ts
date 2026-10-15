@@ -1,5 +1,5 @@
 import type { Locale } from '@/i18n/routing';
-import { projects, resolve, type CaseStudy, type Localized, type Maybe } from '@content/index';
+import { localize, projects, type CaseStudy } from '@content/index';
 
 const cases: readonly CaseStudy[] = projects.caseStudies;
 
@@ -13,25 +13,19 @@ export function nextCase(slug: string): CaseStudy {
   return cases[(i + 1) % cases.length]!;
 }
 
-// For plain-text slots (titles, metadata, alt): a pending value reads as its note in brackets.
-export function caseText(value: Maybe<Localized>, locale: Locale): string {
-  const r = resolve(value, locale);
-  return r.kind === 'pending' ? `[${r.note}]` : r.text;
-}
-
 export function caseSlugs(): string[] {
   return cases.map((c) => c.slug);
 }
 
-// <title> and description of a case page; pending fields read as their bracketed notes.
+// <title> and description of a case page.
 export function caseMeta(
   study: CaseStudy,
   locale: Locale,
   siteName: string,
 ): { title: string; description: string } {
   return {
-    title: `${caseText(study.name, locale)} — ${siteName}`,
-    description: caseText(study.summary, locale),
+    title: `${localize(study.name, locale)} — ${siteName}`,
+    description: localize(study.summary, locale),
   };
 }
 
@@ -45,7 +39,7 @@ export function caseTransition(part: 'title', slug: string): string {
   return `case-${part}-${slug}`;
 }
 
-// Text for a case's share image (pending fields read as their bracketed notes).
+// Text for a case's share image.
 export function caseOg(study: CaseStudy, locale: Locale): { title: string; kicker: string } {
-  return { title: caseText(study.name, locale), kicker: caseText(study.tagline, locale) };
+  return { title: localize(study.name, locale), kicker: localize(study.tagline, locale) };
 }

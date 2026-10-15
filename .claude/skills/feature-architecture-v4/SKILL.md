@@ -19,7 +19,7 @@ boundaries, and `pnpm build` runs ESLint, so a violation fails the Vercel previe
 | a design-system piece with no domain words                                                     | `src/shared/components/atoms/<Name>/` or `molecules/<Name>/` |
 | motion tokens/provider/hooks                                                                   | `src/shared/motion/`                                         |
 | secrets, env, mail adapter, rate limit                                                         | `src/server/` (`import 'server-only'`)                       |
-| a career fact or bilingual copy                                                                | `src/content/` (`Localized`, `pending()`)                    |
+| a career fact or bilingual copy                                                                | `src/content/` (`Localized`)                                 |
 | button labels, aria text, meta                                                                 | `src/messages/{en,es}.json`                                  |
 
 If it mentions a domain word (record, trophy, project), it is not `shared`.

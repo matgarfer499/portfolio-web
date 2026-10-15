@@ -153,9 +153,6 @@
     "now": "Now",
     "description": "Curriculum vitae of Matías García, full stack engineer and Tech Lead in Málaga: experience, projects, skills and languages."
   },
-  "Pending": {
-    "prefix": "Coming soon:"
-  },
   "NotFound": {
     "title": "Off the track",
     "body": "This page doesn't exist.",

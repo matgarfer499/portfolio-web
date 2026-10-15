@@ -16,14 +16,14 @@ src/
     actions.ts              Server Actions ("use server"), only where a feature mutates
     index.ts                the feature's public API — the only import path from outside
   shared/                   domain-agnostic, imported by file path (no barrels)
-    components/atoms/<Name>/        Button, Chip, Label, Display, Placeholder, Container, Section, Icon
+    components/atoms/<Name>/        Button, Chip, Label, Display, Container, Section, Icon
     components/molecules/<Name>/    SectionHead (section title + lede)
     motion/                 tokens.ts, MotionProvider.tsx, hooks (reduced motion, in-view)
     events/trophy-bus.ts    typed event bus: features emit, only `trophies` listens
     lib/                    cn, formatters, storage (try/catch localStorage)
     config/site.ts          canonical URL (NEXT_PUBLIC_SITE_URL, default https://matiasgarcia.dev)
   server/                   server-only (`import 'server-only'`): env, mail adapter, rate limit
-  content/                  typed content (`{ en }` strings), `pending()` markers, the one content source
+  content/                  typed content (`{ en }` strings), the one content source
   i18n/  messages/          next-intl routing/request config (English only), UI strings
   proxy.ts                  next-intl locale proxy (Next 16 name for middleware)
 ```
@@ -107,10 +107,8 @@ feature. Features: `shell` (header, nav, mobile menu, theme + language switch, s
 
 - `src/content/` holds every career fact as typed data with `Localized` strings (`{ en }`; English only since the international relaunch).
   UI chrome (buttons, labels, aria) lives in `src/messages/{en,es}.json`, typed by `en.json`.
-- Unknown facts are `pending('what is missing')`, a `Pending` value (`{ kind: 'pending', note }`)
-  accepted wherever a field is typed `Localized | Pending` (or `T | Pending`). It renders as the dashed
-  Placeholder atom, and `pnpm content:pending` lists every call with its file and line. Never invent
-  a fact or a metric.
+- Never invent a fact or a metric. An unknown fact is asked of the owner or left out. (The P2
+  `pending()` markers and `content:pending` were removed once every fact was filled.)
 - Parity tests fail when a key or a localized value exists in one language only.
 
 ## 6. Comments: 3 lines at most

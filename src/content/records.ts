@@ -1,4 +1,4 @@
-import type { Localized, Maybe } from './types';
+import type { Localized } from './types';
 
 interface Measure {
   readonly value: number;
@@ -21,8 +21,8 @@ export interface RecordItem {
 export interface HighlightRecord {
   readonly id: string;
   readonly label: Localized;
-  readonly metric: Maybe<Localized>;
-  readonly note: Maybe<Localized>;
+  readonly metric: Localized;
+  readonly note: Localized;
   readonly caseSlug?: string;
 }
 

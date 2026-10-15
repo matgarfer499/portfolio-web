@@ -2,10 +2,9 @@ import Link from 'next/link';
 import { ViewTransition } from 'react';
 import { localizedPath } from '@/i18n/paths';
 import type { Locale } from '@/i18n/routing';
-import { resolve, type CaseStudy } from '@content/index';
+import { localize, type CaseStudy } from '@content/index';
 import { Icon } from '@shared/components/atoms/Icon/Icon';
 import { Label } from '@shared/components/atoms/Label/Label';
-import { RichText } from '@shared/components/atoms/RichText/RichText';
 import { caseAnchor, caseTransition } from '../../model';
 import { caseListVariants as styles } from './CaseList.variants';
 
@@ -37,17 +36,11 @@ export function CaseList({
                 {String(i + 2).padStart(2, '0')}
               </span>
               <span className={styles.text()}>
-                <Label>
-                  <RichText parts={[resolve(study.tagline, locale)]} />
-                </Label>
+                <Label>{localize(study.tagline, locale)}</Label>
                 <ViewTransition name={caseTransition('title', study.slug)} share="morph">
-                  <span className={styles.name()}>
-                    <RichText parts={[resolve(study.name, locale)]} />
-                  </span>
+                  <span className={styles.name()}>{localize(study.name, locale)}</span>
                 </ViewTransition>
-                <span className={styles.summary()}>
-                  <RichText parts={[resolve(study.summary, locale)]} />
-                </span>
+                <span className={styles.summary()}>{localize(study.summary, locale)}</span>
               </span>
               <span aria-hidden className={styles.cue()}>
                 <Icon name="arrow-right" />

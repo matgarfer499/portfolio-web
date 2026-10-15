@@ -1,32 +1,12 @@
 import Link from 'next/link';
 import { localizedPath } from '@/i18n/paths';
 import type { Locale } from '@/i18n/routing';
-import { resolve, type CaseStudy, type Localized, type Maybe } from '@content/index';
+import { localize, type CaseStudy } from '@content/index';
 import { Icon } from '@shared/components/atoms/Icon/Icon';
 import { Label } from '@shared/components/atoms/Label/Label';
-import { Placeholder } from '@shared/components/atoms/Placeholder/Placeholder';
 import { nextCaseVariants as styles } from './NextCase.variants';
 
-function Text({
-  value,
-  locale,
-  size,
-  className,
-}: {
-  value: Maybe<Localized>;
-  locale: Locale;
-  size: 'poster' | 'text';
-  className: string;
-}) {
-  const r = resolve(value, locale);
-  return r.kind === 'pending' ? (
-    <Placeholder note={r.note} size={size} />
-  ) : (
-    <span className={className}>{r.text}</span>
-  );
-}
-
-// The "next case study" block; a case still pending reads as dashed placeholders inside it.
+// The "next case study" block: the case name and summary, then the cue.
 export function NextCase({
   study,
   locale,
@@ -43,8 +23,8 @@ export function NextCase({
       className={styles.root()}
     >
       <span className={styles.text()}>
-        <Text value={study.name} locale={locale} size="poster" className={styles.name()} />
-        <Text value={study.summary} locale={locale} size="text" className={styles.summary()} />
+        <span className={styles.name()}>{localize(study.name, locale)}</span>
+        <span className={styles.summary()}>{localize(study.summary, locale)}</span>
       </span>
       <span className={styles.cue()}>
         <Label>{label}</Label>
