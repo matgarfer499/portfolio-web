@@ -67,21 +67,21 @@ test('the training-log rail fills completely once the log has been read', async 
 
 test('a case study opens from the home card and goes back to the projects', async ({ page }) => {
   await page.goto('/');
-  await page.getByRole('link', { name: 'Read the case study' }).click();
-  await expect(page).toHaveURL(/\/projects\/chefory$/);
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Chefory');
+  await page.locator('#projects').getByRole('link', { name: 'Read the case study' }).click();
+  await expect(page).toHaveURL(/\/projects\/miot$/);
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('MIOT');
   await page.getByRole('link', { name: 'Back to projects' }).click();
   await expect(page).toHaveURL(/\/#projects$/);
   await expect(page.locator('#projects-title')).toBeInViewport();
 });
 
-test('a pending case reads as unfinished, with a bracketed title, in both locales', async ({
-  page,
-}) => {
-  await page.goto('/es/projects/tech-lead');
-  await expect(page).toHaveTitle('[Producto que lideraste como Tech Lead] — Matías García');
-  await expect(page.locator('h1 [data-pending]')).toBeVisible();
-  await page.goto('/projects/tech-lead');
+test('the home lists the other cases and each one opens its page', async ({ page }) => {
+  await page.goto('/es');
+  const list = page.locator('#projects ol');
+  await expect(list.getByRole('link')).toHaveCount(4);
+  await list.getByRole('link', { name: /Physics Sketchbook/ }).click();
+  await expect(page).toHaveURL(/\/es\/projects\/physics-sketchbook$/);
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Physics Sketchbook');
   await expect(page.getByRole('link', { name: /Chefory/ })).toBeVisible();
 });
 
@@ -89,7 +89,7 @@ test('an unknown case study is a 404', async ({ request }) => {
   expect((await request.get('/projects/nope')).status()).toBe(404);
 });
 
-for (const path of ['/projects/chefory', '/es/projects/tech-lead']) {
+for (const path of ['/projects/chefory', '/es/projects/rascame-esta']) {
   test(`${path} has no accessibility violations`, async ({ page }) => {
     await page.goto(path);
     const results = await new AxeBuilder({ page })

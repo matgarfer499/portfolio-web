@@ -26,7 +26,7 @@ function Text({
   );
 }
 
-// The dashed "next case study" block; while the case is pending it reads as a placeholder.
+// The "next case study" block; a case still pending reads as dashed placeholders inside it.
 export function NextCase({
   study,
   locale,

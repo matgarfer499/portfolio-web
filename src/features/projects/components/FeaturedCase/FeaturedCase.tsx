@@ -14,15 +14,15 @@ import { RichText } from '@shared/components/atoms/RichText/RichText';
 import { caseText, caseTransition } from '../../model';
 import { featuredCaseVariants as styles } from './FeaturedCase.variants';
 
-// The title and the laptop shot share view-transition names with /projects/[slug]. Pending fields
-// render as dashed placeholders, as on the case page.
+// The title and the laptop shot share view-transition names with /projects/[slug]. The phone
+// shot is optional; pending fields render as dashed placeholders, as on the case page.
 export async function FeaturedCase({ study, locale }: { study: CaseStudy; locale: Locale }) {
   const t = await getTranslations({ locale, namespace: 'Projects' });
   const name = caseText(study.name, locale);
   return (
     <article data-reveal aria-labelledby={`case-${study.slug}`} className={styles.root()}>
       {study.shots ? (
-        <div className={styles.visual()}>
+        <div className={styles.visual({ phone: Boolean(study.shots.phone) })}>
           <ViewTransition name={caseTransition('shot', study.slug)} share="morph">
             <Image
               src={study.shots.desktop.src}
@@ -33,14 +33,16 @@ export async function FeaturedCase({ study, locale }: { study: CaseStudy; locale
               className={styles.desk()}
             />
           </ViewTransition>
-          <Image
-            src={study.shots.phone.src}
-            width={study.shots.phone.width}
-            height={study.shots.phone.height}
-            alt={localize(study.shots.phone.alt, locale)}
-            sizes="(min-width: 68.75rem) 13vw, 24vw"
-            className={styles.phone()}
-          />
+          {study.shots.phone ? (
+            <Image
+              src={study.shots.phone.src}
+              width={study.shots.phone.width}
+              height={study.shots.phone.height}
+              alt={localize(study.shots.phone.alt, locale)}
+              sizes="(min-width: 68.75rem) 13vw, 24vw"
+              className={styles.phone()}
+            />
+          ) : null}
         </div>
       ) : null}
       <div className={styles.copy()}>

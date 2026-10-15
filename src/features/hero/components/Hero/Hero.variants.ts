@@ -17,7 +17,7 @@ export const heroVariants = {
   lede: cva('m-0 max-w-[46ch] text-steel'),
   ctas: cva('flex flex-wrap gap-3'),
   stats: cva('m-0 mt-auto grid grid-cols-3 border-t-2 border-ink'),
-  stat: cva('flex flex-col-reverse pt-3.5 pr-3'),
+  stat: cva('flex flex-col-reverse justify-end pt-3.5 pr-3'),
   statValue: cva('m-0 font-display text-[1.625rem] leading-none stack:text-[1.875rem]'),
   statLabel: cva('text-[0.75rem] leading-[1.3] font-semibold text-steel stack:text-[0.8125rem]'),
 };

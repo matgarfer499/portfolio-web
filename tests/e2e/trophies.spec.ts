@@ -35,10 +35,10 @@ test('all eight trophies unlock in one visit and survive a reload', async ({ pag
   await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
   await expect(counter(page)).toContainText('5/8');
 
-  await page.getByRole('link', { name: 'Read the case study' }).click();
-  await page.waitForURL('**/projects/chefory');
+  await page.locator('#projects').getByRole('link', { name: 'Read the case study' }).click();
+  await page.waitForURL('**/projects/miot');
   await page.locator('header a[hreflang="es"]').first().click();
-  await page.waitForURL('**/es/projects/chefory');
+  await page.waitForURL('**/es/projects/miot');
   await expect(counter(page)).toContainText('7/8');
 
   await page.goto('/es');

@@ -115,6 +115,18 @@ export async function CaseStudyPage({ study, locale }: { study: CaseStudy; local
               );
             })}
           </div>
+          {study.gallery?.map((shot) => (
+            <div key={shot.src} className={styles.shot()}>
+              <Image
+                src={shot.src}
+                width={shot.width}
+                height={shot.height}
+                alt={localize(shot.alt, locale)}
+                sizes="(min-width: 68.75rem) 56rem, 90vw"
+                className={styles.shotImage()}
+              />
+            </div>
+          ))}
           <div className={styles.next()}>
             <NextCase study={nextCase(study.slug)} locale={locale} label={t('nextCase')} />
           </div>
