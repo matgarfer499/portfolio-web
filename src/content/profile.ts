@@ -8,7 +8,7 @@ export const profile = {
   city: 'Málaga',
   timeZone: 'Europe/Madrid',
   email: 'mjgarciadev14@gmail.com',
-  // Printed from /cv by `pnpm cv:pdf`; regenerate after editing the content.
+  // The owner's own PDF (the /cv page is the always-current web version).
   cv: '/matias-garcia-cv.pdf',
   // The month the working career starts (the Uniklinik internship); "3+ yrs" is derived from it.
   careerSince: '2023-03',

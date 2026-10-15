@@ -26,19 +26,21 @@ test('the cv is built from the content', async ({ page }) => {
   await expect(page.locator('[data-pending]')).toHaveCount(0);
 });
 
-test('download PDF opens the print dialog; print hides the site chrome and stays light', async ({
+test('download PDF serves the original PDF, and the cv has no link to the site', async ({
   page,
+  request,
 }) => {
   await page.goto('/cv');
-  await page.evaluate(() => {
-    document.documentElement.dataset.theme = 'dark';
-    (window as unknown as { printed: boolean }).printed = false;
-    window.print = () => {
-      (window as unknown as { printed: boolean }).printed = true;
-    };
-  });
-  await page.getByRole('button', { name: 'Download PDF' }).click();
-  expect(await page.evaluate(() => (window as unknown as { printed: boolean }).printed)).toBe(true);
+  const download = page.getByRole('link', { name: 'Download PDF' });
+  await expect(download).toHaveAttribute('href', '/matias-garcia-cv.pdf');
+  await expect(download).toHaveAttribute('download', 'Matias-Garcia-CV.pdf');
+  const pdf = await request.get('/matias-garcia-cv.pdf');
+  expect(pdf.headers()['content-type']).toBe('application/pdf');
+  await expect(page.locator('article a', { hasText: 'matiasgarcia.dev' })).toHaveCount(0);
+});
+
+test('printing the cv hides the site chrome and stays light', async ({ page }) => {
+  await page.goto('/cv');
   await page.emulateMedia({ media: 'print' });
   await expect(page.locator('header').first()).toBeHidden();
   await expect(page.locator('footer')).toBeHidden();

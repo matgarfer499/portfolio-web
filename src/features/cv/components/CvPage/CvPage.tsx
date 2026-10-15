@@ -13,6 +13,7 @@ import {
   type Maybe,
   type Localized,
 } from '@content/index';
+import { buttonVariants } from '@shared/components/atoms/Button/Button.variants';
 import { Bullet, Bullets } from '@shared/components/atoms/Bullets/Bullets';
 import { Container } from '@shared/components/atoms/Container/Container';
 import { Icon } from '@shared/components/atoms/Icon/Icon';
@@ -20,9 +21,7 @@ import { Placeholder } from '@shared/components/atoms/Placeholder/Placeholder';
 import { RichText } from '@shared/components/atoms/RichText/RichText';
 import { Section } from '@shared/components/atoms/Section/Section';
 import { TrophyOnMount } from '@shared/components/atoms/TrophyOnMount/TrophyOnMount';
-import { absoluteUrl } from '@shared/config/seo';
 import { cvPeriod } from '../../model';
-import { PrintButton } from '../PrintButton/PrintButton';
 import { cvPageVariants as styles } from './CvPage.variants';
 
 function Text({ value, locale }: { value: Maybe<Localized>; locale: Locale }) {
@@ -35,16 +34,19 @@ export async function CvPage({ locale }: { locale: Locale }) {
   const t = await getTranslations({ locale, namespace: 'Cv' });
   const work = experience.filter((entry) => entry.kind !== 'education');
   const education = experience.filter((entry) => entry.kind === 'education');
-  const host = new URL(absoluteUrl(locale, '/')).host;
 
   return (
     <Section spacing="tight">
       <Container>
         <article className={styles.sheet()}>
           <div className={styles.tools()}>
-            <PrintButton label={t('print')} hint={t('printHint')} />
-            <a href={profile.cv} className={styles.link()}>
-              {t('pdfFile')}
+            <a
+              href={profile.cv}
+              download="Matias-Garcia-CV.pdf"
+              className={buttonVariants({ variant: 'dark' })}
+            >
+              <Icon name="download" />
+              {t('print')}
             </a>
             <Link
               href={localizedPath(locale, '/')}
@@ -62,7 +64,6 @@ export async function CvPage({ locale }: { locale: Locale }) {
             <p translate="no" className={styles.contact()}>
               <span>{localize(profile.location, locale)}</span>
               <a href={`mailto:${profile.email}`}>{profile.email}</a>
-              <a href={absoluteUrl(locale, '/')}>{host}</a>
               {profile.socials.map((social) => (
                 <a key={social.id} href={social.href}>
                   {social.href.replace(/^https:\/\/(www\.)?/, '')}
