@@ -156,17 +156,30 @@
   animation-timing-function: var(--ease-out-soft);
 }
 
+/* A shared title is one text, not two: cross-fading its old and new snapshots while they scale
+   doubles the letters. Only the new snapshot is drawn; the group carries it from place to place. */
+::view-transition-old(.morph) {
+  animation: none;
+  opacity: 0;
+}
+
+::view-transition-new(.morph) {
+  animation: none;
+}
+
+/* The new page starts fading in while the old one is still leaving (a short overlap): a fade-out
+   followed by a delayed fade-in left a frame with neither page on screen, which read as a blink. */
 ::view-transition-old(.nav-forward),
 ::view-transition-old(.nav-back) {
   animation:
-    var(--dur-fast) ease-in both vt-fade reverse,
+    180ms ease-in both vt-fade reverse,
     400ms var(--ease-out-soft) both vt-slide reverse;
 }
 
 ::view-transition-new(.nav-forward),
 ::view-transition-new(.nav-back) {
   animation:
-    210ms ease-out var(--dur-fast) both vt-fade,
+    220ms ease-out 80ms both vt-fade,
     400ms var(--ease-out-soft) both vt-slide;
 }
 
