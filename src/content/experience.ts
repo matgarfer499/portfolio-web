@@ -38,14 +38,14 @@ export const experience = [
       ],
       [
         {
-          en: 'Built MIOT, an IoT monitoring platform, from scratch with one other developer: live in under two months, with 10+ clients and 100+ connected devices in six.',
-          es: 'Construí MIOT, una plataforma de monitorización IoT, desde cero junto a otro desarrollador: en producción en menos de dos meses, con más de 10 clientes y más de 100 dispositivos conectados en seis.',
+          en: 'Built MIOT Sentra, an IoT monitoring platform, from scratch with one other developer: live in under two months, with 10+ clients and 100+ connected devices in six.',
+          es: 'Construí MIOT Sentra, una plataforma de monitorización IoT, desde cero junto a otro desarrollador: en producción en menos de dos meses, con más de 10 clientes y más de 100 dispositivos conectados en seis.',
         },
       ],
       [
         {
-          en: "Designed MIOT's data model (client → users → installations → devices) so staff manage several clients from one account; a 1-year chart went from ~5 s to under 1 s on TimescaleDB.",
-          es: 'Diseñé el modelo de datos de MIOT (cliente → usuarios → instalaciones → dispositivos) para que el personal gestione varios clientes desde una sola cuenta; un gráfico de un año pasó de ~5 s a menos de 1 s con TimescaleDB.',
+          en: "Designed MIOT Sentra's data model (client → users → installations → devices) so staff manage several clients from one account; a 1-year chart went from ~5 s to under 1 s on TimescaleDB.",
+          es: 'Diseñé el modelo de datos de MIOT Sentra (cliente → usuarios → instalaciones → dispositivos) para que el personal gestione varios clientes desde una sola cuenta; un gráfico de un año pasó de ~5 s a menos de 1 s con TimescaleDB.',
         },
       ],
       [
@@ -74,8 +74,8 @@ export const experience = [
       ],
       [
         {
-          en: 'Saved over €3,000 a year on infrastructure by automating the cleanup of stale Velero backups on Kubernetes (OVH); set up Grafana, Loki and Prometheus alerts to Teams and email, so we catch incidents before clients do.',
-          es: 'Ahorré más de 3000 € al año en infraestructura automatizando la limpieza de copias de Velero obsoletas en Kubernetes (OVH); monté alertas con Grafana, Loki y Prometheus a Teams y al correo, para detectar incidencias antes que los clientes.',
+          en: 'Cut the monthly infrastructure bill from €1,500 to €800 (about €8,400 a year) by automating the cleanup of stale Velero backups on Kubernetes (OVH); set up Grafana, Loki and Prometheus alerts to Teams and email, so we catch incidents before clients do.',
+          es: 'Bajé la factura mensual de infraestructura de 1500 € a 800 € (unos 8400 € al año) automatizando la limpieza de copias de Velero obsoletas en Kubernetes (OVH); monté alertas con Grafana, Loki y Prometheus a Teams y al correo, para detectar incidencias antes que los clientes.',
         },
       ],
       [

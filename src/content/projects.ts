@@ -89,7 +89,7 @@ const chefory = {
 
 const miot = {
   slug: 'miot',
-  name: { en: 'MIOT', es: 'MIOT' },
+  name: { en: 'MIOT Sentra', es: 'MIOT Sentra' },
   tagline: {
     en: 'IoT monitoring platform · Bettergy',
     es: 'Plataforma de monitorización IoT · Bettergy',
@@ -105,8 +105,8 @@ const miot = {
       width: 1600,
       height: 714,
       alt: {
-        en: 'MIOT dashboard with installations and device status, client names blurred',
-        es: 'Panel de MIOT con instalaciones y estado de los dispositivos, con los nombres de clientes difuminados',
+        en: 'MIOT Sentra dashboard with installations and device status, client names blurred',
+        es: 'Panel de MIOT Sentra con instalaciones y estado de los dispositivos, con los nombres de clientes difuminados',
       },
     },
   },
@@ -116,8 +116,8 @@ const miot = {
       width: 1600,
       height: 716,
       alt: {
-        en: 'MIOT charts of sensor readings over time, client data blurred',
-        es: 'Gráficos de MIOT con lecturas de sensores en el tiempo, con los datos del cliente difuminados',
+        en: 'MIOT Sentra charts of sensor readings over time, client data blurred',
+        es: 'Gráficos de MIOT Sentra con lecturas de sensores en el tiempo, con los datos del cliente difuminados',
       },
     },
   ],
@@ -126,8 +126,8 @@ const miot = {
       id: 'problem',
       heading: { en: 'The problem', es: 'El problema' },
       body: {
-        en: "Bettergy's IoT monitoring lived in a legacy Django monolith on MongoDB (mongoengine). It had to be replaced by a new platform, on a tight deadline.",
-        es: 'La monitorización IoT de Bettergy vivía en un monolito heredado de Django sobre MongoDB (mongoengine). Había que sustituirlo por una plataforma nueva, con un plazo muy ajustado.',
+        en: "Bettergy's IoT monitoring lived in MIOT Classic, a legacy Django monolith on MongoDB (mongoengine). It had to be replaced by a new platform, Sentra, on a tight deadline.",
+        es: 'La monitorización IoT de Bettergy vivía en MIOT Classic, un monolito heredado de Django sobre MongoDB (mongoengine). Había que sustituirlo por una plataforma nueva, Sentra, con un plazo muy ajustado.',
       },
     },
     {

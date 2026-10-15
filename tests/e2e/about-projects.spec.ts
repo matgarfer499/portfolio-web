@@ -69,7 +69,7 @@ test('a case study opens from the home card and goes back to the projects', asyn
   await page.goto('/');
   await page.locator('#projects').getByRole('link', { name: 'Read the case study' }).click();
   await expect(page).toHaveURL(/\/projects\/miot$/);
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText('MIOT');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('MIOT Sentra');
   await page.getByRole('link', { name: 'Back to projects' }).click();
   await expect(page).toHaveURL(/\/#projects$/);
   await expect(page.locator('#projects-title')).toBeInViewport();

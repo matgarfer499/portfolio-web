@@ -24,7 +24,7 @@ for (const [name, value] of Object.entries(content))
 
 // Same text in both languages is fine for names, units and tech terms, not for prose.
 const SAME_OK =
-  /^(Chefory|Tech Lead|Full stack|90 s → 1 s|Málaga|Physics Sketchbook|Ráscame esta)$/;
+  /^(Chefory|Tech Lead|Full stack|90 s → 1 s|Málaga|Physics Sketchbook|Ráscame esta|MIOT Sentra)$/;
 
 describe('content is bilingual', () => {
   it('walks a meaningful amount of copy', () => expect(found.localized.length).toBeGreaterThan(80));

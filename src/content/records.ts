@@ -12,8 +12,8 @@ export interface RecordItem {
   readonly after: Measure;
   /** Which way is an improvement: response times go down, scores go up. */
   readonly better: 'lower' | 'higher';
-  /** How the badge reads a rise: + points by default (scores), or × more (counts). */
-  readonly gain?: 'ratio';
+  /** How the badge reads the change; the default is × for "lower", + points for "higher". */
+  readonly gain?: 'ratio' | 'percent';
   readonly note: Localized;
 }
 
@@ -39,8 +39,8 @@ export const records = {
       after: { value: 1, unit: 's' },
       better: 'lower',
       note: {
-        en: 'MIOT: a full year at 15-minute resolution now loads in under a second, on TimescaleDB hypertables.',
-        es: 'MIOT: un año entero a resolución de 15 minutos carga ahora en menos de un segundo, sobre hypertables de TimescaleDB.',
+        en: 'MIOT Sentra: a full year at 15-minute resolution now loads in under a second, on TimescaleDB hypertables.',
+        es: 'MIOT Sentra: un año entero a resolución de 15 minutos carga ahora en menos de un segundo, sobre hypertables de TimescaleDB.',
       },
     },
     {
@@ -68,6 +68,18 @@ export const records = {
       },
     },
     {
+      id: 'infra-bill',
+      label: { en: 'Monthly infrastructure bill', es: 'Factura mensual de infraestructura' },
+      before: { value: 1500, unit: '€' },
+      after: { value: 800, unit: '€' },
+      better: 'lower',
+      gain: 'percent',
+      note: {
+        en: 'About €8,400 a year saved by automating the cleanup of stale Velero backups piling up on our Kubernetes cluster at OVH.',
+        es: 'Unos 8400 € al año ahorrados automatizando la limpieza de copias de Velero obsoletas que se acumulaban en nuestro clúster de Kubernetes en OVH.',
+      },
+    },
+    {
       id: 'qa-first-pass',
       label: { en: 'Tickets passing QA first time', es: 'Tickets que pasan QA a la primera' },
       before: { value: 60, unit: '%' },
@@ -85,19 +97,8 @@ export const records = {
       after: { value: 1, unit: 's' },
       better: 'lower',
       note: {
-        en: 'Refactored inefficient Django ORM queries on a core endpoint.',
-        es: 'Refactoricé consultas ineficientes del ORM de Django en un endpoint clave.',
-      },
-    },
-    {
-      id: 'db-calls',
-      label: { en: 'DB calls per request', es: 'Llamadas a la BD por petición' },
-      before: { value: 6000 },
-      after: { value: 7 },
-      better: 'lower',
-      note: {
-        en: 'Same refactor: from up to 6000 database calls down to 7.',
-        es: 'Mismo refactor: de hasta 6000 llamadas a la base de datos a solo 7.',
+        en: 'Refactored inefficient Django ORM queries on a core endpoint: from up to 6000 database calls per request down to 7.',
+        es: 'Refactoricé consultas ineficientes del ORM de Django en un endpoint clave: de hasta 6000 llamadas a la base de datos por petición a solo 7.',
       },
     },
     {
@@ -117,8 +118,8 @@ export const records = {
     label: { en: 'Latest PR', es: 'Último récord' },
     metric: { en: '< 2 months', es: '< 2 meses' },
     note: {
-      en: 'MIOT: an IoT monitoring platform built from scratch by two people, live in its second month. 10+ clients in its first six months.',
-      es: 'MIOT: una plataforma de monitorización IoT creada desde cero entre dos personas y en producción al segundo mes. Más de 10 clientes en sus primeros seis meses.',
+      en: 'MIOT Sentra: an IoT monitoring platform built from scratch by two people, live in its second month. 10+ clients in its first six months.',
+      es: 'MIOT Sentra: una plataforma de monitorización IoT creada desde cero entre dos personas y en producción al segundo mes. Más de 10 clientes en sus primeros seis meses.',
     },
     caseSlug: 'miot',
   },

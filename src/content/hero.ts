@@ -19,15 +19,18 @@ export const hero = {
   yearsLabel: { en: 'Shipping web apps', es: 'Lanzando apps web' },
   stats: [
     { value: '3', label: { en: 'Products I lead', es: 'Productos que lidero' } },
-    { value: '10+', label: { en: 'MIOT clients in 6 months', es: 'Clientes de MIOT en 6 meses' } },
+    {
+      value: '10+',
+      label: { en: 'Sentra clients in 6 months', es: 'Clientes de Sentra en 6 meses' },
+    },
   ],
   marquee: [
     { en: 'Owns it end to end', es: 'De principio a fin' },
     { en: 'Tech Lead', es: 'Tech Lead' },
-    { en: 'MIOT live in < 2 months', es: 'MIOT en producción en < 2 meses' },
+    { en: 'Sentra live in < 2 months', es: 'Sentra en producción en < 2 meses' },
     { en: '90 s → 1 s', es: '90 s → 1 s' },
     { en: 'Weekly releases', es: 'Despliegues semanales' },
-    { en: '€3k+ a year saved on infra', es: '+3000 € al año ahorrados en infra' },
+    { en: '−47% infra bill', es: '−47 % en infraestructura' },
     { en: 'Full stack', es: 'Full stack' },
   ],
   photo: {

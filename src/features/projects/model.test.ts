@@ -37,7 +37,9 @@ describe('case pages', () => {
   });
 
   it('titles a case with its name and describes it with its summary', () => {
-    expect(caseMeta(findCase('miot')!, 'en', 'Matías García').title).toBe('MIOT — Matías García');
+    expect(caseMeta(findCase('miot')!, 'en', 'Matías García').title).toBe(
+      'MIOT Sentra — Matías García',
+    );
     expect(caseMeta(unwritten, 'en', 'Matías García')).toEqual({
       title: '[Product name] — Matías García',
       description: '[What it is and the result]',
