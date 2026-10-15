@@ -44,7 +44,9 @@ export function MobileMenu({ locale, labels, text }: MobileMenuProps) {
         onClose={() => setOpen(false)}
       >
         <Container className={styles.top()}>
-          <span aria-hidden>MG</span>
+          <span aria-hidden className={styles.mark()}>
+            MG
+          </span>
           <button type="button" className={styles.close()} aria-label={text.close} onClick={close}>
             <Icon name="close" size="lg" strokeWidth={2.2} />
           </button>

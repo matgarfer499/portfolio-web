@@ -11,6 +11,10 @@ export const mobileMenuVariants = {
     'fixed inset-0 m-0 h-dvh max-h-none w-dvw max-w-none flex-col overflow-y-auto bg-paper p-0 text-ink backdrop:bg-transparent open:flex',
   ),
   top: cva('flex h-16 items-center justify-between border-b-2 border-ink'),
+  // Same mark as the header's, so opening the menu doesn't change the logo.
+  mark: cva(
+    'inline-flex size-11 shrink-0 items-center justify-center bg-night font-display text-[1.375rem] leading-none text-volt',
+  ),
   links: cva('flex flex-1 flex-col justify-center py-8'),
   nav: cva('flex flex-col gap-2'),
   link: cva(
