@@ -1,7 +1,7 @@
 import { getTranslations } from 'next-intl/server';
 import { localizedPath } from '@/i18n/paths';
 import type { Locale } from '@/i18n/routing';
-import { hero, localize, profile } from '@content/index';
+import { hero, localize, profile, type Highlighted } from '@content/index';
 import { buttonVariants } from '@shared/components/atoms/Button/Button.variants';
 import { Container } from '@shared/components/atoms/Container/Container';
 import { Icon } from '@shared/components/atoms/Icon/Icon';
@@ -12,7 +12,8 @@ import { heroVariants as styles } from './Hero.variants';
 
 export async function Hero({ locale }: { locale: Locale }) {
   const t = await getTranslations({ locale, namespace: 'Hero' });
-  const { roleLine } = hero;
+  const roleLine: Highlighted = hero.roleLine;
+  const firstLine = roleLine.before ? localize(roleLine.before, locale) : null;
   const stats = [
     {
       value: t('yearsPlus', { count: yearsSince(profile.careerSince, new Date()) }),
@@ -28,7 +29,7 @@ export async function Hero({ locale }: { locale: Locale }) {
         <div className={styles.grid()}>
           <div className={styles.intro()}>
             <p className={styles.role()}>
-              <span className={styles.firstLine()}>{localize(roleLine.before, locale)}</span>
+              {firstLine ? <span className={styles.firstLine()}>{firstLine}</span> : null}
               <mark className={styles.mark()}>{localize(roleLine.mark, locale)}</mark>
               {localize(roleLine.after, locale)}
             </p>

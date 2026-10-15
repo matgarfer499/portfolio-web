@@ -4,7 +4,6 @@ type Stat = { readonly value: string; readonly label: Localized };
 
 export const hero = {
   roleLine: {
-    before: { en: 'Tech Lead at Bettergy. ' },
     mark: { en: 'I build products end to end' },
     after: {
       en: ', from the database to the deploy.',

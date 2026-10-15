@@ -8,7 +8,8 @@ export type Rich = readonly Localized[];
 
 /** A line with one highlighted (volt <mark>) run. */
 export interface Highlighted {
-  readonly before: Localized;
+  /** Optional lead-in, rendered on its own line before the mark. */
+  readonly before?: Localized;
   readonly mark: Localized;
   readonly after: Localized;
 }
