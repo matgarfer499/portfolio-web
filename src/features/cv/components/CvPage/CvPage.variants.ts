@@ -9,7 +9,7 @@ export const cvPageVariants = {
   ),
   head: cva('border-b-[3px] border-ink pb-6'),
   name: cva(
-    'm-0 font-display text-[clamp(3rem,9cqi,4.5rem)] leading-[0.95] uppercase print:text-[34pt]',
+    'm-0 font-display text-[clamp(3rem,9cqi,4.5rem)] leading-[1.1] uppercase print:text-[34pt]',
   ),
   role: cva('mt-2 text-[1.125rem] font-bold'),
   contact: cva('mt-3 flex flex-wrap gap-x-4 gap-y-1 text-[0.9375rem] text-ink-soft'),
