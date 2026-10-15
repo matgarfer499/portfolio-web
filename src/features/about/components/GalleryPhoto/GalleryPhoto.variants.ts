@@ -12,7 +12,7 @@ export const galleryPhotoVariants = {
     {
       variants: {
         tall: { true: 'h-full', false: 'aspect-square max-stack:group-last/photo:aspect-[2/1]' },
-        contain: { true: 'object-contain', false: 'object-cover' },
+        contain: { true: 'bg-paper object-contain', false: 'object-cover' },
       },
     },
   ),

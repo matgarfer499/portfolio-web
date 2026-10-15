@@ -104,12 +104,12 @@ export const about = {
     },
     {
       id: 'code',
-      src: '/photos/code.webp',
-      width: 1128,
-      height: 582,
+      src: '/photos/code-editor.webp',
+      width: 2256,
+      height: 1164,
       fit: 'contain',
       alt: {
-        en: 'A code snippet describing Matías as a JavaScript object: loves gym, travel, programming and gaming, lives in Málaga',
+        en: 'A code editor showing Matías as a TypeScript object: Full Stack Engineer and Tech Lead based in Málaga, loves the gym, mountains, travel and gaming, stack Django, Next.js, Postgres and Kubernetes, shipping set to true',
       },
       caption: { en: 'Always creating something new' },
     },
