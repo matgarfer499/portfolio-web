@@ -30,7 +30,7 @@ test('all six trophies unlock in one visit and survive a reload', async ({ page,
     'a',
   ])
     await page.keyboard.press(key);
-  await expect(page.locator('html')).toHaveAttribute('data-beast', '');
+  await expect(page.locator('html')).not.toHaveAttribute('data-beast');
   await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
   await expect(counter(page)).toContainText('4/6');
 
@@ -86,7 +86,7 @@ test('sound stays off until chosen, and reset empties the shelf', async ({ page 
   expect(await page.evaluate(() => localStorage.getItem('pr-trophy-sound'))).toBe('1');
 });
 
-test('typing the code in the contact form does not trigger beast mode', async ({ page }) => {
+test('typing the code in the contact form does not count as the cheat code', async ({ page }) => {
   await page.goto('/');
   await page.locator('#contact-message').click();
   for (const key of [
@@ -102,5 +102,6 @@ test('typing the code in the contact form does not trigger beast mode', async ({
     'a',
   ])
     await page.keyboard.press(key);
-  await expect(page.locator('html')).not.toHaveAttribute('data-beast');
+  await page.waitForTimeout(300);
+  await expect(counter(page)).toContainText('0/6');
 });

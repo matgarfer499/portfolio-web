@@ -76,11 +76,9 @@ the toast, the scroll-progress bar and focus accents. Nothing else is volt. Text
 - Use the tokens in `src/app/globals.css` (`bg-paper`, `text-ink`, `text-steel`, `bg-volt`, …).
   Never a hex value in a component. A new text or surface token joins the contrast test.
 - `ghost` is for large display text or the night board only.
-- **Dark theme** inverts paper and ink; volt stays; the records board becomes `night` #171814,
-  slightly lighter than the page, so it still reads as a raised board. System preference by
-  default, a toggle, persisted, applied before paint by an inline head script (no flash).
-- **Beast mode** (Konami trophy) swaps paper for volt and keeps ink #111 in either theme; steel and
-  ghost darken to #3D4139 so they still pass on volt. The night board keeps its own tokens.
+- **Dark only**: light ink on a near-black page; volt stays; the records board is `night` #171814,
+  slightly lighter than the page, so it still reads as a raised board. No theme toggle.
+- The Konami code only unlocks its trophy; it no longer recolours the page.
 - No gradients, no glass, no glow, no pure decoration.
 
 ## Surfaces
@@ -150,7 +148,7 @@ from server-rendered final content.
 ## Print
 
 The /cv page prints as an A4 document: `@media print` forces the light tokens with
-`html:root:not(#print)` (beats dark and beast mode without `!important`), `@page` A4 with 14 mm
+`html:root:not(#print)` (beats the dark tokens without `!important`), `@page` A4 with 14 mm
 margins, 10 pt root; header, footer, toast and the CV toolbar are `print:hidden`; entries
 `break-inside: avoid`.
 
@@ -160,7 +158,7 @@ Do
 
 - Lead every section with a giant Anton title and one line of steel context.
 - Keep volt scarce; keep borders ink.
-- Prove contrast in `src/app/contrast.test.ts` (WCAG AA on the dark tokens and beast mode).
+- Prove contrast in `src/app/contrast.test.ts` (WCAG AA on the dark tokens).
 - 44 px targets, `:focus-visible` everywhere (3 px ink outline, 3 px offset; thicker at TV sizes).
 
 Don't

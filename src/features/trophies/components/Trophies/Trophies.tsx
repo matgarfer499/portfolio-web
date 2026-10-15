@@ -47,7 +47,6 @@ export function Trophies({ labels }: { labels: TrophiesLabels }) {
       progress = konamiStep(progress, event.key);
       if (progress < KONAMI.length) return;
       progress = 0;
-      document.documentElement.toggleAttribute('data-beast');
       emitTrophy('konami');
     };
     window.addEventListener('keydown', key);

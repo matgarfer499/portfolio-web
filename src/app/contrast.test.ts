@@ -12,10 +12,7 @@ function block(selector: string): string {
 }
 
 const BASE = block(':root');
-const THEMES = {
-  dark: BASE,
-  beast: BASE + block(':root[data-beast]'),
-};
+const THEMES = { dark: BASE };
 
 function token(source: string, name: string): number[] {
   const matches = [...source.matchAll(new RegExp(`--${name}:\\s*(#[0-9a-f]{6})`, 'gi'))];

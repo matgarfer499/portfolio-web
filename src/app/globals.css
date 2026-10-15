@@ -30,18 +30,6 @@
   color-scheme: dark;
 }
 
-/* Beast mode (Konami trophy): the page turns volt with black ink. */
-:root[data-beast] {
-  --paper: #d4ff1f;
-  --ink: #111111;
-  --ink-soft: #2b2d29;
-  --steel: #3d4139;
-  --line: #111111;
-  --ghost: #3d4139;
-
-  color-scheme: light;
-}
-
 /* stack: hero and grids go single-column below it; board: the records board gets 4 columns. */
 @theme {
   --breakpoint-stack: 51.25rem;
@@ -360,8 +348,8 @@
   }
 }
 
-/* Print (the CV's "Download PDF"): always the light tokens, whatever the theme or beast mode.
-   `:not(#print)` outranks `:root` and `:root[data-beast]` without !important. */
+/* Print (the /cv page): always the light tokens on paper. `:not(#print)` outranks `:root`
+   without !important. */
 @media print {
   html:root:not(#print) {
     --paper: #ffffff;
