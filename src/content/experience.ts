@@ -1,4 +1,4 @@
-import { pending, type ImageAsset, type Localized, type Maybe, type Rich } from './types';
+import type { ImageAsset, Localized, Maybe, Rich } from './types';
 
 export interface LogEntry {
   readonly id: string;
@@ -27,54 +27,80 @@ export const experience = [
     start: '2024-01',
     place: { en: 'Málaga', es: 'Málaga' },
     team: { name: 'Bettergy', logo: { src: '/logos/bettergy.png', width: 2178, height: 635 } },
-    role: { en: 'Tech Lead · Full Stack Developer', es: 'Tech Lead · Desarrollador Full Stack' },
-    roleSince: pending({
-      en: 'Since when you are Tech Lead (month and year)',
-      es: 'Desde cuándo eres Tech Lead (mes y año)',
-    }),
+    role: { en: 'Full Stack Engineer · Tech Lead', es: 'Ingeniero Full Stack · Tech Lead' },
+    roleSince: { en: '2026', es: '2026' },
     bullets: [
       [
         {
-          en: 'Tech lead of my team, leading products end to end.',
-          es: 'Tech lead de mi equipo: llevo productos de principio a fin.',
-        },
-        pending({
-          en: 'Products you lead and their outcomes',
-          es: 'Productos que lideras y sus resultados',
-        }),
-      ],
-      [
-        {
-          en: 'Migrated a key product from Svelte to SvelteKit: SEO 60 → 100 in Lighthouse.',
-          es: 'Migré un producto clave de Svelte a SvelteKit: SEO de 60 a 100 en Lighthouse.',
+          en: "Lead a team of five technically: architecture, code reviews, standards, and who takes what, matching each task to each person's strengths.",
+          es: 'Lidero técnicamente un equipo de cinco: arquitectura, revisiones de código, estándares y quién se encarga de qué, según los puntos fuertes de cada persona.',
         },
       ],
       [
         {
-          en: 'Django ORM refactor: 90 s → 1 s response time, up to 6000 → 7 DB calls per request.',
-          es: 'Refactor del ORM de Django: respuesta de 90 s a 1 s y de hasta 6000 a 7 llamadas a la BD por petición.',
+          en: 'Built MIOT, an IoT monitoring platform, from scratch with one other developer: live in under two months, with 10+ clients and 100+ connected devices in six.',
+          es: 'Construí MIOT, una plataforma de monitorización IoT, desde cero junto a otro desarrollador: en producción en menos de dos meses, con más de 10 clientes y más de 100 dispositivos conectados en seis.',
         },
       ],
       [
         {
-          en: 'Defined a Screaming Architecture folder structure that speeds up onboarding.',
-          es: 'Definí una estructura de carpetas basada en Screaming Architecture que agiliza la incorporación de gente nueva.',
+          en: "Designed MIOT's data model (client → users → installations → devices) so staff manage several clients from one account; a 1-year chart went from ~5 s to under 1 s on TimescaleDB.",
+          es: 'Diseñé el modelo de datos de MIOT (cliente → usuarios → instalaciones → dispositivos) para que el personal gestione varios clientes desde una sola cuenta; un gráfico de un año pasó de ~5 s a menos de 1 s con TimescaleDB.',
         },
       ],
       [
         {
-          en: 'Built a Celery cronjob system that stabilised data pulls from unreliable APIs.',
-          es: 'Monté un sistema de tareas programadas con Celery que estabilizó la descarga de datos de APIs poco fiables.',
+          en: 'Introduced an AI-assisted workflow (Claude Code) and tickets of two days or less: ~3× more tickets per two-week sprint (about 10 → 30), testing and QA included.',
+          es: 'Introduje un flujo de trabajo con IA (Claude Code) y tickets de dos días como máximo: unas 3× más tareas por sprint de dos semanas (de unas 10 a 30), con tests y QA incluidos.',
         },
       ],
       [
         {
-          en: 'Standardised commit conventions and releases: fewer production errors, smoother QA.',
-          es: 'Estandaricé las convenciones de commits y las releases: menos errores en producción y un QA más fluido.',
+          en: 'Brought in docs, linters, formatters and strict test rules: tickets passing QA first time went from 5–7 out of 10 to 8–9, and releases from two a month to one or two a week.',
+          es: 'Introduje documentación, linters, formatters y reglas estrictas de tests: los tickets que pasan QA a la primera pasaron de 5–7 de cada 10 a 8–9, y los despliegues, de dos al mes a uno o dos por semana.',
+        },
+      ],
+      [
+        {
+          en: "Rebuilt the main product's frontend in Next.js over a versioned Django API (v1 kept, v2 extends it), with a new flow that gives internal technicians more autonomy.",
+          es: 'Rehíce el frontend del producto principal en Next.js sobre una API de Django versionada (se mantiene la v1 y la v2 la amplía), con un flujo nuevo que da más autonomía a los técnicos internos.',
+        },
+      ],
+      [
+        {
+          en: 'Internal apps, including a new company hub: satisfaction and usage up from 30% to 75%, measured with surveys and real usage.',
+          es: 'Apps internas, incluido un nuevo hub de empresa: satisfacción y uso del 30 % al 75 %, medido con encuestas y uso real.',
+        },
+      ],
+      [
+        {
+          en: 'Saved over €3,000 a year on infrastructure by automating the cleanup of stale Velero backups on Kubernetes (OVH); set up Grafana, Loki and Prometheus alerts to Teams and email, so we catch incidents before clients do.',
+          es: 'Ahorré más de 3000 € al año en infraestructura automatizando la limpieza de copias de Velero obsoletas en Kubernetes (OVH); monté alertas con Grafana, Loki y Prometheus a Teams y al correo, para detectar incidencias antes que los clientes.',
+        },
+      ],
+      [
+        {
+          en: 'Onboarded three juniors this year with weekly sessions and joint reviews; each one shipped to production within their first month.',
+          es: 'Incorporé a tres juniors este año con sesiones semanales y revisiones conjuntas; cada uno subió algo a producción en su primer mes.',
+        },
+      ],
+      [
+        {
+          en: 'Django ORM refactor: 90 s → 1 s response time and up to 6000 → 7 DB calls per request. Svelte → SvelteKit migration: SEO 60 → 100 in Lighthouse.',
+          es: 'Refactor del ORM de Django: respuesta de 90 s a 1 s y de hasta 6000 a 7 llamadas a la BD por petición. Migración de Svelte a SvelteKit: SEO de 60 a 100 en Lighthouse.',
         },
       ],
     ],
-    chips: ['Django', 'Flask', 'SvelteKit', 'TailwindCSS', 'PostgreSQL', 'MongoDB'],
+    chips: [
+      'Next.js',
+      'Django',
+      'TypeScript',
+      'PostgreSQL',
+      'TimescaleDB',
+      'TailwindCSS',
+      'Docker',
+      'Kubernetes',
+    ],
   },
   {
     id: 'uniklinik',

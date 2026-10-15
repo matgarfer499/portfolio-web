@@ -6,8 +6,9 @@ const ROUTES = [
   '/es',
   '/cv',
   '/es/cv',
-  '/projects/chefory',
-  '/es/projects/tech-lead',
+  '/projects/miot',
+  '/es/projects/rat',
+  '/projects/physics-sketchbook',
   '/nope',
 ];
 
@@ -19,14 +20,13 @@ for (const route of ROUTES) {
   });
 }
 
-test('the cv is built from the content in each language and keeps pending items visible', async ({
-  page,
-}) => {
+test('the cv is built from the content in each language', async ({ page }) => {
   await page.goto('/es/cv');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Matías José García Fernández');
   await expect(page.getByRole('heading', { name: 'Experiencia' })).toBeVisible();
   await expect(page.getByText('ene 2024 — Actualidad', { exact: false })).toBeVisible();
-  await expect(page.getByText('[Productos que lideras y sus resultados]')).toBeVisible();
+  await expect(page.getByText('Construí MIOT', { exact: false })).toBeVisible();
+  await expect(page.locator('[data-pending]')).toHaveCount(0);
   await expect(page).toHaveTitle('Currículum — Matías García');
 });
 
@@ -63,7 +63,7 @@ test('every page declares its canonical and both languages', async ({ request })
 test('every page shares its own title and image, not the home page', async ({ request }) => {
   for (const [path, title] of [
     ['/cv', 'Curriculum vitae — Matías García'],
-    ['/es/projects/tech-lead', '[Producto que lideraste como Tech Lead] — Matías García'],
+    ['/es/projects/rat', 'R.A.T. — Matías García'],
   ]) {
     const html = await (await request.get(path!)).text();
     expect(html, path).toContain(`<meta property="og:title" content="${title}"`);

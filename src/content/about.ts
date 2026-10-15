@@ -13,16 +13,16 @@ export interface GalleryPhoto extends ImageAsset {
 export const about = {
   paragraphs: [
     {
-      en: "I've been fascinated by technology and code since I was a kid. I like building things that make people's lives easier: clean, intuitive and meaningful.",
-      es: 'Me fascinan la tecnología y el código desde pequeño. Me gusta construir cosas que le hagan la vida más fácil a la gente: limpias, intuitivas y con sentido.',
+      en: 'What drives me is getting out of my comfort zone: new problems, new tools, new places. Going from the basics of Kubernetes to running our company cluster in about three months is the kind of challenge I go looking for.',
+      es: 'Lo que me mueve es salir de mi zona de confort: problemas nuevos, herramientas nuevas, sitios nuevos. Pasar de lo básico de Kubernetes a llevar el clúster de la empresa en unos tres meses es el tipo de reto que busco.',
     },
     {
-      en: "Outside the screen the gym is my second job. I'm always trying new food and restaurants, sharing time with friends and getting lost in videogames. My mom has been my biggest supporter through every project.",
-      es: 'Fuera de la pantalla, el gimnasio es mi segundo trabajo. Siempre estoy probando comida y restaurantes nuevos, pasando tiempo con mis amigos y perdiéndome en videojuegos. Mi madre ha sido mi mayor apoyo en cada proyecto.',
+      en: "Off the clock: the gym, mountain routes, good food, music, videogames, and time with my friends and family. I travel whenever I can, alone or with friends, and I'm ready for the next move abroad.",
+      es: 'Fuera del trabajo: el gimnasio, las rutas por la montaña, la buena comida, la música, los videojuegos y el tiempo con mis amigos y mi familia. Viajo siempre que puedo, solo o con amigos, y estoy listo para dar el salto fuera.',
     },
     {
-      en: "At the end of the day I'm just me: passionate, grounded, and always looking for the next thing to learn or build.",
-      es: 'Al final, soy solo yo: apasionado, con los pies en la tierra y siempre buscando lo siguiente que aprender o construir.',
+      en: "At the end of the day I'm just me: curious, grounded, and always looking for the next thing to learn or build.",
+      es: 'Al final, soy solo yo: curioso, con los pies en la tierra y siempre buscando lo siguiente que aprender o construir.',
     },
   ],
   // Grid order: the photo with his mother opens the grid, apart from the two friends photos,

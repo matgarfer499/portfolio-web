@@ -8,7 +8,8 @@ describe('sitemap', () => {
     expect(urls).toContain('https://matiasgarcia.dev/');
     expect(urls).toContain('https://matiasgarcia.dev/es/cv');
     expect(urls).toContain('https://matiasgarcia.dev/es/projects/chefory');
-    expect(urls).toHaveLength(8);
+    expect(urls).toContain('https://matiasgarcia.dev/projects/miot');
+    expect(urls).toHaveLength(14);
     expect(sitemap()[0]?.alternates?.languages).toMatchObject({
       es: 'https://matiasgarcia.dev/es',
     });

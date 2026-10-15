@@ -3,23 +3,29 @@ import type { LinkItem, Localized } from './types';
 export const profile = {
   name: 'Matías García',
   fullName: 'Matías José García Fernández',
-  role: { en: 'Tech Lead · Full Stack Developer', es: 'Tech Lead · Desarrollador Full Stack' },
+  role: { en: 'Full Stack Engineer · Tech Lead', es: 'Ingeniero Full Stack · Tech Lead' },
   location: { en: 'Málaga, Spain', es: 'Málaga, España' },
   city: 'Málaga',
   timeZone: 'Europe/Madrid',
   email: 'mjgarciadev14@gmail.com',
   cv: '/matias-garcia-cv.pdf',
-  // The month the working career starts (Bettergy); "2+ yrs" is derived from it, never typed.
-  careerSince: '2024-01',
+  // The month the working career starts (the Uniklinik internship); "3+ yrs" is derived from it.
+  careerSince: '2023-03',
   availability: {
     status: 'open',
-    label: { en: 'Open to new projects', es: 'Disponible para nuevos proyectos' },
+    label: {
+      en: 'Available now · full-time · open to relocating',
+      es: 'Disponible ya · jornada completa · abierto a mudarme',
+    },
   },
   languages: [
     { name: { en: 'Spanish', es: 'Español' }, level: { en: 'Native', es: 'Nativo' } },
     {
       name: { en: 'English', es: 'Inglés' },
-      level: { en: 'B2 · Cambridge First', es: 'B2 · Cambridge First' },
+      level: {
+        en: 'Professional working proficiency · B2 Cambridge First',
+        es: 'Nivel profesional · B2 Cambridge First',
+      },
     },
   ],
   socials: [

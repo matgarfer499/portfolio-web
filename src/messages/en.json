@@ -1,7 +1,7 @@
 {
   "Meta": {
-    "title": "Matías García — Tech Lead · Full Stack Developer",
-    "description": "Matías García, Tech Lead and full stack developer in Málaga. Products owned end to end, from the database query to the last pixel."
+    "title": "Matías García — Full Stack Engineer · Tech Lead",
+    "description": "Matías García, full stack engineer and Tech Lead in Málaga, open to relocating. Products built end to end, from the database to the deploy."
   },
   "Home": {
     "placeholder": "Portfolio v4 is being rebuilt. Back soon."
@@ -39,7 +39,9 @@
     "after": "Now",
     "faster": "{value}× faster",
     "fewer": "{value}× fewer",
-    "points": "+{value} points"
+    "more": "{value}× more",
+    "points": "+{value} points",
+    "readCase": "Read the case study"
   },
   "Log": {
     "title": "Training log",
@@ -64,13 +66,14 @@
   },
   "Projects": {
     "title": "Projects",
-    "lede": "Side projects, built end to end.",
+    "lede": "Products I lead at work and side projects I build for fun, end to end.",
     "try": "Try {name}",
     "readCase": "Read the case study",
     "nextCase": "Next case study",
     "stackTitle": "The stack",
     "back": "Back to projects",
-    "visit": "Visit the site"
+    "visit": "Visit the site",
+    "otherCases": "More projects"
   },
   "Contact": {
     "email": "Email",
@@ -155,7 +158,7 @@
     "profile": "Profile",
     "originalPdf": "Original PDF",
     "now": "Now",
-    "description": "Curriculum vitae of Matías García, Tech Lead and full stack developer in Málaga: experience, projects, skills and languages.",
+    "description": "Curriculum vitae of Matías García, full stack engineer and Tech Lead in Málaga: experience, projects, skills and languages.",
     "printHint": "Print or save as PDF"
   },
   "Pending": {

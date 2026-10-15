@@ -101,7 +101,7 @@ test('without JavaScript the hero is fully readable', async ({ browser }) => {
   const page = await context.newPage();
   await page.goto('/');
   await expect(page.getByRole('heading', { level: 1, name: 'Matías García' })).toBeVisible();
-  await expect(page.getByText('I own products end to end')).toBeVisible();
+  await expect(page.getByText('I build products end to end')).toBeVisible();
   await expect(page.getByRole('img', { name: /Dumbbells/ })).toBeVisible();
   await context.close();
 });

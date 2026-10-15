@@ -7,7 +7,7 @@ describe('personSchema', () => {
       '@type': 'Person',
       name: 'Matías García',
       alternateName: 'Matías José García Fernández',
-      jobTitle: 'Tech Lead · Desarrollador Full Stack',
+      jobTitle: 'Ingeniero Full Stack · Tech Lead',
       url: 'https://matiasgarcia.dev/es',
       email: 'mailto:mjgarciadev14@gmail.com',
       address: { '@type': 'PostalAddress', addressLocality: 'Málaga' },

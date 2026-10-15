@@ -1,7 +1,7 @@
 {
   "Meta": {
-    "title": "Matías García — Tech Lead · Desarrollador Full Stack",
-    "description": "Tech Lead y desarrollador full stack en Málaga que lleva productos de principio a fin, de la consulta a la base de datos al último píxel."
+    "title": "Matías García — Ingeniero Full Stack · Tech Lead",
+    "description": "Matías García, ingeniero full stack y Tech Lead en Málaga, abierto a mudarse. Productos de principio a fin, desde la base de datos hasta el despliegue."
   },
   "Home": {
     "placeholder": "El portfolio v4 se está reconstruyendo. Vuelvo enseguida."
@@ -39,7 +39,9 @@
     "after": "Ahora",
     "faster": "{value}× más rápido",
     "fewer": "{value}× menos",
-    "points": "+{value} puntos"
+    "more": "{value}× más",
+    "points": "+{value} puntos",
+    "readCase": "Leer el caso"
   },
   "Log": {
     "title": "Diario de entreno",
@@ -64,13 +66,14 @@
   },
   "Projects": {
     "title": "Proyectos",
-    "lede": "Proyectos personales, de principio a fin.",
+    "lede": "Productos que lidero en el trabajo y proyectos personales que construyo por gusto, de principio a fin.",
     "try": "Prueba {name}",
     "readCase": "Leer el caso",
     "nextCase": "Siguiente caso",
     "stackTitle": "El stack",
     "back": "Volver a proyectos",
-    "visit": "Visitar la web"
+    "visit": "Visitar la web",
+    "otherCases": "Más proyectos"
   },
   "Contact": {
     "email": "Email",
@@ -155,7 +158,7 @@
     "profile": "Perfil",
     "originalPdf": "PDF original",
     "now": "Actualidad",
-    "description": "Currículum de Matías García, Tech Lead y desarrollador full stack en Málaga: experiencia, proyectos, habilidades e idiomas.",
+    "description": "Currículum de Matías García, ingeniero full stack y Tech Lead en Málaga: experiencia, proyectos, habilidades e idiomas.",
     "printHint": "Imprimir o guardar en PDF"
   },
   "Pending": {

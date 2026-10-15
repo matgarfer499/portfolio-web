@@ -5,28 +5,29 @@ type Stat = { readonly value: string; readonly label: Localized };
 export const hero = {
   roleLine: {
     before: { en: 'Tech Lead at Bettergy. ', es: 'Tech Lead en Bettergy. ' },
-    mark: { en: 'I own products end to end', es: 'Llevo productos de principio a fin' },
+    mark: { en: 'I build products end to end', es: 'Construyo productos de principio a fin' },
     after: {
-      en: ', from the database query to the last pixel.',
-      es: ', desde la consulta a la base de datos hasta el último píxel.',
+      en: ', from the database to the deploy.',
+      es: ', desde la base de datos hasta el despliegue.',
     },
   },
   lede: {
-    en: 'Full stack developer building simple, fast and enjoyable web apps for the energy sector. Python and Django on the back, SvelteKit and Next.js on the front, Docker and Kubernetes to ship it.',
-    es: 'Desarrollador full stack que construye aplicaciones web sencillas, rápidas y agradables de usar para el sector energético. Python y Django en el back, SvelteKit y Next.js en el front, Docker y Kubernetes para llevarlo a producción.',
+    en: 'Full stack engineer leading a team of five in Málaga. Django and PostgreSQL on the back, Next.js and TypeScript on the front, Docker and Kubernetes to run it, and an AI-assisted workflow with Claude Code to ship faster without dropping quality.',
+    es: 'Ingeniero full stack al frente de un equipo de cinco personas en Málaga. Django y PostgreSQL en el back, Next.js y TypeScript en el front, Docker y Kubernetes para ponerlo en marcha y un flujo de trabajo con IA (Claude Code) para lanzar más rápido sin perder calidad.',
   },
   // Value computed from profile.careerSince, so it never goes stale.
   yearsLabel: { en: 'Shipping web apps', es: 'Lanzando apps web' },
   stats: [
-    { value: '2', label: { en: 'Countries worked in', es: 'Países en los que he trabajado' } },
-    { value: 'B2', label: { en: 'English, Cambridge First', es: 'Inglés, Cambridge First' } },
+    { value: '3', label: { en: 'Products I lead', es: 'Productos que lidero' } },
+    { value: '10+', label: { en: 'MIOT clients in 6 months', es: 'Clientes de MIOT en 6 meses' } },
   ],
   marquee: [
     { en: 'Owns it end to end', es: 'De principio a fin' },
     { en: 'Tech Lead', es: 'Tech Lead' },
+    { en: 'MIOT live in < 2 months', es: 'MIOT en producción en < 2 meses' },
     { en: '90 s → 1 s', es: '90 s → 1 s' },
-    { en: 'Lighthouse 100', es: 'Lighthouse 100' },
-    { en: '6000 → 7 queries', es: '6000 → 7 consultas' },
+    { en: 'Weekly releases', es: 'Despliegues semanales' },
+    { en: '€3k+ a year saved on infra', es: '+3000 € al año ahorrados en infra' },
     { en: 'Full stack', es: 'Full stack' },
   ],
   photo: {
