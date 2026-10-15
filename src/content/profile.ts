@@ -8,7 +8,8 @@ export const profile = {
   city: 'Málaga',
   timeZone: 'Europe/Madrid',
   email: 'mjgarciadev14@gmail.com',
-  cv: '/matias-garcia-cv.pdf',
+  // Printed from /cv by `pnpm cv:pdf`; regenerate after editing the content.
+  cv: { en: '/matias-garcia-cv.pdf', es: '/matias-garcia-cv-es.pdf' },
   // The month the working career starts (the Uniklinik internship); "3+ yrs" is derived from it.
   careerSince: '2023-03',
   availability: {
@@ -40,7 +41,7 @@ export const profile = {
   readonly city: string;
   readonly timeZone: string;
   readonly email: string;
-  readonly cv: string;
+  readonly cv: Localized;
   readonly careerSince: string;
   readonly availability: { readonly status: 'open' | 'busy'; readonly label: Localized };
   readonly languages: readonly { readonly name: Localized; readonly level: Localized }[];

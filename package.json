@@ -22,6 +22,7 @@
     "test:watch": "vitest",
     "test:e2e": "playwright test",
     "content:pending": "node scripts/content-pending.mjs",
+    "cv:pdf": "node scripts/cv-pdf.mjs",
     "prepare": "husky"
   },
   "dependencies": {

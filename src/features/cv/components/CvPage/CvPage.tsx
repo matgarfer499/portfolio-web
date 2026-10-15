@@ -43,8 +43,8 @@ export async function CvPage({ locale }: { locale: Locale }) {
         <article className={styles.sheet()}>
           <div className={styles.tools()}>
             <PrintButton label={t('print')} hint={t('printHint')} />
-            <a href={profile.cv} className={styles.link()}>
-              {t('originalPdf')}
+            <a href={localize(profile.cv, locale)} className={styles.link()}>
+              {t('pdfFile')}
             </a>
             <Link
               href={localizedPath(locale, '/')}
@@ -107,18 +107,20 @@ export async function CvPage({ locale }: { locale: Locale }) {
               {t('projects')}
             </h2>
             {projects.caseStudies.map((study) => (
-              <div key={study.slug} className={styles.entry()}>
-                <p translate="no" className={styles.period()}>
+              <div key={study.slug} className={styles.project()}>
+                <h3 className={styles.title()}>
+                  <Text value={study.name} locale={locale} />
+                  <span className={styles.meta()}>
+                    {' · '}
+                    <Text value={study.tagline} locale={locale} />
+                  </span>
+                </h3>
+                <p className={styles.text()}>
+                  <Text value={study.summary} locale={locale} />
+                </p>
+                <p translate="no" className={styles.stack()}>
                   {study.stack.join(' · ')}
                 </p>
-                <div>
-                  <h3 className={styles.title()}>
-                    <Text value={study.name} locale={locale} />
-                  </h3>
-                  <p className={styles.text()}>
-                    <Text value={study.summary} locale={locale} />
-                  </p>
-                </div>
               </div>
             ))}
           </section>

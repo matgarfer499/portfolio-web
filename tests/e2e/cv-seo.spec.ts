@@ -25,7 +25,7 @@ test('the cv is built from the content in each language', async ({ page }) => {
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Matías José García Fernández');
   await expect(page.getByRole('heading', { name: 'Experiencia' })).toBeVisible();
   await expect(page.getByText('ene 2024 — Actualidad', { exact: false })).toBeVisible();
-  await expect(page.getByText('Construí MIOT', { exact: false })).toBeVisible();
+  await expect(page.getByText('Construí MIOT Sentra', { exact: false })).toBeVisible();
   await expect(page.locator('[data-pending]')).toHaveCount(0);
   await expect(page).toHaveTitle('Currículum — Matías García');
 });

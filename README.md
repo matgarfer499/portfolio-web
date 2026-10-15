@@ -29,6 +29,7 @@ pnpm test:e2e         # playwright + axe on the production build
 pnpm typecheck        # tsc --noEmit
 pnpm format           # prettier
 pnpm content:pending  # facts the owner still has to fill in
+pnpm cv:pdf           # print /cv and /es/cv into public/ (needs pnpm build && pnpm start)
 ```
 
 Husky + lint-staged run eslint/prettier and commitlint (Conventional Commits) on every commit.
@@ -48,7 +49,8 @@ Every career fact lives in `src/content/` — typed, bilingual (`{ en, es }`), n
 | `contact.ts`    | contact headline                                                            |
 
 Unknown facts are written as `pending({ en, es })`: they render as dashed placeholders and show up
-in `pnpm content:pending`. Replace each with the real value. UI strings (labels, buttons) live in
+in `pnpm content:pending`. Replace each with the real value. After editing the content, run `pnpm cv:pdf` so the
+downloadable CV PDFs match the site. UI strings (labels, buttons) live in
 `src/messages/{en,es}.json`; tests fail if the two languages drift apart.
 
 ## Contact form
