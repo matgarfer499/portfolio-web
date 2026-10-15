@@ -8,7 +8,7 @@ import { Container } from '@shared/components/atoms/Container/Container';
 import { Icon } from '@shared/components/atoms/Icon/Icon';
 import { yearsSince } from '../../model';
 import { HeroName } from '../HeroName/HeroName';
-import { HeroPhoto } from '../HeroPhoto/HeroPhoto';
+import { HeroWords } from '../HeroWords/HeroWords';
 import { heroVariants as styles } from './Hero.variants';
 
 export async function Hero({ locale }: { locale: Locale }) {
@@ -60,7 +60,7 @@ export async function Hero({ locale }: { locale: Locale }) {
               ))}
             </dl>
           </div>
-          <HeroPhoto locale={locale} />
+          <HeroWords locale={locale} />
         </div>
       </Container>
     </section>

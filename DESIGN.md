@@ -1,7 +1,7 @@
 ---
 version: 1
 name: PR Board
-description: "Sports-brand poster portfolio. A career read like an athlete's record: giant condensed name, a training photo crossed by a volt band, a night records board with before → after numbers, a training-log table. Hard ink borders, offset shadows, one volt accent. Light and dark."
+description: "Sports-brand poster portfolio. A career read like an athlete's record: giant condensed name beside a poster of three verbs (build · lead · ship), a night records board with before → after numbers, a training-log table. Hard ink borders, offset shadows, one volt accent. Light and dark."
 
 colors:
   light:
@@ -11,7 +11,7 @@ colors:
     steel: '#555A50' # labels, ledes, meta (AA on paper)
     line: '#DCDED8' # hairlines that are not ink borders
     ghost: '#8A8F84' # LARGE text only on paper (≈3.3:1 fails body AA)
-    volt: '#D4FF1F' # the one accent: band, CTA, highlights, toast
+    volt: '#D4FF1F' # the one accent: hero ship row, CTA, highlights, toast
     on-volt: '#111111' # text on volt, both themes
     night: '#111111' # records board background
     night-ink: '#FFFFFF' # text on night
@@ -67,7 +67,7 @@ and a single chromatic accent, **volt #D4FF1F**. The career is framed as trainin
 (before → after production numbers), a training log (experience), off the clock (the person),
 projects, and a finish line (contact).
 
-Volt marks: the hero band, the primary CTA, `<mark>` highlights, record values on the night board,
+Volt marks: the hero's "ship" row, the primary CTA, `<mark>` highlights, record values on the night board,
 the toast, the scroll-progress bar and focus accents. Nothing else is volt. Text on volt is always
 `on-volt` (#111111), in both themes.
 
@@ -129,7 +129,6 @@ from server-rendered final content.
 | Effect           | Where                        | Spec                                                                                                      |
 | ---------------- | ---------------------------- | --------------------------------------------------------------------------------------------------------- |
 | Name mask reveal | Hero                         | per letter, clip-path inset bottom → 0, 60 ms stagger, CSS on load                                        |
-| Marquee          | Hero band                    | 26 s loop; speed follows scroll velocity, direction follows scroll direction, pauses on hover             |
 | Scroll progress  | Header                       | volt bar, scaleX from scroll position                                                                     |
 | Mobile menu      | Header                       | full-screen, giant Anton links staggered in                                                               |
 | Count-up         | Records                      | odometer digits, ease-out cubic 1.4 s, once in view                                                       |

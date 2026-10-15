@@ -1,4 +1,4 @@
-import type { Highlighted, ImageAsset, Localized } from './types';
+import type { Highlighted, Localized } from './types';
 
 type Stat = { readonly value: string; readonly label: Localized };
 
@@ -24,31 +24,32 @@ export const hero = {
       label: { en: 'Sentra clients in 6 months', es: 'Clientes de Sentra en 6 meses' },
     },
   ],
-  marquee: [
-    { en: 'Owns it end to end', es: 'De principio a fin' },
-    { en: 'Tech Lead', es: 'Tech Lead' },
-    { en: 'Sentra live in < 2 months', es: 'Sentra en producción en < 2 meses' },
-    { en: '90 s → 1 s', es: '90 s → 1 s' },
-    { en: 'Weekly releases', es: 'Despliegues semanales' },
-    { en: '−47% infra bill', es: '−47 % en infraestructura' },
-    { en: 'Full stack', es: 'Full stack' },
-  ],
-  photo: {
-    src: '/photos/gym.webp',
-    width: 1024,
-    height: 936,
-    alt: {
-      en: 'Dumbbells, plates, a jump rope and resistance bands laid out on a concrete floor',
-      es: 'Mancuernas, discos, una comba y gomas elásticas sobre un suelo de hormigón',
+  // The hero's right-hand poster: what he does in three verbs, each with its proof.
+  words: [
+    {
+      id: 'build',
+      word: { en: 'Build', es: 'Construyo' },
+      proof: { en: 'Next.js · Django · PostgreSQL', es: 'Next.js · Django · PostgreSQL' },
     },
-  },
-  photoCaption: { en: 'My second job', es: 'Mi segundo trabajo' },
+    {
+      id: 'lead',
+      word: { en: 'Lead', es: 'Lidero' },
+      proof: { en: 'A team of five', es: 'Un equipo de cinco' },
+    },
+    {
+      id: 'ship',
+      word: { en: 'Ship', es: 'Lanzo' },
+      proof: { en: 'Every week, to production', es: 'Cada semana, a producción' },
+    },
+  ],
 } as const satisfies {
   readonly roleLine: Highlighted;
   readonly lede: Localized;
   readonly yearsLabel: Localized;
   readonly stats: readonly Stat[];
-  readonly marquee: readonly Localized[];
-  readonly photo: ImageAsset;
-  readonly photoCaption: Localized;
+  readonly words: readonly {
+    readonly id: string;
+    readonly word: Localized;
+    readonly proof: Localized;
+  }[];
 };

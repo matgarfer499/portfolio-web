@@ -102,7 +102,7 @@ test('without JavaScript the hero is fully readable', async ({ browser }) => {
   await page.goto('/');
   await expect(page.getByRole('heading', { level: 1, name: 'Matías García' })).toBeVisible();
   await expect(page.getByText('I build products end to end')).toBeVisible();
-  await expect(page.getByRole('img', { name: /Dumbbells/ })).toBeVisible();
+  await expect(page.locator('#top li')).toHaveText([/Build/, /Lead/, /Ship/]);
   await context.close();
 });
 

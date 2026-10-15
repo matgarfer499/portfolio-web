@@ -279,12 +279,6 @@
   }
 }
 
-@keyframes marquee {
-  to {
-    transform: translateX(-50%);
-  }
-}
-
 @layer base {
   /* rem scales the whole composition on big screens instead of a separate TV layout. */
   html {
