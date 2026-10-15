@@ -11,7 +11,7 @@ export function StackGrid({ locale, title }: { locale: Locale; title: string }) 
       <div className={styles.grid()}>
         {projects.stack.map((group) => (
           <div key={group.id} className={styles.cell()}>
-            <b className={styles.title()}>{localize(group.title, locale)}</b>
+            <span className={styles.title()}>{localize(group.title, locale)}</span>
             <span translate="no" className={styles.items()}>
               {group.items.join(', ')}
             </span>

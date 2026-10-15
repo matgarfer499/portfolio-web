@@ -35,8 +35,13 @@ export function caseMeta(
   };
 }
 
+// The home element that holds a case (featured card or list row): "back" lands right on it.
+export function caseAnchor(slug: string): string {
+  return `project-${slug}`;
+}
+
 // Shared-element names: the home card and the case page must use the same one to morph.
-export function caseTransition(part: 'title' | 'shot', slug: string): string {
+export function caseTransition(part: 'title', slug: string): string {
   return `case-${part}-${slug}`;
 }
 

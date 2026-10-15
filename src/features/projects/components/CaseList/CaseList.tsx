@@ -1,14 +1,16 @@
 import Link from 'next/link';
+import { ViewTransition } from 'react';
 import { localizedPath } from '@/i18n/paths';
 import type { Locale } from '@/i18n/routing';
 import { resolve, type CaseStudy } from '@content/index';
 import { Icon } from '@shared/components/atoms/Icon/Icon';
 import { Label } from '@shared/components/atoms/Label/Label';
 import { RichText } from '@shared/components/atoms/RichText/RichText';
+import { caseAnchor, caseTransition } from '../../model';
 import { caseListVariants as styles } from './CaseList.variants';
 
-// The cases after the featured one, as numbered rows that open each case page.
-// Numbering continues from the featured case (01), so the list starts at 02.
+// The cases after the featured one, as numbered rows that open each case page. Numbering
+// continues from the featured case (01); each name morphs into its case page title.
 export function CaseList({
   studies,
   locale,
@@ -25,7 +27,7 @@ export function CaseList({
       </h3>
       <ol className={styles.list()}>
         {studies.map((study, i) => (
-          <li key={study.slug} className={styles.item()}>
+          <li key={study.slug} id={caseAnchor(study.slug)} className={styles.item()}>
             <Link
               href={localizedPath(locale, `/projects/${study.slug}`)}
               transitionTypes={['nav-forward']}
@@ -38,9 +40,11 @@ export function CaseList({
                 <Label>
                   <RichText parts={[resolve(study.tagline, locale)]} />
                 </Label>
-                <span className={styles.name()}>
-                  <RichText parts={[resolve(study.name, locale)]} />
-                </span>
+                <ViewTransition name={caseTransition('title', study.slug)} share="morph">
+                  <span className={styles.name()}>
+                    <RichText parts={[resolve(study.name, locale)]} />
+                  </span>
+                </ViewTransition>
                 <span className={styles.summary()}>
                   <RichText parts={[resolve(study.summary, locale)]} />
                 </span>

@@ -15,7 +15,7 @@ import { Label } from '@shared/components/atoms/Label/Label';
 import { Placeholder } from '@shared/components/atoms/Placeholder/Placeholder';
 import { Section } from '@shared/components/atoms/Section/Section';
 import { TrophyOnMount } from '@shared/components/atoms/TrophyOnMount/TrophyOnMount';
-import { caseTransition, nextCase } from '../../model';
+import { caseAnchor, caseText, caseTransition, nextCase } from '../../model';
 import { NextCase } from '../NextCase/NextCase';
 import { caseStudyPageVariants as styles } from './CaseStudyPage.variants';
 
@@ -24,19 +24,30 @@ export async function CaseStudyPage({ study, locale }: { study: CaseStudy; local
   const name = resolve(study.name, locale);
   const tagline = resolve(study.tagline, locale);
   const summary = resolve(study.summary, locale);
+  const next = nextCase(study.slug);
 
   return (
     <>
       <Section spacing="tight">
         <Container>
-          <Link
-            href={localizedPath(locale, '/#projects')}
-            transitionTypes={['nav-back']}
-            className={styles.back()}
-          >
-            <Icon name="arrow-left" />
-            {t('back')}
-          </Link>
+          <nav aria-label={t('caseNav')} className={styles.top()}>
+            <Link
+              href={localizedPath(locale, `/#${caseAnchor(study.slug)}`)}
+              transitionTypes={['nav-back']}
+              className={styles.back()}
+            >
+              <Icon name="arrow-left" />
+              {t('back')}
+            </Link>
+            <Link
+              href={localizedPath(locale, `/projects/${next.slug}`)}
+              transitionTypes={['nav-forward']}
+              className={styles.back()}
+            >
+              {t('nextShort', { name: caseText(next.name, locale) })}
+              <Icon name="arrow-right" />
+            </Link>
+          </nav>
           <div className={styles.head()}>
             {tagline.kind === 'pending' ? (
               <Placeholder note={tagline.note} />
@@ -65,25 +76,29 @@ export async function CaseStudyPage({ study, locale }: { study: CaseStudy; local
               </div>
             ) : null}
             {study.url ? (
-              <a href={study.url} className={buttonVariants({ variant: 'dark' })}>
+              <a
+                href={study.url}
+                target="_blank"
+                rel="noreferrer"
+                className={buttonVariants({ variant: 'dark' })}
+              >
                 {t('visit')}
                 <Icon name="arrow-up-right" />
+                <span className="sr-only"> {t('newTab')}</span>
               </a>
             ) : null}
           </div>
           {study.shots ? (
             <div className={styles.shot()}>
-              <ViewTransition name={caseTransition('shot', study.slug)} share="morph">
-                <Image
-                  src={study.shots.desktop.src}
-                  width={study.shots.desktop.width}
-                  height={study.shots.desktop.height}
-                  alt={localize(study.shots.desktop.alt, locale)}
-                  sizes="(min-width: 68.75rem) 56rem, 90vw"
-                  priority
-                  className={styles.shotImage()}
-                />
-              </ViewTransition>
+              <Image
+                src={study.shots.desktop.src}
+                width={study.shots.desktop.width}
+                height={study.shots.desktop.height}
+                alt={localize(study.shots.desktop.alt, locale)}
+                sizes="(min-width: 68.75rem) 56rem, 90vw"
+                priority
+                className={styles.shotImage()}
+              />
             </div>
           ) : null}
         </Container>
@@ -128,7 +143,7 @@ export async function CaseStudyPage({ study, locale }: { study: CaseStudy; local
             </div>
           ))}
           <div className={styles.next()}>
-            <NextCase study={nextCase(study.slug)} locale={locale} label={t('nextCase')} />
+            <NextCase study={next} locale={locale} label={t('nextCase')} />
           </div>
         </Container>
       </Section>

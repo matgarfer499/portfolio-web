@@ -11,28 +11,31 @@ import { Display } from '@shared/components/atoms/Display/Display';
 import { Icon } from '@shared/components/atoms/Icon/Icon';
 import { Label } from '@shared/components/atoms/Label/Label';
 import { RichText } from '@shared/components/atoms/RichText/RichText';
-import { caseText, caseTransition } from '../../model';
+import { caseAnchor, caseText, caseTransition } from '../../model';
 import { featuredCaseVariants as styles } from './FeaturedCase.variants';
 
-// The title and the laptop shot share view-transition names with /projects/[slug]. The phone
-// shot is optional; pending fields render as dashed placeholders, as on the case page.
+// The title morphs into the case page heading (shared view-transition name). The phone shot is
+// optional; pending fields render as dashed placeholders, as on the case page.
 export async function FeaturedCase({ study, locale }: { study: CaseStudy; locale: Locale }) {
   const t = await getTranslations({ locale, namespace: 'Projects' });
   const name = caseText(study.name, locale);
   return (
-    <article data-reveal aria-labelledby={`case-${study.slug}`} className={styles.root()}>
+    <article
+      data-reveal
+      id={caseAnchor(study.slug)}
+      aria-labelledby={`case-${study.slug}`}
+      className={styles.root()}
+    >
       {study.shots ? (
         <div className={styles.visual({ phone: Boolean(study.shots.phone) })}>
-          <ViewTransition name={caseTransition('shot', study.slug)} share="morph">
-            <Image
-              src={study.shots.desktop.src}
-              width={study.shots.desktop.width}
-              height={study.shots.desktop.height}
-              alt={localize(study.shots.desktop.alt, locale)}
-              sizes="(min-width: 68.75rem) 50vw, 92vw"
-              className={styles.desk()}
-            />
-          </ViewTransition>
+          <Image
+            src={study.shots.desktop.src}
+            width={study.shots.desktop.width}
+            height={study.shots.desktop.height}
+            alt={localize(study.shots.desktop.alt, locale)}
+            sizes="(min-width: 68.75rem) 50vw, 92vw"
+            className={styles.desk()}
+          />
           {study.shots.phone ? (
             <Image
               src={study.shots.phone.src}
@@ -64,9 +67,15 @@ export async function FeaturedCase({ study, locale }: { study: CaseStudy; locale
         </div>
         <div className={styles.ctas()}>
           {study.url ? (
-            <a href={study.url} className={buttonVariants({ variant: 'dark' })}>
+            <a
+              href={study.url}
+              target="_blank"
+              rel="noreferrer"
+              className={buttonVariants({ variant: 'dark' })}
+            >
               {t('try', { name })}
               <Icon name="arrow-up-right" />
+              <span className="sr-only"> {t('newTab')}</span>
             </a>
           ) : null}
           <Link
