@@ -27,7 +27,7 @@ export async function ContactSection({ locale }: { locale: Locale }) {
     >
       <Container className={styles.layout()}>
         <div className={styles.reach()}>
-          <Display id="contact-title" size="section">
+          <Display id="contact-title" size="half">
             {contact.headline.map((line, i) => (
               <span key={line.en}>
                 {i > 0 ? <br /> : null}

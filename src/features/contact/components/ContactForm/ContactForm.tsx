@@ -87,26 +87,28 @@ export function ContactForm({ to, labels }: { to: string; labels: ContactFormLab
         <label htmlFor="contact-website">{labels.honeypot}</label>
         <input id="contact-website" name="website" tabIndex={-1} autoComplete="off" />
       </div>
-      <div className={cn(styles.actions(), styles.full())}>
-        <Button type="submit" variant="dark" aria-disabled={pending || undefined}>
-          {pending ? labels.sending : labels.send}
-        </Button>
-      </div>
-      {/* Live regions stay mounted (empty when idle) so their content is announced on arrival. */}
-      <div role="status" className={styles.full()}>
-        {state.status === 'sent' ? <p className={styles.status()}>{labels.sent}</p> : null}
-      </div>
-      <div role="alert" className={styles.full()}>
-        {state.status === 'error' && state.reason !== 'invalid' ? (
-          <div className={styles.status()}>
-            {state.reason === 'unconfigured' ? labels.unconfigured : labels.errors[state.reason]}
-            {state.reason !== 'rateLimited' ? (
-              <a href={mailtoHref(to, state.values)} className={styles.mail()}>
-                {labels.openMail}
-              </a>
-            ) : null}
-          </div>
-        ) : null}
+      <div className={styles.end()}>
+        <div className={styles.actions()}>
+          <Button type="submit" variant="dark" aria-disabled={pending || undefined}>
+            {pending ? labels.sending : labels.send}
+          </Button>
+        </div>
+        {/* Live regions stay mounted (empty when idle) so their content is announced on arrival. */}
+        <div role="status" className={styles.live()}>
+          {state.status === 'sent' ? <p className={styles.status()}>{labels.sent}</p> : null}
+        </div>
+        <div role="alert" className={styles.live()}>
+          {state.status === 'error' && state.reason !== 'invalid' ? (
+            <div className={styles.status()}>
+              {state.reason === 'unconfigured' ? labels.unconfigured : labels.errors[state.reason]}
+              {state.reason !== 'rateLimited' ? (
+                <a href={mailtoHref(to, state.values)} className={styles.mail()}>
+                  {labels.openMail}
+                </a>
+              ) : null}
+            </div>
+          ) : null}
+        </div>
       </div>
     </form>
   );

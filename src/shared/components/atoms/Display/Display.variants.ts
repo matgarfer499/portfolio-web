@@ -10,6 +10,8 @@ export const displayVariants = cva(
         section: 'text-[clamp(3.5rem,7cqi,6.875rem)] leading-[0.9]',
         card: 'text-[clamp(4rem,7cqi,6.75rem)] leading-[0.9]',
         poster: 'text-[16.4cqi] leading-[0.9] stack:text-[12.2cqi]',
+        // A poster headline in one of two columns: about half the full poster on desktop.
+        half: 'text-[16.4cqi] leading-[0.9] stack:text-[8cqi]',
         lg: 'text-[2.125rem] leading-none',
         stat: 'text-[1.875rem] leading-none',
       },
