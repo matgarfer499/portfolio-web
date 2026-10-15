@@ -1,0 +1,39 @@
+import type { ContactEnv } from '../env';
+import { parseContact, type ContactValues, type FieldErrors } from './schema';
+import { contactSubject } from './subject';
+import type { OutgoingEmail } from './resend';
+
+export type ContactResult =
+  | { status: 'idle' | 'sent' }
+  | { status: 'error'; reason: 'invalid'; fieldErrors: FieldErrors; values: ContactValues }
+  | { status: 'error'; reason: 'rateLimited' | 'unconfigured' | 'failed'; values: ContactValues };
+
+export interface ContactDeps {
+  env: ContactEnv;
+  allow: () => boolean;
+  send: (email: OutgoingEmail) => Promise<boolean>;
+}
+
+// The whole contact flow with its I/O injected; action.ts wires the real request, env and sender.
+export async function handleContact(data: FormData, deps: ContactDeps): Promise<ContactResult> {
+  const parsed = parseContact(data);
+  if (!parsed.ok) {
+    const { fieldErrors, values } = parsed;
+    return { status: 'error', reason: 'invalid', fieldErrors, values };
+  }
+  if (parsed.bot) return { status: 'sent' };
+  const values = parsed.data;
+  const { apiKey, from, to } = deps.env;
+  // The limiter guards sending; the mailto fallback costs nothing, so it is never limited.
+  if (!apiKey) return { status: 'error', reason: 'unconfigured', values };
+  if (!deps.allow()) return { status: 'error', reason: 'rateLimited', values };
+  const sent = await deps.send({
+    apiKey,
+    from,
+    to,
+    replyTo: values.email,
+    subject: contactSubject(values.name),
+    text: values.message,
+  });
+  return sent ? { status: 'sent' } : { status: 'error', reason: 'failed', values };
+}

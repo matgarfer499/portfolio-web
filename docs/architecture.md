@@ -1,0 +1,140 @@
+# Architecture
+
+Binding conventions for all code in `src/`. Visual values live in `DESIGN.md`; why the site looks
+like this in `docs/adr/0004-from-game-to-pr-board.md`.
+
+## 1. Layers
+
+```
+src/
+  app/                      Next.js App Router only: routes, layouts, metadata, OG images, sitemap
+    [locale]/               layout.tsx (html, providers, theme script) · page.tsx (home)
+      projects/[slug]/      case study · cv/ print-ready CV · styleguide/ (dev only, 404 in prod)
+  features/<feature>/       one folder per section or capability
+    components/<Name>/      Name.tsx + Name.variants.ts (+ Name.test.ts for logic)
+    model.ts                pure logic of the feature (no React, no I/O) + model.test.ts
+    actions.ts              Server Actions ("use server"), only where a feature mutates
+    index.ts                the feature's public API — the only import path from outside
+  shared/                   domain-agnostic, imported by file path (no barrels)
+    components/atoms/<Name>/        Button, Chip, Label, Display, Container, Section, Icon
+    components/molecules/<Name>/    SectionHead (section title + lede)
+    motion/                 tokens.ts, MotionProvider.tsx, hooks (reduced motion, in-view)
+    events/trophy-bus.ts    typed event bus: features emit, only `trophies` listens
+    lib/                    cn, formatters, storage (try/catch localStorage)
+    config/site.ts          canonical URL (NEXT_PUBLIC_SITE_URL, default https://matiasgarcia.dev)
+  server/                   server-only (`import 'server-only'`): env, mail adapter, rate limit
+  content/                  typed content (`{ en }` strings), the one content source
+  i18n/  messages/          next-intl routing/request config (English only), UI strings
+  proxy.ts                  next-intl locale proxy (Next 16 name for middleware)
+```
+
+The atom list grows when needed; a domain-flavoured piece (the records' ratio badge) stays in its
+feature. Features: `shell` (header, nav, mobile menu, theme + language switch, scroll progress, footer),
+`hero`, `records`, `log`, `about`, `projects`, `contact`, `trophies`, `cv`.
+
+**Dependency direction** (ESLint `no-restricted-imports` enforces it, a violation fails the build):
+
+| Layer          | May import                                                                                                                               |
+| -------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| `app/`         | everything; the only place that composes several features                                                                                |
+| `features/<f>` | its own files, `shared/`, `content/`, `i18n/`, `server/` (actions, dependency-free helpers, types) — never another feature, never `app/` |
+| `shared/`      | `shared/`, `i18n/` — never `features/`, `app/`, `content/`                                                                               |
+| `server/`      | `shared/`, `content/`                                                                                                                    |
+| `content/`     | `i18n/` types only                                                                                                                       |
+
+- **Barrels:** each feature exposes `index.ts`, and so does `content/` (`@content/index`); outside code imports `@features/records`, never a
+  deep path. `shared/` has no barrels: import the file (`@shared/components/atoms/Button/Button`).
+- **Page shell:** `app/[locale]/_components/PageChrome` (skip link, header with the trophies slot, footer)
+  wraps every page; it lives in the app layer because shell may not import trophies. Unknown paths hit
+  `app/[locale]/[...rest]` → `notFound()` → the localized `not-found.tsx` (real 404).
+- **Metadata:** every page returns `pageMeta()` (`shared/config/seo.ts`): title, description, canonical +
+  hreflang, and openGraph + twitter **in full** — Next merges metadata shallowly, so a partial `openGraph`
+  would keep the home's. A page that sets `openGraph` loses the inherited `opengraph-image`: give it its own.
+  next/og images use `src/app/brand.ts` (token mirrors) + `assets/fonts/*.ttf`; the proxy matcher skips the
+  extension-less image routes so `/en/opengraph-image` never redirects.
+- **Routes are thin:** a page awaits `params`, narrows the locale with `hasLocale`, calls
+  `setRequestLocale`, and renders features. No markup beyond layout glue, no styles.
+- **Cross-feature effects** go through the trophy bus, not imports: `emitTrophy('email-copied')`
+  in `contact`, the `trophies` feature subscribes. Event names are a closed union in the bus.
+  The trophies island mounts in the shell header's `trophies` slot (filled by each page); its zustand
+  store starts empty (server 0/8 = first client render) and hydrates from localStorage in an effect.
+
+## 2. Server and client
+
+- Server Components by default. `"use client"` only on the leaf that needs state, effects or
+  browser APIs; pass server-rendered children through it instead of moving a tree to the client.
+- **No content hidden until hydration.** Every enhancement (reveal, count-up, name reveal) starts
+  from the final server-rendered state and animates only when JS and motion are allowed. Islands
+  decide "below the fold" with `isBelowFold` (`shared/motion/viewport.ts`), which honours deep links.
+- `process.env` is read only in `src/server/**` and `src/shared/config/site.ts`
+  (`NEXT_PUBLIC_SITE_URL`). Secrets (`RESEND_API_KEY`, `CONTACT_TO`) are read and validated once in
+  `src/server/env.ts` and never leave `src/server`.
+- **Server Actions** (contact form, `src/server/contact/`): the flow lives in `handle.ts` with its env,
+  limiter and sender injected (unit-tested); `action.ts` only wires `headers()` and the real deps. Pure
+  server modules skip `server-only` so vitest can run them (vitest aliases it to a stub); anything a
+  client file imports from `server/` must be dependency-free (`subject.ts`) or type-only.
+  zod parse → honeypot → rate limit → adapter → typed result
+  `{ ok: true } | { ok: false, reason, fieldErrors? }`. With no API key the action reports
+  `reason: 'unconfigured'` and the form shows the mailto fallback.
+
+## 3. Styles: CVA in `.variants.ts`
+
+- Inline class strings of more than 4 classes are not allowed in `.tsx` (pattern-scan flags them).
+- Atoms export one `cva` + its `VariantProps` (`buttonVariants`, `ButtonVariantProps`); organisms
+  export one object of slots: `export const heroVariants = { root: cva('…'), name: cva('…') }`,
+  used as `import { heroVariants as styles } from './Hero.variants'` → `className={styles.root()}`.
+- Join caller classes with `cn` (`@shared/lib/cn`, clsx only: tailwind-merge cost ~10 kB gz on
+  the client). A caller class must not set a property the component's variants already set; add a
+  variant instead. Tokens only, never hex values in components
+  (DESIGN.md). Units in rem (the root font size scales for big screens).
+
+## 4. Components (React 19)
+
+- Named exports only (`export function Button`), no default exports except where Next requires
+  them (pages, layouts, metadata routes).
+- `ref` is a regular prop: no `forwardRef`, no `displayName`.
+- The React Compiler memoises: no `useMemo`/`useCallback` unless a profiler says so.
+- Effects only to sync with the outside world (observers, listeners, timers); derive state in render.
+- Every interactive element is reachable by keyboard, has a visible `:focus-visible` ring and a
+  ≥44 px (2.75rem) target. Dialogs (menu, lightbox, trophy shelf) trap focus and return it to the
+  opener on close.
+
+## 5. Content and i18n
+
+- Translation happens on the server (`getTranslations({ locale, namespace })`). Client islands
+  get finished strings as props; there is no next-intl client runtime. Internal links use
+  `next/link` + `localizedPath()` (`src/i18n/paths.ts`); PDFs and external URLs are plain `<a>`.
+
+- `src/content/` holds every career fact as typed data with `Localized` strings (`{ en }`; English only since the international relaunch).
+  UI chrome (buttons, labels, aria) lives in `src/messages/{en,es}.json`, typed by `en.json`.
+- Never invent a fact or a metric. An unknown fact is asked of the owner or left out. (The P2
+  `pending()` markers and `content:pending` were removed once every fact was filled.)
+- Parity tests fail when a key or a localized value exists in one language only.
+
+## 6. Comments: 3 lines at most
+
+Enforced by `local/max-comment-lines` (`eslint/rules/`, with a RuleTester test that runs in
+vitest). Comment the why, never the what; longer explanations go to `docs/` and the comment
+links there. Don't split one explanation into several blocks to dodge the rule.
+
+## 7. Tests
+
+- Vitest (`src/**/*.test.ts`, `eslint/**/*.test.mjs`): every `model.ts`, the bus, formatters,
+  content invariants, the form schema and the contrast of the dark tokens.
+- Playwright (`tests/e2e`) against the production build: both locales, theme persistence, the 8
+  trophies, copy email, form validation, CV, and axe on every route.
+
+## 8. Build plan (v4)
+
+| Phase                       | Scope                                                                                                                | Done when                                                        |
+| --------------------------- | -------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| P0 Reset & foundations      | Remove the game, port career-os tooling, docs, skills, assets                                                        | lint, typecheck, test and build green; no three/R3F code or deps |
+| P1 Design system            | Tokens (light/dark, later dark only), theme script, fonts, rem scaling, motion, atoms, contrast test, dev styleguide | styleguide screenshots pass the full QA matrix                   |
+| P2 Content + i18n           | Typed content for every section, `pending()`, `content:pending`, messages, parity tests                              | no untranslated string exists                                    |
+| P3 Shell + Hero + footer    | Sticky header, nav, mobile menu, progress bar, hero name reveal, marquee, footer clock                               | QA matrix + e2e green for the touched screens                    |
+| P4 Records + Training log   | Odometer count-up, strike draw, ratio badge; sticky when column, progress rail, disclosures                          | same                                                             |
+| P5 Off the clock + Projects | Gallery, lightbox, parallax, mockups, stack, `/projects/[slug]` with view transitions                                | same                                                             |
+| P6 Contact                  | Copy email, magnetic buttons, availability, Server Action form + Resend adapter + mailto fallback                    | same + form validation e2e                                       |
+| P7 Trophies                 | 8 trophies on the bus, counter, shelf drawer, toast, sound toggle, Konami code                                       | same + 8-trophy e2e                                              |
+| P8 CV + SEO + a11y + perf   | `/cv`, metadata, hreflang, sitemap, robots, JSON-LD, OG images, manifest/icons, full e2e, Lighthouse                 | Lighthouse ≥95 ×4, zero axe violations, budgets met              |
+| P9 Close-out                | Whole-branch review, dead code, README, SUMMARY with the human actions                                               | summary written, preview checked                                 |

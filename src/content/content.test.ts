@@ -1,0 +1,68 @@
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { describe, expect, it } from 'vitest';
+import * as content from './index';
+
+type Found = { path: string; en: string };
+
+function walk(value: unknown, path: string, out: { localized: Found[]; images: string[] }) {
+  if (Array.isArray(value)) value.forEach((v, i) => walk(v, `${path}[${i}]`, out));
+  else if (value && typeof value === 'object') {
+    const keys = Object.keys(value).join();
+    const v = value as Record<string, unknown>;
+    if (keys === 'en') out.localized.push({ path, en: String(v.en) });
+    else {
+      if (typeof v.src === 'string') out.images.push(v.src);
+      for (const [k, child] of Object.entries(v)) walk(child, `${path}.${k}`, out);
+    }
+  }
+}
+
+const found = { localized: [] as Found[], images: [] as string[] };
+for (const [name, value] of Object.entries(content))
+  if (typeof value !== 'function') walk(value, name, found);
+
+describe('content copy', () => {
+  it('walks a meaningful amount of copy', () => expect(found.localized.length).toBeGreaterThan(80));
+
+  it('has no empty text', () => {
+    expect(found.localized.filter((l) => !l.en.trim()).map((l) => l.path)).toEqual([]);
+  });
+});
+
+describe('content invariants', () => {
+  const publicDir = join(__dirname, '../../public');
+
+  it('every referenced image exists in public/', () => {
+    const missing = found.images.filter((src) => !existsSync(join(publicDir, src)));
+    expect(found.images.length).toBeGreaterThan(10);
+    expect(missing).toEqual([]);
+  });
+
+  it('never ships or references the excluded photo', () => {
+    expect(existsSync(join(publicDir, 'photos/mylove.webp'))).toBe(false);
+    const sources = readdirSync(__dirname)
+      .filter((f) => !f.endsWith('.test.ts'))
+      .map((f) => readFileSync(join(__dirname, f), 'utf8'));
+    expect(sources.filter((s) => s.includes('mylove'))).toEqual([]);
+    expect(found.localized.filter((l) => /girlfriend/i.test(l.en))).toEqual([]);
+  });
+
+  it('captions the photo with his mother apart from the friends photos', () => {
+    const mama = content.about.photos.find((p) => p.src.endsWith('lamama.webp'));
+    expect(mama?.caption.en).toMatch(/mom/i);
+    expect(mama?.alt.en).toMatch(/mother/i);
+    const friends = content.about.photos.filter((p) => /mygang|furunserland/.test(p.src));
+    expect(friends.every((p) => !/mom|mother/i.test(p.caption.en))).toBe(true);
+  });
+
+  it('each record improves in the direction it claims', () => {
+    for (const r of content.records.items) {
+      const improved =
+        r.better === 'lower' ? r.after.value < r.before.value : r.after.value > r.before.value;
+      expect(improved, r.id).toBe(true);
+      // "× faster" divides before by after.
+      if (r.better === 'lower') expect(r.after.value, r.id).toBeGreaterThan(0);
+    }
+  });
+});

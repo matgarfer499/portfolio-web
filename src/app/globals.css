@@ -1,0 +1,369 @@
+@import 'tailwindcss';
+
+/* PR Board tokens (DESIGN.md): dark only. contrast.test.ts parses these blocks. */
+:root {
+  --paper: #0e0f0c;
+  --ink: #f2f3ee;
+  --ink-soft: #d9dcd4;
+  --steel: #a3a89b;
+  --line: #2e302b;
+  --ghost: #8a8f84;
+  --volt: #d4ff1f;
+  --on-volt: #111111;
+  --night: #171814;
+  --night-ink: #f2f3ee;
+  --night-muted: #b9bdb3;
+  --night-ghost: #8a8f84;
+  --night-line: #34362f;
+  --logo: #ffffff;
+  --ring: var(--ink);
+
+  --dur-fast: 150ms;
+  --dur-base: 300ms;
+  --dur-reveal: 600ms;
+  --dur-count: 1400ms;
+  --dur-toast: 550ms;
+  --ease-out-soft: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-out-cubic: cubic-bezier(0.33, 1, 0.68, 1);
+
+  color-scheme: dark;
+}
+
+/* stack: hero and grids go single-column below it; board: the records board gets 4 columns. */
+@theme {
+  --breakpoint-stack: 51.25rem;
+  --breakpoint-board: 68.75rem;
+  --drop-shadow-mockup: 0 1.125rem 1.5rem rgb(0 0 0 / 0.35);
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-steel: var(--steel);
+  --color-line: var(--line);
+  --color-ghost: var(--ghost);
+  --color-volt: var(--volt);
+  --color-on-volt: var(--on-volt);
+  --color-night: var(--night);
+  --color-night-ink: var(--night-ink);
+  --color-night-muted: var(--night-muted);
+  --color-night-ghost: var(--night-ghost);
+  --color-night-line: var(--night-line);
+  --color-logo: var(--logo);
+  --color-ring: var(--ring);
+
+  --font-display: var(--font-anton), 'Oswald', 'Arial Narrow', Impact, sans-serif;
+  --font-body: var(--font-inter-tight), 'Helvetica Neue', Arial, sans-serif;
+
+  --ease-pr-out: var(--ease-out-soft);
+  --ease-pr-spring: var(--ease-spring);
+  --ease-pr-cubic: var(--ease-out-cubic);
+}
+
+/* Surfaces remap the page tokens so atoms (Button, Chip) read right on them. */
+@layer components {
+  .surface-night {
+    --paper: var(--night);
+    --ink: var(--night-ink);
+    --ink-soft: var(--night-ink);
+    --steel: var(--night-muted);
+    --ring: var(--volt);
+  }
+
+  /* RevealController arms below-the-fold [data-reveal] elements; server HTML stays visible.
+     Only the way in is animated: arming hides at once (a fade-out would be wasted work). */
+  [data-reveal='shown'] {
+    transition:
+      opacity var(--dur-reveal) var(--ease-out-soft),
+      translate var(--dur-reveal) var(--ease-out-soft);
+  }
+
+  [data-reveal='armed'] {
+    opacity: 0;
+    translate: 0 1.75rem;
+  }
+}
+
+/* A utility (not a component class) so variants work: `hover:surface-volt` on a volt hover. */
+@utility surface-volt {
+  --paper: #ffffff;
+  --ink: #111111;
+  --ink-soft: #2b2d29;
+  --steel: #3d4139;
+  --ring: var(--on-volt);
+}
+
+@keyframes letter-rise {
+  from {
+    transform: translateY(110%);
+  }
+}
+
+@keyframes menu-rise {
+  from {
+    opacity: 0;
+    transform: translateY(1.5rem);
+  }
+}
+
+@keyframes record-flash {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+}
+
+@keyframes rail-fill {
+  from {
+    scale: 1 0;
+  }
+}
+
+/* View transitions (React <ViewTransition>): the header stays put, shared case titles and shots
+   morph (share="morph"), page content slides with the link's direction. */
+::view-transition-group(site-header) {
+  animation: none;
+  z-index: 100;
+}
+
+::view-transition-old(site-header) {
+  display: none;
+}
+
+::view-transition-new(site-header) {
+  animation: none;
+}
+
+::view-transition-group(.morph) {
+  animation-duration: 400ms;
+  animation-timing-function: var(--ease-out-soft);
+}
+
+/* A shared title is one text, not two: cross-fading its old and new snapshots while they scale
+   doubles the letters. Only the new snapshot is drawn; the group carries it from place to place. */
+::view-transition-old(.morph) {
+  animation: none;
+  opacity: 0;
+}
+
+::view-transition-new(.morph) {
+  animation: none;
+}
+
+/* The new page starts fading in while the old one is still leaving (a short overlap): a fade-out
+   followed by a delayed fade-in left a frame with neither page on screen, which read as a blink. */
+::view-transition-old(.nav-forward),
+::view-transition-old(.nav-back) {
+  animation:
+    180ms ease-in both vt-fade reverse,
+    400ms var(--ease-out-soft) both vt-slide reverse;
+}
+
+::view-transition-new(.nav-forward),
+::view-transition-new(.nav-back) {
+  animation:
+    220ms ease-out 80ms both vt-fade,
+    400ms var(--ease-out-soft) both vt-slide;
+}
+
+::view-transition-old(.nav-forward),
+::view-transition-new(.nav-back) {
+  --slide: -3.75rem;
+}
+
+::view-transition-new(.nav-forward),
+::view-transition-old(.nav-back) {
+  --slide: 3.75rem;
+}
+
+@keyframes vt-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes vt-slide {
+  from {
+    translate: var(--slide) 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
+}
+
+@keyframes mockup-rise {
+  from {
+    translate: 0 var(--rise);
+  }
+  to {
+    translate: 0 calc(var(--rise) * -1);
+  }
+}
+
+/* Project mockups rise at their own depth (--rise) across the card's view timeline (--case). */
+@utility mockup-rise {
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      animation: mockup-rise linear both;
+      animation-timeline: --case;
+    }
+  }
+}
+
+/* The training-log rail fills as the list scrolls through the viewport. The animation shorthand
+   resets animation-timeline, so the pair lives here, in order, not in two utilities. Without
+   scroll-driven animations or with reduced motion there is no fill at all. */
+@utility rail-fill {
+  display: none;
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      display: block;
+      animation: rail-fill linear both;
+      animation-timeline: --log;
+      /* 0 when the list top meets the middle of the viewport, 1 when its bottom does. */
+      animation-range: cover 50vh cover calc(100% - 50vh);
+    }
+  }
+}
+
+/* Trophies: the header counter pops when a trophy unlocks. */
+@keyframes counter-pop {
+  50% {
+    scale: 1.35;
+  }
+}
+
+/* Contact: the availability dot's ring, and the rays of the copy-email burst (rotated by --a). */
+@keyframes dot-pulse {
+  from {
+    opacity: 0.6;
+    scale: 1;
+  }
+  to {
+    opacity: 0;
+    scale: 2.6;
+  }
+}
+
+@keyframes copy-burst {
+  from {
+    opacity: 1;
+    transform: rotate(var(--a)) translateY(-0.5rem) scaleY(0.3);
+  }
+  to {
+    opacity: 0;
+    transform: rotate(var(--a)) translateY(-1.75rem) scaleY(1);
+  }
+}
+
+@layer base {
+  /* rem scales the whole composition on big screens instead of a separate TV layout. */
+  html {
+    font-size: 100%;
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 4.5rem;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+  /* The open menu dialog owns the screen: the page behind must not scroll. */
+  html:has(dialog[open]) {
+    overflow: hidden;
+  }
+  @media (min-width: 1920px) {
+    html {
+      font-size: 112.5%;
+    }
+  }
+  @media (min-width: 2560px) {
+    html {
+      font-size: 137.5%;
+    }
+  }
+  @media (min-width: 3840px) {
+    html {
+      font-size: 200%;
+    }
+  }
+
+  body {
+    background-color: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: clip;
+  }
+
+  ::selection {
+    background-color: var(--volt);
+    color: var(--on-volt);
+  }
+
+  :focus-visible {
+    outline: 0.1875rem solid var(--ring);
+    outline-offset: 0.1875rem;
+  }
+
+  img,
+  svg,
+  video {
+    display: block;
+    max-width: 100%;
+  }
+
+  a,
+  button,
+  summary,
+  label[for] {
+    cursor: pointer;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    /* 0s, not 0.01ms: transition-property defaults to all, so any non-zero value would make
+       every property change on every element a transition. */
+    transition-duration: 0s !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Print (the /cv page): always the light tokens on paper. `:not(#print)` outranks `:root`
+   without !important. */
+@media print {
+  html:root:not(#print) {
+    --paper: #ffffff;
+    --ink: #111111;
+    --ink-soft: #2b2d29;
+    --steel: #555a50;
+    --line: #dcded8;
+
+    color-scheme: light;
+    font-size: 10pt;
+  }
+
+  @page {
+    size: A4;
+    margin: 14mm;
+  }
+}

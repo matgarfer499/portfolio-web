@@ -1,0 +1,18 @@
+.next/
+out/
+dist/
+build/
+coverage/
+node_modules/
+pnpm-lock.yaml
+test-results/
+playwright-report/
+public/
+next-env.d.ts
+# Vendored skills stay byte-identical to their source (skills-lock.json hashes).
+.claude/skills/web-design-guidelines/
+.claude/skills/vercel-react-best-practices/
+.claude/skills/vercel-composition-patterns/
+.claude/skills/design-taste-frontend/
+.claude/skills/next-dev-loop/
+.claude/skills/playwright-cli/

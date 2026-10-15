@@ -1,0 +1,161 @@
+{
+  "Meta": {
+    "title": "Matías García — Full Stack Engineer · Tech Lead",
+    "description": "Matías García, full stack engineer and Tech Lead in Málaga, open to relocating. Products built end to end, from the database to the deploy."
+  },
+  "Home": {
+    "placeholder": "Portfolio v4 is being rebuilt. Back soon."
+  },
+  "Shell": {
+    "skip": "Skip to content",
+    "home": "Matías García, back to top",
+    "navLabel": "Sections",
+    "nav": {
+      "records": "Records",
+      "log": "Training log",
+      "about": "Off the clock",
+      "projects": "Projects",
+      "contact": "Contact"
+    },
+    "hire": "Hire me",
+    "menuOpen": "Open menu",
+    "menuClose": "Close menu",
+    "progress": "Reading progress",
+    "localTime": "{city} · {time} local time",
+    "backToTop": "Back to top",
+    "clockFallback": "{city} · Spanish time"
+  },
+  "Hero": {
+    "getInTouch": "Get in touch",
+    "viewCv": "View CV",
+    "yearsPlus": "{count}+ yrs",
+    "newTab": "(opens in a new tab)"
+  },
+  "Records": {
+    "title": "Personal records",
+    "before": "Before",
+    "after": "Now",
+    "faster": "{value}× faster",
+    "fewer": "{value}× fewer",
+    "more": "{value}× more",
+    "points": "+{value} points",
+    "cut": "−{value}% cost",
+    "readCase": "Read the case study"
+  },
+  "Log": {
+    "title": "Training log",
+    "lede": "Where the reps happened. Newest session first.",
+    "columns": {
+      "when": "When",
+      "team": "Team",
+      "session": "Session",
+      "equipment": "Equipment"
+    },
+    "now": "Now",
+    "showDetails": "Show details",
+    "hideDetails": "Hide details",
+    "roleSince": "Tech Lead since"
+  },
+  "About": {
+    "title": "Off the clock",
+    "close": "Close",
+    "previous": "Previous photo",
+    "next": "Next photo",
+    "counter": "{current} of {total}"
+  },
+  "Projects": {
+    "title": "Projects",
+    "lede": "Products I lead at work and side projects I build for fun, end to end.",
+    "try": "Try {name}",
+    "readCase": "Read the case study",
+    "nextCase": "Next case study",
+    "stackTitle": "The stack",
+    "back": "Back to projects",
+    "visit": "Visit the site",
+    "otherCases": "More projects",
+    "newTab": "(opens in a new tab)",
+    "nextShort": "Next: {name}",
+    "caseNav": "Case studies"
+  },
+  "Contact": {
+    "copy": "Copy email",
+    "copied": "Copied",
+    "selected": "Selected, press Ctrl+C",
+    "cv": "CV",
+    "form": {
+      "title": "Or leave a message",
+      "name": "Name",
+      "email": "Email",
+      "message": "Message",
+      "send": "Send message",
+      "sending": "Sending…",
+      "sent": "Message sent. I'll get back to you soon.",
+      "honeypot": "Leave this field empty",
+      "unconfigured": "The form isn't connected yet, so your email app will open with the message ready.",
+      "openMail": "Open my email app",
+      "errors": {
+        "name": "Tell me your name.",
+        "email": "That email doesn't look right.",
+        "message": "Write at least 10 characters.",
+        "rateLimited": "Too many messages. Try again in a few minutes.",
+        "failed": "It couldn't be sent. Email me directly instead."
+      }
+    },
+    "newTab": "(opens in a new tab)"
+  },
+  "Trophies": {
+    "counter": "{count}/{total} trophies",
+    "shelf": "Trophy shelf",
+    "openShelf": "Open the trophy shelf",
+    "unlocked": "Trophy unlocked",
+    "locked": "Locked",
+    "sound": "Trophy sound",
+    "reset": "Reset trophies",
+    "close": "Close the trophy shelf",
+    "items": {
+      "finishLine": {
+        "title": "New PR",
+        "description": "You made it to the finish line."
+      },
+      "recordsSeen": {
+        "title": "Scout",
+        "description": "You checked every personal record."
+      },
+      "caseStudyOpened": {
+        "title": "Film study",
+        "description": "You opened a case study."
+      },
+      "emailCopied": {
+        "title": "Signed",
+        "description": "You copied the email."
+      },
+      "cvOpened": {
+        "title": "Background check",
+        "description": "You opened the CV."
+      },
+      "konami": {
+        "title": "Cheat code",
+        "description": "You found the cheat code."
+      }
+    }
+  },
+  "Cv": {
+    "title": "Curriculum vitae",
+    "print": "Download PDF",
+    "experience": "Experience",
+    "education": "Education",
+    "skills": "Skills",
+    "languages": "Languages",
+    "projects": "Projects",
+    "contact": "Contact",
+    "back": "Back to the site",
+    "profile": "Profile",
+    "now": "Now",
+    "description": "Curriculum vitae of Matías García, full stack engineer and Tech Lead in Málaga: experience, projects, skills and languages."
+  },
+  "NotFound": {
+    "title": "Off the track",
+    "body": "This page doesn't exist.",
+    "home": "Back home"
+  }
+}
