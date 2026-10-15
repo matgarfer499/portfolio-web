@@ -12,7 +12,7 @@ export { isPending, pending, resolve, resolveRich } from './types';
 export type { GalleryPhoto } from './about';
 export type { LogEntry } from './experience';
 export type { CaseStudy } from './projects';
-export type { PendingRecord, RecordItem } from './records';
+export type { HighlightRecord, RecordItem } from './records';
 export type * from './types';
 
 /** Resolve a bilingual content value to a single string for the active locale. */

@@ -1,4 +1,4 @@
-import { pending, type Localized, type Maybe } from './types';
+import type { Localized, Maybe } from './types';
 
 interface Measure {
   readonly value: number;
@@ -12,14 +12,18 @@ export interface RecordItem {
   readonly after: Measure;
   /** Which way is an improvement: response times go down, scores go up. */
   readonly better: 'lower' | 'higher';
+  /** How the badge reads a rise: + points by default (scores), or × more (counts). */
+  readonly gain?: 'ratio';
   readonly note: Localized;
 }
 
-export interface PendingRecord {
+/** The last card on the board: one headline result, linked to its case study. */
+export interface HighlightRecord {
   readonly id: string;
   readonly label: Localized;
   readonly metric: Maybe<Localized>;
   readonly note: Maybe<Localized>;
+  readonly caseSlug?: string;
 }
 
 export const records = {
@@ -28,6 +32,52 @@ export const records = {
     es: 'Cifras reales de producción de mi trabajo en Bettergy, antes y después.',
   },
   items: [
+    {
+      id: 'chart-load',
+      label: { en: '1-year chart load', es: 'Carga de un gráfico de 1 año' },
+      before: { value: 5, unit: 's' },
+      after: { value: 1, unit: 's' },
+      better: 'lower',
+      note: {
+        en: 'MIOT: a full year at 15-minute resolution now loads in under a second, on TimescaleDB hypertables.',
+        es: 'MIOT: un año entero a resolución de 15 minutos carga ahora en menos de un segundo, sobre hypertables de TimescaleDB.',
+      },
+    },
+    {
+      id: 'releases',
+      label: { en: 'Production releases a month', es: 'Despliegues a producción al mes' },
+      before: { value: 2 },
+      after: { value: 4 },
+      better: 'higher',
+      gain: 'ratio',
+      note: {
+        en: 'From two releases a month at most to one or two every week, with tests and QA in the flow.',
+        es: 'De dos despliegues al mes como mucho a uno o dos cada semana, con tests y QA dentro del flujo.',
+      },
+    },
+    {
+      id: 'sprint-tickets',
+      label: { en: 'Tickets per two-week sprint', es: 'Tickets por sprint de dos semanas' },
+      before: { value: 10 },
+      after: { value: 30 },
+      better: 'higher',
+      gain: 'ratio',
+      note: {
+        en: 'Roughly 10 to 30, testing and QA included, after bringing in an AI-assisted workflow (Claude Code) and tickets of two days or less.',
+        es: 'De unos 10 a 30, con tests y QA incluidos, tras introducir un flujo de trabajo con IA (Claude Code) y tickets de dos días como máximo.',
+      },
+    },
+    {
+      id: 'qa-first-pass',
+      label: { en: 'Tickets passing QA first time', es: 'Tickets que pasan QA a la primera' },
+      before: { value: 60, unit: '%' },
+      after: { value: 85, unit: '%' },
+      better: 'higher',
+      note: {
+        en: 'From 5–7 out of 10 to 8–9, after bringing in docs, linters, formatters and strict test rules.',
+        es: 'De 5–7 de cada 10 a 8–9, tras introducir documentación, linters, formatters y reglas estrictas de tests.',
+      },
+    },
     {
       id: 'api-response',
       label: { en: 'API response time', es: 'Tiempo de respuesta de la API' },
@@ -62,17 +112,18 @@ export const records = {
       },
     },
   ],
-  next: {
-    id: 'new-pr',
-    label: { en: 'New PR', es: 'Nuevo récord' },
-    metric: pending({ en: 'Metric', es: 'Métrica' }),
-    note: pending({
-      en: 'New PR — a product you led as Tech Lead, and its result',
-      es: 'Nuevo récord — un producto que lideraste como Tech Lead y su resultado',
-    }),
+  highlight: {
+    id: 'latest-pr',
+    label: { en: 'Latest PR', es: 'Último récord' },
+    metric: { en: '< 2 months', es: '< 2 meses' },
+    note: {
+      en: 'MIOT: an IoT monitoring platform built from scratch by two people, live in its second month. 10+ clients in its first six months.',
+      es: 'MIOT: una plataforma de monitorización IoT creada desde cero entre dos personas y en producción al segundo mes. Más de 10 clientes en sus primeros seis meses.',
+    },
+    caseSlug: 'miot',
   },
 } as const satisfies {
   readonly lede: Localized;
   readonly items: readonly RecordItem[];
-  readonly next: PendingRecord;
+  readonly highlight: HighlightRecord;
 };

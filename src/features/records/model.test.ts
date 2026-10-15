@@ -1,10 +1,17 @@
 import { describe, expect, it } from 'vitest';
 import { countUp, formatCount, improvement } from './model';
 
-const rec = (before: number, after: number, better: 'lower' | 'higher', unit?: string) => ({
+const rec = (
+  before: number,
+  after: number,
+  better: 'lower' | 'higher',
+  unit?: string,
+  gain?: 'ratio',
+) => ({
   before: unit ? { value: before, unit } : { value: before },
   after: unit ? { value: after, unit } : { value: after },
   better,
+  ...(gain ? { gain } : {}),
 });
 
 describe('improvement', () => {
@@ -24,6 +31,13 @@ describe('improvement', () => {
 
   it('reads a score going up as + points', () => {
     expect(improvement(rec(60, 100, 'higher'))).toEqual({ kind: 'points', value: '40' });
+  });
+
+  it('reads a count going up as × more when the record asks for a ratio', () => {
+    expect(improvement(rec(2, 4, 'higher', undefined, 'ratio'))).toEqual({
+      kind: 'more',
+      value: '2',
+    });
   });
 });
 

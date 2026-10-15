@@ -4,7 +4,7 @@ import { localize, records } from '@content/index';
 import { Container } from '@shared/components/atoms/Container/Container';
 import { Section } from '@shared/components/atoms/Section/Section';
 import { SectionHead } from '@shared/components/molecules/SectionHead/SectionHead';
-import { PendingRecordCard } from '../PendingRecordCard/PendingRecordCard';
+import { HighlightRecordCard } from '../HighlightRecordCard/HighlightRecordCard';
 import { RecordCard } from '../RecordCard/RecordCard';
 import { RecordsMotion } from '../RecordsMotion/RecordsMotion';
 
@@ -18,7 +18,7 @@ export async function RecordsSection({ locale }: { locale: Locale }) {
           {records.items.map((record) => (
             <RecordCard key={record.id} record={record} locale={locale} />
           ))}
-          <PendingRecordCard record={records.next} locale={locale} />
+          <HighlightRecordCard record={records.highlight} locale={locale} />
         </RecordsMotion>
       </Container>
     </Section>
