@@ -103,5 +103,5 @@ test('typing the code in the contact form does not count as the cheat code', asy
   ])
     await page.keyboard.press(key);
   await page.waitForTimeout(300);
-  await expect(counter(page)).toContainText('0/6');
+  expect(await stored(page)).not.toContain('konami');
 });
