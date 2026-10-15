@@ -6,7 +6,7 @@ export const sectionVariants = cva('scroll-mt-16', {
     tone: {
       paper: 'bg-paper text-ink',
       night: 'surface-night bg-night text-night-ink',
-      volt: 'surface-volt bg-volt text-on-volt',
+      volt: 'bg-volt text-on-volt surface-volt',
     },
     spacing: {
       default: 'py-14 stack:py-[5.5rem]',

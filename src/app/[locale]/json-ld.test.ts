@@ -2,13 +2,13 @@ import { describe, expect, it } from 'vitest';
 import { jsonLd, personSchema } from './json-ld';
 
 describe('personSchema', () => {
-  it('describes Matías from the content, in the page language', () => {
-    expect(personSchema('es')).toMatchObject({
+  it('describes Matías from the content', () => {
+    expect(personSchema('en')).toMatchObject({
       '@type': 'Person',
       name: 'Matías García',
       alternateName: 'Matías José García Fernández',
-      jobTitle: 'Ingeniero Full Stack · Tech Lead',
-      url: 'https://matiasgarcia.dev/es',
+      jobTitle: 'Full Stack Engineer · Tech Lead',
+      url: 'https://matiasgarcia.dev/',
       email: 'mailto:mjgarciadev14@gmail.com',
       address: { '@type': 'PostalAddress', addressLocality: 'Málaga' },
       sameAs: ['https://www.linkedin.com/in/mgarfer/', 'https://github.com/matgarfer499'],

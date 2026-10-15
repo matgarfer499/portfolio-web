@@ -1,14 +1,11 @@
-// pnpm cv:pdf — prints /cv and /es/cv from a running production server into public/ as A4 PDFs.
+// pnpm cv:pdf — prints /cv from a running production server into public/ as an A4 PDF.
 // Run `pnpm build && pnpm start` first; --base=http://localhost:3000 by default.
 import { chromium } from '@playwright/test';
 
 const base =
   process.argv.find((a) => a.startsWith('--base='))?.slice('--base='.length) ??
   'http://localhost:3000';
-const files = [
-  ['/cv', 'public/matias-garcia-cv.pdf'],
-  ['/es/cv', 'public/matias-garcia-cv-es.pdf'],
-];
+const files = [['/cv', 'public/matias-garcia-cv.pdf']];
 
 const browser = await chromium.launch();
 const page = await browser.newPage();

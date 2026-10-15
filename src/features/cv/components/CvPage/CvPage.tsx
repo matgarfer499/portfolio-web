@@ -43,7 +43,7 @@ export async function CvPage({ locale }: { locale: Locale }) {
         <article className={styles.sheet()}>
           <div className={styles.tools()}>
             <PrintButton label={t('print')} hint={t('printHint')} />
-            <a href={localize(profile.cv, locale)} className={styles.link()}>
+            <a href={profile.cv} className={styles.link()}>
               {t('pdfFile')}
             </a>
             <Link

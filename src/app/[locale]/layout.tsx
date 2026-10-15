@@ -9,7 +9,6 @@ import { notFound } from 'next/navigation';
 import type { ReactNode } from 'react';
 import { routing } from '@/i18n/routing';
 import { site } from '@shared/config/site';
-import { themeScript } from '@shared/lib/theme';
 import { BRAND } from '../brand';
 import { anton, interTight } from '../fonts';
 
@@ -18,13 +17,8 @@ interface LocaleLayoutProps {
   params: Promise<{ locale: string }>;
 }
 
-// The browser chrome matches the page in each colour scheme (data-theme overrides aren't visible here).
-export const viewport: Viewport = {
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: BRAND.paper },
-    { media: '(prefers-color-scheme: dark)', color: BRAND.darkPaper },
-  ],
-};
+// The site is dark only: the browser chrome matches the page.
+export const viewport: Viewport = { themeColor: BRAND.darkPaper, colorScheme: 'dark' };
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -45,11 +39,12 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
     <html
       lang={locale}
       className={`${anton.variable} ${interTight.variable}`}
+      // Next scrolls instantly on route changes (smooth stays for in-page anchors), so "back"
+      // lands on the project instead of gliding down from the top.
+      data-scroll-behavior="smooth"
       suppressHydrationWarning
     >
       <body>
-        {/* Sets data-theme before the first paint; suppressHydrationWarning covers the attribute. */}
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         {children}
         {site.onVercel && (
           <>

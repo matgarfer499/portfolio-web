@@ -3,11 +3,9 @@ import { expect, test } from '@playwright/test';
 
 const ROUTES = [
   '/',
-  '/es',
   '/cv',
-  '/es/cv',
   '/projects/miot',
-  '/es/projects/rat',
+  '/projects/rat',
   '/projects/physics-sketchbook',
   '/nope',
 ];
@@ -20,14 +18,12 @@ for (const route of ROUTES) {
   });
 }
 
-test('the cv is built from the content in each language', async ({ page }) => {
-  await page.goto('/es/cv');
+test('the cv is built from the content', async ({ page }) => {
+  await page.goto('/cv');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Matías José García Fernández');
-  await expect(page.getByRole('heading', { name: 'Experiencia' })).toBeVisible();
-  await expect(page.getByText('ene 2024 — Actualidad', { exact: false })).toBeVisible();
-  await expect(page.getByText('Construí MIOT Sentra', { exact: false })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Experience' })).toBeVisible();
+  await expect(page.getByText('Built MIOT Sentra', { exact: false })).toBeVisible();
   await expect(page.locator('[data-pending]')).toHaveCount(0);
-  await expect(page).toHaveTitle('Currículum — Matías García');
 });
 
 test('download PDF opens the print dialog; print hides the site chrome and stays light', async ({
@@ -50,20 +46,17 @@ test('download PDF opens the print dialog; print hides the site chrome and stays
   expect(paper).toBe('rgb(255, 255, 255)');
 });
 
-test('every page declares its canonical and both languages', async ({ request }) => {
-  const html = await (await request.get('/es/projects/chefory')).text();
-  expect(html).toContain(
-    '<link rel="canonical" href="https://matiasgarcia.dev/es/projects/chefory"',
-  );
-  expect(html).toContain('hrefLang="en" href="https://matiasgarcia.dev/projects/chefory"');
-  expect(html).toContain('hrefLang="x-default" href="https://matiasgarcia.dev/projects/chefory"');
+test('every page declares its canonical and no other languages', async ({ request }) => {
+  const html = await (await request.get('/projects/chefory')).text();
+  expect(html).toContain('<link rel="canonical" href="https://matiasgarcia.dev/projects/chefory"');
+  expect(html).not.toContain('hrefLang');
   expect(html).toContain('<meta property="og:title" content="Chefory — Matías García"');
 });
 
 test('every page shares its own title and image, not the home page', async ({ request }) => {
   for (const [path, title] of [
     ['/cv', 'Curriculum vitae — Matías García'],
-    ['/es/projects/rat', 'R.A.T. — Matías García'],
+    ['/projects/rat', 'R.A.T. — Matías García'],
   ]) {
     const html = await (await request.get(path!)).text();
     expect(html, path).toContain(`<meta property="og:title" content="${title}"`);
@@ -99,23 +92,18 @@ test('sitemap, robots, manifest, icons and share images answer', async ({ reques
   expect(response.headers()['content-type']).toBe('image/png');
 });
 
-test('an unknown path is a real 404 in its language', async ({ request }) => {
+test('an unknown path is a real 404', async ({ request }) => {
   const en = await request.get('/no-such-page');
   expect(en.status()).toBe(404);
   expect(await en.text()).toContain('Off the track');
-  const es = await request.get('/es/no-existe');
-  expect(es.status()).toBe(404);
-  expect(await es.text()).toContain('Fuera de pista');
 });
 
-test('the chosen theme survives a reload and a language switch', async ({ page }) => {
-  await page.goto('/');
-  await page.getByRole('button', { name: 'Dark theme' }).click();
-  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
-  await page.reload();
-  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
-  await page.goto('/es');
-  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+test('old Spanish links land on the English page', async ({ request }) => {
+  const home = await request.get('/es', { maxRedirects: 0 });
+  expect(home.status()).toBe(308);
+  expect(home.headers()['location']).toBe('/');
+  const page = await request.get('/es/projects/rat', { maxRedirects: 0 });
+  expect(page.headers()['location']).toBe('/projects/rat');
 });
 
 test('the home does not shift while it loads and is scrolled', async ({ page }) => {

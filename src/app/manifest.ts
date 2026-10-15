@@ -9,8 +9,8 @@ export default function manifest(): MetadataRoute.Manifest {
     short_name: site.name,
     start_url: '/',
     display: 'browser',
-    background_color: BRAND.paper,
-    theme_color: BRAND.paper,
+    background_color: BRAND.darkPaper,
+    theme_color: BRAND.darkPaper,
     icons: [192, 512].map((size) => ({
       src: `/icon/${size}`,
       sizes: `${size}x${size}`,

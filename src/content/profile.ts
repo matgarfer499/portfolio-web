@@ -3,29 +3,27 @@ import type { LinkItem, Localized } from './types';
 export const profile = {
   name: 'Matías García',
   fullName: 'Matías José García Fernández',
-  role: { en: 'Full Stack Engineer · Tech Lead', es: 'Ingeniero Full Stack · Tech Lead' },
-  location: { en: 'Málaga, Spain', es: 'Málaga, España' },
+  role: { en: 'Full Stack Engineer · Tech Lead' },
+  location: { en: 'Málaga, Spain' },
   city: 'Málaga',
   timeZone: 'Europe/Madrid',
   email: 'mjgarciadev14@gmail.com',
   // Printed from /cv by `pnpm cv:pdf`; regenerate after editing the content.
-  cv: { en: '/matias-garcia-cv.pdf', es: '/matias-garcia-cv-es.pdf' },
+  cv: '/matias-garcia-cv.pdf',
   // The month the working career starts (the Uniklinik internship); "3+ yrs" is derived from it.
   careerSince: '2023-03',
   availability: {
     status: 'open',
     label: {
       en: 'Available now · full-time · open to relocating',
-      es: 'Disponible ya · jornada completa · abierto a mudarme',
     },
   },
   languages: [
-    { name: { en: 'Spanish', es: 'Español' }, level: { en: 'Native', es: 'Nativo' } },
+    { name: { en: 'Spanish' }, level: { en: 'Native' } },
     {
-      name: { en: 'English', es: 'Inglés' },
+      name: { en: 'English' },
       level: {
         en: 'Professional working proficiency · B2 Cambridge First',
-        es: 'Nivel profesional · B2 Cambridge First',
       },
     },
   ],
@@ -41,7 +39,7 @@ export const profile = {
   readonly city: string;
   readonly timeZone: string;
   readonly email: string;
-  readonly cv: Localized;
+  readonly cv: string;
   readonly careerSince: string;
   readonly availability: { readonly status: 'open' | 'busy'; readonly label: Localized };
   readonly languages: readonly { readonly name: Localized; readonly level: Localized }[];

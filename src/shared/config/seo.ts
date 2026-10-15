@@ -1,22 +1,15 @@
 import type { Metadata } from 'next';
 import { localizedPath } from '@/i18n/paths';
-import { routing, type Locale } from '@/i18n/routing';
+import type { Locale } from '@/i18n/routing';
 import { site } from './site';
 
 export function absoluteUrl(locale: Locale, path: string): string {
   return new URL(localizedPath(locale, path), site.url).toString();
 }
 
-// Canonical + hreflang for a page that exists in every locale; x-default is the English URL.
-export function alternatesFor(
-  locale: Locale,
-  path: string,
-): { canonical: string; languages: Record<Locale | 'x-default', string> } {
-  const url = (l: Locale) => absoluteUrl(l, path);
-  return {
-    canonical: url(locale),
-    languages: { en: url('en'), es: url('es'), 'x-default': url(routing.defaultLocale) },
-  };
+// The canonical URL of a page (English only, so no hreflang alternates).
+export function alternatesFor(locale: Locale, path: string): { canonical: string } {
+  return { canonical: absoluteUrl(locale, path) };
 }
 
 // A page's whole share surface. Next merges metadata shallowly: a page that set only `title`

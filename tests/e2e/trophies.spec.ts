@@ -5,18 +5,17 @@ const counter = (page: Page) => page.locator('header button[aria-haspopup="dialo
 const stored = (page: Page) =>
   page.evaluate(() => JSON.parse(localStorage.getItem('pr-trophies') ?? '[]'));
 
-test('all eight trophies unlock in one visit and survive a reload', async ({ page, context }) => {
+test('all six trophies unlock in one visit and survive a reload', async ({ page, context }) => {
   await context.grantPermissions(['clipboard-read', 'clipboard-write']);
   await page.goto('/');
-  await expect(counter(page)).toContainText('0/8');
+  await expect(counter(page)).toContainText('0/6');
 
   for (const card of await page.locator('[data-record]').all()) await card.scrollIntoViewIfNeeded();
-  await expect(counter(page)).toContainText('1/8');
+  await expect(counter(page)).toContainText('1/6');
   await expect(page.getByRole('status').filter({ hasText: 'Trophy unlocked' })).toContainText(
     'Scout',
   );
 
-  await page.getByRole('button', { name: 'Dark theme' }).click();
   await page.locator('#contact').getByRole('button', { name: 'Copy email' }).click();
   for (const key of [
     'ArrowUp',
@@ -33,21 +32,19 @@ test('all eight trophies unlock in one visit and survive a reload', async ({ pag
     await page.keyboard.press(key);
   await expect(page.locator('html')).toHaveAttribute('data-beast', '');
   await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
-  await expect(counter(page)).toContainText('5/8');
+  await expect(counter(page)).toContainText('4/6');
 
   await page.locator('#projects').getByRole('link', { name: 'Read the case study' }).click();
   await page.waitForURL('**/projects/miot');
-  await page.locator('header a[hreflang="es"]').first().click();
-  await page.waitForURL('**/es/projects/miot');
-  await expect(counter(page)).toContainText('7/8');
+  await expect(counter(page)).toContainText('5/6');
 
-  await page.goto('/es');
-  await page.getByRole('link', { name: 'Ver CV' }).click();
-  await page.waitForURL('**/es/cv');
-  await expect(counter(page)).toContainText('8/8');
+  await page.goto('/');
+  await page.getByRole('link', { name: 'View CV' }).click();
+  await page.waitForURL('**/cv');
+  await expect(counter(page)).toContainText('6/6');
   await page.reload();
-  await expect(counter(page)).toContainText('8/8');
-  expect((await stored(page)).length).toBe(8);
+  await expect(counter(page)).toContainText('6/6');
+  expect((await stored(page)).length).toBe(6);
 });
 
 test('the shelf opens from the counter, closes on Escape and gives focus back', async ({
@@ -57,7 +54,7 @@ test('the shelf opens from the counter, closes on Escape and gives focus back', 
   await counter(page).click();
   const shelf = page.getByRole('dialog', { name: /Trophy shelf/ });
   await expect(shelf).toBeVisible();
-  await expect(shelf.getByRole('listitem')).toHaveCount(8);
+  await expect(shelf.getByRole('listitem')).toHaveCount(6);
   await expect(shelf.getByRole('button', { name: 'Trophy sound' })).toHaveAttribute(
     'aria-pressed',
     'false',
@@ -72,7 +69,7 @@ test('sound stays off until chosen, and reset empties the shelf', async ({ page 
   await page.goto('/');
   await page.evaluate(() => localStorage.setItem('pr-trophies', '["konami","cv-opened"]'));
   await page.reload();
-  await expect(counter(page)).toContainText('2/8');
+  await expect(counter(page)).toContainText('2/6');
   await counter(page).click();
   const shelf = page.getByRole('dialog');
   await shelf.getByRole('button', { name: 'Trophy sound' }).click();
@@ -81,7 +78,7 @@ test('sound stays off until chosen, and reset empties the shelf', async ({ page 
     'true',
   );
   await shelf.getByRole('button', { name: 'Reset trophies' }).click();
-  await expect(counter(page)).toContainText('0/8');
+  await expect(counter(page)).toContainText('0/6');
   expect(await page.evaluate(() => localStorage.getItem('pr-trophy-sound'))).toBe('1');
 });
 

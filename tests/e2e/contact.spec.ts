@@ -24,17 +24,6 @@ test('an empty message shows every field error and focuses the first', async ({ 
   await expect(form.getByLabel('Name')).toHaveAttribute('aria-invalid', 'true');
 });
 
-test('the Spanish form answers in Spanish and keeps what was typed', async ({ page }) => {
-  await page.goto('/es');
-  const form = page.locator('#contact form');
-  await form.getByLabel('Nombre').fill('Ada');
-  await form.getByLabel('Email').fill('ada@');
-  await form.getByRole('button', { name: 'Enviar mensaje' }).click();
-  await expect(form.getByText('Ese email no parece correcto.')).toBeVisible();
-  await expect(form.getByLabel('Nombre')).toHaveValue('Ada');
-  await expect(form.getByLabel('Email')).toBeFocused();
-});
-
 test('without an email service the form hands the message to the email app', async ({ page }) => {
   await page.goto('/');
   const form = page.locator('#contact form');
@@ -77,9 +66,9 @@ test('without JS the form posts and the server renders the errors', async ({ bro
 });
 
 test('the contact links and the CV are there without JS', async ({ request }) => {
-  const html = await (await request.get('/es')).text();
+  const html = await (await request.get('/')).text();
   expect(html).toContain(`href="mailto:${EMAIL}"`);
   expect(html).toContain('href="https://www.linkedin.com/in/mgarfer/"');
-  expect(html).toContain('href="/es/cv"');
+  expect(html).toContain('href="/cv"');
   expect(html).not.toMatch(/RESEND|re_[A-Za-z0-9]{8}/);
 });

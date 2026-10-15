@@ -23,8 +23,8 @@ src/
     lib/                    cn, formatters, storage (try/catch localStorage)
     config/site.ts          canonical URL (NEXT_PUBLIC_SITE_URL, default https://matiasgarcia.dev)
   server/                   server-only (`import 'server-only'`): env, mail adapter, rate limit
-  content/                  typed bilingual content, `pending()` markers, the one content source
-  i18n/  messages/          next-intl routing/request config, UI strings (EN/ES)
+  content/                  typed content (`{ en }` strings), `pending()` markers, the one content source
+  i18n/  messages/          next-intl routing/request config (English only), UI strings
   proxy.ts                  next-intl locale proxy (Next 16 name for middleware)
 ```
 
@@ -105,7 +105,7 @@ feature. Features: `shell` (header, nav, mobile menu, theme + language switch, s
   get finished strings as props; there is no next-intl client runtime. Internal links use
   `next/link` + `localizedPath()` (`src/i18n/paths.ts`); PDFs and external URLs are plain `<a>`.
 
-- `src/content/` holds every career fact as typed data with `Localized` strings (`{ en, es }`).
+- `src/content/` holds every career fact as typed data with `Localized` strings (`{ en }`; English only since the international relaunch).
   UI chrome (buttons, labels, aria) lives in `src/messages/{en,es}.json`, typed by `en.json`.
 - Unknown facts are `pending('what is missing')`, a `Pending` value (`{ kind: 'pending', note }`)
   accepted wherever a field is typed `Localized | Pending` (or `T | Pending`). It renders as the dashed
@@ -122,21 +122,21 @@ links there. Don't split one explanation into several blocks to dodge the rule.
 ## 7. Tests
 
 - Vitest (`src/**/*.test.ts`, `eslint/**/*.test.mjs`): every `model.ts`, the bus, formatters,
-  content parity, the form schema and the contrast of the tokens in both themes.
+  content invariants, the form schema and the contrast of the dark tokens.
 - Playwright (`tests/e2e`) against the production build: both locales, theme persistence, the 8
   trophies, copy email, form validation, CV, and axe on every route.
 
 ## 8. Build plan (v4)
 
-| Phase                       | Scope                                                                                                | Done when                                                        |
-| --------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
-| P0 Reset & foundations      | Remove the game, port career-os tooling, docs, skills, assets                                        | lint, typecheck, test and build green; no three/R3F code or deps |
-| P1 Design system            | Tokens (light/dark), theme script, fonts, rem scaling, motion, atoms, contrast test, dev styleguide  | styleguide screenshots pass the full QA matrix                   |
-| P2 Content + i18n           | Typed content for every section, `pending()`, `content:pending`, messages, parity tests              | no untranslated string exists                                    |
-| P3 Shell + Hero + footer    | Sticky header, nav, mobile menu, progress bar, hero name reveal, marquee, footer clock               | QA matrix + e2e green for the touched screens                    |
-| P4 Records + Training log   | Odometer count-up, strike draw, ratio badge; sticky when column, progress rail, disclosures          | same                                                             |
-| P5 Off the clock + Projects | Gallery, lightbox, parallax, mockups, stack, `/projects/[slug]` with view transitions                | same                                                             |
-| P6 Contact                  | Copy email, magnetic buttons, availability, Server Action form + Resend adapter + mailto fallback    | same + form validation e2e                                       |
-| P7 Trophies                 | 8 trophies on the bus, counter, shelf drawer, toast, sound toggle, Konami beast mode                 | same + 8-trophy e2e                                              |
-| P8 CV + SEO + a11y + perf   | `/cv`, metadata, hreflang, sitemap, robots, JSON-LD, OG images, manifest/icons, full e2e, Lighthouse | Lighthouse ≥95 ×4, zero axe violations, budgets met              |
-| P9 Close-out                | Whole-branch review, dead code, README, SUMMARY with the human actions                               | summary written, preview checked                                 |
+| Phase                       | Scope                                                                                                                | Done when                                                        |
+| --------------------------- | -------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| P0 Reset & foundations      | Remove the game, port career-os tooling, docs, skills, assets                                                        | lint, typecheck, test and build green; no three/R3F code or deps |
+| P1 Design system            | Tokens (light/dark, later dark only), theme script, fonts, rem scaling, motion, atoms, contrast test, dev styleguide | styleguide screenshots pass the full QA matrix                   |
+| P2 Content + i18n           | Typed content for every section, `pending()`, `content:pending`, messages, parity tests                              | no untranslated string exists                                    |
+| P3 Shell + Hero + footer    | Sticky header, nav, mobile menu, progress bar, hero name reveal, marquee, footer clock                               | QA matrix + e2e green for the touched screens                    |
+| P4 Records + Training log   | Odometer count-up, strike draw, ratio badge; sticky when column, progress rail, disclosures                          | same                                                             |
+| P5 Off the clock + Projects | Gallery, lightbox, parallax, mockups, stack, `/projects/[slug]` with view transitions                                | same                                                             |
+| P6 Contact                  | Copy email, magnetic buttons, availability, Server Action form + Resend adapter + mailto fallback                    | same + form validation e2e                                       |
+| P7 Trophies                 | 8 trophies on the bus, counter, shelf drawer, toast, sound toggle, Konami beast mode                                 | same + 8-trophy e2e                                              |
+| P8 CV + SEO + a11y + perf   | `/cv`, metadata, hreflang, sitemap, robots, JSON-LD, OG images, manifest/icons, full e2e, Lighthouse                 | Lighthouse ≥95 ×4, zero axe violations, budgets met              |
+| P9 Close-out                | Whole-branch review, dead code, README, SUMMARY with the human actions                                               | summary written, preview checked                                 |

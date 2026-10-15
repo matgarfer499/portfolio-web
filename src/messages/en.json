@@ -20,9 +20,6 @@
     "hire": "Hire me",
     "menuOpen": "Open menu",
     "menuClose": "Close menu",
-    "darkTheme": "Dark theme",
-    "language": "Language",
-    "switchLanguage": "Ver en español",
     "progress": "Reading progress",
     "localTime": "{city} · {time} local time",
     "backToTop": "Back to top",
@@ -74,7 +71,10 @@
     "stackTitle": "The stack",
     "back": "Back to projects",
     "visit": "Visit the site",
-    "otherCases": "More projects"
+    "otherCases": "More projects",
+    "newTab": "(opens in a new tab)",
+    "nextShort": "Next: {name}",
+    "caseNav": "Case studies"
   },
   "Contact": {
     "email": "Email",
@@ -123,14 +123,6 @@
       "caseStudyOpened": {
         "title": "Film study",
         "description": "You opened a case study."
-      },
-      "languageSwitched": {
-        "title": "Away game",
-        "description": "You switched the language."
-      },
-      "themeSwitched": {
-        "title": "Night session",
-        "description": "You switched the theme."
       },
       "emailCopied": {
         "title": "Signed",

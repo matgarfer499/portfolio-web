@@ -16,5 +16,4 @@ export const mobileMenuVariants = {
   link: cva(
     'block font-display text-[clamp(2.75rem,13vw,6rem)] leading-[0.95] text-ink uppercase no-underline hover:text-steel focus-visible:text-steel motion-safe:animate-[menu-rise_var(--dur-reveal)_var(--ease-out-soft)_both] motion-safe:[animation-delay:calc(var(--i)*60ms)]',
   ),
-  bottom: cva('flex items-center gap-3 border-t-2 border-ink py-5'),
 };

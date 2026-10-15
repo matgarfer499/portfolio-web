@@ -31,7 +31,7 @@ function isTyping(target: EventTarget | null): boolean {
   );
 }
 
-// Header island: the X/8 counter, the toast and the only subscription to the trophy bus.
+// Header island: the X/N counter, the toast and the only subscription to the trophy bus.
 export function Trophies({ labels }: { labels: TrophiesLabels }) {
   const { items } = labels;
   const { unlocked, latest, dismiss } = useStore(trophyStore);

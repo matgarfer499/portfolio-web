@@ -1,4 +1,3 @@
-import { ThemeToggle } from '@features/shell';
 import { Button } from '@shared/components/atoms/Button/Button';
 import { buttonVariants } from '@shared/components/atoms/Button/Button.variants';
 import { Chip } from '@shared/components/atoms/Chip/Chip';
@@ -38,7 +37,6 @@ export function Styleguide() {
     <main className={styles.root()}>
       <Container className={styles.bar()}>
         <Label tone="ink">PR Board · styleguide (dev only)</Label>
-        <ThemeToggle label="Dark theme" />
       </Container>
 
       <Section id="type">

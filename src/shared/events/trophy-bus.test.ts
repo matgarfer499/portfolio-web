@@ -24,11 +24,11 @@ describe('trophy bus', () => {
 
   it('buffers events emitted before anyone listens and flushes them to the first subscriber', () => {
     const bus = createTrophyBus();
-    bus.emit('theme-switched');
+    bus.emit('konami');
     bus.emit('email-copied');
     const first = vi.fn();
     bus.on(first);
-    expect(first.mock.calls).toEqual([['theme-switched'], ['email-copied']]);
+    expect(first.mock.calls).toEqual([['konami'], ['email-copied']]);
 
     const second = vi.fn();
     bus.on(second);
@@ -44,9 +44,9 @@ describe('trophy bus', () => {
     expect(handler).not.toHaveBeenCalled();
   });
 
-  it('knows exactly the eight trophy events', () => {
-    expect(TROPHY_EVENTS).toHaveLength(8);
-    expect(new Set(TROPHY_EVENTS).size).toBe(8);
+  it('knows exactly the six trophy events', () => {
+    expect(TROPHY_EVENTS).toHaveLength(6);
+    expect(new Set(TROPHY_EVENTS).size).toBe(6);
     expectTypeOf<'email-copied'>().toExtend<TrophyEvent>();
     expectTypeOf<'unknown'>().not.toExtend<TrophyEvent>();
   });

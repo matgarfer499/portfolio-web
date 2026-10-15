@@ -1,12 +1,12 @@
 # Matías García — portfolio v4 (PR Board)
 
 An editorial, sports-poster portfolio: the career read like an athlete's record board. Giant Anton
-type, ink borders, one volt accent, light and dark themes, English (default) and Spanish (`/es`),
+type, ink borders, one volt accent, dark only, in English (old `/es` links redirect home),
 from 360 px phones to 4K TVs.
 
 **Pages:** the home (hero · personal records · training log · off the clock · projects + stack ·
 contact), one page per case study (`/projects/[slug]`), a printable CV (`/cv`), a localized 404.
-Eight hidden trophies reward exploring (counter in the header, shelf drawer, Konami code included).
+Six hidden trophies reward exploring (counter in the header, shelf drawer, Konami code included).
 
 ## Stack
 
@@ -29,14 +29,14 @@ pnpm test:e2e         # playwright + axe on the production build
 pnpm typecheck        # tsc --noEmit
 pnpm format           # prettier
 pnpm content:pending  # facts the owner still has to fill in
-pnpm cv:pdf           # print /cv and /es/cv into public/ (needs pnpm build && pnpm start)
+pnpm cv:pdf           # print /cv into public/ (needs pnpm build && pnpm start)
 ```
 
 Husky + lint-staged run eslint/prettier and commitlint (Conventional Commits) on every commit.
 
 ## Editing content
 
-Every career fact lives in `src/content/` — typed, bilingual (`{ en, es }`), never in components:
+Every career fact lives in `src/content/` — typed (`{ en }` strings, so a language can be added back), never in components:
 
 | File            | What                                                                        |
 | --------------- | --------------------------------------------------------------------------- |
@@ -48,10 +48,10 @@ Every career fact lives in `src/content/` — typed, bilingual (`{ en, es }`), n
 | `projects.ts`   | case studies (the first is featured) and the stack groups                   |
 | `contact.ts`    | contact headline                                                            |
 
-Unknown facts are written as `pending({ en, es })`: they render as dashed placeholders and show up
+Unknown facts are written as `pending({ en })`: they render as dashed placeholders and show up
 in `pnpm content:pending`. Replace each with the real value. After editing the content, run `pnpm cv:pdf` so the
 downloadable CV PDFs match the site. UI strings (labels, buttons) live in
-`src/messages/{en,es}.json`; tests fail if the two languages drift apart.
+`src/messages/en.json`.
 
 ## Contact form
 

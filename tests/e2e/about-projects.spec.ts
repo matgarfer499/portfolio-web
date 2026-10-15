@@ -65,31 +65,46 @@ test('the training-log rail fills completely once the log has been read', async 
     .toBe('1');
 });
 
-test('a case study opens from the home card and goes back to the projects', async ({ page }) => {
+test('a case study opens from the home card and goes back to that same project', async ({
+  page,
+}) => {
   await page.goto('/');
   await page.locator('#projects').getByRole('link', { name: 'Read the case study' }).click();
   await expect(page).toHaveURL(/\/projects\/miot$/);
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('MIOT Sentra');
   await page.getByRole('link', { name: 'Back to projects' }).click();
-  await expect(page).toHaveURL(/\/#projects$/);
-  await expect(page.locator('#projects-title')).toBeInViewport();
+  await expect(page).toHaveURL(/\/#project-miot$/);
+  await expect(page.locator('#project-miot')).toBeInViewport();
+});
+
+test('a case page links to the next one at the top, and visits open in a new tab', async ({
+  page,
+}) => {
+  await page.goto('/projects/rat');
+  await expect(
+    page.getByRole('link', { name: 'Visit the site (opens in a new tab)' }),
+  ).toHaveAttribute('target', '_blank');
+  await page.getByRole('link', { name: 'Next: Physics Sketchbook' }).click();
+  await expect(page).toHaveURL(/\/projects\/physics-sketchbook$/);
+  await page.getByRole('link', { name: 'Back to projects' }).click();
+  await expect(page.locator('#project-physics-sketchbook')).toBeInViewport();
 });
 
 test('the home lists the other cases and each one opens its page', async ({ page }) => {
-  await page.goto('/es');
+  await page.goto('/');
   const list = page.locator('#projects ol');
   await expect(list.getByRole('link')).toHaveCount(4);
   await list.getByRole('link', { name: /Physics Sketchbook/ }).click();
-  await expect(page).toHaveURL(/\/es\/projects\/physics-sketchbook$/);
+  await expect(page).toHaveURL(/\/projects\/physics-sketchbook$/);
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Physics Sketchbook');
-  await expect(page.getByRole('link', { name: /Chefory/ })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Next: Chefory' })).toBeVisible();
 });
 
 test('an unknown case study is a 404', async ({ request }) => {
   expect((await request.get('/projects/nope')).status()).toBe(404);
 });
 
-for (const path of ['/projects/chefory', '/es/projects/rascame-esta']) {
+for (const path of ['/projects/chefory', '/projects/rascame-esta']) {
   test(`${path} has no accessibility violations`, async ({ page }) => {
     await page.goto(path);
     const results = await new AxeBuilder({ page })

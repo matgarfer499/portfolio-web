@@ -2,7 +2,7 @@ import { cva } from 'class-variance-authority';
 
 export const highlightRecordCardVariants = {
   root: cva(
-    'surface-volt flex flex-col gap-3.5 bg-volt px-6 pt-[1.625rem] pb-6 text-ink board:min-h-[18.75rem]',
+    'flex flex-col gap-3.5 bg-volt px-6 pt-[1.625rem] pb-6 text-ink surface-volt board:min-h-[18.75rem]',
   ),
   metric: cva('font-display text-[3.5rem] leading-[0.9] uppercase stack:text-[4rem]'),
   note: cva('m-0 text-[0.9375rem] leading-[1.45] text-ink-soft'),

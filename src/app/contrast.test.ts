@@ -11,12 +11,10 @@ function block(selector: string): string {
   return css.slice(start, css.indexOf('}', start));
 }
 
-const LIGHT = block(':root');
+const BASE = block(':root');
 const THEMES = {
-  light: LIGHT,
-  dark: LIGHT + block(":root[data-theme='dark']"),
-  beast: LIGHT + block(':root[data-beast]'),
-  'beast-dark': LIGHT + block(":root[data-theme='dark']") + block(':root[data-beast]'),
+  dark: BASE,
+  beast: BASE + block(':root[data-beast]'),
 };
 
 function token(source: string, name: string): number[] {
@@ -58,7 +56,7 @@ for (const [theme, source] of Object.entries(THEMES)) {
 
 // Inside a night or volt Section the atoms see remapped tokens: each pair must still pass.
 function utility(name: string): string {
-  return block(`.${name}`);
+  return block(`@utility ${name}`);
 }
 for (const [theme, source] of Object.entries(THEMES)) {
   describe(`surfaces — ${theme}`, () => {

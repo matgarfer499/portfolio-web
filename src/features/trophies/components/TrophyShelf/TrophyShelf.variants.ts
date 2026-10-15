@@ -10,7 +10,7 @@ export const trophyShelfVariants = {
   list: cva('m-0 grid list-none gap-3 p-0'),
   item: cva('flex items-start gap-3 border-2 border-ink p-3', {
     variants: {
-      owned: { true: 'surface-volt bg-volt text-on-volt', false: 'border-dashed text-steel' },
+      owned: { true: 'bg-volt text-on-volt surface-volt', false: 'border-dashed text-steel' },
     },
   }),
   name: cva('block font-display text-[1.25rem] leading-tight uppercase'),

@@ -3,7 +3,7 @@
 # Portfolio v4 — PR Board
 
 Matías García's portfolio: an editorial, sports-poster site (ADR `docs/adr/0004-from-game-to-pr-board.md`).
-Audience: recruiters → tech leads → freelance clients. Bilingual EN (default, no prefix) + ES (`/es`).
+Audience: recruiters → tech leads → freelance clients. English only, dark only (old `/es` links redirect to the English pages).
 
 ## Project rules
 

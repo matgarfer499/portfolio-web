@@ -64,9 +64,8 @@ describe('countUp', () => {
 });
 
 describe('formatCount', () => {
-  it('groups thousands the way each locale does', () => {
+  it('groups thousands in British English', () => {
     expect(formatCount(6000, 'en')).toBe('6,000');
-    expect(formatCount(6000, 'es')).toBe('6000');
-    expect(formatCount(12000, 'es')).toBe('12.000');
+    expect(formatCount(12000, 'en')).toBe('12,000');
   });
 });

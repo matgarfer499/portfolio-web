@@ -4,8 +4,6 @@ export type TrophyKey =
   | 'finishLine'
   | 'recordsSeen'
   | 'caseStudyOpened'
-  | 'languageSwitched'
-  | 'themeSwitched'
   | 'emailCopied'
   | 'cvOpened'
   | 'konami';
@@ -14,8 +12,6 @@ const KEYS = {
   'finish-line': 'finishLine',
   'records-seen': 'recordsSeen',
   'case-study-opened': 'caseStudyOpened',
-  'language-switched': 'languageSwitched',
-  'theme-switched': 'themeSwitched',
   'email-copied': 'emailCopied',
   'cv-opened': 'cvOpened',
   konami: 'konami',

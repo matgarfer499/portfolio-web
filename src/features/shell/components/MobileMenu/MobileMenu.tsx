@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState, type CSSProperties, type ReactNode } from 'react';
+import { useRef, useState, type CSSProperties } from 'react';
 import Link from 'next/link';
 import { localizedPath } from '@/i18n/paths';
 import type { Locale } from '@/i18n/routing';
@@ -14,10 +14,9 @@ interface MobileMenuProps {
   locale: Locale;
   labels: Record<SectionId, string>;
   text: { open: string; close: string; nav: string };
-  tools: ReactNode;
 }
 
-export function MobileMenu({ locale, labels, text, tools }: MobileMenuProps) {
+export function MobileMenu({ locale, labels, text }: MobileMenuProps) {
   const dialog = useRef<HTMLDialogElement>(null);
   const [open, setOpen] = useState(false);
   const close = () => dialog.current?.close();
@@ -65,7 +64,6 @@ export function MobileMenu({ locale, labels, text, tools }: MobileMenuProps) {
             ))}
           </nav>
         </Container>
-        <Container className={styles.bottom()}>{tools}</Container>
       </dialog>
     </>
   );

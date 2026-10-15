@@ -15,6 +15,9 @@ const nextConfig: NextConfig = {
       destination: '/matias-garcia-cv.pdf',
       permanent: true,
     },
+    // The site was bilingual until v4; Spanish links land on the English page.
+    { source: '/es', destination: '/', permanent: true },
+    { source: '/es/:path*', destination: '/:path*', permanent: true },
   ],
 };
 

@@ -9,10 +9,6 @@ describe('formatWhen', () => {
       big: '2024 — Now',
       small: 'Jan 2024 · Málaga',
     });
-    expect(formatWhen({ start: '2024-01' }, place, 'es', 'Ahora')).toEqual({
-      big: '2024 — Ahora',
-      small: 'ene 2024 · Málaga',
-    });
   });
 
   it('shows a range inside one year as that year and its months', () => {
@@ -34,6 +30,5 @@ describe('formatWhen', () => {
       big: '2023',
       small: 'June · Málaga',
     });
-    expect(formatWhen({ end: '2023-06' }, place, 'es', 'Ahora').small).toBe('junio · Málaga');
   });
 });

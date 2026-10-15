@@ -17,6 +17,6 @@ export const galleryPhotoVariants = {
     },
   ),
   stamp: cva(
-    'surface-volt pointer-events-none absolute -bottom-[3px] -left-[3px] max-w-[92%] origin-bottom-left -rotate-2 border-[3px] border-ink bg-volt px-2.5 py-1.5 text-[0.75rem] leading-[1.2] font-extrabold tracking-[0.06em] text-on-volt uppercase',
+    'pointer-events-none absolute -bottom-[3px] -left-[3px] max-w-[92%] origin-bottom-left -rotate-2 border-[3px] border-ink bg-volt px-2.5 py-1.5 text-[0.75rem] leading-[1.2] font-extrabold tracking-[0.06em] text-on-volt uppercase surface-volt',
   ),
 };

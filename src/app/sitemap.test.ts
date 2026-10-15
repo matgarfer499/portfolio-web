@@ -3,16 +3,13 @@ import robots from './robots';
 import sitemap from './sitemap';
 
 describe('sitemap', () => {
-  it('lists home, cv and every case study in both locales, with their translations', () => {
+  it('lists home, cv and every case study once, at their canonical URLs', () => {
     const urls = sitemap().map((entry) => entry.url);
     expect(urls).toContain('https://matiasgarcia.dev/');
-    expect(urls).toContain('https://matiasgarcia.dev/es/cv');
-    expect(urls).toContain('https://matiasgarcia.dev/es/projects/chefory');
+    expect(urls).toContain('https://matiasgarcia.dev/cv');
     expect(urls).toContain('https://matiasgarcia.dev/projects/miot');
-    expect(urls).toHaveLength(14);
-    expect(sitemap()[0]?.alternates?.languages).toMatchObject({
-      es: 'https://matiasgarcia.dev/es',
-    });
+    expect(urls).toHaveLength(7);
+    expect(urls.filter((url) => url.includes('/es'))).toEqual([]);
   });
 });
 

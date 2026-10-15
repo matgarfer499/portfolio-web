@@ -24,9 +24,8 @@ describe('isFinishLine', () => {
 describe('clock', () => {
   const instant = new Date('2026-10-14T16:05:30Z');
 
-  it('shows Málaga time (Europe/Madrid, CEST in October) in 24 h for both locales', () => {
+  it('shows Málaga time (Europe/Madrid, CEST in October) in 24 h', () => {
     expect(formatClock(instant, 'en', 'Europe/Madrid')).toBe('18:05');
-    expect(formatClock(instant, 'es', 'Europe/Madrid')).toBe('18:05');
   });
 
   it('switches with daylight saving time', () => {

@@ -1,7 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { TROPHY_EVENTS } from '@shared/events/trophy-bus';
 import en from '@/messages/en.json';
-import es from '@/messages/es.json';
 
 type Tree = { [key: string]: string | Tree };
 
@@ -16,27 +15,11 @@ function leaves(tree: Tree, prefix = ''): Map<string, string> {
 }
 
 const EN = leaves(en);
-const ES = leaves(es);
-const params = (s: string) => [...s.matchAll(/\{(\w+)\}/g)].map((m) => m[1]).sort();
 const camel = (s: string) => s.replace(/-(\w)/g, (_, c: string) => c.toUpperCase());
 
 describe('UI messages', () => {
-  it('have the same keys in English and Spanish', () => {
-    expect([...ES.keys()].sort()).toEqual([...EN.keys()].sort());
-  });
-
   it('have no empty strings', () => {
-    expect([...EN, ...ES].filter(([, v]) => !v.trim()).map(([k]) => k)).toEqual([]);
-  });
-
-  it('use the same placeholders in both languages', () => {
-    const drift = [...EN].filter(([k, v]) => params(v).join() !== params(ES.get(k) ?? '').join());
-    expect(drift.map(([k]) => k)).toEqual([]);
-  });
-
-  it('translate prose instead of copying it', () => {
-    const copied = [...EN].filter(([k, v]) => v === ES.get(k) && v.split(' ').length > 1);
-    expect(copied.map(([k, v]) => `${k}: ${v}`)).toEqual([]);
+    expect([...EN].filter(([, v]) => !v.trim()).map(([k]) => k)).toEqual([]);
   });
 
   it('name and describe every trophy on the bus', () => {

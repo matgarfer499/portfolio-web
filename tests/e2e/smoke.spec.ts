@@ -6,15 +6,12 @@ test('the home page server-renders the name in English', async ({ page }) => {
   await expect(page.locator('html')).toHaveAttribute('lang', 'en');
 });
 
-test('the Spanish home page lives under /es', async ({ page }) => {
+test('the old Spanish home redirects to the English one', async ({ page }) => {
   await page.goto('/es');
-  await expect(page.locator('html')).toHaveAttribute('lang', 'es');
-  await expect(
-    page.getByText('Construyo productos de principio a fin', { exact: true }),
-  ).toBeVisible();
+  await expect(page).toHaveURL(/\/$/);
+  await expect(page.getByText('I build products end to end', { exact: true })).toBeVisible();
 });
 
 test('the styleguide is a dev-only page: production answers 404', async ({ request }) => {
   expect((await request.get('/styleguide')).status()).toBe(404);
-  expect((await request.get('/es/styleguide')).status()).toBe(404);
 });

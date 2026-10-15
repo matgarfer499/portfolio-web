@@ -3,8 +3,6 @@ export const TROPHY_EVENTS = [
   'finish-line',
   'records-seen',
   'case-study-opened',
-  'language-switched',
-  'theme-switched',
   'email-copied',
   'cv-opened',
   'konami',

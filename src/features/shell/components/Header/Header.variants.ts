@@ -10,5 +10,4 @@ export const headerVariants = {
     'inline-flex size-11 shrink-0 items-center justify-center bg-night font-display text-[1.375rem] leading-none text-volt no-underline',
   ),
   actions: cva('ml-auto flex items-center gap-2 board:ml-0'),
-  wide: cva('hidden items-center gap-2 board:flex'),
 };

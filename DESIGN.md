@@ -1,10 +1,10 @@
 ---
 version: 1
 name: PR Board
-description: "Sports-brand poster portfolio. A career read like an athlete's record: giant condensed name beside a poster of three verbs (build · lead · ship), a night records board with before → after numbers, a training-log table. Hard ink borders, offset shadows, one volt accent. Light and dark."
+description: "Sports-brand poster portfolio. A career read like an athlete's record: giant condensed name beside a poster of three verbs (build · lead · ship), a night records board with before → after numbers, a training-log table. Hard ink borders, offset shadows, one volt accent. Dark only."
 
 colors:
-  light:
+  light: # not a site theme any more (dark only); these are the print values for the CV
     paper: '#FFFFFF' # page background
     ink: '#111111' # text, borders, dark buttons
     ink-soft: '#2B2D29' # long-form body copy
@@ -12,13 +12,13 @@ colors:
     line: '#DCDED8' # hairlines that are not ink borders
     ghost: '#8A8F84' # LARGE text only on paper (≈3.3:1 fails body AA)
     volt: '#D4FF1F' # the one accent: hero ship row, CTA, highlights, toast
-    on-volt: '#111111' # text on volt, both themes
+    on-volt: '#111111' # text on volt
     night: '#111111' # records board background
     night-ink: '#FFFFFF' # text on night
     night-muted: '#B9BDB3' # labels on night
     night-ghost: '#8A8F84' # struck-through "before" values on the board
     night-line: '#2E302B' # grid gaps of the board
-  dark: # paper/ink invert; values below proven by src/app/contrast.test.ts (P1)
+  dark: # the site palette; values proven by src/app/contrast.test.ts
     paper: '#0E0F0C'
     ink: '#F2F3EE'
     ink-soft: '#D9DCD4'
@@ -69,7 +69,7 @@ projects, and a finish line (contact).
 
 Volt marks: the hero's "ship" row, the primary CTA, `<mark>` highlights, record values on the night board,
 the toast, the scroll-progress bar and focus accents. Nothing else is volt. Text on volt is always
-`on-volt` (#111111), in both themes.
+`on-volt` (#111111).
 
 ## Colors
 
@@ -88,7 +88,7 @@ the toast, the scroll-progress bar and focus accents. Nothing else is volt. Text
 `Section tone="night"` and `tone="volt"` add `.surface-night` / `.surface-volt` (globals.css), which
 remap `paper`, `ink`, `ink-soft`, `steel` and `ring` for everything inside. Atoms never need a
 "on night" variant: a default Button on the night board is night with a light border, a dark
-Button is light; on the volt band buttons are white/black in both themes. New surfaces follow the
+Button is light; on the volt band buttons are white/black. New surfaces follow the
 same pattern and join the contrast test.
 
 ## Typography
@@ -160,7 +160,7 @@ Do
 
 - Lead every section with a giant Anton title and one line of steel context.
 - Keep volt scarce; keep borders ink.
-- Prove contrast in `src/app/contrast.test.ts` (WCAG AA both themes).
+- Prove contrast in `src/app/contrast.test.ts` (WCAG AA on the dark tokens and beast mode).
 - 44 px targets, `:focus-visible` everywhere (3 px ink outline, 3 px offset; thicker at TV sizes).
 
 Don't

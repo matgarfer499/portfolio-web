@@ -8,10 +8,6 @@ test('the server HTML carries the final numbers, the ratios and the screen-reade
     expect(en).toContain(text);
   expect(en).toMatch(/Before(<!-- -->)?: <\/span>90\u00a0s/);
   expect(en).toMatch(/data-to="800"[^>]*>800</);
-
-  const es = await (await request.get('/es')).text();
-  for (const text of ['5× más rápido', '2× más', '3× más', '+25 puntos', '−47% de coste', '1500'])
-    expect(es).toContain(text);
 });
 
 test('below the fold the board rewinds, then counts up and draws the strikes in view', async ({
@@ -77,10 +73,8 @@ test.describe('on a phone', () => {
     expect(title!.y).toBeGreaterThanOrEqual(header!.y + header!.height);
   });
 
-  test('folding follows where a deep link lands, in both locales', async ({ page }) => {
+  test('folding follows where a deep link lands', async ({ page }) => {
     await page.goto('/#top');
     await expect(page.getByRole('button', { name: 'Show details' })).toHaveCount(3);
-    await page.goto('/es#log');
-    await expect(page.getByRole('button', { name: 'Ver detalles' })).toHaveCount(0);
   });
 });

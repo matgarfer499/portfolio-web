@@ -7,12 +7,3 @@ export function localizedPath(locale: Locale, path: string): string {
   if (path === '/') return `/${locale}`;
   return `/${locale}${path.startsWith('/#') ? path.slice(1) : path}`;
 }
-
-const PREFIX = new RegExp(
-  `^/(${routing.locales.filter((l) => l !== routing.defaultLocale).join('|')})(?=/|$)`,
-);
-
-export function switchLocalePath(pathname: string, to: Locale): string {
-  const bare = pathname.replace(PREFIX, '') || '/';
-  return localizedPath(to, bare);
-}

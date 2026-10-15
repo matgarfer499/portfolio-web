@@ -15,7 +15,7 @@ function collectErrors(page: Page): string[] {
   return errors;
 }
 
-for (const path of ['/', '/es']) {
+for (const path of ['/', '/cv']) {
   test(`${path} has no accessibility violations and a clean console`, async ({ page }) => {
     const errors = collectErrors(page);
     await page.goto(path);
@@ -40,32 +40,34 @@ for (const path of ['/', '/es']) {
   });
 }
 
-test('the theme choice survives a reload and is applied before hydration', async ({ page }) => {
-  await page.addInitScript(() => {
-    document.addEventListener('DOMContentLoaded', () => {
-      (window as unknown as { themeAtDcl: string }).themeAtDcl =
-        document.documentElement.getAttribute('data-theme') ?? '';
-    });
-  });
-  await page.emulateMedia({ colorScheme: 'light' });
+test('the site is dark only, with no theme or language controls', async ({ page }) => {
   await page.goto('/');
-  await page.getByRole('button', { name: 'Dark theme' }).click();
-  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
-  await page.reload();
-  expect(await page.evaluate(() => (window as unknown as { themeAtDcl: string }).themeAtDcl)).toBe(
+  expect(await page.evaluate(() => getComputedStyle(document.documentElement).colorScheme)).toBe(
     'dark',
   );
-  await expect(page.getByRole('button', { name: 'Dark theme' })).toHaveAttribute(
-    'aria-pressed',
-    'true',
-  );
+  await expect(page.getByRole('button', { name: 'Dark theme' })).toHaveCount(0);
+  await expect(page.locator('a[hreflang]')).toHaveCount(0);
 });
 
-test('the language switch keeps the page and changes the locale', async ({ page }) => {
-  await page.goto('/');
-  await page.getByRole('link', { name: 'Ver en español' }).click();
-  await expect(page).toHaveURL(/\/es$/);
-  await expect(page.locator('html')).toHaveAttribute('lang', 'es');
+test('on desktop the hero fills the first screen and ends exactly at its bottom', async ({
+  page,
+}) => {
+  for (const [width, height] of [
+    [1366, 768],
+    [1440, 900],
+    [1920, 1080],
+  ] as const) {
+    await page.setViewportSize({ width, height });
+    await page.goto('/');
+    const bottoms = await page.evaluate(() => ({
+      hero: document.querySelector('#top')!.getBoundingClientRect().bottom,
+      ship: [...document.querySelectorAll('#top li')].at(-1)!.getBoundingClientRect().bottom,
+      stats: document.querySelector('#top dl')!.getBoundingClientRect().bottom,
+    }));
+    expect(Math.abs(bottoms.hero - height), `${width}x${height}`).toBeLessThanOrEqual(1);
+    expect(bottoms.ship, `${width}x${height}`).toBeLessThanOrEqual(height + 1);
+    expect(bottoms.stats, `${width}x${height}`).toBeLessThanOrEqual(height);
+  }
 });
 
 test('the skip link is the first stop and jumps to the content', async ({ page }) => {

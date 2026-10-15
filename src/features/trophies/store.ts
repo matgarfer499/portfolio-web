@@ -31,7 +31,7 @@ function persist(write: () => void): void {
   attempt(write, undefined);
 }
 
-// Starts empty: the server renders 0/8 and the first client render must match; hydrate() runs in
+// Starts empty: the server renders 0/N and the first client render must match; hydrate() runs in
 // an effect. unlock() persists synchronously, so a reload or a closed tab never loses a trophy.
 export function createTrophyStore(storage: () => KeyValueStorage) {
   return createStore<TrophyState>()((set, get) => ({

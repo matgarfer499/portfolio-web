@@ -1,20 +1,20 @@
 @import 'tailwindcss';
 
-/* PR Board tokens (DESIGN.md). Raw values per theme; contrast.test.ts parses these blocks. */
+/* PR Board tokens (DESIGN.md): dark only. contrast.test.ts parses these blocks. */
 :root {
-  --paper: #ffffff;
-  --ink: #111111;
-  --ink-soft: #2b2d29;
-  --steel: #555a50;
-  --line: #dcded8;
+  --paper: #0e0f0c;
+  --ink: #f2f3ee;
+  --ink-soft: #d9dcd4;
+  --steel: #a3a89b;
+  --line: #2e302b;
   --ghost: #8a8f84;
   --volt: #d4ff1f;
   --on-volt: #111111;
-  --night: #111111;
-  --night-ink: #ffffff;
+  --night: #171814;
+  --night-ink: #f2f3ee;
   --night-muted: #b9bdb3;
   --night-ghost: #8a8f84;
-  --night-line: #2e302b;
+  --night-line: #34362f;
   --logo: #ffffff;
   --ring: var(--ink);
 
@@ -27,24 +27,10 @@
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
   --ease-out-cubic: cubic-bezier(0.33, 1, 0.68, 1);
 
-  color-scheme: light;
-}
-
-:root[data-theme='dark'] {
-  --paper: #0e0f0c;
-  --ink: #f2f3ee;
-  --ink-soft: #d9dcd4;
-  --steel: #a3a89b;
-  --line: #2e302b;
-  --ghost: #8a8f84;
-  --night: #171814;
-  --night-ink: #f2f3ee;
-  --night-line: #34362f;
-
   color-scheme: dark;
 }
 
-/* Beast mode (Konami trophy): the page turns volt, ink stays black in either theme. */
+/* Beast mode (Konami trophy): the page turns volt with black ink. */
 :root[data-beast] {
   --paper: #d4ff1f;
   --ink: #111111;
@@ -110,14 +96,15 @@
     opacity: 0;
     translate: 0 1.75rem;
   }
+}
 
-  .surface-volt {
-    --paper: #ffffff;
-    --ink: #111111;
-    --ink-soft: #2b2d29;
-    --steel: #3d4139;
-    --ring: var(--on-volt);
-  }
+/* A utility (not a component class) so variants work: `hover:surface-volt` on a volt hover. */
+@utility surface-volt {
+  --paper: #ffffff;
+  --ink: #111111;
+  --ink-soft: #2b2d29;
+  --steel: #3d4139;
+  --ring: var(--on-volt);
 }
 
 @keyframes letter-rise {
@@ -361,7 +348,7 @@
 }
 
 /* Print (the CV's "Download PDF"): always the light tokens, whatever the theme or beast mode.
-   `:not(#print)` outranks `:root[data-theme='dark']` and `:root[data-beast]` without !important. */
+   `:not(#print)` outranks `:root` and `:root[data-beast]` without !important. */
 @media print {
   html:root:not(#print) {
     --paper: #ffffff;

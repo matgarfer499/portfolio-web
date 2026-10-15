@@ -16,7 +16,7 @@ describe('cvPeriod', () => {
     );
   });
 
-  it('dates a degree by its completion month, in Spanish too', () => {
-    expect(cvPeriod({ end: '2023-06' }, 'es', 'Actualidad')).toBe('jun 2023');
+  it('dates a degree by its completion month', () => {
+    expect(cvPeriod({ end: '2023-06' }, 'en', 'Now')).toBe('Jun 2023');
   });
 });
