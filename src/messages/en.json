@@ -77,7 +77,6 @@
     "caseNav": "Case studies"
   },
   "Contact": {
-    "email": "Email",
     "copy": "Copy email",
     "copied": "Copied",
     "selected": "Selected, press Ctrl+C",
@@ -149,10 +148,8 @@
     "contact": "Contact",
     "back": "Back to the site",
     "profile": "Profile",
-    "pdfFile": "PDF file",
     "now": "Now",
-    "description": "Curriculum vitae of Matías García, full stack engineer and Tech Lead in Málaga: experience, projects, skills and languages.",
-    "printHint": "Print or save as PDF"
+    "description": "Curriculum vitae of Matías García, full stack engineer and Tech Lead in Málaga: experience, projects, skills and languages."
   },
   "Pending": {
     "prefix": "Coming soon:"

@@ -6,7 +6,6 @@ import { contact, localize, profile } from '@content/index';
 import { buttonVariants } from '@shared/components/atoms/Button/Button.variants';
 import { Container } from '@shared/components/atoms/Container/Container';
 import { Display } from '@shared/components/atoms/Display/Display';
-import { Label } from '@shared/components/atoms/Label/Label';
 import { Section } from '@shared/components/atoms/Section/Section';
 import { cn } from '@shared/lib/cn';
 import { Availability } from '../Availability/Availability';
@@ -37,19 +36,10 @@ export async function ContactSection({ locale }: { locale: Locale }) {
               </span>
             ))}
           </Display>
-          <div>
-            <Label as="p" tone="ink" className={styles.label()}>
-              {t('email')}
-            </Label>
-            <CopyEmail
-              email={profile.email}
-              labels={{ copy: t('copy'), copied: t('copied'), selected: t('selected') }}
-            />
-            <Availability
-              open={profile.availability.status === 'open'}
-              label={localize(profile.availability.label, locale)}
-            />
-          </div>
+          <Availability
+            open={profile.availability.status === 'open'}
+            label={localize(profile.availability.label, locale)}
+          />
           <Magnetic className={styles.social()}>
             {profile.socials.map((social) => (
               <a key={social.id} href={social.href} translate="no" className={link}>
@@ -63,6 +53,11 @@ export async function ContactSection({ locale }: { locale: Locale }) {
             >
               {t('cv')}
             </Link>
+            <CopyEmail
+              email={profile.email}
+              labels={{ copy: t('copy'), copied: t('copied'), selected: t('selected') }}
+              className={link}
+            />
           </Magnetic>
         </div>
         <ContactForm

@@ -1,7 +1,7 @@
 import { cva } from 'class-variance-authority';
 
 export const availabilityVariants = {
-  root: cva('mt-5 inline-flex items-center gap-3 text-[0.9375rem] font-bold'),
+  root: cva('inline-flex items-center gap-3 text-[0.9375rem] font-bold'),
   dot: cva('relative inline-block size-3 rounded-full', {
     variants: { open: { true: 'bg-ink', false: 'bg-steel' } },
   }),

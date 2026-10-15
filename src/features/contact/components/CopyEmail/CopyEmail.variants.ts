@@ -1,10 +1,8 @@
 import { cva } from 'class-variance-authority';
 
 export const copyEmailVariants = {
-  root: cva('flex flex-wrap items-center gap-3'),
-  address: cva(
-    'text-[clamp(1.375rem,2.4cqi,2.125rem)] leading-[1.1] font-extrabold tracking-[-0.01em] break-all text-ink no-underline select-all hover:underline',
-  ),
+  // The address replaces the label only when the clipboard is refused (selected for Ctrl+C).
+  address: cva('normal-case select-all'),
   button: cva('relative'),
   // Ink rays spark out of the corner once per copy (motion-safe only).
   burst: cva('pointer-events-none absolute top-0 right-0 hidden motion-safe:block'),

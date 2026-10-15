@@ -7,8 +7,7 @@ export const contactSectionVariants = {
     'grid grid-cols-1 items-start gap-12 stack:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] stack:gap-16',
   ),
   reach: cva('flex flex-col gap-8'),
-  label: cva('mb-3'),
-  social: cva('grid max-w-[32rem] grid-cols-3 gap-2.5'),
+  social: cva('grid max-w-[44rem] grid-cols-2 gap-2.5 @min-[30rem]:grid-cols-4'),
   // --mx/--my come from Magnetic (pointer: fine only); transform composes with the hover lift.
   link: cva('[transform:translate(var(--mx,0),var(--my,0))]'),
 };
