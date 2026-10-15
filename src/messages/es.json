@@ -41,6 +41,7 @@
     "fewer": "{value}× menos",
     "more": "{value}× más",
     "points": "+{value} puntos",
+    "cut": "−{value}% de coste",
     "readCase": "Leer el caso"
   },
   "Log": {
@@ -156,7 +157,7 @@
     "contact": "Contacto",
     "back": "Volver a la web",
     "profile": "Perfil",
-    "originalPdf": "PDF original",
+    "pdfFile": "Archivo PDF",
     "now": "Actualidad",
     "description": "Currículum de Matías García, ingeniero full stack y Tech Lead en Málaga: experiencia, proyectos, habilidades e idiomas.",
     "printHint": "Imprimir o guardar en PDF"

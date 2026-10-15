@@ -6,7 +6,7 @@ const rec = (
   after: number,
   better: 'lower' | 'higher',
   unit?: string,
-  gain?: 'ratio',
+  gain?: 'ratio' | 'percent',
 ) => ({
   before: unit ? { value: before, unit } : { value: before },
   after: unit ? { value: after, unit } : { value: after },
@@ -37,6 +37,15 @@ describe('improvement', () => {
     expect(improvement(rec(2, 4, 'higher', undefined, 'ratio'))).toEqual({
       kind: 'more',
       value: '2',
+    });
+  });
+});
+
+describe('improvement for costs', () => {
+  it('reads a cost going down as a whole-percent cut when the record asks for a percent', () => {
+    expect(improvement(rec(1500, 800, 'lower', '€', 'percent'))).toEqual({
+      kind: 'cut',
+      value: '47',
     });
   });
 });

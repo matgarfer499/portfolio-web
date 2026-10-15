@@ -41,6 +41,7 @@
     "fewer": "{value}× fewer",
     "more": "{value}× more",
     "points": "+{value} points",
+    "cut": "−{value}% cost",
     "readCase": "Read the case study"
   },
   "Log": {
@@ -156,7 +157,7 @@
     "contact": "Contact",
     "back": "Back to the site",
     "profile": "Profile",
-    "originalPdf": "Original PDF",
+    "pdfFile": "PDF file",
     "now": "Now",
     "description": "Curriculum vitae of Matías García, full stack engineer and Tech Lead in Málaga: experience, projects, skills and languages.",
     "printHint": "Print or save as PDF"

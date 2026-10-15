@@ -4,13 +4,13 @@ test('the server HTML carries the final numbers, the ratios and the screen-reade
   request,
 }) => {
   const en = await (await request.get('/')).text();
-  for (const text of ['5× faster', '2× more', '3× more', '+25 points', '857× fewer', '6,000'])
+  for (const text of ['5× faster', '2× more', '3× more', '+25 points', '−47% cost', '1,500'])
     expect(en).toContain(text);
   expect(en).toMatch(/Before(<!-- -->)?: <\/span>90\u00a0s/);
-  expect(en).toMatch(/data-to="7"[^>]*>7</);
+  expect(en).toMatch(/data-to="800"[^>]*>800</);
 
   const es = await (await request.get('/es')).text();
-  for (const text of ['5× más rápido', '2× más', '3× más', '+25 puntos', '857× menos', '6000'])
+  for (const text of ['5× más rápido', '2× más', '3× más', '+25 puntos', '−47% de coste', '1500'])
     expect(es).toContain(text);
 });
 
@@ -21,7 +21,7 @@ test('below the fold the board rewinds, then counts up and draws the strikes in 
   const digits = page.locator('#records [data-count]');
   await expect(digits.first()).toHaveText('5');
   await page.locator('#records').scrollIntoViewIfNeeded();
-  await expect(digits).toHaveText(['1', '4', '30', '85', '1', '7', '100']);
+  await expect(digits).toHaveText(['1', '4', '30', '800', '85', '1', '100']);
   for (const card of await page.locator('#records [data-record]').all())
     await expect(card).toHaveAttribute('data-state', 'played');
 });
@@ -34,9 +34,9 @@ test('with reduced motion the board shows final values and nothing animates', as
     '1',
     '4',
     '30',
+    '800',
     '85',
     '1',
-    '7',
     '100',
   ]);
   await expect(page.locator('#records [data-state]')).toHaveCount(0);
