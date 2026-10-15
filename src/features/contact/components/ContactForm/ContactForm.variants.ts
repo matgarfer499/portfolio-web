@@ -1,12 +1,16 @@
 import { cva } from 'class-variance-authority';
 
 export const contactFormVariants = {
-  root: cva('mt-16 flex max-w-[40rem] flex-col gap-5'),
-  field: cva('flex flex-col gap-2'),
+  // Name and email share a row from 30rem up; the message and the rest span both columns.
+  root: cva('grid grid-cols-1 gap-4 @min-[30rem]:grid-cols-2'),
+  full: cva('col-span-full'),
+  field: cva('flex flex-col gap-2', {
+    variants: { wide: { true: 'col-span-full', false: '' } },
+  }),
   label: cva('text-[0.8125rem] font-extrabold tracking-[0.08em] uppercase'),
   input: cva(
     'w-full rounded-[2px] border-[3px] border-ink bg-paper px-3 py-2.5 text-[1rem] text-ink aria-invalid:border-dashed',
-    { variants: { multiline: { true: 'min-h-36 resize-y', false: 'min-h-11' } } },
+    { variants: { multiline: { true: 'min-h-28 resize-y', false: 'min-h-11' } } },
   ),
   error: cva('m-0 text-[0.9375rem] font-bold'),
   // Off-screen, not display:none: some bots skip hidden inputs.

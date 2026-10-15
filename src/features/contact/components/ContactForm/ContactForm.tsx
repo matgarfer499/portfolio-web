@@ -5,6 +5,7 @@ import { sendMessage } from '@/server/contact/action';
 import type { ContactResult } from '@/server/contact/handle';
 import type { ContactField } from '@/server/contact/schema';
 import { Button } from '@shared/components/atoms/Button/Button';
+import { cn } from '@shared/lib/cn';
 import { mailtoHref } from '../../model';
 import { contactFormVariants as styles } from './ContactForm.variants';
 
@@ -52,14 +53,14 @@ export function ContactForm({ to, labels }: { to: string; labels: ContactFormLab
       aria-labelledby="contact-form-title"
       className={styles.root()}
     >
-      <h3 id="contact-form-title" className={styles.label()}>
+      <h3 id="contact-form-title" className={cn(styles.label(), styles.full())}>
         {labels.title}
       </h3>
       {FIELDS.map((field) => {
         const error = fieldErrors[field];
         const Control = field === 'message' ? 'textarea' : 'input';
         return (
-          <div key={field} className={styles.field()}>
+          <div key={field} className={styles.field({ wide: field === 'message' })}>
             <label htmlFor={`contact-${field}`} className={styles.label()}>
               {labels[field]}
             </label>
@@ -86,16 +87,16 @@ export function ContactForm({ to, labels }: { to: string; labels: ContactFormLab
         <label htmlFor="contact-website">{labels.honeypot}</label>
         <input id="contact-website" name="website" tabIndex={-1} autoComplete="off" />
       </div>
-      <div className={styles.actions()}>
+      <div className={cn(styles.actions(), styles.full())}>
         <Button type="submit" variant="dark" aria-disabled={pending || undefined}>
           {pending ? labels.sending : labels.send}
         </Button>
       </div>
       {/* Live regions stay mounted (empty when idle) so their content is announced on arrival. */}
-      <div role="status">
+      <div role="status" className={styles.full()}>
         {state.status === 'sent' ? <p className={styles.status()}>{labels.sent}</p> : null}
       </div>
-      <div role="alert">
+      <div role="alert" className={styles.full()}>
         {state.status === 'error' && state.reason !== 'invalid' ? (
           <div className={styles.status()}>
             {state.reason === 'unconfigured' ? labels.unconfigured : labels.errors[state.reason]}

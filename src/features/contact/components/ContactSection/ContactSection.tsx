@@ -27,16 +27,16 @@ export async function ContactSection({ locale }: { locale: Locale }) {
       aria-labelledby="contact-title"
       className={styles.root()}
     >
-      <Container>
-        <Display id="contact-title" size="poster">
-          {contact.headline.map((line, i) => (
-            <span key={line.en}>
-              {i > 0 ? <br /> : null}
-              {localize(line, locale)}
-            </span>
-          ))}
-        </Display>
-        <div className={styles.row()}>
+      <Container className={styles.layout()}>
+        <div className={styles.reach()}>
+          <Display id="contact-title" size="section">
+            {contact.headline.map((line, i) => (
+              <span key={line.en}>
+                {i > 0 ? <br /> : null}
+                {localize(line, locale)}
+              </span>
+            ))}
+          </Display>
           <div>
             <Label as="p" tone="ink" className={styles.label()}>
               {t('email')}
