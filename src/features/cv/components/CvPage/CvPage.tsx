@@ -65,7 +65,7 @@ export async function CvPage({ locale }: { locale: Locale }) {
               <span>{localize(profile.location, locale)}</span>
               <a href={`mailto:${profile.email}`}>{profile.email}</a>
               {profile.socials.map((social) => (
-                <a key={social.id} href={social.href}>
+                <a key={social.id} href={social.href} target="_blank" rel="noreferrer">
                   {social.href.replace(/^https:\/\/(www\.)?/, '')}
                 </a>
               ))}

@@ -1,5 +1,4 @@
 import { getTranslations } from 'next-intl/server';
-import Link from 'next/link';
 import { localizedPath } from '@/i18n/paths';
 import type { Locale } from '@/i18n/routing';
 import { hero, localize, profile } from '@content/index';
@@ -39,13 +38,15 @@ export async function Hero({ locale }: { locale: Locale }) {
                 {t('getInTouch')}
                 <Icon name="arrow-right" />
               </a>
-              <Link
+              <a
                 href={localizedPath(locale, '/cv')}
-                transitionTypes={['nav-forward']}
+                target="_blank"
+                rel="noreferrer"
                 className={buttonVariants()}
               >
                 {t('viewCv')}
-              </Link>
+                <span className="sr-only"> {t('newTab')}</span>
+              </a>
             </div>
             <dl className={styles.stats()}>
               {stats.map((stat) => (

@@ -28,7 +28,8 @@
   "Hero": {
     "getInTouch": "Get in touch",
     "viewCv": "View CV",
-    "yearsPlus": "{count}+ yrs"
+    "yearsPlus": "{count}+ yrs",
+    "newTab": "(opens in a new tab)"
   },
   "Records": {
     "title": "Personal records",
@@ -99,7 +100,8 @@
         "rateLimited": "Too many messages. Try again in a few minutes.",
         "failed": "It couldn't be sent. Email me directly instead."
       }
-    }
+    },
+    "newTab": "(opens in a new tab)"
   },
   "Trophies": {
     "counter": "{count}/{total} trophies",

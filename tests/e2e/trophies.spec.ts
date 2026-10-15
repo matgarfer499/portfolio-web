@@ -38,13 +38,17 @@ test('all six trophies unlock in one visit and survive a reload', async ({ page,
   await page.waitForURL('**/projects/miot');
   await expect(counter(page)).toContainText('5/6');
 
+  // The CV opens in a new tab; the trophy is stored, so that tab shows the full shelf.
   await page.goto('/');
-  await page.getByRole('link', { name: 'View CV' }).click();
-  await page.waitForURL('**/cv');
-  await expect(counter(page)).toContainText('6/6');
-  await page.reload();
-  await expect(counter(page)).toContainText('6/6');
-  expect((await stored(page)).length).toBe(6);
+  const [cv] = await Promise.all([
+    page.waitForEvent('popup'),
+    page.getByRole('link', { name: /View CV/ }).click(),
+  ]);
+  await cv.waitForURL('**/cv');
+  await expect(counter(cv)).toContainText('6/6');
+  await cv.reload();
+  await expect(counter(cv)).toContainText('6/6');
+  expect((await stored(cv)).length).toBe(6);
 });
 
 test('the shelf opens from the counter, closes on Escape and gives focus back', async ({

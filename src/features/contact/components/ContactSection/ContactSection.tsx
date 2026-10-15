@@ -1,5 +1,4 @@
 import { getTranslations } from 'next-intl/server';
-import Link from 'next/link';
 import { localizedPath } from '@/i18n/paths';
 import type { Locale } from '@/i18n/routing';
 import { contact, localize, profile } from '@content/index';
@@ -42,17 +41,27 @@ export async function ContactSection({ locale }: { locale: Locale }) {
           />
           <Magnetic className={styles.social()}>
             {profile.socials.map((social) => (
-              <a key={social.id} href={social.href} translate="no" className={link}>
+              <a
+                key={social.id}
+                href={social.href}
+                target="_blank"
+                rel="noreferrer"
+                translate="no"
+                className={link}
+              >
                 {social.label}
+                <span className="sr-only"> {t('newTab')}</span>
               </a>
             ))}
-            <Link
+            <a
               href={localizedPath(locale, '/cv')}
-              transitionTypes={['nav-forward']}
+              target="_blank"
+              rel="noreferrer"
               className={link}
             >
               {t('cv')}
-            </Link>
+              <span className="sr-only"> {t('newTab')}</span>
+            </a>
             <CopyEmail
               email={profile.email}
               labels={{ copy: t('copy'), copied: t('copied'), selected: t('selected') }}
