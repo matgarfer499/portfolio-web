@@ -24,11 +24,7 @@ export async function Hero({ locale }: { locale: Locale }) {
 
   return (
     <section id="top" className={styles.root()}>
-      <Container>
-        <div className={styles.meta()}>
-          <span>{localize(profile.role, locale)}</span>
-          <span>{localize(profile.location, locale)}</span>
-        </div>
+      <Container className={styles.inner()}>
         <HeroName name={profile.name} />
         <div className={styles.grid()}>
           <div className={styles.intro()}>

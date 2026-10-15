@@ -1,14 +1,16 @@
 import { cva } from 'class-variance-authority';
 
 export const heroVariants = {
-  root: cva('overflow-hidden pt-7'),
-  meta: cva(
-    'flex flex-col gap-0.5 border-b-2 border-ink pb-2.5 text-[0.875rem] font-bold tracking-[0.1em] uppercase stack:flex-row stack:justify-between stack:gap-4',
-  ),
+  // Desktop: exactly the first screen under the sticky header (4rem + its 2px border), never taller. The name and
+  // the words cap their size by height (svh) so short laptops fit too; phones scroll as usual.
+  root: cva('overflow-hidden pt-2 stack:h-[calc(100svh-4rem-2px)] stack:min-h-[36rem]'),
+  inner: cva('stack:flex stack:h-full stack:flex-col'),
   grid: cva(
-    'mt-7 grid grid-cols-1 gap-7 stack:grid-cols-[minmax(0,0.9fr)_minmax(0,1.5fr)] stack:items-stretch stack:gap-10',
+    'mt-7 grid grid-cols-1 gap-7 stack:mt-[min(1.75rem,3svh)] stack:min-h-0 stack:flex-1 stack:grid-cols-[minmax(0,0.9fr)_minmax(0,1.5fr)] stack:grid-rows-[minmax(0,1fr)] stack:items-stretch stack:gap-10',
   ),
-  intro: cva('flex flex-col gap-[1.375rem] stack:pb-10'),
+  intro: cva(
+    'flex flex-col gap-[1.375rem] stack:gap-[min(1.375rem,2svh)] stack:pb-[min(2.5rem,3svh)]',
+  ),
   role: cva(
     'm-0 text-[clamp(1.625rem,2.4cqi,2.125rem)] leading-[1.1] font-extrabold tracking-[-0.01em] text-balance',
   ),

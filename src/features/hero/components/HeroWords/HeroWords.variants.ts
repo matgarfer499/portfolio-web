@@ -4,22 +4,22 @@ import { cva } from 'class-variance-authority';
 // the longest word in either language ("Construyo") still fits beside its proof.
 export const heroWordsVariants = {
   root: cva(
-    '@container m-0 -mx-4 grid list-none grid-rows-3 border-y-2 border-ink p-0 stack:mx-0 stack:min-h-[31.25rem] stack:border-y-0 stack:border-l-2',
+    '@container m-0 -mx-4 grid list-none grid-rows-3 border-y-2 border-ink p-0 stack:mx-0 stack:min-h-0 stack:border-y-0 stack:border-l-2',
   ),
   row: cva(
-    'group flex min-h-[7.5rem] items-center justify-between gap-4 overflow-hidden px-4 stack:px-8',
+    'group flex min-h-[7.5rem] items-center justify-between gap-4 overflow-hidden px-4 stack:min-h-0 stack:px-8',
     {
       variants: {
         tone: {
           outline: 'border-b-2 border-ink',
           solid: 'border-b-2 border-ink',
-          volt: 'surface-volt bg-volt text-on-volt',
+          volt: 'bg-volt text-on-volt surface-volt',
         },
       },
     },
   ),
   word: cva(
-    'font-display text-[15cqi] leading-[0.8] uppercase transition-transform duration-(--dur-base) ease-pr-out motion-safe:group-hover:translate-x-3',
+    'font-display text-[15cqi] leading-[0.8] uppercase transition-transform duration-(--dur-base) ease-pr-out motion-safe:group-hover:translate-x-3 stack:text-[min(15cqi,13svh)]',
     {
       variants: {
         tone: {
