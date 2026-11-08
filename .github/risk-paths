@@ -1,0 +1,8 @@
+# Extended regex per line; a PR touching a match needs the human-ok label.
+^\.github/
+^src/server/
+^src/proxy\.ts$
+^next\.config\.ts$
+(^|/)\.env
+^package\.json$
+^pnpm-lock\.yaml$
