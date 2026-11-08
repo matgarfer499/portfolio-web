@@ -8,7 +8,7 @@ describe('sitemap', () => {
     expect(urls).toContain('https://matiasgarcia.dev/');
     expect(urls).toContain('https://matiasgarcia.dev/cv');
     expect(urls).toContain('https://matiasgarcia.dev/projects/miot');
-    expect(urls).toHaveLength(7);
+    expect(urls).toHaveLength(8);
     expect(urls.filter((url) => url.includes('/es'))).toEqual([]);
   });
 });

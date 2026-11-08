@@ -64,7 +64,7 @@ export async function CaseStudyPage({ study, locale }: { study: CaseStudy; local
                 rel="noreferrer"
                 className={buttonVariants({ variant: 'dark' })}
               >
-                {t('visit')}
+                {t(study.url.startsWith('https://github.com/') ? 'code' : 'visit')}
                 <Icon name="arrow-up-right" />
                 <span className="sr-only"> {t('newTab')}</span>
               </a>

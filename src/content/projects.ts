@@ -154,6 +154,82 @@ const miot = {
   ],
 } as const satisfies CaseStudy;
 
+const coach = {
+  slug: 'ai-personal-coach',
+  name: { en: 'AI Personal Coach' },
+  tagline: { en: 'Evidence-based trainer that runs in Claude Code' },
+  summary: {
+    en: 'A personal trainer and nutrition coach you talk to through a few commands. Claude handles the conversation; every number comes from a tested Python package, and every piece of advice cites a graded source.',
+  },
+  stack: [
+    'Python',
+    'Claude Code',
+    'pytest',
+    'uv',
+    'ReportLab',
+    'Open Food Facts',
+    'GitHub Actions',
+  ],
+  url: 'https://github.com/matgarfer499/ai-personal-coach',
+  shots: {
+    desktop: {
+      src: '/projects/coach-menu.webp',
+      width: 1920,
+      height: 926,
+      alt: {
+        en: 'Exported menu PDF: the week at a glance, recipe cards with QR codes and a tick-box shopping list',
+      },
+    },
+  },
+  gallery: [
+    {
+      src: '/projects/coach-loop.webp',
+      width: 1920,
+      height: 940,
+      alt: {
+        en: 'Weekly loop: /setup and the safety flags feed /plan, daily /checkin, weekly /review back into /plan, and /menu from the plan',
+      },
+    },
+  ],
+  sections: [
+    {
+      id: 'overview',
+      heading: { en: 'Overview' },
+      body: {
+        en: 'An open-source coach for healthy adults, in Spanish or English, driven by commands: /setup, /checkin, /plan, /review, /menu, /import and /research. It screens for red flags and hands over to a professional when the evidence says so.',
+      },
+    },
+    {
+      id: 'decisions',
+      heading: { en: 'Key decisions' },
+      list: [
+        {
+          en: 'The model never does the maths: calories, macros, heart-rate zones, loads, weekly sets and the weight trend come from a Python CLI the skills call with --json.',
+        },
+        {
+          en: 'Safety flags live in code: a positive screening blocks any calorie deficit, targets never go under the floors, and an injury pauses progression on the affected lift.',
+        },
+        {
+          en: 'Every rule in the knowledge base is graded strong, moderate or emerging and cites its sources. Claims that could not be confirmed are listed, not hidden.',
+        },
+        {
+          en: '/research refreshes the evidence on a separate branch: one agent finds sources, an independent one tries to refute each claim, and the result waits for a human merge.',
+        },
+        {
+          en: 'Personal data stays out of git. Menus come from real recipes and Open Food Facts products, exported as a PDF with a shopping list.',
+        },
+      ],
+    },
+    {
+      id: 'role',
+      heading: { en: 'My role' },
+      body: {
+        en: 'Designed and built alone from October 2026, with 1,200+ pytest tests and CI on Linux and Windows.',
+      },
+    },
+  ],
+} as const satisfies CaseStudy;
+
 const rat = {
   slug: 'rat',
   name: { en: 'R.A.T.' },
@@ -340,7 +416,7 @@ const rascame = {
 
 // Order matters: the first is featured on the home, each page links to the next one.
 export const projects = {
-  caseStudies: [miot, rat, physics, chefory, rascame],
+  caseStudies: [miot, coach, rat, physics, chefory, rascame],
   stack: [
     {
       id: 'daily',
