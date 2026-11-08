@@ -1,0 +1,49 @@
+name: Risk gate
+
+# Holds PRs that touch .github/risk-paths until Matías adds the human-ok label.
+# The path list is read from the base branch, so a PR cannot loosen its own gate.
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, labeled, unlabeled]
+
+permissions:
+  contents: read
+  pull-requests: write # to drop a human-ok label that a new push made stale
+
+jobs:
+  risk-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          fetch-depth: 0
+      - name: Drop a stale human-ok
+        if: (github.event.action == 'synchronize' || github.event.action == 'reopened') && contains(github.event.pull_request.labels.*.name, 'human-ok')
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ github.event.pull_request.number }}
+        run: gh pr edit "$PR" --remove-label human-ok -R "$GITHUB_REPOSITORY"
+      - name: Check risky paths
+        env:
+          BASE: ${{ github.event.pull_request.base.sha }}
+          HEAD: ${{ github.event.pull_request.head.sha }}
+          # A new push (or a reopen after one) invalidates the label: Matías re-reads and re-applies it.
+          APPROVED: ${{ github.event.action != 'synchronize' && github.event.action != 'reopened' && contains(github.event.pull_request.labels.*.name, 'human-ok') }}
+        run: |
+          # First setup PR: the base branch has no list yet, so use the PR's own.
+          git show "$BASE:.github/risk-paths" > /tmp/risk-paths 2>/dev/null || cp .github/risk-paths /tmp/risk-paths
+          grep -v '^#' /tmp/risk-paths | grep -v '^$' > /tmp/patterns
+          # -z + quotePath off: unusual names are not quoted; --no-renames lists both sides of a move.
+          risky=$(git -c core.quotePath=false diff --name-only -z --no-renames "$BASE...$HEAD" | tr '\0' '\n' | grep -E -f /tmp/patterns || true)
+          if [ -z "$risky" ]; then
+            echo "No risky paths touched."
+            exit 0
+          fi
+          echo "Risky paths touched:"
+          echo "$risky" | sed 's/^/  /'
+          if [ "$APPROVED" = "true" ]; then
+            echo "Approved with the human-ok label."
+            exit 0
+          fi
+          echo "::error::This PR touches risky paths and needs Matías's human-ok label."
+          exit 1

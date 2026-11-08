@@ -22,6 +22,11 @@ Audience: recruiters → tech leads → freelance clients. English only, dark on
 `pnpm test` (vitest) · `pnpm test:e2e` (playwright on the production build) · `pnpm format`.
 e2e in WSL2 needs `LD_LIBRARY_PATH=$PWD/.pw-libs/usr/lib/x86_64-linux-gnu` (see the review skill's qa.md).
 
+## Checks
+
+Run in this order: `pnpm format:check` · `pnpm lint` · `pnpm typecheck` · `pnpm test` · `pnpm build` ·
+`pnpm test:e2e` (after build; WSL2 needs the `LD_LIBRARY_PATH` above).
+
 ## Conventions
 
 - Conventional Commits, scopes: shell, hero, records, log, about, projects, contact, trophies, cv,
