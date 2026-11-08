@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: read
+  pull-requests: write # to drop a human-ok label that a new push made stale
 
 jobs:
   risk-gate:
@@ -16,16 +17,24 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           fetch-depth: 0
+      - name: Drop a stale human-ok
+        if: github.event.action == 'synchronize' && contains(github.event.pull_request.labels.*.name, 'human-ok')
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ github.event.pull_request.number }}
+        run: gh pr edit "$PR" --remove-label human-ok -R "$GITHUB_REPOSITORY"
       - name: Check risky paths
         env:
           BASE: ${{ github.event.pull_request.base.sha }}
           HEAD: ${{ github.event.pull_request.head.sha }}
-          APPROVED: ${{ contains(github.event.pull_request.labels.*.name, 'human-ok') }}
+          # A new push invalidates the label: Matías re-reads and re-applies it.
+          APPROVED: ${{ github.event.action != 'synchronize' && contains(github.event.pull_request.labels.*.name, 'human-ok') }}
         run: |
           # First setup PR: the base branch has no list yet, so use the PR's own.
           git show "$BASE:.github/risk-paths" > /tmp/risk-paths 2>/dev/null || cp .github/risk-paths /tmp/risk-paths
           grep -v '^#' /tmp/risk-paths | grep -v '^$' > /tmp/patterns
-          risky=$(git diff --name-only "$BASE...$HEAD" | grep -E -f /tmp/patterns || true)
+          # -z + quotePath off: unusual names are not quoted; --no-renames lists both sides of a move.
+          risky=$(git -c core.quotePath=false diff --name-only -z --no-renames "$BASE...$HEAD" | tr '\0' '\n' | grep -E -f /tmp/patterns || true)
           if [ -z "$risky" ]; then
             echo "No risky paths touched."
             exit 0
