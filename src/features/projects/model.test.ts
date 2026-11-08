@@ -8,14 +8,21 @@ describe('findCase / nextCase', () => {
   });
 
   it('links each case to the next one and wraps after the last', () => {
-    expect(nextCase('miot').slug).toBe('rat');
+    expect(nextCase('miot').slug).toBe('ai-personal-coach');
     expect(nextCase('rascame-esta').slug).toBe('miot');
   });
 });
 
 describe('case pages', () => {
   it('has one static page per case study, the featured one first', () => {
-    expect(caseSlugs()).toEqual(['miot', 'rat', 'physics-sketchbook', 'chefory', 'rascame-esta']);
+    expect(caseSlugs()).toEqual([
+      'miot',
+      'ai-personal-coach',
+      'rat',
+      'physics-sketchbook',
+      'chefory',
+      'rascame-esta',
+    ]);
   });
 
   it('titles a case with its name and describes it with its summary', () => {

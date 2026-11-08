@@ -90,10 +90,17 @@ test('a case page links to the next one at the top, and visits open in a new tab
   await expect(page.locator('#project-physics-sketchbook')).toBeInViewport();
 });
 
+test('a case that links to its repo says so', async ({ page }) => {
+  await page.goto('/projects/ai-personal-coach');
+  await expect(
+    page.getByRole('link', { name: 'View the code (opens in a new tab)' }),
+  ).toHaveAttribute('href', 'https://github.com/matgarfer499/ai-personal-coach');
+});
+
 test('the home lists the other cases and each one opens its page', async ({ page }) => {
   await page.goto('/');
   const list = page.locator('#projects ol');
-  await expect(list.getByRole('link')).toHaveCount(4);
+  await expect(list.getByRole('link')).toHaveCount(5);
   await list.getByRole('link', { name: /Physics Sketchbook/ }).click();
   await expect(page).toHaveURL(/\/projects\/physics-sketchbook$/);
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Physics Sketchbook');
@@ -104,7 +111,7 @@ test('an unknown case study is a 404', async ({ request }) => {
   expect((await request.get('/projects/nope')).status()).toBe(404);
 });
 
-for (const path of ['/projects/chefory', '/projects/rascame-esta']) {
+for (const path of ['/projects/chefory', '/projects/rascame-esta', '/projects/ai-personal-coach']) {
   test(`${path} has no accessibility violations`, async ({ page }) => {
     await page.goto(path);
     const results = await new AxeBuilder({ page })
